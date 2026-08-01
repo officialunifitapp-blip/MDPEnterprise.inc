@@ -42,7 +42,8 @@
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Redesign: living agent-OS galaxy \\(core + orbiting agents, offline/planned nodes\\) *)",
       "Bash(git push *)",
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Redesign: 3D breathing team room \\(SVG robot teammates, CSS perspective\\) *)",
-      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Redesign: dotted AI spheres, plain-English info, no space bg *)"
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Redesign: dotted AI spheres, plain-English info, no space bg *)",
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Load all 25 leads into call queue; make Store lead count dynamic *)"
     ]
   }
 }

@@ -205,7 +205,7 @@ const WORK={
  store:()=>`<div class="sec"><div class="s-lbl">Everything the team remembers</div>
    <div class="fr"><div><div class="fl">Your offer & pricing</div><div class="fm">$500/mo, setup waived for first 3</div></div><span class="badge on">Set</span></div>
    <div class="fr"><div><div class="fl">Decisions you've made</div><div class="fm">the pivot, pricing, phone-first</div></div><span class="badge on">4 saved</span></div>
-   <div class="fr"><div><div class="fl">Your leads</div><div class="fm">10 waiting to be called</div></div><span class="badge warn">10</span></div>
+   <div class="fr"><div><div class="fl">Your leads</div><div class="fm">${DATA.pipeline.new||0} waiting to be called</div></div><span class="badge warn">${DATA.pipeline.new||0}</span></div>
    <div class="fr"><div><div class="fl">Your scoreboard</div><div class="fm">tracks calls, replies, closes</div></div><span class="badge warn">started</span></div>
    <div class="fr"><div><div class="fl">Objections you hear</div><div class="fm">fills in once you start calling</div></div><span class="badge empty">empty</span></div></div>`,
  engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b>, while you sleep, it:<br><br>1. Finds ~150 new restoration companies to call<br>2. Checks each phone number is real<br>3. Writes what to say to each one<br>4. Adds them all to your call list</div></div>
