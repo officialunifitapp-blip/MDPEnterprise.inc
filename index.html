@@ -40,6 +40,10 @@
   .livebar{position:absolute;left:22px;bottom:18px;z-index:20;pointer-events:none;display:flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);background:rgba(8,12,20,.7);backdrop-filter:blur(8px);border:1px solid #1a2536;border-radius:99px;padding:8px 15px;}
   .livebar i{width:8px;height:8px;border-radius:99px;background:var(--agency);box-shadow:0 0 10px var(--agency);animation:bp 1.6s infinite;} @keyframes bp{50%{opacity:.3}}
   .livebar b{color:var(--ink);}
+  .hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;pointer-events:none;font-family:ui-monospace,monospace;font-size:11px;color:var(--faint);background:rgba(8,12,20,.6);border:1px solid #1a2536;border-radius:99px;padding:7px 15px;transition:opacity .8s;}
+  .reset{position:absolute;right:20px;top:calc(50% + 40px);z-index:20;width:40px;height:40px;border-radius:12px;background:rgba(9,14,22,.8);border:1px solid var(--line2);color:var(--dim);font-size:17px;cursor:pointer;}
+  .reset:hover{color:#fff;border-color:var(--core);}
+  @media(max-width:640px){.hint{bottom:auto;top:120px;font-size:10px;} .reset{top:auto;bottom:90px;}}
 
   /* CHAT */
   #chat{position:absolute;right:20px;bottom:18px;width:min(350px,calc(100% - 40px));z-index:30;background:rgba(9,14,22,.9);backdrop-filter:blur(16px);border:1px solid var(--line2);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.6);display:flex;flex-direction:column;max-height:min(58vh,500px);transition:transform .3s;}
@@ -106,6 +110,8 @@
   </div>
 </div>
 <div class="livebar"><i></i><span id="liveTxt">connecting…</span></div>
+<div class="hint" id="hint">drag to move · scroll / pinch to zoom · tap a ball to open</div>
+<button class="reset" id="resetView" title="Reset view">⟳</button>
 
 <div id="chat">
   <div class="ch" id="chatHead"><span class="d"></span><span class="t">Talk to your team</span><span class="s" id="chatToggle">▾</span></div>
@@ -152,28 +158,40 @@ SPH.forEach(s=>{s.pts=[];for(let i=0;i<s.n;i++){const y=1-(i/(s.n-1))*2,r=Math.s
 
 const cv=document.getElementById("c"),ctx=cv.getContext("2d");
 let W=0,H=0,DPR=1,M=0;
-function CX(s){return s.core?W*.5:W*.5+Math.cos(s.ang)*s.radN*M;}
-function CY(s){return s.core?H*.5:H*.5+Math.sin(s.ang)*s.radN*M;}
+const pan={x:0,y:0};let zoom=1;const SCALE=.72; // smaller balls = cleaner to walk through
+function CX(s){return W*.5+pan.x+(s.core?0:Math.cos(s.ang)*s.radN*M)*zoom;}
+function CY(s){return H*.5+pan.y+(s.core?0:Math.sin(s.ang)*s.radN*M)*zoom;}
+function RAD(s){return s.rf*M*SCALE*zoom;}
 function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);placeLabels();}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
 let focusId=null,open=false,fp=0;
-function pose(s){const bx=CX(s),by=CY(s),bR=s.rf*M;if(!focusId||fp<.001)return{x:bx,y:by,R:bR,a:s.active?1:.45};
-  const fx=W*.5,fy=H*.42,fR=Math.min(W,H)*.2;
+function pose(s){const bx=CX(s),by=CY(s),bR=RAD(s);if(!focusId||fp<.001)return{x:bx,y:by,R:bR,a:s.active?1:.45};
+  const fx=W*.5,fy=H*.42,fR=Math.min(W,H)*.19;
   if(s.id===focusId)return{x:bx+(fx-bx)*fp,y:by+(fy-by)*fp,R:bR+(fR-bR)*fp,a:1};
   return{x:bx,y:by,R:bR,a:(s.active?1:.45)*(1-fp*.9)};}
+function pick(mx,my){let hit=null,best=1e9;SPH.forEach(s=>{const cx=CX(s),cy=CY(s),R=RAD(s);const d=Math.hypot(mx-cx,my-cy);if(d<Math.max(24,R*1.4)&&d<best){best=d;hit=s;}});return hit;}
+// ---- pan / zoom / tap navigation ----
 const mouse={x:-999,y:-999,in:false};
-addEventListener("pointermove",e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;});
+const ptrs=new Map();let dragS=null,pinchS=null;
+function scr(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try{cv.setPointerCapture(e.pointerId);}catch(_){}
+  if(ptrs.size===1)dragS={x:p.x,y:p.y,px:pan.x,py:pan.y,s:open?null:pick(p.x,p.y),moved:false};
+  else if(ptrs.size===2){const a=[...ptrs.values()];pinchS={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),z:zoom};dragS=null;}});
+cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
+  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.5,Math.min(2.6,pinchS.z*d/pinchS.d));return;}
+  if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=dragS.px+dx;pan.y=dragS.py+dy;}});
+function endP(e){if(dragS&&!dragS.moved&&dragS.s&&!open){dragS.s.pulse=1;openModal(dragS.s.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
+cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
 addEventListener("pointerleave",()=>mouse.in=false);
-cv.addEventListener("pointerdown",e=>{if(open)return;const s=pick(e.clientX,e.clientY);if(s){s.pulse=1;openModal(s.id);}});
-function pick(mx,my){let hit=null,best=1e9;SPH.forEach(s=>{const cx=CX(s),cy=CY(s),R=s.rf*M;const d=Math.hypot(mx-cx,my-cy);if(d<R*1.35&&d<best){best=d;hit=s;}});return hit;}
+cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2.6,zoom*(1-e.deltaY*0.0012)));},{passive:false});
 const feeds=[];SPH.forEach(s=>{if(s.core)return;const cnt=s.active?4:2;for(let k=0;k<cnt;k++)feeds.push({s,t:k/cnt,sp:.13+Math.random()*.07});});
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;let tPrev=0;
 function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   const tf=open?1:0;fp+=(tf-fp)*.14;if(fp<.01&&!open)focusId=null;
-  labels.style.opacity=(1-fp);labels.style.pointerEvents=fp>.15?"none":"";
-  ctx.clearRect(0,0,W,H);const coreX=W*.5,coreY=H*.5;ctx.globalCompositeOperation="lighter";
+  labels.style.opacity=(1-fp);labels.style.pointerEvents=fp>.15?"none":"";placeLabels();
+  ctx.clearRect(0,0,W,H);const coreX=CX(byId.core),coreY=CY(byId.core);ctx.globalCompositeOperation="lighter";
   if(fp<.6){const halo=ctx.createRadialGradient(coreX,coreY,0,coreX,coreY,M*.55);halo.addColorStop(0,`rgba(50,110,150,${.2*(1-fp)})`);halo.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=halo;ctx.beginPath();ctx.arc(coreX,coreY,M*.55,0,7);ctx.fill();}
   if(!reduce)feeds.forEach(p=>{const sx=CX(p.s),sy=CY(p.s);p.t+=p.sp*dt;if(p.t>1)p.t-=1;const x=sx+(coreX-sx)*p.t,y=sy+(coreY-sy)*p.t;const[R,G,B]=hx(p.s.col);ctx.fillStyle=`rgba(${R},${G},${B},${(p.s.active?.75:.3)*(1-Math.abs(p.t-.5))*(1-fp)})`;ctx.beginPath();ctx.arc(x,y,1.8,0,7);ctx.fill();});
   SPH.forEach(s=>{const P=pose(s);const cx=P.x,cy=P.y,R0=P.R;
@@ -193,7 +211,7 @@ function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
 const labels=document.getElementById("labels");
 SPH.forEach(s=>{const d=document.createElement("div");d.className="lbl"+(s.active?"":" soon");d.innerHTML=`<div class="nm" style="color:${s.col}">${s.name}</div><div class="one">${s.one}</div><div class="chip" style="color:${s.col}">${s.chip}</div>`;d.addEventListener("click",()=>{s.pulse=1;openModal(s.id);});labels.appendChild(d);s.el=d;});
 const dls={};Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const d=document.createElement("div");d.className="dlbl";d.style.color=D.col;d.innerHTML=`<b>${D.label}</b><small>${D.note}</small>`;labels.appendChild(d);dls[dk]=d;});
-function placeLabels(){SPH.forEach(s=>{s.el.style.left=CX(s)+"px";s.el.style.top=(CY(s)+s.rf*M+9)+"px";});Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];dls[dk].style.left=(W*.5+Math.cos(D.dir)*.52*M)+"px";dls[dk].style.top=(H*.5+Math.sin(D.dir)*.52*M)+"px";});}
+function placeLabels(){SPH.forEach(s=>{s.el.style.left=CX(s)+"px";s.el.style.top=(CY(s)+RAD(s)+9)+"px";});Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];dls[dk].style.left=(W*.5+pan.x+Math.cos(D.dir)*.52*M*zoom)+"px";dls[dk].style.top=(H*.5+pan.y+Math.sin(D.dir)*.52*M*zoom)+"px";});}
 if(byId.notes.el)byId.notes.el.querySelector(".chip").textContent=Object.keys(NOTES).length;
 
 // ===== MODAL =====
@@ -283,5 +301,7 @@ async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-sto
   const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const lr=rows[rows.length-1];if(lr){const c=lr.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
   document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' leads</b> in your files';renderKpis();
 }catch(e){document.getElementById("liveTxt").innerHTML='<b>'+DATA.kpis.leads+' leads</b> · snapshot';renderKpis();}}
+document.getElementById("resetView").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=1;});
+setTimeout(()=>{const h=document.getElementById("hint");if(h)h.style.opacity="0";},6500);
 resize();renderKpis();requestAnimationFrame(frame);hydrate();setInterval(hydrate,5000);
 </script>

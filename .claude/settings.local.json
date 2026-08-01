@@ -56,7 +56,8 @@
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m '62 leads merged; brighter/bigger dashboard, big stat tiles, live poll, centered readable detail *)",
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Clean rebuild: left Command panel \\(all info\\), node network w/ connecting lines, AI team chat; fix click bug *)",
       "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Sync dashboard to latest engine leads\")",
-      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Restore dotted spheres \\(spaced out\\), add Notes agent + per-lead notes, CSV export for auto-dialer\")"
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Restore dotted spheres \\(spaced out\\), add Notes agent + per-lead notes, CSV export for auto-dialer\")",
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Drag to pan, scroll/pinch to zoom, smaller balls + reset-view for easier navigation\")"
     ]
   }
 }
