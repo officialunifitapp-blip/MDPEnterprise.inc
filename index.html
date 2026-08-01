@@ -210,11 +210,11 @@ function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   ctx.clearRect(0,0,W,H);
   const bg=ctx.createRadialGradient(W*.5,H*.52,0,W*.5,H*.52,Math.max(W,H)*.8);bg.addColorStop(0,"#0a1526");bg.addColorStop(.6,"#05070f");bg.addColorStop(1,"#03040a");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
   // trunks CEO -> world (tree limbs, tapered)
-  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=WP(w);tbranch(ex,ey,wx,wy,w.col,Math.max(4,RAD(w)*.5),2,.32+w.hov*.4);});
+  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=P(w);tbranch(ex,ey,wx,wy,w.col,Math.max(4,RAD(w)*.5),2,.32+w.hov*.4);});
   // cross-world twigs
   CROSS.forEach(p=>{const[ax,ay]=P(p[0]),[bx,by]=P(p[1]);const op=Math.max(p[0].world?p[0].world.open:0,p[1].world?p[1].world.open:0);tbranch(ax,ay,bx,by,"#9fc0ff",2,2,.04+op*.4);});
   // world -> kid twigs
-  WORLDS.forEach(w=>{if(w.open<.02)return;const[wx,wy]=WP(w);w.kids.forEach(k=>{const[kx,ky]=KP(k);tbranch(wx,wy,kx,ky,k.col,Math.max(2.5,RAD(w)*.28),1.5,(.15+w.open*.5));});});
+  WORLDS.forEach(w=>{if(w.open<.02)return;const[wx,wy]=P(w);w.kids.forEach(k=>{const[kx,ky]=P(k);tbranch(wx,wy,kx,ky,k.col,Math.max(2.5,RAD(w)*.28),1.5,(.15+w.open*.5));});});
   orb(CEO,t);WORLDS.forEach(w=>orb(w,t));WORLDS.forEach(w=>w.kids.forEach(k=>orb(k,t)));
   placeLabels();requestAnimationFrame(frame);
 }
