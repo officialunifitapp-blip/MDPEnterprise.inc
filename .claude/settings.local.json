@@ -45,7 +45,15 @@
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Redesign: dotted AI spheres, plain-English info, no space bg *)",
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Load all 25 leads into call queue; make Store lead count dynamic *)",
       "Bash(node -e \"const s=require\\('fs'\\).readFileSync\\('index.html','utf8'\\).match\\(/<script>\\([\\\\s\\\\S]*\\)<\\\\/script>/\\)[1]; new Function\\(s.replace\\(/document|addEventListener|matchMedia|innerWidth|innerHeight|devicePixelRatio|requestAnimationFrame/g,'\\({}\\)'\\)\\); console.log\\('JS parse: OK'\\);\")",
-      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Divisions \\(Agency/Content/Ecom/Personal\\) on black; click zooms into sphere instead of side drawer *)"
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Divisions \\(Agency/Content/Ecom/Personal\\) on black; click zooms into sphere instead of side drawer *)",
+      "Bash(node -e ' *)",
+      "Bash(node --check /tmp/mdp_check.js)",
+      "Bash(git fetch *)",
+      "Bash(git stash *)",
+      "Bash(git pull *)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const m=fs.readFileSync\\('index.html','utf8'\\).match\\(/<script>\\([\\\\s\\\\S]*?\\)<\\\\/script>/\\);fs.writeFileSync\\('/tmp/m.js',m[1]\\);\")",
+      "Bash(node --check /tmp/m.js)",
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m '62 leads merged; brighter/bigger dashboard, big stat tiles, live poll, centered readable detail *)"
     ]
   }
 }

@@ -3,133 +3,132 @@
 <title>MDP Enterprises — Command</title>
 <style>
   :root{
-    --core:#5ad8ff; --ink:#f0f5fc; --dim:#9fb0cc; --faint:#647691;
-    --agency:#37e6a4; --content:#ff8a5c; --ecom:#ffce4d; --personal:#9db8ff;
+    --core:#57e0ff; --ink:#ffffff; --dim:#b9c8de; --faint:#7b8ba6;
+    --agency:#3dffb0; --content:#ff9a5c; --ecom:#ffd84d; --personal:#a9c0ff;
+    --hot:#ff5c8a;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;height:100%;overflow:hidden;color:var(--ink);background:#000;
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  html,body{margin:0;height:100%;overflow:hidden;background:#000;color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
   #wrap{position:fixed;inset:0;}
   canvas{position:absolute;inset:0;width:100%;height:100%;cursor:pointer;}
   #labels{position:absolute;inset:0;pointer-events:none;}
   .lbl{position:absolute;transform:translate(-50%,0);text-align:center;pointer-events:auto;cursor:pointer;white-space:nowrap;}
-  .lbl .nm{font-size:12.5px;font-weight:700;letter-spacing:.01em;}
-  .lbl .one{font-size:10px;color:var(--dim);margin-top:2px;}
-  .lbl .chip{display:inline-block;margin-top:4px;font-family:ui-monospace,monospace;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:#0b0f16;border:1px solid #1c2636;}
-  .lbl.soon{opacity:.58;}
-  .dlbl{position:absolute;transform:translate(-50%,-50%);pointer-events:none;font-family:ui-monospace,monospace;
-    font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-align:center;opacity:.85;}
-  .dlbl small{display:block;font-size:8px;letter-spacing:.14em;color:var(--faint);margin-top:3px;font-weight:400;}
+  .lbl .nm{font-size:15px;font-weight:800;letter-spacing:.01em;text-shadow:0 0 12px currentColor;}
+  .lbl .one{font-size:11px;color:var(--dim);margin-top:2px;font-weight:500;}
+  .lbl .chip{display:inline-block;margin-top:5px;font-family:ui-monospace,monospace;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px;background:#0d1420;border:1.5px solid currentColor;}
+  .lbl.soon{opacity:.62;} .lbl.soon .nm{text-shadow:none;}
 
-  .hud{position:absolute;left:0;top:0;right:0;padding:16px 20px;z-index:20;pointer-events:none;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
-  .brand .tag{font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--core);opacity:.85;}
-  .brand h1{margin:4px 0 0;font-size:20px;font-weight:700;}
-  .brand .st{font-family:ui-monospace,monospace;font-size:10.5px;color:var(--faint);margin-top:5px;display:flex;align-items:center;gap:6px;}
-  .brand .st i{width:6px;height:6px;border-radius:99px;background:var(--agency);box-shadow:0 0 8px var(--agency);animation:bp 2s infinite;}
-  @keyframes bp{50%{opacity:.35}}
-  .kbar{display:flex;gap:1px;border:1px solid #1c2636;border-radius:12px;overflow:hidden;background:#1c2636;pointer-events:auto;}
-  .kbar .k{background:#07090e;padding:9px 14px;text-align:right;min-width:68px;}
-  .kbar .k .v{font-family:ui-monospace,monospace;font-size:17px;font-weight:700;line-height:1;}
-  .kbar .k .v small{font-size:10px;color:var(--faint);font-weight:400;}
-  .kbar .k .l{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:5px;}
-  .kbar .mrr .v{color:var(--core);} .kbar .leads .v{color:var(--agency);} .kbar .dials .v{color:var(--ecom);} .kbar .clients .v{color:var(--content);}
+  .dlbl{position:absolute;transform:translate(-50%,-50%);pointer-events:none;text-align:center;}
+  .dlbl b{font-family:ui-monospace,monospace;font-size:13px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;text-shadow:0 0 16px currentColor;}
+  .dlbl small{display:block;font-size:9.5px;letter-spacing:.12em;color:var(--faint);margin-top:4px;text-transform:uppercase;}
 
-  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:40;opacity:0;pointer-events:none;transition:opacity .35s;}
+  /* TOP: title + big stat tiles */
+  .top{position:absolute;left:0;top:0;right:0;padding:18px 22px;z-index:20;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;pointer-events:none;}
+  .brand .tag{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--core);}
+  .brand h1{margin:4px 0 0;font-size:24px;font-weight:800;letter-spacing:-.01em;}
+  .stats{display:flex;gap:10px;pointer-events:auto;flex-wrap:wrap;justify-content:flex-end;}
+  .stat{background:linear-gradient(180deg,#0c1420,#070b12);border:1.5px solid #1e2c42;border-radius:16px;padding:11px 16px;min-width:96px;text-align:left;box-shadow:0 6px 24px rgba(0,0,0,.5);}
+  .stat .v{font-family:ui-monospace,monospace;font-size:28px;font-weight:800;line-height:1;letter-spacing:-.02em;transition:color .2s;}
+  .stat .v small{font-size:13px;color:var(--faint);font-weight:500;}
+  .stat .l{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:7px;font-weight:700;}
+  .stat.rev .v{color:var(--core);} .stat.leads .v{color:var(--agency);} .stat.called .v{color:var(--ecom);} .stat.clients .v{color:var(--hot);}
+  @keyframes flash{0%{transform:scale(1)}40%{transform:scale(1.25);filter:brightness(1.6)}100%{transform:scale(1)}}
+  .stat .v.flash{animation:flash .6s ease;}
+
+  .livebar{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;pointer-events:none;
+    display:flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);
+    background:rgba(8,12,20,.7);backdrop-filter:blur(8px);border:1px solid #1a2536;border-radius:99px;padding:8px 15px;}
+  .livebar i{width:8px;height:8px;border-radius:99px;background:var(--agency);box-shadow:0 0 10px var(--agency);animation:bp 1.6s infinite;}
+  @keyframes bp{50%{opacity:.3}}
+  .livebar b{color:var(--ink);font-weight:700;}
+
+  /* CENTERED DETAIL (no side tab) */
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40;opacity:0;pointer-events:none;transition:opacity .3s;}
   .scrim.open{opacity:1;pointer-events:auto;}
-  .back{position:fixed;left:20px;top:72px;z-index:60;display:none;align-items:center;gap:7px;cursor:pointer;
-    font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);
-    background:rgba(10,14,22,.72);backdrop-filter:blur(8px);border:1px solid #1c2636;border-radius:9px;padding:8px 12px;}
-  .back.show{display:inline-flex;} .back:hover{color:var(--ink);}
-  .drawer{position:fixed;right:26px;top:50%;transform:translateY(-50%) scale(.93);z-index:50;
-    width:min(430px,calc(100% - 52px));max-height:80vh;overflow-y:auto;
-    background:rgba(8,12,20,.82);backdrop-filter:blur(16px);border:1px solid #1c2636;border-radius:22px;
-    opacity:0;pointer-events:none;transition:opacity .32s, transform .32s cubic-bezier(.2,.9,.2,1);box-shadow:0 30px 80px rgba(0,0,0,.6);}
-  .drawer.open{opacity:1;transform:translateY(-50%) scale(1);pointer-events:auto;}
-  .d-head{padding:22px 24px 16px;border-bottom:1px solid #18202e;}
-  .d-ey{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;}
-  .d-head h2{margin:5px 0 0;font-size:23px;font-weight:700;}
-  .d-head p{margin:8px 0 0;color:var(--dim);font-size:13px;line-height:1.5;}
-  .d-body{padding:20px 24px 40px;}
-  @media(max-width:760px){.drawer{right:12px;left:12px;top:auto;bottom:12px;width:auto;transform:translateY(26px);max-height:58vh;} .drawer.open{transform:translateY(0);} .back{top:auto;bottom:calc(58vh + 22px);}}
-  .sec{margin-top:24px;} .sec:first-child{margin-top:6px;}
-  .s-lbl{font-size:12px;font-weight:700;margin-bottom:11px;}
-  .say{background:#0b1017;border:1px solid #171f2c;border-radius:13px;padding:14px 15px;margin-bottom:9px;font-size:13.5px;color:#d7e6f7;line-height:1.6;} .say b{color:#fff;}
-  .big{font-family:ui-monospace,monospace;font-size:30px;font-weight:700;} .big small{font-size:15px;color:var(--faint);font-weight:400;}
-  .lead{display:flex;align-items:center;gap:11px;background:#0b1017;border:1px solid #171f2c;border-radius:12px;padding:10px 12px;margin-bottom:7px;}
-  .lead .lx{width:20px;font-family:ui-monospace,monospace;font-size:11px;color:var(--faint);text-align:center;} .lead .lb{flex:1;min-width:0;} .lead .lco{font-size:13.5px;font-weight:600;} .lead .lm{font-size:11px;color:var(--dim);margin-top:2px;}
-  .lead a.tel{font-family:ui-monospace,monospace;font-size:13px;color:#04070d;background:var(--agency);border-radius:9px;padding:8px 12px;text-decoration:none;font-weight:700;white-space:nowrap;}
-  .lead .noph{font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--ecom);border:1px solid #4a3f22;border-radius:8px;padding:7px 8px;}
-  .lead .td{width:7px;height:7px;border-radius:99px;flex:none;}
-  .push{background:#0b1017;border:1px solid #171f2c;border-radius:12px;padding:13px 14px;margin-bottom:8px;} .push .q{font-size:13px;font-weight:700;color:var(--content);} .push .a{font-size:13px;color:#d7e6f7;margin-top:5px;line-height:1.55;}
-  .script{background:#0b1017;border:1px solid #171f2c;border-radius:12px;padding:13px 14px;margin-bottom:8px;} .script .sh{display:flex;align-items:center;justify-content:space-between;gap:8px;} .script .sw{font-size:13px;font-weight:700;} .script .sc{font-size:11px;color:var(--faint);font-family:ui-monospace,monospace;}
-  .script a.tel{font-family:ui-monospace,monospace;font-size:12px;color:var(--agency);text-decoration:none;border-bottom:1px solid #2a5c48;} .script .op{font-size:13px;color:#e2edf9;line-height:1.65;margin-top:10px;}
-  .script .vm{font-size:11.5px;color:var(--dim);line-height:1.55;margin-top:9px;} .script .vm b{color:var(--faint);font-weight:700;font-size:9px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px;} .script .flag{font-size:11px;color:var(--ecom);margin-top:8px;}
-  .fr{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #121926;} .fr:last-child{border-bottom:none;} .fr .fl{font-size:13px;} .fr .fm{font-size:11px;color:var(--faint);margin-top:2px;}
-  .badge{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:99px;white-space:nowrap;} .badge.on{background:rgba(55,230,164,.14);color:var(--agency);} .badge.warn{background:rgba(255,206,77,.14);color:var(--ecom);} .badge.empty{background:rgba(95,113,145,.2);color:var(--dim);}
-  .bars{display:flex;flex-direction:column;gap:6px;} .bar{display:flex;align-items:center;gap:10px;font-size:12.5px;} .bar .bn{width:96px;color:var(--dim);} .bar .bt{flex:1;height:16px;border-radius:5px;background:#0b1017;border:1px solid #171f2c;position:relative;overflow:hidden;} .bar .bt>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--core),rgba(90,216,255,.2));} .bar .bv{width:22px;text-align:right;font-family:ui-monospace,monospace;font-weight:700;}
-  a.link{color:var(--core);font-size:12.5px;text-decoration:none;border-bottom:1px solid rgba(90,216,255,.35);}
-  @media(max-width:640px){.hud{flex-direction:column;} .kbar{align-self:stretch;} .kbar .k{flex:1;} .drawer{width:100%;} .lbl .one{display:none;} .dlbl{font-size:9px;}}
+  .overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:none;}
+  .modal{width:min(760px,100%);max-height:86vh;overflow-y:auto;pointer-events:auto;
+    background:rgba(9,14,22,.94);backdrop-filter:blur(20px);border:1.5px solid #23344e;border-radius:26px;
+    opacity:0;transform:translateY(24px) scale(.97);transition:opacity .3s,transform .32s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.7);}
+  .modal.open{opacity:1;transform:translateY(0) scale(1);}
+  .m-head{position:sticky;top:0;background:linear-gradient(#0b1119,rgba(11,17,25,.9));backdrop-filter:blur(10px);padding:26px 30px 20px;border-bottom:1px solid #1a2637;display:flex;align-items:flex-start;gap:16px;}
+  .m-orb{width:52px;height:52px;flex:none;border-radius:16px;display:grid;place-items:center;font-size:26px;box-shadow:0 0 24px -4px currentColor;}
+  .m-ey{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;}
+  .m-head h2{margin:5px 0 0;font-size:28px;font-weight:800;letter-spacing:-.01em;}
+  .m-head p{margin:8px 0 0;color:var(--dim);font-size:15px;line-height:1.5;max-width:52ch;}
+  .m-x{position:absolute;top:22px;right:24px;width:38px;height:38px;border-radius:12px;background:#141d2b;border:1px solid #23344e;color:var(--dim);font-size:22px;cursor:pointer;line-height:1;display:grid;place-items:center;}
+  .m-x:hover{color:#fff;background:#1c2838;}
+  .m-body{padding:24px 30px 40px;}
+  .sec{margin-top:28px;} .sec:first-child{margin-top:6px;}
+  .s-lbl{font-size:14px;font-weight:800;margin-bottom:13px;color:#fff;letter-spacing:.01em;}
+  .s-lbl span{color:var(--faint);font-weight:600;font-size:12px;margin-left:8px;}
+  .say{background:#0d141f;border:1px solid #1c2838;border-radius:15px;padding:17px 18px;margin-bottom:10px;font-size:15.5px;color:#eaf2fc;line-height:1.65;} .say b{color:#fff;font-weight:800;}
+  .hero{font-family:ui-monospace,monospace;font-size:44px;font-weight:800;letter-spacing:-.02em;line-height:1;} .hero small{font-size:18px;color:var(--faint);font-weight:500;}
+  .lead{display:flex;align-items:center;gap:13px;background:#0d141f;border:1px solid #1c2838;border-radius:14px;padding:13px 15px;margin-bottom:8px;}
+  .lead .lx{width:26px;font-family:ui-monospace,monospace;font-size:12px;color:var(--faint);text-align:center;font-weight:700;}
+  .lead .lb{flex:1;min-width:0;} .lead .lco{font-size:15.5px;font-weight:700;} .lead .lm{font-size:12.5px;color:var(--dim);margin-top:2px;}
+  .lead a.tel{font-family:ui-monospace,monospace;font-size:14px;color:#04070d;background:var(--agency);border-radius:10px;padding:10px 14px;text-decoration:none;font-weight:800;white-space:nowrap;box-shadow:0 0 18px -6px var(--agency);}
+  .lead .noph{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ecom);border:1.5px solid #4a3f22;border-radius:9px;padding:8px 9px;font-weight:700;}
+  .lead .td{width:9px;height:9px;border-radius:99px;flex:none;box-shadow:0 0 10px currentColor;}
+  .push{background:#0d141f;border:1px solid #1c2838;border-radius:14px;padding:15px 16px;margin-bottom:9px;} .push .q{font-size:15px;font-weight:800;color:var(--hot);} .push .a{font-size:15px;color:#eaf2fc;margin-top:6px;line-height:1.6;}
+  .script{background:#0d141f;border:1px solid #1c2838;border-radius:14px;padding:15px 16px;margin-bottom:9px;} .script .sh{display:flex;align-items:center;justify-content:space-between;gap:8px;} .script .sw{font-size:15px;font-weight:800;} .script .sc{font-size:12px;color:var(--faint);font-family:ui-monospace,monospace;}
+  .script a.tel{font-family:ui-monospace,monospace;font-size:13px;color:var(--agency);text-decoration:none;border-bottom:1px solid #2a5c48;font-weight:700;} .script .op{font-size:15px;color:#f2f7fd;line-height:1.7;margin-top:11px;}
+  .script .vm{font-size:13px;color:var(--dim);line-height:1.6;margin-top:10px;} .script .vm b{color:var(--faint);font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px;} .script .flag{font-size:12.5px;color:var(--ecom);margin-top:9px;font-weight:600;}
+  .fr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid #141e2c;} .fr:last-child{border-bottom:none;} .fr .fl{font-size:15px;font-weight:600;} .fr .fm{font-size:12.5px;color:var(--faint);margin-top:2px;}
+  .badge{font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:99px;white-space:nowrap;} .badge.on{background:rgba(61,255,176,.16);color:var(--agency);} .badge.warn{background:rgba(255,216,77,.16);color:var(--ecom);} .badge.empty{background:rgba(123,139,166,.2);color:var(--dim);}
+  .bars{display:flex;flex-direction:column;gap:8px;} .bar{display:flex;align-items:center;gap:12px;font-size:14px;} .bar .bn{width:110px;color:var(--dim);font-weight:600;} .bar .bt{flex:1;height:20px;border-radius:6px;background:#0d141f;border:1px solid #1c2838;position:relative;overflow:hidden;} .bar .bt>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--core),rgba(87,224,255,.25));box-shadow:0 0 16px -2px var(--core);} .bar .bv{width:30px;text-align:right;font-family:ui-monospace,monospace;font-weight:800;font-size:15px;}
+  a.link{color:var(--core);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(87,224,255,.4);font-weight:600;}
+  @media(max-width:680px){.top{flex-direction:column;} .stats{align-self:stretch;justify-content:space-between;} .stat{min-width:0;flex:1;padding:9px 10px;} .stat .v{font-size:20px;} .lbl .one{display:none;} .m-head{padding:22px 20px 16px;} .m-body{padding:20px;}}
 </style>
 
 <div id="wrap"><canvas id="c"></canvas><div id="labels"></div></div>
 
-<div class="hud">
-  <div class="brand"><div class="tag">MDP Enterprises</div><h1>Command</h1><div class="st"><i></i><span id="liveTxt">loading…</span></div></div>
-  <div class="kbar">
-    <div class="k mrr"><div class="v" id="k-mrr">$0<small>/10k</small></div><div class="l">Revenue</div></div>
-    <div class="k leads"><div class="v" id="k-leads">25</div><div class="l">Leads ready</div></div>
-    <div class="k dials"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called today</div></div>
-    <div class="k clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
+<div class="top">
+  <div class="brand"><div class="tag">MDP Enterprises</div><h1>Command</h1></div>
+  <div class="stats">
+    <div class="stat rev"><div class="v" id="k-mrr">$0<small>/10k</small></div><div class="l">Revenue</div></div>
+    <div class="stat leads"><div class="v" id="k-leads">62</div><div class="l">Leads to call</div></div>
+    <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called today</div></div>
+    <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
   </div>
 </div>
 
+<div class="livebar"><i></i><span id="liveTxt">connecting…</span></div>
+
 <div class="scrim" id="scrim"></div>
-<button class="back" id="back">← Back to map</button>
-<aside class="drawer" id="drawer">
-  <div class="d-head"><div class="d-ey" id="dey"></div><h2 id="dname"></h2><p id="dsub"></p></div>
-  <div class="d-body" id="dbody"></div>
-</aside>
+<div class="overlay"><div class="modal" id="modal">
+  <div class="m-head"><div class="m-orb" id="morb"></div><button class="m-x" id="mx" aria-label="Close">×</button>
+    <div><div class="m-ey" id="mey"></div><h2 id="mname"></h2><p id="msub"></p></div></div>
+  <div class="m-body" id="mbody"></div>
+</div></div>
 
 <script>
-// ===== DATA =====
-const DATA={kpis:{mrr:"$0",leads:25,dials:"0/10",clients:0},pipeline:{new:25,contacted:0,replied:0,booked:0,"call held":0,proposal:0,won:0}};
+// ===== embedded fallback leads (replaced from pipeline.md when served live) =====
+const EMBED_LEADS=[{"co":"Rapid Dry STL","c":"Grant (Ops Mgr) · (314) 291-8888","p":"(314) 291-8888"},{"co":"Premier Restoration","c":"Justin (Owner) · (316) 391-4400","p":"(316) 391-4400"},{"co":"Vortex Restoration","c":"Matt & Natalie Inbody · (316) 541-4362","p":"(316) 541-4362"},{"co":"Fast Restoration","c":"Terry (Owner) · (636) 681-3200","p":"(636) 681-3200"},{"co":"Sage Restoration","c":"Stephanie & Alan Sage · (913) 905-0500","p":"(913) 905-0500"},{"co":"Power Dry","c":"Greg Petropoulos & Ed Bledsoe · (913) 586-1545","p":"(913) 586-1545"},{"co":"Pride Cleaning & Restoration","c":"Owner TBD · (314) 668-1223","p":"(314) 668-1223"},{"co":"Kelley Klean","c":"Owner TBD · (573) 214-0990","p":"(573) 214-0990"},{"co":"Five One Five Restoration","c":"Owner TBD · (515) 452-1876","p":"(515) 452-1876"},{"co":"Omaha Damage Repair","c":"Current owner TBD · (402) 704-4921","p":"(402) 704-4921"},{"co":"Cleaning Restoration Services","c":"Family-run · (918) 710-0609","p":"(918) 710-0609"},{"co":"Kwik Dry LLC","c":"Family-run · (417) 725-6978","p":"(417) 725-6978"},{"co":"St. Louis Cleaning & Restoration","c":"Family since '91 · (314) 439-1665","p":"(314) 439-1665"},{"co":"Smoke Services Restoration","c":"Metro East · (618) 234-9696","p":"(618) 234-9696"},{"co":"Arkansas Restoration","c":"(501) 753-3600","p":"(501) 753-3600"},{"co":"Burggraf Disaster","c":"(918) 584-3737","p":"(918) 584-3737"},{"co":"Best Option Restoration KC","c":"Kansas City · no # yet","p":""},{"co":"ABC Environmental","c":"Columbia, MO · no # yet","p":""},{"co":"Midwest Flood","c":"St. Louis, MO · no # yet","p":""},{"co":"Restoration Solutions","c":"Springfield, MO · no # yet","p":""},{"co":"Mr. Power Clean","c":"Springfield, MO · no # yet","p":""},{"co":"Water Damage 24","c":"Little Rock, AR · no # yet","p":""},{"co":"Patriot Water Damage","c":"Tulsa, OK · no # yet","p":""},{"co":"Elite Restoration","c":"W. Des Moines, IA · no # yet","p":""},{"co":"Mr. Restore","c":"Clint Junell · (877) 631-7576","p":"(877) 631-7576"},{"co":"Vital Restoration","c":"Timothy Brown · (217) 679-0254","p":"(217) 679-0254"},{"co":"Menold Construction & Restoration","c":"Tom Menold / Steve Driscoll · (309) 263-8728","p":"(309) 263-8728"},{"co":"Tri County Cleaning Systems","c":"(309) 266-5755","p":"(309) 266-5755"},{"co":"Kelley Construction Contractors, Inc.","c":"Michael Kelley · (309) 346-6604","p":"(309) 346-6604"},{"co":"911 Restoration of Central Illinois","c":"Alex Peters & Aaron Peters · (309) 244-4178","p":"(309) 244-4178"},{"co":"Healthy Homes LLC","c":"Caleb Wilson · (309) 418-9511","p":"(309) 418-9511"},{"co":"B.J.'s Restoration","c":"no # yet","p":""},{"co":"Newton's Cleaning & Restoration","c":"Michelle Newton · (217) 442-1288","p":"(217) 442-1288"},{"co":"White Construction Co","c":"(217) 442-7594","p":"(217) 442-7594"},{"co":"Freeman Exteriors / Freeman General Contracting","c":"Jacob Freeman · (217) 442-2281","p":"(217) 442-2281"},{"co":"Peerless Cleaning & Restoration Services","c":"Wike family · (217) 423-7704","p":"(217) 423-7704"},{"co":"J.J. Swartz Co","c":"(217) 877-2611","p":"(217) 877-2611"},{"co":"CLEAN Restoration","c":"Jeff Butler · (217) 440-1292","p":"(217) 440-1292"},{"co":"American Hometown Services","c":"(217) 228-7563","p":"(217) 228-7563"},{"co":"911 Restoration of Southern Illinois","c":"John Fowler · (618) 679-4021","p":"(618) 679-4021"},{"co":"Restoration Connection Inc","c":"John Fowler · (618) 925-0085","p":"(618) 925-0085"},{"co":"Leading Edge Restoration","c":"Eric Speakman · (618) 694-4568","p":"(618) 694-4568"},{"co":"American Patriot Restoration","c":"\"Curt\" · (217) 342-3206","p":"(217) 342-3206"},{"co":"All Clean Restoration Services Inc","c":"Mike Nagy · (618) 235-3202","p":"(618) 235-3202"},{"co":"Innovative Cleaning & Restoration LLC","c":"(314) 300-9610","p":"(314) 300-9610"},{"co":"Atlas Restoration Specialists, Inc.","c":"Brian Mullins · (314) 822-0090","p":"(314) 822-0090"},{"co":"Eversafe Restoration LLC","c":"(636) 219-9302","p":"(636) 219-9302"},{"co":"Crown Restoration","c":"(636) 544-1330","p":"(636) 544-1330"},{"co":"Dalmation Cleaning and Restoration (Dalmation Restoration LLC)","c":"(314) 423-0101","p":"(314) 423-0101"},{"co":"Fast Help (Suntide Companies)","c":"(314) 558-5599","p":"(314) 558-5599"},{"co":"Franklin Fire Restoration","c":"(573) 969-3774","p":"(573) 969-3774"},{"co":"Jefferson Water Restoration","c":"(636) 263-9322","p":"(636) 263-9322"},{"co":"Mold Solutions (Mold Solutions of St. Louis)","c":"(314) 993-6653","p":"(314) 993-6653"},{"co":"Water Mold Fire Restoration","c":"Eric Rajchel · (314) 282-4140","p":"(314) 282-4140"},{"co":"Shadco Restoration & Reconstruction","c":"Shadi Khair · (314) 600-3001","p":"(314) 600-3001"},{"co":"Century Restoration & Construction","c":"(314) 487-5000","p":"(314) 487-5000"},{"co":"H2O Cleaning & Restoration","c":"(618) 219-2038","p":"(618) 219-2038"},{"co":"Sansara 24/7 Restoration & Remodeling","c":"(636) 812-3838","p":"(636) 812-3838"},{"co":"Independent Restoration Services (IRS)","c":"Team leads named · (314) 455-8996","p":"(314) 455-8996"},{"co":"RCC Restoration","c":"(618) 406-5121","p":"(618) 406-5121"},{"co":"STL Mold Removal","c":"(314) 936-4445","p":"(314) 936-4445"},{"co":"Water Damage Pro of Edwardsville","c":"(618) 800-3633","p":"(618) 800-3633"}];
+const DATA={kpis:{mrr:"$0",leads:62,dials:"0/10",clients:0},pipeline:{new:62,contacted:0,replied:0,booked:0,"call held":0,proposal:0,won:0},leadList:EMBED_LEADS};
 const STAGES=[["new","Ready to call"],["contacted","Called"],["replied","Replied"],["booked","Booked"],["call held","Call done"],["proposal","Proposal sent"],["won","Won"]];
-const T={strong:"#37e6a4",good:"#ffce4d",weak:"#9fb0cc",low:"#ff8a5c"};
-const LEADS=[[1,"Rapid Dry STL","Cottleville, MO · Grant, Ops Mgr","3142918888","strong"],[2,"Premier Restoration","Andover, KS · Justin, Owner","3163914400","strong"],[3,"Vortex Restoration","Derby, KS · Matt & Natalie","3165414362","strong"],[4,"Fast Restoration","Lake St. Louis, MO · Terry","6366813200","strong"],[5,"Sage Restoration","Shawnee, KS · check their 24/7 claim","9139050500","strong"],[6,"Power Dry","Lenexa, KS · Greg & Ed","9135861545","strong"],[7,"Pride Cleaning & Rest.","St. Louis, MO · ask who owns it","3146681223","good"],[8,"Kelley Klean","Columbia, MO · ask who owns it","5732140990","good"],[9,"Five One Five Rest.","Des Moines, IA · ask who owns it","5154521876","good"],[10,"Omaha Damage Repair","Omaha, NE · confirm new owner","4027044921","good"],[11,"Cleaning Rest. Svcs","Tulsa, OK","9187100609","good"],[12,"Kwik Dry LLC","Springfield, MO","4177256978","good"],[13,"STL Cleaning & Rest.","St. Louis, MO","3144391665","good"],[14,"Smoke Services Rest.","Marissa, IL","6182349696","good"],[15,"Arkansas Restoration","N. Little Rock, AR","5017533600","good"],[16,"Burggraf Disaster","Tulsa, OK","9185843737","good"],[17,"Best Option KC","Kansas City","","weak"],[18,"ABC Environmental","Columbia, MO","","weak"],[19,"Midwest Flood","St. Louis, MO","","weak"],[20,"Restoration Solutions","Springfield, MO","","weak"],[21,"Mr. Power Clean","Springfield, MO","","weak"],[22,"Water Damage 24","Little Rock, AR","","weak"],[23,"Patriot Water Damage","Tulsa, OK","","weak"],[24,"Elite Restoration","W. Des Moines, IA","","weak"],[25,"Mr. Restore","Dallas–Fort Worth, TX","8776317576","low"]];
 const PUSH=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],["“We already have someone”","“Does a real person pick up at 2am, or does it go to voicemail? This never sleeps and books the job.”"],["“How much is it?”","“$500 a month, and I'm waiving setup for the first three shops — but hear it first, then price is easy.”"]];
-const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; I'd bet the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds. Want the number?","Grant, it's [YOU] at Rapid Dry — a line that answers after-hours emergencies so a 2am job doesn't slip to voicemail. Call [DEMO #]."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — quick, not a pitch. Your site says you personally oversee every job — so you're answering at 2am too. When you're on a job or asleep, that call goes to whoever picks up next. I built a line that answers those and books them. Call it, 90 seconds.","Justin, it's [YOU]. You run every job personally — this answers your after-hours calls. Call [DEMO #]."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — quick one. You and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am call, and that job goes to whoever does. I built a line that answers those and books them. Call it — 90 seconds.","Matt, it's [YOU] — catches the after-hours calls you and Natalie can't get to. Call [DEMO #]."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — not a pitch. You promise 24/7/365 — who picks up at 2am? If it's voicemail, that water job's gone. I built a line that answers those and books them. Call it — 90 seconds.","Terry, it's [YOU] — you promise 24/7, this makes it true after hours. Call [DEMO #]."],[5,"Alan","Sage Restoration","9139050500","They advertise ‘live dispatch 24/7’ — ask if that's real first.","Hey Alan — quick one. Your site says live dispatch 24/7 — real person at 2am, or a service? I built a line that answers after-hours calls and books them, often cheaper. If your setup nails it, I'll leave you alone. Curious? Call it — 90 seconds.","Alan, it's [YOU] — answers and books after-hours calls, often cheaper than a service. Call [DEMO #]."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — not a pitch. Water mitigation only since '88, so every after-hours call to voicemail is a big job walking to the next guy. If it's still you and Ed, you can't be on the phone at 2am. I built a line that answers and books those. Call it — 90 seconds.","Greg, it's [YOU] — every missed 2am call is a big job lost; this answers and books them. Call [DEMO #]."],[7,"—","Pride Cleaning & Rest.","3146681223","Ask who owns the shop first.","Hey — who owns the shop? ... 30-plus years in STL, your phone rings a lot — who picks up when a water call hits at 2am? If it's voicemail, that job's gone. I built a line that answers and books them. Call it — 90 seconds.","Hey, it's [YOU] for whoever owns Pride — answers your after-hours calls. Call [DEMO #]."],[8,"—","Kelley Klean","5732140990","Ask who owns the shop.","Hey — who's the owner these days? ... Oldest shop in Central Missouri, so tons of calls — I bet the after-hours ones roll to voicemail. I built a line that answers and books those. Call it — 90 seconds.","Hey, it's [YOU] for the owner of Kelley Klean — catches after-hours calls before voicemail. Call [DEMO #]."],[9,"—","Five One Five Rest.","5154521876","Ask if they're the owner.","Hey — are you the owner? ... You promise to respond in minutes, so it's you or a small crew — nobody catches every 2am call. I built a line that answers and books those. Call it — 90 seconds.","Hey, it's [YOU] for the owner of 515 — answers the after-hours calls you can't catch. Call [DEMO #]."],[10,"—","Omaha Damage Repair","4027044921","Confirm the current owner.","Hey — who owns the shop now? ... 140-plus reviews means a busy phone, and a small team misses the after-hours calls. I built a line that answers and books those. Call it — 90 seconds.","Hey, it's [YOU] for whoever owns Omaha Damage Repair now — answers your after-hours calls. Call [DEMO #]."]];
+const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; I'd bet the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds. Want the number?","Grant, it's [YOU] at Rapid Dry — a line that answers after-hours emergencies so a 2am job doesn't slip to voicemail. Call [DEMO #]."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — quick, not a pitch. Your site says you personally oversee every job — so you're answering at 2am too. When you're on a job or asleep, that call goes to whoever picks up next. I built a line that answers those and books them. Call it, 90 seconds.","Justin, it's [YOU]. You run every job personally — this answers your after-hours calls. Call [DEMO #]."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — quick one. You and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am call, and that job goes to whoever does. I built a line that answers those and books them. Call it — 90 seconds.","Matt, it's [YOU] — catches the after-hours calls you and Natalie can't get to. Call [DEMO #]."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — not a pitch. You promise 24/7/365 — who picks up at 2am? If it's voicemail, that water job's gone. I built a line that answers those and books them. Call it — 90 seconds.","Terry, it's [YOU] — you promise 24/7, this makes it true after hours. Call [DEMO #]."],[5,"Alan","Sage Restoration","9139050500","They advertise ‘live dispatch 24/7’ — ask if that's real first.","Hey Alan — quick one. Your site says live dispatch 24/7 — real person at 2am, or a service? I built a line that answers after-hours calls and books them, often cheaper. If your setup nails it, I'll leave you alone. Curious? Call it — 90 seconds.","Alan, it's [YOU] — answers and books after-hours calls, often cheaper than a service. Call [DEMO #]."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — not a pitch. Water mitigation only since '88, so every after-hours call to voicemail is a big job walking to the next guy. If it's still you and Ed, you can't be on the phone at 2am. I built a line that answers and books those. Call it — 90 seconds.","Greg, it's [YOU] — every missed 2am call is a big job lost; this answers and books them. Call [DEMO #]."]];
 
-// ===== DIVISIONS & SPHERES =====
-const DIVS={
- agency:{label:"AI Agency",note:"makes the money now",dir:Math.PI,spread:2.5,col:"#37e6a4"},
- content:{label:"Content / TikTok",note:"builds an audience",dir:-Math.PI/2,spread:1.0,col:"#ff8a5c"},
- ecom:{label:"Ecom",note:"future income",dir:0,spread:1.0,col:"#ffce4d"},
- personal:{label:"Personal",note:"your life",dir:Math.PI/2,spread:1.0,col:"#9db8ff"},
-};
+// ===== DIVISIONS + SPHERES =====
+const DIVS={agency:{label:"AI Agency",note:"makes money now",dir:Math.PI,spread:2.5,col:"#3dffb0"},content:{label:"Content · TikTok",note:"builds an audience",dir:-Math.PI/2,spread:1.0,col:"#ff9a5c"},ecom:{label:"Ecom",note:"future income",dir:0,spread:1.0,col:"#ffd84d"},personal:{label:"Personal",note:"your life",dir:Math.PI/2,spread:1.0,col:"#a9c0ff"}};
 const SPH=[
- {id:"core",name:"Command",one:"runs it all",col:"#5ad8ff",core:true,rf:.15,n:800,sp:.16,stage:"live",chip:"BRAIN"},
- // AGENCY
- {id:"lead",div:"agency",name:"Leads",one:"customers to call",col:"#37e6a4",rf:.06,n:220,sp:.34,stage:"live",chip:"25"},
- {id:"sales",div:"agency",name:"Scripts",one:"what to say",col:"#ff6bb0",rf:.06,n:220,sp:-.31,stage:"live",chip:"READY"},
- {id:"store",div:"agency",name:"Memory",one:"business info",col:"#ffc24d",rf:.055,n:200,sp:.28,stage:"live",chip:"5 files"},
- {id:"engine",div:"agency",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",rf:.055,n:200,sp:-.26,stage:"live",chip:"5AM"},
- {id:"voice",div:"agency",name:"AI Caller",one:"calls for you",col:"#43dbe6",rf:.044,n:95,sp:.3,stage:"soon",chip:"SOON"},
- {id:"appt",div:"agency",name:"Booker",one:"sets appointments",col:"#a99bff",rf:.044,n:95,sp:-.3,stage:"soon",chip:"SOON"},
- // CONTENT
- {id:"tiktok",div:"content",name:"TikTok",one:"daily videos",col:"#ff8a5c",rf:.05,n:110,sp:.3,stage:"soon",chip:"TOMORROW"},
- {id:"clone",div:"content",name:"AI Clone",one:"your face on camera",col:"#d07bff",rf:.044,n:95,sp:-.3,stage:"soon",chip:"SOON"},
- // ECOM
- {id:"ecomstore",div:"ecom",name:"Ecom Store",one:"an online shop",col:"#ffce4d",rf:.05,n:110,sp:.3,stage:"idea",chip:"IDEA"},
- {id:"adstudio",div:"ecom",name:"Ad Studio",one:"makes the ads",col:"#ffab5c",rf:.044,n:95,sp:-.3,stage:"idea",chip:"IDEA"},
- // PERSONAL
- {id:"life",div:"personal",name:"Life Admin",one:"calendar & errands",col:"#9db8ff",rf:.05,n:110,sp:.3,stage:"idea",chip:"IDEA"},
- {id:"money",div:"personal",name:"Finances",one:"track your money",col:"#7ee0c0",rf:.044,n:95,sp:-.3,stage:"idea",chip:"IDEA"},
+ {id:"core",name:"Command",one:"runs it all",col:"#57e0ff",core:true,rf:.16,n:900,sp:.16,stage:"live",chip:"BRAIN",ico:"🧠"},
+ {id:"lead",div:"agency",name:"Leads",one:"companies to call",col:"#3dffb0",rf:.066,n:260,sp:.34,stage:"live",chip:"62",ico:"📇"},
+ {id:"sales",div:"agency",name:"Scripts",one:"what to say",col:"#ff6bb0",rf:.066,n:260,sp:-.31,stage:"live",chip:"READY",ico:"💬"},
+ {id:"store",div:"agency",name:"Memory",one:"business info",col:"#ffc24d",rf:.06,n:230,sp:.28,stage:"live",chip:"FILES",ico:"🗄️"},
+ {id:"engine",div:"agency",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",rf:.06,n:230,sp:-.26,stage:"live",chip:"5 AM",ico:"⚙️"},
+ {id:"voice",div:"agency",name:"AI Caller",one:"calls for you",col:"#43dbe6",rf:.048,n:110,sp:.3,stage:"soon",chip:"SOON",ico:"📞"},
+ {id:"appt",div:"agency",name:"Booker",one:"sets appointments",col:"#a99bff",rf:.048,n:110,sp:-.3,stage:"soon",chip:"SOON",ico:"📅"},
+ {id:"tiktok",div:"content",name:"TikTok",one:"daily videos",col:"#ff9a5c",rf:.055,n:130,sp:.3,stage:"soon",chip:"TOMORROW",ico:"🎬"},
+ {id:"clone",div:"content",name:"AI Clone",one:"your face on camera",col:"#d07bff",rf:.048,n:110,sp:-.3,stage:"soon",chip:"SOON",ico:"👤"},
+ {id:"ecomstore",div:"ecom",name:"Ecom Store",one:"an online shop",col:"#ffd84d",rf:.055,n:130,sp:.3,stage:"idea",chip:"IDEA",ico:"🛒"},
+ {id:"adstudio",div:"ecom",name:"Ad Studio",one:"makes the ads",col:"#ffab5c",rf:.048,n:110,sp:-.3,stage:"idea",chip:"IDEA",ico:"📸"},
+ {id:"life",div:"personal",name:"Life Admin",one:"calendar & errands",col:"#a9c0ff",rf:.055,n:130,sp:.3,stage:"idea",chip:"IDEA",ico:"🗓️"},
+ {id:"money",div:"personal",name:"Finances",one:"track your money",col:"#7ee0c0",rf:.048,n:110,sp:-.3,stage:"idea",chip:"IDEA",ico:"💵"},
 ];
 const byId=Object.fromEntries(SPH.map(s=>[s.id,s]));
-// polar positions per division
-Object.keys(DIVS).forEach(dk=>{const mem=SPH.filter(s=>s.div===dk);const D=DIVS[dk];
-  mem.forEach((s,i)=>{const f=mem.length===1?0:(i/(mem.length-1)-.5);s.ang=D.dir+f*D.spread;s.radN=.30+((i%2)?.09:0);});});
-// fibonacci points
+Object.keys(DIVS).forEach(dk=>{const mem=SPH.filter(s=>s.div===dk),D=DIVS[dk];mem.forEach((s,i)=>{const f=mem.length===1?0:(i/(mem.length-1)-.5);s.ang=D.dir+f*D.spread;s.radN=.30+((i%2)?.09:0);});});
 const GA=Math.PI*(3-Math.sqrt(5));
 SPH.forEach(s=>{s.pts=[];for(let i=0;i<s.n;i++){const y=1-(i/(s.n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;s.pts.push([Math.cos(th)*r,y,Math.sin(th)*r]);}s.rot=Math.random()*6;s.ph=Math.random()*6;s.hov=0;s.pulse=0;s.active=s.stage==="live";});
 
@@ -140,23 +139,17 @@ function CY(s){return s.core?H*.5:H*.5+Math.sin(s.ang)*s.radN*M;}
 function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);placeLabels();}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
-
-// focus / zoom-in state
 let focusId=null,open=false,fp=0;
-function pose(s){const bx=CX(s),by=CY(s),bR=s.rf*M;
-  if(!focusId||fp<.001)return{x:bx,y:by,R:bR,a:s.active?1:.42};
-  const narrow=W<760;const fx=narrow?W*.5:W*.34,fy=narrow?H*.30:H*.5;const fR=Math.min(W,H)*(narrow?.15:.19);
+function pose(s){const bx=CX(s),by=CY(s),bR=s.rf*M;if(!focusId||fp<.001)return{x:bx,y:by,R:bR,a:s.active?1:.45};
+  const fx=W*.5,fy=H*.42,fR=Math.min(W,H)*.2;
   if(s.id===focusId)return{x:bx+(fx-bx)*fp,y:by+(fy-by)*fp,R:bR+(fR-bR)*fp,a:1};
-  return{x:bx,y:by,R:bR,a:(s.active?1:.42)*(1-fp*.94)};}
-
+  return{x:bx,y:by,R:bR,a:(s.active?1:.45)*(1-fp*.92)};}
 const mouse={x:-999,y:-999,in:false};
 addEventListener("pointermove",e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;});
 addEventListener("pointerleave",()=>mouse.in=false);
-cv.addEventListener("pointerdown",e=>{if(open)return;const s=pick(e.clientX,e.clientY);if(s){s.pulse=1;openDrawer(s.id);}});
+cv.addEventListener("pointerdown",e=>{if(open)return;const s=pick(e.clientX,e.clientY);if(s){s.pulse=1;openModal(s.id);}});
 function pick(mx,my){let hit=null,best=1e9;SPH.forEach(s=>{const cx=CX(s),cy=CY(s),R=s.rf*M;const d=Math.hypot(mx-cx,my-cy);if(d<R*1.3&&d<best){best=d;hit=s;}});return hit;}
-
-// feed particles (each sphere → core)
-const feeds=[];SPH.forEach(s=>{if(s.core)return;const cnt=s.active?3:2;for(let k=0;k<cnt;k++)feeds.push({s,t:k/cnt,sp:.13+Math.random()*.08});});
+const feeds=[];SPH.forEach(s=>{if(s.core)return;const cnt=s.active?4:2;for(let k=0;k<cnt;k++)feeds.push({s,t:k/cnt,sp:.14+Math.random()*.08});});
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 let tPrev=0;
@@ -164,96 +157,96 @@ function frame(t){
   const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   const tf=open?1:0;fp+=(tf-fp)*.14;if(fp<.01&&!open)focusId=null;
   labels.style.opacity=(1-fp);labels.style.pointerEvents=fp>.15?"none":"";
-  ctx.clearRect(0,0,W,H);
-  const coreX=W*.5,coreY=H*.5;
+  ctx.clearRect(0,0,W,H);const coreX=W*.5,coreY=H*.5;
   ctx.globalCompositeOperation="lighter";
-  // faint core halo (only glow on black — no space)
-  if(fp<.6){const halo=ctx.createRadialGradient(coreX,coreY,0,coreX,coreY,M*.5);
-    halo.addColorStop(0,`rgba(40,90,120,${.18*(1-fp)})`);halo.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=halo;ctx.beginPath();ctx.arc(coreX,coreY,M*.5,0,7);ctx.fill();}
-  // feeds
-  if(!reduce)feeds.forEach(p=>{const sx=CX(p.s),sy=CY(p.s);p.t+=p.sp*dt;if(p.t>1)p.t-=1;
-    const x=sx+(coreX-sx)*p.t,y=sy+(coreY-sy)*p.t;const[R,G,B]=hx(p.s.col);
-    ctx.fillStyle=`rgba(${R},${G},${B},${(p.s.active?.6:.28)*(1-Math.abs(p.t-.5))*(1-fp)})`;ctx.beginPath();ctx.arc(x,y,1.5,0,7);ctx.fill();});
-  // spheres
+  if(fp<.6){const halo=ctx.createRadialGradient(coreX,coreY,0,coreX,coreY,M*.55);halo.addColorStop(0,`rgba(50,110,150,${.22*(1-fp)})`);halo.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=halo;ctx.beginPath();ctx.arc(coreX,coreY,M*.55,0,7);ctx.fill();}
+  if(!reduce)feeds.forEach(p=>{const sx=CX(p.s),sy=CY(p.s);p.t+=p.sp*dt;if(p.t>1)p.t-=1;const x=sx+(coreX-sx)*p.t,y=sy+(coreY-sy)*p.t;const[R,G,B]=hx(p.s.col);
+    ctx.fillStyle=`rgba(${R},${G},${B},${(p.s.active?.8:.35)*(1-Math.abs(p.t-.5))*(1-fp)})`;ctx.beginPath();ctx.arc(x,y,2,0,7);ctx.fill();});
   SPH.forEach(s=>{
     const P=pose(s);const cx=P.x,cy=P.y,R0=P.R;
     const hd=(mouse.in&&!open)?Math.hypot(mouse.x-cx,mouse.y-cy):999;s.hov+=((hd<R0*1.4?1:0)-s.hov)*.15;
     s.pulse=Math.max(0,s.pulse-dt*1.4);if(!reduce)s.rot+=s.sp*dt;
-    const breathe=reduce?1:(1+.035*Math.sin(t/900+s.ph)+s.pulse*.12);const R=R0*breathe;
-    const base=P.a;const bright=base*(.7+s.hov*.55+s.pulse*.5);const[Rc,Gc,Bc]=hx(s.col);
-    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.7);
-    g.addColorStop(0,`rgba(${Rc},${Gc},${Bc},${(s.active?.22:.1)*(1+s.hov)})`);g.addColorStop(.5,`rgba(${Rc},${Gc},${Bc},${.05*base})`);g.addColorStop(1,"rgba(0,0,0,0)");
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*1.7,0,7);ctx.fill();
-    if(s.core){const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.5);cg.addColorStop(0,`rgba(230,250,255,${.5+s.hov*.3})`);cg.addColorStop(1,"rgba(90,216,255,0)");ctx.fillStyle=cg;ctx.beginPath();ctx.arc(cx,cy,R*.5,0,7);ctx.fill();}
+    const breathe=reduce?1:(1+.04*Math.sin(t/900+s.ph)+s.pulse*.14);const R=R0*breathe;
+    const base=P.a;const bright=base*(.85+s.hov*.5+s.pulse*.5);const[Rc,Gc,Bc]=hx(s.col);
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.8);g.addColorStop(0,`rgba(${Rc},${Gc},${Bc},${(s.active?.3:.13)*(1+s.hov)})`);g.addColorStop(.5,`rgba(${Rc},${Gc},${Bc},${.08*base})`);g.addColorStop(1,"rgba(0,0,0,0)");
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*1.8,0,7);ctx.fill();
+    if(s.core){const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.55);cg.addColorStop(0,`rgba(235,252,255,${.6+s.hov*.3})`);cg.addColorStop(1,"rgba(87,224,255,0)");ctx.fillStyle=cg;ctx.beginPath();ctx.arc(cx,cy,R*.55,0,7);ctx.fill();}
     const cosR=Math.cos(s.rot),sinR=Math.sin(s.rot),cosT=Math.cos(.42),sinT=Math.sin(.42);
     for(let i=0;i<s.pts.length;i++){let[x,y,z]=s.pts[i];let x1=x*cosR-z*sinR,z1=x*sinR+z*cosR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;
       const persp=1/(1-z2*.34);const sx=cx+x1*R*persp,sy=cy+y1*R*persp;const depth=(z2+1)/2;
-      const size=(0.5+depth*1.7)*(R0/70)*(s.active?1:.8);ctx.fillStyle=`rgba(${Rc},${Gc},${Bc},${(0.1+depth*0.9)*bright})`;ctx.fillRect(sx-size/2,sy-size/2,size,size);}
-    if(s.core){const r2=s.rot*-1.3,cR=Math.cos(r2),sR=Math.sin(r2);
-      for(let i=0;i<s.pts.length;i+=2){let[x,y,z]=s.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;
-        const persp=1/(1-z2*.34);const sx=cx+x1*R*.62*persp,sy=cy+y1*R*.62*persp;const depth=(z2+1)/2;ctx.fillStyle=`rgba(200,240,255,${(0.06+depth*.4)*bright})`;ctx.fillRect(sx-1,sy-1,1.6,1.6);}}
-    if(s.id===focusId&&fp>.2){for(let k=0;k<8;k++){const a=t/1500+k*Math.PI/4,rr=R*1.55,sx2=cx+Math.cos(a)*rr,sy2=cy+Math.sin(a)*rr*.5;ctx.fillStyle="rgba("+Rc+","+Gc+","+Bc+","+(.6*fp)+")";ctx.beginPath();ctx.arc(sx2,sy2,2,0,7);ctx.fill();}}
+      const size=(0.6+depth*1.9)*(R0/66)*(s.active?1:.8);ctx.fillStyle=`rgba(${Rc},${Gc},${Bc},${(0.16+depth*0.95)*bright})`;ctx.fillRect(sx-size/2,sy-size/2,size,size);}
+    if(s.core){const r2=s.rot*-1.3,cR=Math.cos(r2),sR=Math.sin(r2);for(let i=0;i<s.pts.length;i+=2){let[x,y,z]=s.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;const persp=1/(1-z2*.34);const sx=cx+x1*R*.62*persp,sy=cy+y1*R*.62*persp;const depth=(z2+1)/2;ctx.fillStyle=`rgba(215,245,255,${(0.1+depth*.5)*bright})`;ctx.fillRect(sx-1,sy-1,1.8,1.8);}}
+    if(s.id===focusId&&fp>.2){for(let k=0;k<8;k++){const a=t/1500+k*Math.PI/4,rr=R*1.55,sx2=cx+Math.cos(a)*rr,sy2=cy+Math.sin(a)*rr*.5;ctx.fillStyle="rgba("+Rc+","+Gc+","+Bc+","+(.7*fp)+")";ctx.beginPath();ctx.arc(sx2,sy2,2.4,0,7);ctx.fill();}}
   });
-  ctx.globalCompositeOperation="source-over";
-  requestAnimationFrame(frame);
+  ctx.globalCompositeOperation="source-over";requestAnimationFrame(frame);
 }
 
-// ===== LABELS =====
+// labels
 const labels=document.getElementById("labels");
 SPH.forEach(s=>{const d=document.createElement("div");d.className="lbl"+(s.active?"":" soon");
   d.innerHTML=`<div class="nm" style="color:${s.col}">${s.name}</div><div class="one">${s.one}</div><div class="chip" style="color:${s.col}">${s.chip}</div>`;
-  d.addEventListener("click",()=>{s.pulse=1;openDrawer(s.id);});labels.appendChild(d);s.el=d;});
-const dlabels={};Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const d=document.createElement("div");d.className="dlbl";d.style.color=D.col;
-  d.innerHTML=`${D.label}<small>${D.note}</small>`;labels.appendChild(d);dlabels[dk]=d;});
-function placeLabels(){SPH.forEach(s=>{s.el.style.left=CX(s)+"px";s.el.style.top=(CY(s)+s.rf*M+7)+"px";});
-  Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const lx=W*.5+Math.cos(D.dir)*.455*M,ly=H*.5+Math.sin(D.dir)*.455*M;dlabels[dk].style.left=lx+"px";dlabels[dk].style.top=ly+"px";});}
+  d.addEventListener("click",()=>{s.pulse=1;openModal(s.id);});labels.appendChild(d);s.el=d;});
+const dlabels={};Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const d=document.createElement("div");d.className="dlbl";d.style.color=D.col;d.innerHTML=`<b>${D.label}</b><small>${D.note}</small>`;labels.appendChild(d);dlabels[dk]=d;});
+function placeLabels(){SPH.forEach(s=>{s.el.style.left=CX(s)+"px";s.el.style.top=(CY(s)+s.rf*M+8)+"px";});Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];dlabels[dk].style.left=(W*.5+Math.cos(D.dir)*.46*M)+"px";dlabels[dk].style.top=(H*.5+Math.sin(D.dir)*.46*M)+"px";});}
 
-// ===== DRAWER =====
+// ===== MODAL =====
 function tel(d){return d?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:"";}
+function dial(p){return p?p.replace(/\D/g,""):"";}
 const WORK={
- core:()=>`<div class="sec"><div class="s-lbl">The money, right now</div><div class="say"><span class="big" style="color:var(--core)">${DATA.kpis.mrr}<small> of $10,000/mo</small></span><br><br>${DATA.kpis.clients} paying clients · ${DATA.kpis.leads} leads ready · ${DATA.kpis.dials.split("/")[0]} called today</div></div>
+ core:()=>`<div class="sec"><div class="s-lbl">The money, right now</div><div class="say"><span class="hero" style="color:var(--core)">${DATA.kpis.mrr}<small> of $10,000/mo</small></span><br><br><b>${DATA.kpis.clients}</b> paying clients &nbsp;·&nbsp; <b>${DATA.kpis.leads}</b> leads ready &nbsp;·&nbsp; <b>${DATA.kpis.dials.split("/")[0]}</b> called today</div></div>
   <div class="sec"><div class="s-lbl">Where your leads stand</div><div class="bars">${STAGES.map(([k,label])=>{const v=DATA.pipeline[k]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x[0]]||0));return`<div class="bar"><span class="bn">${label}</span><span class="bt"><i style="width:${v/mx*100}%"></i></span><span class="bv">${v}</span></div>`;}).join("")}</div></div>
-  <div class="sec"><div class="s-lbl">The 4 divisions</div><div class="say"><b style="color:var(--agency)">AI Agency</b> makes money now. <b style="color:var(--content)">Content</b> builds an audience. <b style="color:var(--ecom)">Ecom</b> and <b style="color:var(--personal)">Personal</b> are next. Everything feeds back here.</div></div>
-  <div class="sec"><div class="s-lbl">Do this next</div><div class="say"><b>1.</b> Verify your Vapi demo line works.<br><b>2.</b> Call the 6 hottest leads (green).<br><b>3.</b> Note what happened on each call.</div></div>`,
- lead:()=>`<div class="sec"><div class="s-lbl">${DATA.kpis.leads} companies ready to call — tap to dial</div>${LEADS.map(l=>`<div class="lead"><span class="td" style="background:${T[l[4]]}"></span><span class="lx">${l[0]}</span><div class="lb"><div class="lco">${l[1]}</div><div class="lm">${l[2]}</div></div>${l[3]?`<a class="tel" href="tel:+1${l[3]}">${tel(l[3])}</a>`:`<span class="noph">no # yet</span>`}</div>`).join("")}</div>`,
+  <div class="sec"><div class="s-lbl">Biggest thing holding you back</div><div class="say">It's not how many calls you make — you make plenty. It's two things: turning calls into demos, and <b>your demo line isn't verified yet</b>. Every script sends them to that number. Fix it first.</div></div>
+  <div class="sec"><div class="s-lbl">Do this next</div><div class="say"><b>1.</b> Call your Vapi demo line — make sure it works for a stranger.<br><b>2.</b> Call the hottest leads (green dots).<br><b>3.</b> Note what happened on each call.</div></div>`,
+ lead:()=>`<div class="sec"><div class="s-lbl">Companies ready to call<span>${DATA.leadList.length} total · tap a number to dial</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><span class="td" style="color:${l.p?'var(--agency)':'var(--ecom)'};background:currentColor"></span><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dial(l.p)}">${l.p}</a>`:`<span class="noph">no # yet</span>`}</div>`).join("")}</div>`,
  sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div>
-  <div class="sec"><div class="s-lbl">What to open with — your 10 hottest</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]==="—"?"":o[1]+" · "}${o[2]}</div><div class="sc">${o[3]?tel(o[3]):""}</div></div>${o[3]?`<a class="tel" href="tel:+1${o[3]}">Call</a>`:""}</div>${o[4]?`<div class="flag">⚠ ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
+  <div class="sec"><div class="s-lbl">What to open with — your hottest</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]==="—"?"":o[1]+" · "}${o[2]}</div><div class="sc">${o[3]?tel(o[3]):""}</div></div>${o[3]?`<a class="tel" href="tel:+1${o[3]}">Call</a>`:""}</div>${o[4]?`<div class="flag">⚠ ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
  store:()=>`<div class="sec"><div class="s-lbl">Everything the team remembers</div>
    <div class="fr"><div><div class="fl">Your offer & pricing</div><div class="fm">$500/mo, setup waived for first 3</div></div><span class="badge on">Set</span></div>
-   <div class="fr"><div><div class="fl">Decisions you've made</div><div class="fm">the pivot, pricing, phone-first</div></div><span class="badge on">4 saved</span></div>
+   <div class="fr"><div><div class="fl">Decisions you've made</div><div class="fm">the pivot, pricing, phone-first</div></div><span class="badge on">Saved</span></div>
    <div class="fr"><div><div class="fl">Your leads</div><div class="fm">${DATA.pipeline.new||0} waiting to be called</div></div><span class="badge warn">${DATA.pipeline.new||0}</span></div>
    <div class="fr"><div><div class="fl">Your scoreboard</div><div class="fm">tracks calls, replies, closes</div></div><span class="badge warn">started</span></div>
-   <div class="fr"><div><div class="fl">Objections you hear</div><div class="fm">fills in once you start calling</div></div><span class="badge empty">empty</span></div></div>`,
- engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b>, while you sleep, it:<br><br>1. Finds ~150 new restoration companies<br>2. Checks each phone number is real<br>3. Writes what to say to each<br>4. Adds them to your call list</div></div>
-  <div class="sec"><div class="s-lbl">Status</div><div class="say">Connected to your files — updates this dashboard each morning. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
+   <div class="fr"><div><div class="fl">Objections you hear</div><div class="fm">fills once you start calling</div></div><span class="badge empty">empty</span></div></div>`,
+ engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b>, while you sleep, it:<br><br><b>1.</b> Finds ~150 new restoration companies<br><b>2.</b> Checks each phone number is real<br><b>3.</b> Writes what to say to each<br><b>4.</b> Adds them to your call list</div></div>
+  <div class="sec"><div class="s-lbl">Latest run</div><div class="say">Its last run added <b>37 new companies</b> to your list. Connected to your files — it updates this board automatically. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
  voice:()=>`<div class="sec"><div class="s-lbl">Coming soon · AI Agency</div><div class="say"><b>An AI that makes the calls for you.</b> Same tech as your demo, pointed at your lead list to warm them up or set appointments. Built in Vapi when you're ready.</div></div>`,
  appt:()=>`<div class="sec"><div class="s-lbl">Coming soon · AI Agency</div><div class="say"><b>Books appointments into your calendar</b> when a lead replies — by text or voice. Works with the AI caller.</div></div>`,
  tiktok:()=>`<div class="sec"><div class="s-lbl">Building tomorrow · Content</div><div class="say"><b>Makes you a faceless AI story video every day</b> to post on TikTok and earn off the views. You just post it. Needs a video tool + posting tool (~$50–150/mo).</div></div>`,
- clone:()=>`<div class="sec"><div class="s-lbl">Coming soon · Content</div><div class="say"><b>An AI version of your voice and face</b> for the TikTok and content videos, so everything uses one consistent persona.</div></div>`,
- ecomstore:()=>`<div class="sec"><div class="s-lbl">Just an idea · Ecom</div><div class="say"><b>An online store.</b> When you want it: finds a product, builds the Shopify store, writes the listings, runs the ads. It's a different business from the agency — best started once the agency is making real money.</div></div>`,
- adstudio:()=>`<div class="sec"><div class="s-lbl">Just an idea · Ecom</div><div class="say"><b>Makes the photos, videos, and ad copy</b> for the ecom store. Part of the store plan.</div></div>`,
- life:()=>`<div class="sec"><div class="s-lbl">Just an idea · Personal</div><div class="say"><b>Your personal assistant.</b> Could run your calendar, reminders, errands, and travel — so the business side and life side live in one place.</div></div>`,
- money:()=>`<div class="sec"><div class="s-lbl">Just an idea · Personal</div><div class="say"><b>Keeps an eye on your money.</b> Track spending, bills, and savings goals alongside the business revenue.</div></div>`,
+ clone:()=>`<div class="sec"><div class="s-lbl">Coming soon · Content</div><div class="say"><b>An AI version of your voice and face</b> for the videos, so everything uses one consistent persona.</div></div>`,
+ ecomstore:()=>`<div class="sec"><div class="s-lbl">Just an idea · Ecom</div><div class="say"><b>An online store.</b> When you want it: finds a product, builds the Shopify store, writes the listings, runs the ads. A different business from the agency — best started once the agency is making real money.</div></div>`,
+ adstudio:()=>`<div class="sec"><div class="s-lbl">Just an idea · Ecom</div><div class="say"><b>Makes the photos, videos, and ad copy</b> for the ecom store.</div></div>`,
+ life:()=>`<div class="sec"><div class="s-lbl">Just an idea · Personal</div><div class="say"><b>Your personal assistant.</b> Could run your calendar, reminders, errands, and travel.</div></div>`,
+ money:()=>`<div class="sec"><div class="s-lbl">Just an idea · Personal</div><div class="say"><b>Keeps an eye on your money.</b> Track spending, bills, and savings goals.</div></div>`,
 };
 const SUB={core:"The brain. Tells you what to do next and where the money is.",lead:"Fresh restoration companies to call, hottest first.",sales:"Exactly what to say — and what to say back when they push.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments automatically.",tiktok:"Daily AI videos to post for views.",clone:"An AI you for content.",ecomstore:"An online store you'd run for profit.",adstudio:"Makes the ads for the store.",life:"Runs your personal life admin.",money:"Watches your personal finances."};
-const EY={live:"Working",soon:"Coming soon",idea:"Just an idea"};
-const scrim=document.getElementById("scrim"),drawer=document.getElementById("drawer"),dey=document.getElementById("dey"),dname=document.getElementById("dname"),dsub=document.getElementById("dsub"),dbody=document.getElementById("dbody");
-const backEl=document.getElementById("back");
-function openDrawer(id){const s=byId[id];focusId=id;open=true;dey.textContent=EY[s.stage];dey.style.color=s.col;dname.textContent=s.name;dsub.textContent=SUB[id];dbody.innerHTML=WORK[id]();drawer.scrollTop=0;scrim.classList.add("open");drawer.classList.add("open");backEl.classList.add("show");}
-function closeDrawer(){open=false;scrim.classList.remove("open");drawer.classList.remove("open");backEl.classList.remove("show");}
-backEl.addEventListener("click",closeDrawer);scrim.addEventListener("click",closeDrawer);
-addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
+const EY={live:"Working now",soon:"Coming soon",idea:"Just an idea"};
+const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
+function openModal(id){const s=byId[id];focusId=id;open=true;mey.textContent=EY[s.stage];mey.style.color=s.col;mname.textContent=s.name;msub.textContent=SUB[id];
+  morb.textContent=s.ico;morb.style.background=`rgba(${hx(s.col).join(",")},.14)`;morb.style.color=s.col;
+  mbody.innerHTML=WORK[id]();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");}
+function closeModal(){open=false;scrim.classList.remove("open");modal.classList.remove("open");}
+document.getElementById("mx").addEventListener("click",closeModal);scrim.addEventListener("click",closeModal);
+addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 
-// ===== HUD =====
-function renderKpis(){document.getElementById("k-mrr").innerHTML=DATA.kpis.mrr+'<small>/10k</small>';document.getElementById("k-leads").textContent=DATA.kpis.leads;
-  document.getElementById("k-dials").innerHTML=DATA.kpis.dials.split("/")[0]+'<small>/'+DATA.kpis.dials.split("/")[1]+'</small>';document.getElementById("k-clients").textContent=DATA.kpis.clients;
-  if(byId.lead.el)byId.lead.el.querySelector(".chip").textContent=DATA.kpis.leads;}
-async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
-  const counts={};STAGES.forEach(s=>counts[s[0]]=0);let won=false;
-  txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("|"))return;const c=line.split("|").map(x=>x.trim());if(c.length<4)return;STAGES.forEach(s=>{if(c[3].toLowerCase()===s[0])counts[s[0]]++;});});
-  if(Object.values(counts).some(v=>v>0)){DATA.pipeline=counts;DATA.kpis.leads=Object.values(counts).reduce((a,b)=>a+b,0)||DATA.kpis.leads;}
-  const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const last=rows[rows.length-1];if(last){const c=last.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
-  document.getElementById("liveTxt").textContent="live · reading your files";renderKpis();
-}catch(e){document.getElementById("liveTxt").textContent="snapshot";}}
-resize();renderKpis();requestAnimationFrame(frame);hydrate();
+// ===== LIVE HYDRATE + POLL =====
+const last={};
+function flash(id){const el=document.getElementById(id);el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
+function renderKpis(){
+  const set=(id,html,key)=>{const el=document.getElementById(id);el.innerHTML=html;if(last[key]!==undefined&&last[key]!==html)flash(id);last[key]=html;};
+  set("k-mrr",DATA.kpis.mrr+'<small>/10k</small>',"mrr");
+  set("k-leads",String(DATA.kpis.leads),"leads");
+  set("k-dials",DATA.kpis.dials.split("/")[0]+'<small>/'+DATA.kpis.dials.split("/")[1]+'</small>',"dials");
+  set("k-clients",String(DATA.kpis.clients),"clients");
+  if(byId.lead.el)byId.lead.el.querySelector(".chip").textContent=DATA.kpis.leads;
+  if(open&&focusId&&WORK[focusId])mbody.innerHTML=WORK[focusId]();}
+function stamp(){document.getElementById("liveTxt").innerHTML='LIVE · reading your files · <b>'+DATA.kpis.leads+' leads</b>';}
+async function hydrate(){try{
+  const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
+  const counts={};STAGES.forEach(s=>counts[s[0]]=0);const list=[];let won=false;
+  txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("| "))return;const c=line.split("|").map(x=>x.trim());if(c.length<4||c[1]===""||c[1]==="Company")return;const st=c[3].toLowerCase();if(!STAGES.some(s=>s[0]===st))return;counts[st]++;
+    if(st==="new"){const m=(c[2]||"").match(/\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/);list.push({co:c[1],c:c[2],p:m?m[0]:""});}});
+  if(list.length){DATA.pipeline=counts;DATA.kpis.leads=Object.values(counts).reduce((a,b)=>a+b,0);DATA.leadList=list;}
+  const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const lastRow=rows[rows.length-1];if(lastRow){const c=lastRow.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
+  renderKpis();stamp();
+}catch(e){document.getElementById("liveTxt").innerHTML='<b>'+DATA.kpis.leads+' leads</b> · snapshot';renderKpis();}}
+resize();renderKpis();requestAnimationFrame(frame);hydrate();setInterval(hydrate,5000);
 </script>
