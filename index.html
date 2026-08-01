@@ -1,52 +1,49 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MDP Enterprises — Command</title>
+<title>MDP Enterprises — Neural Command</title>
 <style>
   :root{
-    --bg:#04060d; --card:#0d1420; --line:#1a2537; --line2:#233449;
+    --bg:#03040a; --card:#0c1220; --line:#1a2537; --line2:#233449;
     --ink:#ffffff; --dim:#b3c1d8; --faint:#6d7d99;
-    --core:#57e0ff; --agency:#3dffb0; --content:#ff9a5c; --ecom:#ffd84d; --personal:#a9c0ff; --hot:#ff5c8a;
+    --core:#5ad8ff; --agency:#3dffb0; --content:#ff9a5c; --ecom:#ffd84d; --personal:#a9c0ff; --hot:#ff5c8a;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;height:100%;overflow:hidden;background:#000;color:var(--ink);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
-  #wrap{position:fixed;inset:0;}
-  canvas{position:absolute;inset:0;width:100%;height:100%;cursor:pointer;}
-  #labels{position:absolute;inset:0;pointer-events:none;}
-  .lbl{position:absolute;transform:translate(-50%,0);text-align:center;pointer-events:auto;cursor:pointer;white-space:nowrap;}
-  .lbl .nm{font-size:15px;font-weight:800;text-shadow:0 0 14px currentColor;}
-  .lbl .one{font-size:11px;color:var(--dim);margin-top:2px;font-weight:500;}
-  .lbl .chip{display:inline-block;margin-top:5px;font-family:ui-monospace,monospace;font-size:11px;font-weight:800;padding:3px 11px;border-radius:99px;background:#0c1420;border:1.5px solid currentColor;}
-  .lbl.soon{opacity:.6;} .lbl.soon .nm{text-shadow:none;}
+  canvas{position:fixed;inset:0;width:100%;height:100%;cursor:grab;touch-action:none;}
+  canvas:active{cursor:grabbing;}
+  #labels{position:fixed;inset:0;pointer-events:none;z-index:5;}
+  .lbl{position:absolute;transform:translate(-50%,-50%);text-align:center;pointer-events:none;white-space:nowrap;transition:opacity .2s;}
+  .lbl .nm{font-size:14px;font-weight:800;text-shadow:0 0 16px currentColor,0 2px 8px #000;}
+  .lbl .one{font-size:10.5px;color:var(--dim);margin-top:2px;text-shadow:0 1px 4px #000;}
+  .lbl .chip{display:inline-block;margin-top:5px;font-family:ui-monospace,monospace;font-size:10.5px;font-weight:800;padding:2px 10px;border-radius:99px;background:rgba(6,10,18,.85);border:1.5px solid currentColor;}
+  .lbl.soon{opacity:.6;} .lbl.soon .nm{text-shadow:0 2px 8px #000;}
   .dlbl{position:absolute;transform:translate(-50%,-50%);pointer-events:none;text-align:center;}
-  .dlbl b{font-family:ui-monospace,monospace;font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;text-shadow:0 0 18px currentColor;}
-  .dlbl small{display:block;font-size:9px;letter-spacing:.12em;color:var(--faint);margin-top:4px;text-transform:uppercase;}
+  .dlbl b{font-family:ui-monospace,monospace;font-size:13px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;text-shadow:0 0 22px currentColor,0 2px 10px #000;}
+  .dlbl small{display:block;font-size:9px;letter-spacing:.14em;color:var(--faint);margin-top:5px;text-transform:uppercase;}
 
-  .top{position:absolute;left:0;top:0;right:0;padding:18px 22px;z-index:20;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;pointer-events:none;}
-  .brand .tag{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--core);}
-  .brand h1{margin:4px 0 0;font-size:23px;font-weight:800;}
-  .rightbar{display:flex;flex-direction:column;align-items:flex-end;gap:10px;pointer-events:auto;}
-  .stats{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end;}
-  .stat{background:linear-gradient(180deg,#0c1420,#070b12);border:1.5px solid #1e2c42;border-radius:15px;padding:10px 15px;min-width:88px;box-shadow:0 6px 22px rgba(0,0,0,.5);}
-  .stat .v{font-family:ui-monospace,monospace;font-size:26px;font-weight:800;line-height:1;letter-spacing:-.02em;}
-  .stat .v small{font-size:12px;color:var(--faint);font-weight:500;}
-  .stat .l{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:700;}
+  .top{position:fixed;left:0;top:0;right:0;padding:16px 20px;z-index:20;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;pointer-events:none;}
+  .brand .tag{font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--core);}
+  .brand h1{margin:4px 0 0;font-size:22px;font-weight:800;text-shadow:0 2px 12px #000;}
+  .rightbar{display:flex;flex-direction:column;align-items:flex-end;gap:9px;pointer-events:auto;}
+  .stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+  .stat{background:linear-gradient(180deg,rgba(12,20,32,.9),rgba(7,11,18,.9));backdrop-filter:blur(8px);border:1.5px solid #1e2c42;border-radius:14px;padding:9px 14px;min-width:82px;}
+  .stat .v{font-family:ui-monospace,monospace;font-size:24px;font-weight:800;line-height:1;}
+  .stat .v small{font-size:11px;color:var(--faint);font-weight:500;}
+  .stat .l{font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:700;}
   .stat.rev .v{color:var(--core);} .stat.leads .v{color:var(--agency);} .stat.called .v{color:var(--ecom);} .stat.clients .v{color:var(--hot);}
   @keyframes fl{0%{transform:scale(1)}40%{transform:scale(1.22);filter:brightness(1.6)}100%{transform:scale(1)}}
   .stat .v.flash{animation:fl .6s ease;}
-  .exp{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--agency);background:rgba(61,255,176,.1);border:1.5px solid rgba(61,255,176,.4);border-radius:10px;padding:8px 13px;}
+  .exp{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--agency);background:rgba(61,255,176,.1);border:1.5px solid rgba(61,255,176,.4);border-radius:10px;padding:8px 13px;}
   .exp:hover{background:rgba(61,255,176,.18);}
-
-  .livebar{position:absolute;left:22px;bottom:18px;z-index:20;pointer-events:none;display:flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);background:rgba(8,12,20,.7);backdrop-filter:blur(8px);border:1px solid #1a2536;border-radius:99px;padding:8px 15px;}
+  .livebar{position:fixed;left:20px;bottom:16px;z-index:20;pointer-events:none;display:flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);background:rgba(6,10,18,.66);backdrop-filter:blur(8px);border:1px solid #1a2536;border-radius:99px;padding:8px 15px;}
   .livebar i{width:8px;height:8px;border-radius:99px;background:var(--agency);box-shadow:0 0 10px var(--agency);animation:bp 1.6s infinite;} @keyframes bp{50%{opacity:.3}}
   .livebar b{color:var(--ink);}
-  .hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;pointer-events:none;font-family:ui-monospace,monospace;font-size:11px;color:var(--faint);background:rgba(8,12,20,.6);border:1px solid #1a2536;border-radius:99px;padding:7px 15px;transition:opacity .8s;}
-  .reset{position:absolute;right:20px;top:calc(50% + 40px);z-index:20;width:40px;height:40px;border-radius:12px;background:rgba(9,14,22,.8);border:1px solid var(--line2);color:var(--dim);font-size:17px;cursor:pointer;}
+  .hint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;pointer-events:none;font-family:ui-monospace,monospace;font-size:11px;color:var(--faint);background:rgba(6,10,18,.6);border:1px solid #1a2536;border-radius:99px;padding:7px 15px;transition:opacity 1s;}
+  .reset{position:fixed;right:18px;bottom:16px;z-index:20;width:40px;height:40px;border-radius:12px;background:rgba(6,10,18,.8);border:1px solid var(--line2);color:var(--dim);font-size:17px;cursor:pointer;}
   .reset:hover{color:#fff;border-color:var(--core);}
-  @media(max-width:640px){.hint{bottom:auto;top:120px;font-size:10px;} .reset{top:auto;bottom:90px;}}
 
-  /* CHAT */
-  #chat{position:absolute;right:20px;bottom:18px;width:min(350px,calc(100% - 40px));z-index:30;background:rgba(9,14,22,.9);backdrop-filter:blur(16px);border:1px solid var(--line2);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.6);display:flex;flex-direction:column;max-height:min(58vh,500px);transition:transform .3s;}
+  #chat{position:fixed;right:18px;bottom:66px;width:min(348px,calc(100% - 36px));z-index:30;background:rgba(8,12,20,.92);backdrop-filter:blur(16px);border:1px solid var(--line2);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.6);display:flex;flex-direction:column;max-height:min(56vh,480px);transition:transform .3s;}
   #chat.min{transform:translateY(calc(100% - 50px));}
   #chat .ch{display:flex;align-items:center;gap:9px;padding:13px 16px;cursor:pointer;border-bottom:1px solid var(--line);}
   #chat .ch .d{width:9px;height:9px;border-radius:99px;background:var(--agency);box-shadow:0 0 9px var(--agency);}
@@ -61,12 +58,11 @@
   .cin input{flex:1;background:var(--card);border:1px solid var(--line2);border-radius:11px;padding:11px 13px;color:var(--ink);font:inherit;font-size:14px;outline:none;} .cin input:focus{border-color:var(--core);}
   .cin button{background:var(--core);color:#04070d;border:none;border-radius:11px;padding:0 15px;font-weight:800;cursor:pointer;}
 
-  /* MODAL */
-  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:60;opacity:0;pointer-events:none;transition:opacity .3s;}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:60;opacity:0;pointer-events:none;transition:opacity .3s;}
   .scrim.open{opacity:1;pointer-events:auto;}
-  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);z-index:70;width:min(720px,calc(100% - 36px));max-height:86vh;overflow-y:auto;background:rgba(10,15,23,.98);border:1.5px solid var(--line2);border-radius:24px;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.75);}
+  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);z-index:70;width:min(720px,calc(100% - 36px));max-height:86vh;overflow-y:auto;background:rgba(9,13,21,.98);border:1.5px solid var(--line2);border-radius:24px;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.75);}
   .modal.open{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;}
-  .m-head{position:sticky;top:0;background:rgba(11,17,25,.96);backdrop-filter:blur(10px);padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;gap:15px;align-items:flex-start;}
+  .m-head{position:sticky;top:0;background:rgba(10,15,23,.96);backdrop-filter:blur(10px);padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;gap:15px;align-items:flex-start;}
   .m-orb{width:50px;height:50px;flex:none;border-radius:15px;display:grid;place-items:center;font-size:25px;}
   .m-ey{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;}
   .m-head h2{margin:4px 0 0;font-size:26px;font-weight:800;} .m-head p{margin:7px 0 0;color:var(--dim);font-size:14.5px;line-height:1.5;}
@@ -81,24 +77,24 @@
   .lead a.tel{font-family:ui-monospace,monospace;font-size:13.5px;color:#04070d;background:var(--agency);border-radius:10px;padding:9px 12px;text-decoration:none;font-weight:800;white-space:nowrap;}
   .lead .noph{font-family:ui-monospace,monospace;font-size:9.5px;text-transform:uppercase;color:var(--ecom);border:1.5px solid #4a3f22;border-radius:9px;padding:8px;font-weight:700;}
   .lead .ntbtn{background:#14202f;border:1px solid var(--line2);color:var(--dim);border-radius:9px;width:38px;height:38px;font-size:15px;cursor:pointer;} .lead .ntbtn.has{border-color:var(--ecom);color:var(--ecom);}
-  .lead textarea{width:100%;margin-top:10px;background:#0a121d;border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px;resize:vertical;min-height:56px;outline:none;} .lead textarea:focus{border-color:var(--ecom);}
-  .lead .hide{display:none;}
+  .lead textarea{width:100%;margin-top:10px;background:#0a121d;border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px;resize:vertical;min-height:56px;outline:none;} .lead textarea:focus{border-color:var(--ecom);} .lead .hide{display:none;}
   .push{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:8px;} .push .q{font-size:15px;font-weight:800;color:var(--hot);} .push .a{font-size:14.5px;color:#eaf2fc;margin-top:6px;line-height:1.6;}
   .script{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:8px;} .script .sh{display:flex;justify-content:space-between;gap:8px;align-items:center;} .script .sw{font-size:14.5px;font-weight:800;} .script .sc{font-size:12px;color:var(--faint);font-family:ui-monospace,monospace;}
   .script a.tel{color:var(--agency);text-decoration:none;font-family:ui-monospace,monospace;font-weight:700;font-size:13px;border-bottom:1px solid #2a5c48;} .script .op{font-size:14.5px;color:#f2f7fd;line-height:1.7;margin-top:10px;} .script .vm{font-size:13px;color:var(--dim);margin-top:9px;line-height:1.6;} .script .vm b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:800;margin-bottom:3px;} .script .flag{font-size:12px;color:var(--ecom);margin-top:8px;}
-  .bars{display:flex;flex-direction:column;gap:7px;} .bar{display:flex;align-items:center;gap:11px;font-size:14px;} .bar .bn{width:104px;color:var(--dim);} .bar .bt{flex:1;height:18px;border-radius:5px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;} .bar .bt>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--core),rgba(87,224,255,.2));} .bar .bv{width:28px;text-align:right;font-family:ui-monospace,monospace;font-weight:800;}
+  .bars{display:flex;flex-direction:column;gap:7px;} .bar{display:flex;align-items:center;gap:11px;font-size:14px;} .bar .bn{width:104px;color:var(--dim);} .bar .bt{flex:1;height:18px;border-radius:5px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;} .bar .bt>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--core),rgba(90,216,255,.2));} .bar .bv{width:28px;text-align:right;font-family:ui-monospace,monospace;font-weight:800;}
   .fr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);} .fr:last-child{border-bottom:none;} .fr .fl{font-size:15px;font-weight:600;} .fr .fm{font-size:12px;color:var(--faint);margin-top:2px;}
   .badge{font-size:10px;font-weight:800;text-transform:uppercase;padding:5px 11px;border-radius:99px;} .badge.on{background:rgba(61,255,176,.16);color:var(--agency);} .badge.warn{background:rgba(255,216,77,.16);color:var(--ecom);} .badge.empty{background:rgba(109,125,153,.2);color:var(--dim);}
-  .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:800;font-size:14px;color:#04070d;background:var(--agency);border:none;border-radius:12px;padding:12px 18px;} .btn.ghost{background:transparent;color:var(--agency);border:1.5px solid rgba(61,255,176,.4);}
-  a.link{color:var(--core);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(87,224,255,.4);}
+  .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:800;font-size:14px;color:#04070d;background:var(--agency);border:none;border-radius:12px;padding:12px 18px;}
   .note-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:8px;} .note-item .nc{font-size:14.5px;font-weight:700;} .note-item .nt{font-size:13.5px;color:#dbe6f4;margin-top:5px;line-height:1.55;white-space:pre-wrap;}
-  @media(max-width:640px){.top{flex-direction:column;} .rightbar{align-items:stretch;width:100%;} .stats{justify-content:space-between;} .stat{flex:1;min-width:0;padding:8px 9px;} .stat .v{font-size:18px;} .lbl .one{display:none;} .m-body{padding:20px;} .m-head{padding:20px;} #chat{right:12px;left:12px;bottom:12px;width:auto;} .livebar{display:none;}}
+  a.link{color:var(--core);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(90,216,255,.4);}
+  @media(max-width:640px){.rightbar{align-items:stretch;} .stats{justify-content:space-between;} .stat{flex:1;min-width:0;padding:8px 8px;} .stat .v{font-size:17px;} .lbl .one{display:none;} .m-body,.m-head{padding:20px;} #chat{right:12px;left:12px;bottom:62px;width:auto;} .livebar,.hint{font-size:10px;} .hint{display:none;}}
 </style>
 
-<div id="wrap"><canvas id="c"></canvas><div id="labels"></div></div>
+<canvas id="c"></canvas>
+<div id="labels"></div>
 
 <div class="top">
-  <div class="brand"><div class="tag">MDP Enterprises</div><h1>Command</h1></div>
+  <div class="brand"><div class="tag">MDP Enterprises</div><h1>Neural Command</h1></div>
   <div class="rightbar">
     <div class="stats">
       <div class="stat rev"><div class="v" id="k-mrr">$0<small>/10k</small></div><div class="l">Revenue</div></div>
@@ -109,14 +105,13 @@
     <button class="exp" id="exportBtn">⬇ Export leads CSV</button>
   </div>
 </div>
-<div class="livebar"><i></i><span id="liveTxt">connecting…</span></div>
-<div class="hint" id="hint">drag to move · scroll / pinch to zoom · tap a ball to open</div>
+<div class="livebar"><i></i><span id="liveTxt">waking up…</span></div>
+<div class="hint" id="hint">drag to fly through the brain · scroll / pinch to zoom · tap a neuron</div>
 <button class="reset" id="resetView" title="Reset view">⟳</button>
 
 <div id="chat">
   <div class="ch" id="chatHead"><span class="d"></span><span class="t">Talk to your team</span><span class="s" id="chatToggle">▾</span></div>
-  <div id="log"></div>
-  <div class="chips" id="chips"></div>
+  <div id="log"></div><div class="chips" id="chips"></div>
   <div class="cin"><input id="cinp" placeholder="Ask your team…" autocomplete="off"><button id="csend">Send</button></div>
 </div>
 
@@ -128,162 +123,193 @@ const EMBED_LEADS=[{"co":"Rapid Dry STL","c":"Grant (Ops Mgr) · (314) 291-8888"
 const DATA={kpis:{mrr:"$0",leads:124,dials:"0/10",clients:0},pipeline:{new:124,contacted:0,replied:0,booked:0,"call held":0,proposal:0,won:0},leadList:EMBED_LEADS};
 const STAGES=[["new","Ready to call"],["contacted","Called"],["replied","Replied"],["booked","Booked"],["call held","Call done"],["proposal","Proposal sent"],["won","Won"]];
 const PUSH=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],["“We already have someone”","“Does a real person pick up at 2am, or does it go to voicemail? This never sleeps and books the job.”"],["“How much is it?”","“$500 a month, and I'm waiving setup for the first three shops — but hear it first, then price is easy.”"]];
-const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; I'd bet the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds.","Grant, it's [YOU] at Rapid Dry — a line that answers after-hours emergencies. Call (314) 887-9824."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — quick. Your site says you personally oversee every job — so you're answering at 2am too. That call goes to whoever picks up next. I built a line that answers those and books them. Call it, 90 seconds.","Justin, it's [YOU]. This answers your after-hours calls. Call (314) 887-9824."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — you and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am call. I built a line that answers those. Call it — 90 seconds.","Matt, it's [YOU] — catches the after-hours calls you can't get to. Call (314) 887-9824."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — you promise 24/7/365 — who picks up at 2am? If it's voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.","Terry, it's [YOU] — makes your 24/7 true after hours. Call (314) 887-9824."],[5,"Alan","Sage Restoration","9139050500","Ask if their ‘24/7 dispatch’ is a real person first.","Hey Alan — your site says live dispatch 24/7 — real person at 2am, or a service? I built a line that answers after-hours calls, often cheaper. Call it — 90 seconds.","Alan, it's [YOU] — answers after-hours calls, often cheaper than a service. Call (314) 887-9824."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — water mitigation only since '88, so every after-hours call to voicemail is a big job lost. If it's still you and Ed, you can't be on the phone at 2am. Call it — 90 seconds.","Greg, it's [YOU] — this catches the big after-hours jobs. Call (314) 887-9824."]];
+const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; I'd bet the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds.","Grant, it's [YOU] at Rapid Dry — a line that answers after-hours emergencies. Call (314) 887-9824."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — your site says you personally oversee every job, so you're answering at 2am too. That call goes to whoever picks up next. I built a line that answers those. Call it, 90 seconds.","Justin, it's [YOU]. This answers your after-hours calls. Call (314) 887-9824."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — you and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am call. I built a line that answers those. Call it — 90 seconds.","Matt, it's [YOU] — catches the calls you can't get to. Call (314) 887-9824."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — you promise 24/7/365. Who picks up at 2am? If it's voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.","Terry, it's [YOU] — makes your 24/7 true. Call (314) 887-9824."],[5,"Alan","Sage Restoration","9139050500","Ask if their ‘24/7 dispatch’ is a real person first.","Hey Alan — your site says live dispatch 24/7. Real person at 2am, or a service? I built a line that answers after-hours calls, often cheaper. Call it — 90 seconds.","Alan, it's [YOU] — answers after-hours calls, often cheaper. Call (314) 887-9824."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — water mitigation only since '88, so every after-hours call to voicemail is a big job lost. You and Ed can't be on the phone at 2am. Call it — 90 seconds.","Greg, it's [YOU] — catches the big after-hours jobs. Call (314) 887-9824."]];
 
-// notes (saved on your device)
 const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
-function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));if(byId.notes.el)byId.notes.el.querySelector(".chip").textContent=Object.keys(NOTES).length;}
+function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
 
-const DIVS={agency:{label:"AI Agency",note:"makes money now",dir:Math.PI,spread:2.7,col:"#3dffb0"},content:{label:"Content",note:"builds audience",dir:-Math.PI/2,spread:1.0,col:"#ff9a5c"},ecom:{label:"Ecom",note:"future income",dir:0,spread:1.0,col:"#ffd84d"},personal:{label:"Personal",note:"your life",dir:Math.PI/2,spread:1.0,col:"#a9c0ff"}};
-const SPH=[
- {id:"core",name:"Command",one:"runs it all",col:"#57e0ff",core:true,rf:.132,n:820,sp:.16,stage:"live",chip:"BRAIN",ico:"🧠"},
- {id:"lead",div:"agency",name:"Leads",one:"companies to call",col:"#3dffb0",rf:.058,n:230,sp:.34,stage:"live",chip:"124",ico:"📇"},
- {id:"sales",div:"agency",name:"Scripts",one:"what to say",col:"#ff6bb0",rf:.056,n:220,sp:-.31,stage:"live",chip:"READY",ico:"💬"},
- {id:"notes",div:"agency",name:"Notes",one:"log each call",col:"#ffd84d",rf:.052,n:180,sp:.29,stage:"live",chip:"0",ico:"📝"},
- {id:"store",div:"agency",name:"Memory",one:"business info",col:"#ffc24d",rf:.05,n:180,sp:.28,stage:"live",chip:"FILES",ico:"🗄️"},
- {id:"engine",div:"agency",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",rf:.05,n:180,sp:-.26,stage:"live",chip:"5 AM",ico:"⚙️"},
- {id:"voice",div:"agency",name:"AI Caller",one:"calls for you",col:"#43dbe6",rf:.044,n:100,sp:.3,stage:"soon",chip:"SOON",ico:"📞"},
- {id:"appt",div:"agency",name:"Booker",one:"sets appts",col:"#a99bff",rf:.044,n:100,sp:-.3,stage:"soon",chip:"SOON",ico:"📅"},
- {id:"tiktok",div:"content",name:"TikTok",one:"daily videos",col:"#ff9a5c",rf:.052,n:120,sp:.3,stage:"soon",chip:"TOMORROW",ico:"🎬"},
- {id:"clone",div:"content",name:"AI Clone",one:"your face on cam",col:"#d07bff",rf:.044,n:100,sp:-.3,stage:"soon",chip:"SOON",ico:"👤"},
- {id:"ecomstore",div:"ecom",name:"Ecom Store",one:"online shop",col:"#ffd84d",rf:.052,n:120,sp:.3,stage:"idea",chip:"IDEA",ico:"🛒"},
- {id:"adstudio",div:"ecom",name:"Ad Studio",one:"makes ads",col:"#ffab5c",rf:.044,n:100,sp:-.3,stage:"idea",chip:"IDEA",ico:"📸"},
- {id:"life",div:"personal",name:"Life Admin",one:"calendar",col:"#a9c0ff",rf:.052,n:120,sp:.3,stage:"idea",chip:"IDEA",ico:"🗓️"},
- {id:"money",div:"personal",name:"Finances",one:"your money",col:"#7ee0c0",rf:.044,n:100,sp:-.3,stage:"idea",chip:"IDEA",ico:"💵"},
+// ===== NEURAL MODEL =====
+const DIVS={agency:{label:"AI Agency",note:"makes money now",dir:Math.PI,spread:2.2,col:"#3dffb0"},content:{label:"Content",note:"builds audience",dir:-Math.PI/2,spread:.8,col:"#ff9a5c"},ecom:{label:"Ecom",note:"future income",dir:0,spread:.8,col:"#ffd84d"},personal:{label:"Personal",note:"your life",dir:Math.PI/2,spread:.8,col:"#a9c0ff"}};
+const AG=[
+ {id:"lead",div:"agency",name:"Leads",one:"companies to call",col:"#3dffb0",ico:"📇",live:1,chip:"124",subs:16},
+ {id:"sales",div:"agency",name:"Scripts",one:"what to say",col:"#ff6bb0",ico:"💬",live:1,chip:"READY",subs:9},
+ {id:"notes",div:"agency",name:"Notes",one:"log each call",col:"#ffd84d",ico:"📝",live:1,chip:"0",subs:6},
+ {id:"store",div:"agency",name:"Memory",one:"business info",col:"#ffc24d",ico:"🗄️",live:1,chip:"FILES",subs:6},
+ {id:"engine",div:"agency",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",ico:"⚙️",live:1,chip:"5AM",subs:7},
+ {id:"voice",div:"agency",name:"AI Caller",one:"calls for you",col:"#43dbe6",ico:"📞",live:0,chip:"SOON",subs:4},
+ {id:"appt",div:"agency",name:"Booker",one:"sets appts",col:"#a99bff",ico:"📅",live:0,chip:"SOON",subs:4},
+ {id:"tiktok",div:"content",name:"TikTok",one:"daily videos",col:"#ff9a5c",ico:"🎬",live:0,chip:"TOMORROW",subs:6},
+ {id:"clone",div:"content",name:"AI Clone",one:"your face on cam",col:"#d07bff",ico:"👤",live:0,chip:"SOON",subs:4},
+ {id:"ecomstore",div:"ecom",name:"Ecom Store",one:"online shop",col:"#ffd84d",ico:"🛒",live:0,chip:"IDEA",subs:6},
+ {id:"adstudio",div:"ecom",name:"Ad Studio",one:"makes ads",col:"#ffab5c",ico:"📸",live:0,chip:"IDEA",subs:4},
+ {id:"life",div:"personal",name:"Life Admin",one:"calendar",col:"#a9c0ff",ico:"🗓️",live:0,chip:"IDEA",subs:6},
+ {id:"money",div:"personal",name:"Finances",one:"your money",col:"#7ee0c0",ico:"💵",live:0,chip:"IDEA",subs:4},
 ];
-const byId=Object.fromEntries(SPH.map(s=>[s.id,s]));
-Object.keys(DIVS).forEach(dk=>{const mem=SPH.filter(s=>s.div===dk),D=DIVS[dk];mem.forEach((s,i)=>{const f=mem.length===1?0:(i/(mem.length-1)-.5);s.ang=D.dir+f*D.spread;s.radN=.36+((i%2)?.11:0);});});
 const GA=Math.PI*(3-Math.sqrt(5));
-SPH.forEach(s=>{s.pts=[];for(let i=0;i<s.n;i++){const y=1-(i/(s.n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;s.pts.push([Math.cos(th)*r,y,Math.sin(th)*r]);}s.rot=Math.random()*6;s.ph=Math.random()*6;s.hov=0;s.pulse=0;s.active=s.stage==="live";});
+function fib(n){const a=[];for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
+const core={id:"core",name:"Command",one:"the brainstem",col:"#5ad8ff",ico:"🧠",live:1,chip:"BRAIN",kind:"core",wx:0,wy:0,r:.115,pts:fib(620),rot:0,ph:0,hov:0,flare:0,click:1};
+const nodes=[core],subs=[],edges=[],clickable=[core];const byId={core};
+Object.keys(DIVS).forEach(dk=>{const mem=AG.filter(a=>a.div===dk),D=DIVS[dk];
+  mem.forEach((a,i)=>{const f=mem.length===1?0:(i/(mem.length-1)-.5);const ang=D.dir+f*D.spread;const rad=.62+((i%2)?.24:0);
+    const n=Object.assign({},a,{kind:"agent",wx:Math.cos(ang)*rad,wy:Math.sin(ang)*rad,r:a.live?.046:.038,pts:fib(a.live?120:80),rot:Math.random()*6,ph:Math.random()*6,hov:0,flare:0,click:1,subEdges:[]});
+    nodes.push(n);byId[a.id]=n;clickable.push(n);
+    const e={a:core,b:n,kind:"core",sign:(i%2?1:-1)*(1+Math.random()*.4)};edges.push(e);
+    // sub-neurons cluster
+    const sc=[];for(let k=0;k<a.subs;k++){const sa=Math.random()*7,sr=.06+Math.random()*.13;const s={kind:"sub",col:a.col,wx:n.wx+Math.cos(sa)*sr,wy:n.wy+Math.sin(sa)*sr,r:.006+Math.random()*.004,flare:0,twk:Math.random()*7,live:a.live};subs.push(s);sc.push(s);const se={a:n,b:s,kind:"sub",sign:(Math.random()<.5?1:-1)*(.6+Math.random()*.6)};edges.push(se);n.subEdges.push(se);}
+    // a few sub-sub links (web)
+    for(let k=0;k<Math.floor(a.subs/2);k++){const x=sc[Math.floor(Math.random()*sc.length)],y=sc[Math.floor(Math.random()*sc.length)];if(x!==y)edges.push({a:x,b:y,kind:"web",sign:(Math.random()<.5?1:-1)*.8});}
+  });
+  // sibling links within division
+  for(let i=0;i<mem.length-1;i++){edges.push({a:byId[mem[i].id],b:byId[mem[i+1].id],kind:"sib",sign:(i%2?1:-1)*1.1});}
+});
+const coreEdges=edges.filter(e=>e.kind==="core");
 
-const cv=document.getElementById("c"),ctx=cv.getContext("2d");
-let W=0,H=0,DPR=1,M=0;
-const pan={x:0,y:0};let zoom=1;const SCALE=.72; // smaller balls = cleaner to walk through
-function CX(s){return W*.5+pan.x+(s.core?0:Math.cos(s.ang)*s.radN*M)*zoom;}
-function CY(s){return H*.5+pan.y+(s.core?0:Math.sin(s.ang)*s.radN*M)*zoom;}
-function RAD(s){return s.rf*M*SCALE*zoom;}
-function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);placeLabels();}
+// ===== CANVAS + CAMERA =====
+const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;
+const pan={x:0,y:0};let zoom=.6;
+function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
+function SX(n){return W*.5+pan.x+n.wx*M*zoom;}
+function SY(n){return H*.5+pan.y+n.wy*M*zoom;}
+function RAD(n){return n.r*M*zoom;}
+// focus zoom (click)
 let focusId=null,open=false,fp=0;
-function pose(s){const bx=CX(s),by=CY(s),bR=RAD(s);if(!focusId||fp<.001)return{x:bx,y:by,R:bR,a:s.active?1:.45};
-  const fx=W*.5,fy=H*.42,fR=Math.min(W,H)*.19;
-  if(s.id===focusId)return{x:bx+(fx-bx)*fp,y:by+(fy-by)*fp,R:bR+(fR-bR)*fp,a:1};
-  return{x:bx,y:by,R:bR,a:(s.active?1:.45)*(1-fp*.9)};}
-function pick(mx,my){let hit=null,best=1e9;SPH.forEach(s=>{const cx=CX(s),cy=CY(s),R=RAD(s);const d=Math.hypot(mx-cx,my-cy);if(d<Math.max(24,R*1.4)&&d<best){best=d;hit=s;}});return hit;}
-// ---- pan / zoom / tap navigation ----
-const mouse={x:-999,y:-999,in:false};
-const ptrs=new Map();let dragS=null,pinchS=null;
+function foc(n){const bx=SX(n),by=SY(n);if(!focusId||fp<.001)return{x:bx,y:by,s:1};const fx=W*.5,fy=H*.42;if(n.id===focusId)return{x:bx+(fx-bx)*fp,y:by+(fy-by)*fp,s:1+fp*.7,dim:1};return{x:bx,y:by,s:1,dim:1-fp*.86};}
+
+const mouse={x:-999,y:-999,in:false};const ptrs=new Map();let dragS=null,pinchS=null;
 function scr(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+function pick(mx,my){let hit=null,best=1e9;clickable.forEach(n=>{const d=Math.hypot(mx-SX(n),my-SY(n));const R=Math.max(26,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
 cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try{cv.setPointerCapture(e.pointerId);}catch(_){}
   if(ptrs.size===1)dragS={x:p.x,y:p.y,px:pan.x,py:pan.y,s:open?null:pick(p.x,p.y),moved:false};
   else if(ptrs.size===2){const a=[...ptrs.values()];pinchS={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),z:zoom};dragS=null;}});
 cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
-  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.5,Math.min(2.6,pinchS.z*d/pinchS.d));return;}
+  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.32,Math.min(3,pinchS.z*d/pinchS.d));return;}
   if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=dragS.px+dx;pan.y=dragS.py+dy;}});
-function endP(e){if(dragS&&!dragS.moved&&dragS.s&&!open){dragS.s.pulse=1;openModal(dragS.s.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
+function endP(e){if(dragS&&!dragS.moved&&dragS.s&&!open){dragS.s.flare=1;openModal(dragS.s.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
 cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
 addEventListener("pointerleave",()=>mouse.in=false);
-cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2.6,zoom*(1-e.deltaY*0.0012)));},{passive:false});
-const feeds=[];SPH.forEach(s=>{if(s.core)return;const cnt=s.active?4:2;for(let k=0;k<cnt;k++)feeds.push({s,t:k/cnt,sp:.13+Math.random()*.07});});
+cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.32,Math.min(3,zoom*(1-e.deltaY*0.0012)));},{passive:false});
+
+// ===== FIRING =====
+const pulses=[];let fireT=0;
+function spawn(e,depth){const col=e.b.col||e.a.col||"#5ad8ff";pulses.push({e,t:0,sp:.5+Math.random()*.5,col,depth});}
+function ctrl(e){const ax=SX(e.a),ay=SY(e.a),bx=SX(e.b),by=SY(e.b);const mx=(ax+bx)/2,my=(ay+by)/2;const dx=bx-ax,dy=by-ay;const len=Math.hypot(dx,dy)||1;return{ax,ay,bx,by,cx:mx-dy/len*len*.18*e.sign,cy:my+dx/len*len*.18*e.sign};}
+function bez(c,t){const u=1-t;return{x:u*u*c.ax+2*u*t*c.cx+t*t*c.bx,y:u*u*c.ay+2*u*t*c.cy+t*t*c.by};}
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;let tPrev=0;
 function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   const tf=open?1:0;fp+=(tf-fp)*.14;if(fp<.01&&!open)focusId=null;
-  labels.style.opacity=(1-fp);labels.style.pointerEvents=fp>.15?"none":"";placeLabels();
-  ctx.clearRect(0,0,W,H);const coreX=CX(byId.core),coreY=CY(byId.core);ctx.globalCompositeOperation="lighter";
-  if(fp<.6){const halo=ctx.createRadialGradient(coreX,coreY,0,coreX,coreY,M*.55);halo.addColorStop(0,`rgba(50,110,150,${.2*(1-fp)})`);halo.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=halo;ctx.beginPath();ctx.arc(coreX,coreY,M*.55,0,7);ctx.fill();}
-  if(!reduce)feeds.forEach(p=>{const sx=CX(p.s),sy=CY(p.s);p.t+=p.sp*dt;if(p.t>1)p.t-=1;const x=sx+(coreX-sx)*p.t,y=sy+(coreY-sy)*p.t;const[R,G,B]=hx(p.s.col);ctx.fillStyle=`rgba(${R},${G},${B},${(p.s.active?.75:.3)*(1-Math.abs(p.t-.5))*(1-fp)})`;ctx.beginPath();ctx.arc(x,y,1.8,0,7);ctx.fill();});
-  SPH.forEach(s=>{const P=pose(s);const cx=P.x,cy=P.y,R0=P.R;
-    const hd=(mouse.in&&!open)?Math.hypot(mouse.x-cx,mouse.y-cy):999;s.hov+=((hd<R0*1.4?1:0)-s.hov)*.15;
-    s.pulse=Math.max(0,s.pulse-dt*1.4);if(!reduce)s.rot+=s.sp*dt;
-    const breathe=reduce?1:(1+.04*Math.sin(t/900+s.ph)+s.pulse*.14);const R=R0*breathe;
-    const base=P.a;const bright=base*(.85+s.hov*.5+s.pulse*.5);const[Rc,Gc,Bc]=hx(s.col);
-    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.8);g.addColorStop(0,`rgba(${Rc},${Gc},${Bc},${(s.active?.3:.13)*(1+s.hov)})`);g.addColorStop(.5,`rgba(${Rc},${Gc},${Bc},${.07*base})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*1.8,0,7);ctx.fill();
-    if(s.core){const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.55);cg.addColorStop(0,`rgba(235,252,255,${.6+s.hov*.3})`);cg.addColorStop(1,"rgba(87,224,255,0)");ctx.fillStyle=cg;ctx.beginPath();ctx.arc(cx,cy,R*.55,0,7);ctx.fill();}
-    const cosR=Math.cos(s.rot),sinR=Math.sin(s.rot),cosT=Math.cos(.42),sinT=Math.sin(.42);
-    for(let i=0;i<s.pts.length;i++){let[x,y,z]=s.pts[i];let x1=x*cosR-z*sinR,z1=x*sinR+z*cosR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;const persp=1/(1-z2*.34);const sx=cx+x1*R*persp,sy=cy+y1*R*persp;const depth=(z2+1)/2;const size=(0.6+depth*1.9)*(R0/60)*(s.active?1:.8);ctx.fillStyle=`rgba(${Rc},${Gc},${Bc},${(0.16+depth*0.95)*bright})`;ctx.fillRect(sx-size/2,sy-size/2,size,size);}
-    if(s.core){const r2=s.rot*-1.3,cR=Math.cos(r2),sR=Math.sin(r2);for(let i=0;i<s.pts.length;i+=2){let[x,y,z]=s.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;const persp=1/(1-z2*.34);const sx=cx+x1*R*.62*persp,sy=cy+y1*R*.62*persp;const depth=(z2+1)/2;ctx.fillStyle=`rgba(215,245,255,${(0.1+depth*.5)*bright})`;ctx.fillRect(sx-1,sy-1,1.8,1.8);}}
-    if(s.id===focusId&&fp>.2){for(let k=0;k<8;k++){const a=t/1500+k*Math.PI/4,rr=R*1.55,sx2=cx+Math.cos(a)*rr,sy2=cy+Math.sin(a)*rr*.5;ctx.fillStyle="rgba("+Rc+","+Gc+","+Bc+","+(.7*fp)+")";ctx.beginPath();ctx.arc(sx2,sy2,2.4,0,7);ctx.fill();}}
+  labels.style.opacity=(1-fp);
+  ctx.clearRect(0,0,W,H);
+  // vignette
+  const cxp=W*.5+pan.x*.2,cyp=H*.5+pan.y*.2;const bg=ctx.createRadialGradient(cxp,cyp,0,cxp,cyp,Math.max(W,H)*.9);bg.addColorStop(0,"#070d1c");bg.addColorStop(.6,"#04060e");bg.addColorStop(1,"#000");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  ctx.globalCompositeOperation="lighter";
+  // firing scheduler
+  if(!reduce){fireT-=dt;if(fireT<=0){fireT=1.8+Math.random()*1.4;core.flare=1;coreEdges.forEach(e=>spawn(e,0));}
+    // ambient random sub twinkle
+    if(Math.random()<.3){const s=subs[Math.floor(Math.random()*subs.length)];if(s)s.flare=Math.max(s.flare,.7);}}
+  // EDGES (curved)
+  edges.forEach(e=>{const c=ctrl(e);const[R,G,B]=hx(e.b.col||e.a.col||"#5ad8ff");
+    const act=Math.max(e.a.flare||0,e.b.flare||0,e.a.hov||0,e.b.hov||0);const live=(e.a.live!==0&&e.b.live!==0);
+    const base=(e.kind==="core"?.14:e.kind==="sub"?.09:.06)*(live?1:.5);const al=(base+act*.5)*(1-fp*.7);
+    if(al<.01)return;ctx.strokeStyle=`rgba(${R},${G},${B},${al})`;ctx.lineWidth=(e.kind==="core"?1.4:.9)*(1+act);
+    ctx.beginPath();ctx.moveTo(c.ax,c.ay);ctx.quadraticCurveTo(c.cx,c.cy,c.bx,c.by);ctx.stroke();});
+  // PULSES
+  for(let i=pulses.length-1;i>=0;i--){const p=pulses[i];p.t+=p.sp*dt;const c=ctrl(p.e);const pt=bez(c,Math.min(p.t,1));const[R,G,B]=hx(p.col);
+    const g=ctx.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,10);g.addColorStop(0,`rgba(${R},${G},${B},.9)`);g.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(pt.x,pt.y,10,0,7);ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,.9)";ctx.beginPath();ctx.arc(pt.x,pt.y,1.6,0,7);ctx.fill();
+    if(p.t>=1){p.e.b.flare=1;if(p.depth===0&&p.e.b.subEdges)p.e.b.subEdges.forEach(se=>{if(Math.random()<.85)spawn(se,1);});pulses.splice(i,1);}}
+  // SUB NEURONS
+  subs.forEach(s=>{s.flare=Math.max(0,s.flare-dt*1.3);const x=SX(s),y=SY(s);if(x<-40||x>W+40||y<-40||y>H+40)return;const[R,G,B]=hx(s.col);
+    const tw=reduce?.5:(Math.sin(t/600+s.twk)*.5+.5);const a=(.25+tw*.4+s.flare*.7)*(s.live?1:.5)*foc(s).dim;const r=RAD(s)*(1+s.flare*1.4);
+    const g=ctx.createRadialGradient(x,y,0,x,y,r*4);g.addColorStop(0,`rgba(${R},${G},${B},${a})`);g.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*4,0,7);ctx.fill();
+    ctx.fillStyle=`rgba(${R},${G},${B},${Math.min(1,a*1.6)})`;ctx.beginPath();ctx.arc(x,y,Math.max(1,r),0,7);ctx.fill();});
+  // AGENT + CORE dotted spheres
+  nodes.forEach(n=>{const P=foc(n);const cx=P.x,cy=P.y;const dimf=P.dim||1;
+    const hd=(mouse.in&&!open)?Math.hypot(mouse.x-cx,mouse.y-cy):999;n.hov+=((hd<RAD(n)*1.6?1:0)-n.hov)*.15;
+    n.flare=Math.max(0,n.flare-dt*1.1);if(!reduce)n.rot+=(n.kind==="core"?.14:.3)*dt;
+    const breathe=reduce?1:(1+.04*Math.sin(t/900+n.ph)+n.flare*.12);const R=RAD(n)*breathe*P.s;
+    const base=(n.live?1:.5)*dimf;const bright=base*(.8+n.hov*.5+n.flare*.6);const[Rc,Gc,Bc]=hx(n.col);
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*2);g.addColorStop(0,`rgba(${Rc},${Gc},${Bc},${(n.kind==="core"?.34:.26)*base*(1+n.hov+n.flare)})`);g.addColorStop(.5,`rgba(${Rc},${Gc},${Bc},${.07*base})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*2,0,7);ctx.fill();
+    if(n.kind==="core"){const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.55);cg.addColorStop(0,`rgba(235,252,255,${.6+n.flare*.3})`);cg.addColorStop(1,"rgba(90,216,255,0)");ctx.fillStyle=cg;ctx.beginPath();ctx.arc(cx,cy,R*.55,0,7);ctx.fill();}
+    const cosR=Math.cos(n.rot),sinR=Math.sin(n.rot),cosT=Math.cos(.42),sinT=Math.sin(.42);
+    for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cosR-z*sinR,z1=x*sinR+z*cosR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;const persp=1/(1-z2*.34);const sx=cx+x1*R*persp,sy=cy+y1*R*persp;const depth=(z2+1)/2;const size=(0.6+depth*1.8)*(RAD(n)/44)*(n.live?1:.8);if(size<.3)continue;ctx.fillStyle=`rgba(${Rc},${Gc},${Bc},${(0.16+depth*.9)*bright})`;ctx.fillRect(sx-size/2,sy-size/2,size,size);}
+    if(n.id===focusId&&fp>.2){for(let k=0;k<8;k++){const a=t/1500+k*Math.PI/4,rr=R*1.5,sx2=cx+Math.cos(a)*rr,sy2=cy+Math.sin(a)*rr*.5;ctx.fillStyle=`rgba(${Rc},${Gc},${Bc},${.7*fp})`;ctx.beginPath();ctx.arc(sx2,sy2,2.4,0,7);ctx.fill();}}
   });
-  ctx.globalCompositeOperation="source-over";requestAnimationFrame(frame);
+  ctx.globalCompositeOperation="source-over";placeLabels();requestAnimationFrame(frame);
 }
-const labels=document.getElementById("labels");
-SPH.forEach(s=>{const d=document.createElement("div");d.className="lbl"+(s.active?"":" soon");d.innerHTML=`<div class="nm" style="color:${s.col}">${s.name}</div><div class="one">${s.one}</div><div class="chip" style="color:${s.col}">${s.chip}</div>`;d.addEventListener("click",()=>{s.pulse=1;openModal(s.id);});labels.appendChild(d);s.el=d;});
-const dls={};Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const d=document.createElement("div");d.className="dlbl";d.style.color=D.col;d.innerHTML=`<b>${D.label}</b><small>${D.note}</small>`;labels.appendChild(d);dls[dk]=d;});
-function placeLabels(){SPH.forEach(s=>{s.el.style.left=CX(s)+"px";s.el.style.top=(CY(s)+RAD(s)+9)+"px";});Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];dls[dk].style.left=(W*.5+pan.x+Math.cos(D.dir)*.52*M*zoom)+"px";dls[dk].style.top=(H*.5+pan.y+Math.sin(D.dir)*.52*M*zoom)+"px";});}
-if(byId.notes.el)byId.notes.el.querySelector(".chip").textContent=Object.keys(NOTES).length;
 
-// ===== MODAL =====
+// ===== LABELS =====
+const labels=document.getElementById("labels");
+clickable.forEach(n=>{if(n.id==="core")return;const d=document.createElement("div");d.className="lbl"+(n.live?"":" soon");d.innerHTML=`<div class="nm" style="color:${n.col}">${n.name}</div><div class="one">${n.one}</div><div class="chip" style="color:${n.col}">${n.chip}</div>`;labels.appendChild(d);n.lel=d;});
+const hubLabel=document.createElement("div");hubLabel.className="lbl";hubLabel.innerHTML=`<div class="nm" style="color:${core.col};font-size:16px">🧠 Command</div><div class="one">the brainstem — tap for everything</div>`;labels.appendChild(hubLabel);
+const dls={};Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const d=document.createElement("div");d.className="dlbl";d.style.color=D.col;d.innerHTML=`<b>${D.label}</b><small>${D.note}</small>`;labels.appendChild(d);dls[dk]=d;});
+function placeLabels(){clickable.forEach(n=>{if(!n.lel)return;n.lel.style.left=SX(n)+"px";n.lel.style.top=(SY(n)+RAD(n)*1.6+16)+"px";const off=(SX(n)<-60||SX(n)>W+60||SY(n)<-60||SY(n)>H+60);n.lel.style.opacity=off?0:"";});
+  hubLabel.style.left=SX(core)+"px";hubLabel.style.top=(SY(core)+RAD(core)+22)+"px";
+  Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const wx=Math.cos(D.dir)*1.02,wy=Math.sin(D.dir)*1.02;dls[dk].style.left=(W*.5+pan.x+wx*M*zoom)+"px";dls[dk].style.top=(H*.5+pan.y+wy*M*zoom)+"px";});}
+
+// ===== MODAL / WORK (real data) =====
 function tel(d){return d?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:"";}
 function dial(p){return p?p.replace(/\D/g,""):"";}
 function esc(s){return(s||"").replace(/"/g,"&quot;");}
 const WORK={
  core:()=>`<div class="sec"><div class="s-lbl">The money</div><div class="say"><b style="font-size:26px;color:var(--core)">${DATA.kpis.mrr}</b> of $10,000/mo · <b>${DATA.kpis.clients}</b> clients · <b>${DATA.kpis.leads}</b> leads · <b>${DATA.kpis.dials.split("/")[0]}</b> called today</div></div>
   <div class="sec"><div class="s-lbl">Where your leads stand</div><div class="bars">${STAGES.map(([k,label])=>{const v=DATA.pipeline[k]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x[0]]||0));return`<div class="bar"><span class="bn">${label}</span><span class="bt"><i style="width:${v/mx*100}%"></i></span><span class="bv">${v}</span></div>`;}).join("")}</div></div>
-  <div class="sec"><div class="s-lbl">Biggest thing holding you back</div><div class="say">Not how many calls you make — you make plenty. It's turning calls into demos. Your demo line is now wired into every script: <b>(314) 887-9824</b>. Call it once yourself to confirm it rings, then go.</div></div>
-  <div class="sec"><div class="s-lbl">Do this next</div><div class="say"><b>1.</b> Call <b>(314) 887-9824</b> — confirm it picks up and handles a fake 2am water call.<br><b>2.</b> Call the green leads.<br><b>3.</b> Log each call in Notes.</div></div>`,
- lead:()=>`<div class="sec"><div class="s-lbl">Companies to call <span>${DATA.leadList.length} · tap 📝 to add a note</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><div class="lr"><span class="td" style="background:${l.p?'var(--agency)':'var(--ecom)'}"></span><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dial(l.p)}">${l.p}</a>`:`<span class="noph">no #</span>`}<button class="ntbtn ${NOTES[l.co]?'has':''}" data-co="${esc(l.co)}">📝</button></div><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened on the call? (no answer, gatekeeper, callback Tue, interested…)">${esc(NOTES[l.co]||"")}</textarea></div>`).join("")}</div>`,
- notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap 📝 on any company, and jot what happened on the call. It saves on your device and shows up here.</div>'}</div><div class="sec"><button class="btn" id="notesCsv">⬇ Export notes + leads CSV</button></div>`;},
+  <div class="sec"><div class="s-lbl">Do this next</div><div class="say"><b>1.</b> Call <b>(314) 887-9824</b> — confirm your demo line rings and handles a fake 2am water call.<br><b>2.</b> Call the green leads.<br><b>3.</b> Log each call in Notes.</div></div>`,
+ lead:()=>`<div class="sec"><div class="s-lbl">Companies to call <span>${DATA.leadList.length} · tap 📝 to note</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><div class="lr"><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dial(l.p)}">${l.p}</a>`:`<span class="noph">no #</span>`}<button class="ntbtn ${NOTES[l.co]?'has':''}" data-co="${esc(l.co)}">📝</button></div><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue, interested…)">${esc(NOTES[l.co]||"")}</textarea></div>`).join("")}</div>`,
+ notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap 📝 on a company, and jot what happened. Saves on your device, shows here, and rides along in the CSV.</div>'}</div><div class="sec"><button class="btn" id="notesCsv">⬇ Export notes + leads CSV</button></div>`;},
  sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div>
   <div class="sec"><div class="s-lbl">What to open with</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]} · ${o[2]}</div><div class="sc">${tel(o[3])}</div></div><a class="tel" href="tel:+1${o[3]}">Call</a></div>${o[4]?`<div class="flag">⚠ ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
  store:()=>`<div class="sec"><div class="s-lbl">Everything the team remembers</div>
-   <div class="fr"><div><div class="fl">Your offer & pricing</div><div class="fm">$500/mo, setup waived for first 3</div></div><span class="badge on">Set</span></div>
-   <div class="fr"><div><div class="fl">Decisions made</div><div class="fm">pivot, pricing, phone-first</div></div><span class="badge on">Saved</span></div>
+   <div class="fr"><div><div class="fl">Offer & pricing</div><div class="fm">$500/mo, setup waived for first 3</div></div><span class="badge on">Set</span></div>
+   <div class="fr"><div><div class="fl">Demo line</div><div class="fm">(314) 887-9824 — in every script</div></div><span class="badge on">Wired</span></div>
    <div class="fr"><div><div class="fl">Your leads</div><div class="fm">${DATA.pipeline.new||0} waiting</div></div><span class="badge warn">${DATA.pipeline.new||0}</span></div>
    <div class="fr"><div><div class="fl">Call notes</div><div class="fm">${Object.keys(NOTES).length} logged on this device</div></div><span class="badge ${Object.keys(NOTES).length?'on':'empty'}">${Object.keys(NOTES).length||'—'}</span></div></div>`,
- engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b> it finds ~150 new companies, checks the numbers, writes what to say, and adds them to your list — while you sleep.</div></div>
-  <div class="sec"><div class="s-lbl">Latest run</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
+ engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b> it finds ~150 new companies, checks the numbers, writes what to say (with your real demo line), and adds them to your list — while you sleep.</div></div>
+  <div class="sec"><div class="s-lbl">Latest</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
  voice:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>An AI that makes the calls for you</b> — same tech as your demo, pointed at the lead list.</div></div>`,
  appt:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>Books appointments into your calendar</b> when a lead replies.</div></div>`,
  tiktok:()=>`<div class="sec"><div class="s-lbl">Building tomorrow</div><div class="say"><b>Makes a faceless AI story video every day</b> to post on TikTok for views. Needs a video + posting tool (~$50–150/mo).</div></div>`,
  clone:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>An AI version of your voice and face</b> for content videos.</div></div>`,
- ecomstore:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>An online store</b> — finds a product, builds it, runs ads. Best started once the agency's making money.</div></div>`,
+ ecomstore:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>An online store</b> — finds a product, builds it, runs ads. Best once the agency's making money.</div></div>`,
  adstudio:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Makes the photos, video, and copy</b> for the store's ads.</div></div>`,
  life:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Your personal assistant</b> — calendar, reminders, errands, travel.</div></div>`,
  money:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Watches your money</b> — spending, bills, savings goals.</div></div>`,
 };
-const SUB={core:"The brain. All your key info and what to do next.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments.",tiktok:"Daily AI videos for views.",clone:"An AI you for content.",ecomstore:"An online store for profit.",adstudio:"Makes the store's ads.",life:"Runs your personal life admin.",money:"Watches your finances."};
+const SUB={core:"The brainstem. All your key info and what to do next.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments.",tiktok:"Daily AI videos for views.",clone:"An AI you for content.",ecomstore:"An online store for profit.",adstudio:"Makes the store's ads.",life:"Runs your personal life admin.",money:"Watches your finances."};
 const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
-function openModal(id){const s=byId[id];focusId=id;open=true;mey.textContent=s.active?"Working now":(s.stage==="idea"?"Just an idea":"Coming soon");mey.style.color=s.col;mname.textContent=s.name;msub.textContent=SUB[id]||"";
-  morb.textContent=s.ico;morb.style.background=`rgba(${hx(s.col).join(",")},.14)`;morb.style.color=s.col;
-  mbody.innerHTML=WORK[id]();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
+function openModal(id){const n=byId[id];focusId=id;open=true;mey.textContent=n.live?"Working now":(n.chip==="IDEA"?"Just an idea":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";
+  morb.textContent=n.ico;morb.style.background=`rgba(${hx(n.col).join(",")},.14)`;morb.style.color=n.col;
+  mbody.innerHTML=(WORK[id]||(()=>""))();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
 function closeModal(){open=false;scrim.classList.remove("open");modal.classList.remove("open");}
-function wireModal(){
-  mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));
+function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));
   mbody.querySelectorAll("textarea[data-co]").forEach(ta=>ta.addEventListener("input",()=>{saveNote(ta.dataset.co,ta.value);const b=mbody.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(b)b.classList.toggle("has",!!ta.value.trim());}));
-  const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);
-}
+  const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);}
 document.getElementById("mx").addEventListener("click",closeModal);scrim.addEventListener("click",closeModal);
 addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 
-// ===== CSV EXPORT =====
-function exportCSV(){
-  const rows=[["Company","Contact / Owner","Phone","Note"]];
-  DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));
-  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");
-  const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);
-}
+function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
 document.getElementById("exportBtn").addEventListener("click",exportCSV);
 
 // ===== CHAT =====
 const log=document.getElementById("log"),cinp=document.getElementById("cinp");
 function add(cls,html){const m=document.createElement("div");m.className="msg "+cls;m.innerHTML=html;log.appendChild(m);log.scrollTop=log.scrollHeight;}
 function reply(q){const s=q.toLowerCase();const ph=DATA.leadList.filter(l=>l.p).length;
-  if(/hi|hey|hello|yo|sup/.test(s)&&s.length<12)return "<b>Command:</b> Hey. Ask me about leads, what to say, what's next, notes, or the 5am engine.";
-  if(/how many|lead|compan|call list/.test(s))return `<b>Leads:</b> <b>${DATA.kpis.leads}</b> companies in the pipeline, <b>${ph}</b> with a phone ready to dial. Hottest: ${DATA.leadList.slice(0,3).map(l=>l.co).join(", ")}. Tap the Leads ball for the list, or Export CSV top-right.`;
-  if(/csv|export|dialer|download/.test(s))return "<b>Command:</b> Hit <b>Export leads CSV</b> top-right — it downloads every company, phone, and your notes, ready for the auto-dialer.";
-  if(/note|log|track/.test(s))return "<b>Notes:</b> Open Leads, tap 📝 on any company, and write what happened. It saves on your device and shows in the Notes ball — and it's included in the CSV export.";
-  if(/next|what.*do|priority|today/.test(s))return "<b>Command:</b> First — <b>verify your Vapi demo line</b> works for a stranger. Then call the green leads and log each in Notes.";
-  if(/say|script|opener|pitch|objection|push/.test(s))return "<b>Scripts:</b> Open with — “Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it, 90 seconds.” Tap Scripts for the push-back answers.";
-  if(/money|revenue|mrr|close|client/.test(s))return `<b>Command:</b> Revenue <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week, make them case studies.`;
-  if(/engine|5am|auto|source|find more/.test(s))return "<b>Auto-Leads:</b> I run at 5am and add ~150 phone-checked companies. Last run grew you to "+DATA.kpis.leads+". Ask your operator to trigger me early anytime.";
-  if(/tiktok|video|content|clone/.test(s))return "<b>Content:</b> TikTok's next — daily AI story videos you post yourself. Needs a video + posting tool.";
-  return "<b>Command:</b> I can talk leads, scripts, notes, CSV, next steps, revenue, or the engine. Try the buttons — or have your operator wire me to full AI for open chat.";}
-function send(q){if(!q.trim())return;add("me",q);cinp.value="";setTimeout(()=>add("ai",reply(q)),360);}
-document.getElementById("csend").addEventListener("click",()=>send(cinp.value));
-cinp.addEventListener("keydown",e=>{if(e.key==="Enter")send(cinp.value);});
+  if(/hi|hey|hello|yo|sup/.test(s)&&s.length<12)return "<b>Command:</b> Hey. Ask me about leads, what to say, notes, CSV, next steps, or the 5am engine.";
+  if(/how many|lead|compan|call list/.test(s))return `<b>Leads:</b> <b>${DATA.kpis.leads}</b> companies, <b>${ph}</b> with a phone ready to dial. Hottest: ${DATA.leadList.slice(0,3).map(l=>l.co).join(", ")}.`;
+  if(/csv|export|dialer|download/.test(s))return "<b>Command:</b> Hit <b>Export leads CSV</b> top-right — every company, phone, and note, ready for the auto-dialer.";
+  if(/note|log|track/.test(s))return "<b>Notes:</b> Open Leads, tap 📝 on a company, write what happened. Saves on your device, shows in the Notes neuron, and lands in the CSV.";
+  if(/next|what.*do|priority|today/.test(s))return "<b>Command:</b> First — <b>call (314) 887-9824</b> and confirm your demo line works. Then dial the green leads and log each in Notes.";
+  if(/say|script|opener|pitch|objection|push/.test(s))return "<b>Scripts:</b> Open with — “Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it, 90 seconds.” Tap Scripts for push-back answers.";
+  if(/demo|vapi|number|line/.test(s))return "<b>Command:</b> Your demo line <b>(314) 887-9824</b> is wired into every script. Call it once yourself to make sure it rings and sounds right.";
+  if(/money|revenue|mrr|close|client/.test(s))return `<b>Command:</b> Revenue <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week.`;
+  if(/engine|5am|auto|source|find more/.test(s))return "<b>Auto-Leads:</b> I run at 5am and add ~150 phone-checked companies. You're at "+DATA.kpis.leads+" now.";
+  if(/tiktok|video|content|clone/.test(s))return "<b>Content:</b> TikTok's next — daily AI story videos you post yourself.";
+  return "<b>Command:</b> I can talk leads, scripts, notes, CSV, next steps, revenue, or the engine. Try the buttons — or have your operator wire me to full AI.";}
+function send(q){if(!q.trim())return;add("me",q);cinp.value="";setTimeout(()=>add("ai",reply(q)),340);}
+document.getElementById("csend").addEventListener("click",()=>send(cinp.value));cinp.addEventListener("keydown",e=>{if(e.key==="Enter")send(cinp.value);});
 const chips=document.getElementById("chips");["How many leads?","What do I say?","How do notes work?","What's next?"].forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>send(c);chips.appendChild(b);});
 document.getElementById("chatHead").addEventListener("click",()=>{const c=document.getElementById("chat");c.classList.toggle("min");document.getElementById("chatToggle").textContent=c.classList.contains("min")?"▴":"▾";});
 add("ai","<b>Command:</b> Your team's online. Ask about leads, scripts, or notes — buttons below.");
@@ -293,15 +319,15 @@ const last={};
 function flash(id){const el=document.getElementById(id);el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
 function renderKpis(){const set=(id,html,key)=>{const el=document.getElementById(id);el.innerHTML=html;if(last[key]!==undefined&&last[key]!==html)flash(id);last[key]=html;};
   set("k-mrr",DATA.kpis.mrr+'<small>/10k</small>',"m");set("k-leads",String(DATA.kpis.leads),"l");set("k-dials",DATA.kpis.dials.split("/")[0]+'<small>/'+DATA.kpis.dials.split("/")[1]+'</small>',"d");set("k-clients",String(DATA.kpis.clients),"c");
-  if(byId.lead.el)byId.lead.el.querySelector(".chip").textContent=DATA.kpis.leads;}
+  if(byId.lead.lel)byId.lead.lel.querySelector(".chip").textContent=DATA.kpis.leads;if(byId.notes.lel)byId.notes.lel.querySelector(".chip").textContent=Object.keys(NOTES).length;}
 async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
   const counts={};STAGES.forEach(s=>counts[s[0]]=0);const list=[];let won=false;
   txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("| "))return;const c=line.split("|").map(x=>x.trim());if(c.length<4||c[1]===""||c[1]==="Company")return;const st=c[3].toLowerCase();if(!STAGES.some(s=>s[0]===st))return;counts[st]++;if(st==="new"){const m=(c[2]||"").match(/\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/);list.push({co:c[1],c:c[2],p:m?m[0]:""});}});
   if(list.length){DATA.pipeline=counts;DATA.kpis.leads=Object.values(counts).reduce((a,b)=>a+b,0);DATA.leadList=list;}
   const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const lr=rows[rows.length-1];if(lr){const c=lr.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
-  document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' leads</b> in your files';renderKpis();
+  document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' neurons</b> firing';renderKpis();
 }catch(e){document.getElementById("liveTxt").innerHTML='<b>'+DATA.kpis.leads+' leads</b> · snapshot';renderKpis();}}
-document.getElementById("resetView").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=1;});
-setTimeout(()=>{const h=document.getElementById("hint");if(h)h.style.opacity="0";},6500);
+document.getElementById("resetView").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.6;});
+setTimeout(()=>{const h=document.getElementById("hint");if(h)h.style.opacity="0";},7000);
 resize();renderKpis();requestAnimationFrame(frame);hydrate();setInterval(hydrate,5000);
 </script>
