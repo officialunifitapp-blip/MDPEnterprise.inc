@@ -43,7 +43,9 @@
       "Bash(git push *)",
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Redesign: 3D breathing team room \\(SVG robot teammates, CSS perspective\\) *)",
       "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Redesign: dotted AI spheres, plain-English info, no space bg *)",
-      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Load all 25 leads into call queue; make Store lead count dynamic *)"
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Load all 25 leads into call queue; make Store lead count dynamic *)",
+      "Bash(node -e \"const s=require\\('fs'\\).readFileSync\\('index.html','utf8'\\).match\\(/<script>\\([\\\\s\\\\S]*\\)<\\\\/script>/\\)[1]; new Function\\(s.replace\\(/document|addEventListener|matchMedia|innerWidth|innerHeight|devicePixelRatio|requestAnimationFrame/g,'\\({}\\)'\\)\\); console.log\\('JS parse: OK'\\);\")",
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Divisions \\(Agency/Content/Ecom/Personal\\) on black; click zooms into sphere instead of side drawer *)"
     ]
   }
 }
