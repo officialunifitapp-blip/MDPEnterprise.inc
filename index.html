@@ -102,7 +102,7 @@
       <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called</div></div>
       <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
     </div>
-    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="expandBtn">Collapse all</button><button class="pill exp2" id="resetBtn">Reset view</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
+    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="expandBtn">Expand all</button><button class="pill exp2" id="resetBtn">Reset view</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
   </div>
 </div>
 <div class="livebar"><i></i><span id="liveTxt">waking up…</span></div>
@@ -159,9 +159,9 @@ const WORLDS=[
  ]},
 ];
 const byId={ceo:CEO};
-WORLDS.forEach(w=>{w.open=0;w.wantOpen=true;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
-  const arc=Math.min(1.5,w.kids.length*.3);
-  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.radN=.42+((i%2)?.1:0);k.hov=0;k.kind="kid";k.world=w;k.r=.028;byId[k.id]=k;});});
+WORLDS.forEach(w=>{w.open=0;w.wantOpen=false;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
+  const arc=Math.min(1.6,w.kids.length*.32);
+  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.radN=.46+((i%2)?.13:0);k.hov=0;k.kind="kid";k.world=w;k.r=.028;byId[k.id]=k;});});
 byId.manager={id:"manager",name:"Everything",col:"#5ad8ff",live:1};
 const CROSS=[["tk_video","ec_creative"],["sales","tk_writer"],["b2b","ec_creative"]].map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
 
@@ -186,7 +186,7 @@ cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try
 cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=p.x;mouse.y=p.y;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
   if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.4,Math.min(2.4,pinchS.z*d/pinchS.d));return;}
   if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=dragS.px+dx;pan.y=dragS.py+dy;}});
-function endP(e){if(dragS&&!dragS.moved&&dragS.hit){const n=dragS.hit;if(n.id==="ceo")openChat();else if(n.kind==="world")n.wantOpen=!n.wantOpen;else openModal(n.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
+function endP(e){if(dragS&&!dragS.moved&&dragS.hit){const n=dragS.hit;if(n.id==="ceo")openChat();else if(n.kind==="world"){const was=n.wantOpen;WORLDS.forEach(w=>w.wantOpen=false);n.wantOpen=!was;}else openModal(n.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
 cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
 addEventListener("pointerleave",()=>mouse.in=false);
 cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.4,Math.min(2.4,zoom*(1-e.deltaY*0.0012)));},{passive:false});
