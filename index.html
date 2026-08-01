@@ -102,6 +102,7 @@
       <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called</div></div>
       <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
     </div>
+    <button class="exp" id="mgrBtn" style="color:var(--core);background:rgba(90,216,255,.14);border-color:rgba(90,216,255,.5)">📖 Manager · see everything</button>
     <button class="exp" id="exportBtn">⬇ Export leads CSV</button>
   </div>
 </div>
@@ -150,12 +151,12 @@ function fib(n){const a=[];for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqr
 const core={id:"core",name:"Command",one:"the brainstem",col:"#5ad8ff",ico:"🧠",live:1,chip:"BRAIN",kind:"core",wx:0,wy:0,r:.115,pts:fib(620),rot:0,ph:0,hov:0,flare:0,click:1};
 const nodes=[core],subs=[],edges=[],clickable=[core];const byId={core};
 Object.keys(DIVS).forEach(dk=>{const mem=AG.filter(a=>a.div===dk),D=DIVS[dk];
-  mem.forEach((a,i)=>{const f=mem.length===1?0:(i/(mem.length-1)-.5);const ang=D.dir+f*D.spread;const rad=.62+((i%2)?.24:0);
+  mem.forEach((a,i)=>{const f=mem.length===1?0:(i/(mem.length-1)-.5);const ang=D.dir+f*D.spread;const rad=.82+((i%2)?.3:0);
     const n=Object.assign({},a,{kind:"agent",wx:Math.cos(ang)*rad,wy:Math.sin(ang)*rad,r:a.live?.046:.038,pts:fib(a.live?120:80),rot:Math.random()*6,ph:Math.random()*6,hov:0,flare:0,click:1,subEdges:[]});
     nodes.push(n);byId[a.id]=n;clickable.push(n);
     const e={a:core,b:n,kind:"core",sign:(i%2?1:-1)*(1+Math.random()*.4)};edges.push(e);
     // sub-neurons cluster
-    const sc=[];for(let k=0;k<a.subs;k++){const sa=Math.random()*7,sr=.06+Math.random()*.13;const s={kind:"sub",col:a.col,wx:n.wx+Math.cos(sa)*sr,wy:n.wy+Math.sin(sa)*sr,r:.006+Math.random()*.004,flare:0,twk:Math.random()*7,live:a.live};subs.push(s);sc.push(s);const se={a:n,b:s,kind:"sub",sign:(Math.random()<.5?1:-1)*(.6+Math.random()*.6)};edges.push(se);n.subEdges.push(se);}
+    const sc=[];for(let k=0;k<a.subs;k++){const sa=Math.random()*7,sr=.03+Math.random()*.07;const s={kind:"sub",col:a.col,wx:n.wx+Math.cos(sa)*sr,wy:n.wy+Math.sin(sa)*sr,r:.006+Math.random()*.004,flare:0,twk:Math.random()*7,live:a.live};subs.push(s);sc.push(s);const se={a:n,b:s,kind:"sub",sign:(Math.random()<.5?1:-1)*(.6+Math.random()*.6)};edges.push(se);n.subEdges.push(se);}
     // a few sub-sub links (web)
     for(let k=0;k<Math.floor(a.subs/2);k++){const x=sc[Math.floor(Math.random()*sc.length)],y=sc[Math.floor(Math.random()*sc.length)];if(x!==y)edges.push({a:x,b:y,kind:"web",sign:(Math.random()<.5?1:-1)*.8});}
   });
@@ -163,10 +164,11 @@ Object.keys(DIVS).forEach(dk=>{const mem=AG.filter(a=>a.div===dk),D=DIVS[dk];
   for(let i=0;i<mem.length-1;i++){edges.push({a:byId[mem[i].id],b:byId[mem[i+1].id],kind:"sib",sign:(i%2?1:-1)*1.1});}
 });
 const coreEdges=edges.filter(e=>e.kind==="core");
+byId.manager={id:"manager",name:"Everything",ico:"📖",col:"#5ad8ff",live:1,chip:""};
 
 // ===== CANVAS + CAMERA =====
 const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;
-const pan={x:0,y:0};let zoom=.6;
+const pan={x:0,y:0};let zoom=.44;
 function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
@@ -184,12 +186,12 @@ cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try
   if(ptrs.size===1)dragS={x:p.x,y:p.y,px:pan.x,py:pan.y,s:open?null:pick(p.x,p.y),moved:false};
   else if(ptrs.size===2){const a=[...ptrs.values()];pinchS={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),z:zoom};dragS=null;}});
 cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
-  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.32,Math.min(3,pinchS.z*d/pinchS.d));return;}
+  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.26,Math.min(3,pinchS.z*d/pinchS.d));return;}
   if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=dragS.px+dx;pan.y=dragS.py+dy;}});
 function endP(e){if(dragS&&!dragS.moved&&dragS.s&&!open){dragS.s.flare=1;openModal(dragS.s.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
 cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
 addEventListener("pointerleave",()=>mouse.in=false);
-cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.32,Math.min(3,zoom*(1-e.deltaY*0.0012)));},{passive:false});
+cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.26,Math.min(3,zoom*(1-e.deltaY*0.0012)));},{passive:false});
 
 // ===== FIRING =====
 const pulses=[];let fireT=0;
@@ -205,10 +207,11 @@ function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   // vignette
   const cxp=W*.5+pan.x*.2,cyp=H*.5+pan.y*.2;const bg=ctx.createRadialGradient(cxp,cyp,0,cxp,cyp,Math.max(W,H)*.9);bg.addColorStop(0,"#070d1c");bg.addColorStop(.6,"#04060e");bg.addColorStop(1,"#000");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
   ctx.globalCompositeOperation="lighter";
+  Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const ix=W*.5+pan.x+Math.cos(D.dir)*1.0*M*zoom,iy=H*.5+pan.y+Math.sin(D.dir)*1.0*M*zoom;const cc=hx(D.col);const rr=.44*M*zoom;const gg=ctx.createRadialGradient(ix,iy,0,ix,iy,rr);gg.addColorStop(0,`rgba(${cc[0]},${cc[1]},${cc[2]},.05)`);gg.addColorStop(.7,`rgba(${cc[0]},${cc[1]},${cc[2]},.015)`);gg.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=gg;ctx.beginPath();ctx.arc(ix,iy,rr,0,7);ctx.fill();});
   // firing scheduler
-  if(!reduce){fireT-=dt;if(fireT<=0){fireT=1.8+Math.random()*1.4;core.flare=1;coreEdges.forEach(e=>spawn(e,0));}
+  if(!reduce){fireT-=dt;if(fireT<=0){fireT=3.8+Math.random()*2.6;core.flare=1;coreEdges.forEach(e=>spawn(e,0));}
     // ambient random sub twinkle
-    if(Math.random()<.3){const s=subs[Math.floor(Math.random()*subs.length)];if(s)s.flare=Math.max(s.flare,.7);}}
+    if(Math.random()<.1){const s=subs[Math.floor(Math.random()*subs.length)];if(s)s.flare=Math.max(s.flare,.7);}}
   // EDGES (curved)
   edges.forEach(e=>{const c=ctrl(e);const[R,G,B]=hx(e.b.col||e.a.col||"#5ad8ff");
     const act=Math.max(e.a.flare||0,e.b.flare||0,e.a.hov||0,e.b.hov||0);const live=(e.a.live!==0&&e.b.live!==0);
@@ -231,7 +234,7 @@ function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
     n.flare=Math.max(0,n.flare-dt*1.1);if(!reduce)n.rot+=(n.kind==="core"?.14:.3)*dt;
     const breathe=reduce?1:(1+.04*Math.sin(t/900+n.ph)+n.flare*.12);const R=RAD(n)*breathe*P.s;
     const base=(n.live?1:.5)*dimf;const bright=base*(.8+n.hov*.5+n.flare*.6);const[Rc,Gc,Bc]=hx(n.col);
-    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*2);g.addColorStop(0,`rgba(${Rc},${Gc},${Bc},${(n.kind==="core"?.34:.26)*base*(1+n.hov+n.flare)})`);g.addColorStop(.5,`rgba(${Rc},${Gc},${Bc},${.07*base})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*2,0,7);ctx.fill();
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*2);g.addColorStop(0,`rgba(${Rc},${Gc},${Bc},${(n.kind==="core"?.24:.16)*base*(1+n.hov+n.flare)})`);g.addColorStop(.5,`rgba(${Rc},${Gc},${Bc},${.07*base})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*2,0,7);ctx.fill();
     if(n.kind==="core"){const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.55);cg.addColorStop(0,`rgba(235,252,255,${.6+n.flare*.3})`);cg.addColorStop(1,"rgba(90,216,255,0)");ctx.fillStyle=cg;ctx.beginPath();ctx.arc(cx,cy,R*.55,0,7);ctx.fill();}
     const cosR=Math.cos(n.rot),sinR=Math.sin(n.rot),cosT=Math.cos(.42),sinT=Math.sin(.42);
     for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cosR-z*sinR,z1=x*sinR+z*cosR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;const persp=1/(1-z2*.34);const sx=cx+x1*R*persp,sy=cy+y1*R*persp;const depth=(z2+1)/2;const size=(0.6+depth*1.8)*(RAD(n)/44)*(n.live?1:.8);if(size<.3)continue;ctx.fillStyle=`rgba(${Rc},${Gc},${Bc},${(0.16+depth*.9)*bright})`;ctx.fillRect(sx-size/2,sy-size/2,size,size);}
@@ -247,7 +250,7 @@ const hubLabel=document.createElement("div");hubLabel.className="lbl";hubLabel.i
 const dls={};Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const d=document.createElement("div");d.className="dlbl";d.style.color=D.col;d.innerHTML=`<b>${D.label}</b><small>${D.note}</small>`;labels.appendChild(d);dls[dk]=d;});
 function placeLabels(){clickable.forEach(n=>{if(!n.lel)return;n.lel.style.left=SX(n)+"px";n.lel.style.top=(SY(n)+RAD(n)*1.6+16)+"px";const off=(SX(n)<-60||SX(n)>W+60||SY(n)<-60||SY(n)>H+60);n.lel.style.opacity=off?0:"";});
   hubLabel.style.left=SX(core)+"px";hubLabel.style.top=(SY(core)+RAD(core)+22)+"px";
-  Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const wx=Math.cos(D.dir)*1.02,wy=Math.sin(D.dir)*1.02;dls[dk].style.left=(W*.5+pan.x+wx*M*zoom)+"px";dls[dk].style.top=(H*.5+pan.y+wy*M*zoom)+"px";});}
+  Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const wx=Math.cos(D.dir)*1.15,wy=Math.sin(D.dir)*1.15;dls[dk].style.left=(W*.5+pan.x+wx*M*zoom)+"px";dls[dk].style.top=(H*.5+pan.y+wy*M*zoom)+"px";});}
 
 // ===== MODAL / WORK (real data) =====
 function tel(d){return d?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:"";}
@@ -276,8 +279,13 @@ const WORK={
  adstudio:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Makes the photos, video, and copy</b> for the store's ads.</div></div>`,
  life:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Your personal assistant</b> — calendar, reminders, errands, travel.</div></div>`,
  money:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Watches your money</b> — spending, bills, savings goals.</div></div>`,
+ manager:()=>`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--core)">💰 The numbers</div></div>`+WORK.core()
+   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--agency)">📇 Every lead</div></div>`+WORK.lead()
+   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--hot)">💬 Every script</div></div>`+WORK.sales()
+   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">📝 Your notes</div></div>`+WORK.notes()
+   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--personal)">⚙️ The 5am engine</div></div>`+WORK.engine(),
 };
-const SUB={core:"The brainstem. All your key info and what to do next.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments.",tiktok:"Daily AI videos for views.",clone:"An AI you for content.",ecomstore:"An online store for profit.",adstudio:"Makes the store's ads.",life:"Runs your personal life admin.",money:"Watches your finances."};
+const SUB={manager:"Your whole business in one scroll — every number, lead, script, and note, translated plainly.",core:"The brainstem. All your key info and what to do next.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments.",tiktok:"Daily AI videos for views.",clone:"An AI you for content.",ecomstore:"An online store for profit.",adstudio:"Makes the store's ads.",life:"Runs your personal life admin.",money:"Watches your finances."};
 const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
 function openModal(id){const n=byId[id];focusId=id;open=true;mey.textContent=n.live?"Working now":(n.chip==="IDEA"?"Just an idea":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";
   morb.textContent=n.ico;morb.style.background=`rgba(${hx(n.col).join(",")},.14)`;morb.style.color=n.col;
@@ -292,6 +300,7 @@ addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));
   const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
 document.getElementById("exportBtn").addEventListener("click",exportCSV);
+document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
 
 // ===== CHAT =====
 const log=document.getElementById("log"),cinp=document.getElementById("cinp");
@@ -327,7 +336,7 @@ async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-sto
   const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const lr=rows[rows.length-1];if(lr){const c=lr.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
   document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' neurons</b> firing';renderKpis();
 }catch(e){document.getElementById("liveTxt").innerHTML='<b>'+DATA.kpis.leads+' leads</b> · snapshot';renderKpis();}}
-document.getElementById("resetView").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.6;});
+document.getElementById("resetView").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.44;});
 setTimeout(()=>{const h=document.getElementById("hint");if(h)h.style.opacity="0";},7000);
 resize();renderKpis();requestAnimationFrame(frame);hydrate();setInterval(hydrate,5000);
 </script>
