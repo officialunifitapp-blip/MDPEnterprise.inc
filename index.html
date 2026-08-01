@@ -4,7 +4,7 @@
 <style>
   :root{
     --bg:#04060e; --card:#0c1220; --line:#1a2537; --line2:#243550; --ink:#fff; --dim:#b3c1d8; --faint:#6d7d99;
-    --ceo:#5ad8ff; --agency:#3dffb0; --content:#ff9a5c; --ecom:#ffd84d; --personal:#a9c0ff; --hot:#ff5c8a;
+    --ceo:#8fd6f2; --agency:#74c9a8; --content:#d3a284; --ecom:#d6c184; --personal:#aab4d6; --hot:#d38aa4;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;height:100%;overflow:hidden;background:#05070f;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
@@ -128,41 +128,41 @@ const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
 function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
 
 // ===== TREE =====
-const CEO={id:"ceo",name:"CEO",col:"#5ad8ff",r:.052,pts:fib(360),rot:0,hov:0,br:0};
+const CEO={id:"ceo",name:"CEO",col:"#8fd6f2",r:.052,pts:fib(360),rot:0,hov:0,br:0};
 function fib(n){const a=[],GA=Math.PI*(3-Math.sqrt(5));for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
 const WORLDS=[
- {id:"agency",name:"AI Agency",note:"sells AI automation",col:"#3dffb0",ang:-2.35,kids:[
-   {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#3dffb0",live:1},
+ {id:"agency",name:"AI Agency",note:"sells AI automation",col:"#74c9a8",ang:-2.35,kids:[
+   {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#74c9a8",live:1},
    {id:"website",name:"Website AI",one:"chat + booking",col:"#57e0ff",live:1},
    {id:"b2b",name:"B2B Outbound",one:"ways to sell",col:"#8affd0",live:1},
-   {id:"lead",name:"Leads",one:"companies to call",col:"#3dffb0",live:1,chip:"124"},
+   {id:"lead",name:"Leads",one:"companies to call",col:"#74c9a8",live:1,chip:"124"},
    {id:"sales",name:"Scripts",one:"what to say",col:"#ff6bb0",live:1},
-   {id:"notes",name:"Notes",one:"log each call",col:"#ffd84d",live:1,chip:"0"},
+   {id:"notes",name:"Notes",one:"log each call",col:"#d6c184",live:1,chip:"0"},
    {id:"engine",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",live:1},
  ]},
- {id:"content",name:"Content · TikTok",note:"builds an audience",col:"#ff9a5c",ang:-0.79,kids:[
-   {id:"tk_mgr",name:"Content Mgr",one:"picks & approves",col:"#ff9a5c",live:0},
+ {id:"content",name:"Content · TikTok",note:"builds an audience",col:"#d3a284",ang:-0.79,kids:[
+   {id:"tk_mgr",name:"Content Mgr",one:"picks & approves",col:"#d3a284",live:0},
    {id:"tk_writer",name:"Story Writer",one:"hook → payoff",col:"#ffb27a",live:0},
    {id:"tk_video",name:"Video Creator",one:"visuals+voice+edit",col:"#ff7ac2",live:0},
    {id:"tk_analytics",name:"Analytics",one:"what's working",col:"#d07bff",live:0},
  ]},
- {id:"ecom",name:"Ecom",note:"future income",col:"#ffd84d",ang:0.79,kids:[
-   {id:"ec_mgr",name:"Store Mgr",one:"runs the store",col:"#ffd84d",live:0},
+ {id:"ecom",name:"Ecom",note:"future income",col:"#d6c184",ang:0.79,kids:[
+   {id:"ec_mgr",name:"Store Mgr",one:"runs the store",col:"#d6c184",live:0},
    {id:"ec_product",name:"Product & Offer",one:"product+pricing",col:"#ffc24d",live:0},
    {id:"ec_store",name:"Storefront",one:"pages+checkout",col:"#ffab5c",live:0},
-   {id:"ec_creative",name:"Creative & Traffic",one:"ads+campaigns",col:"#ff9a5c",live:0},
+   {id:"ec_creative",name:"Creative & Traffic",one:"ads+campaigns",col:"#d3a284",live:0},
    {id:"ec_ops",name:"Support & Ops",one:"orders+support",col:"#ffe08a",live:0},
  ]},
- {id:"personal",name:"Personal",note:"your life",col:"#a9c0ff",ang:2.35,kids:[
-   {id:"life",name:"Life Admin",one:"calendar & errands",col:"#a9c0ff",live:0},
+ {id:"personal",name:"Personal",note:"your life",col:"#aab4d6",ang:2.35,kids:[
+   {id:"life",name:"Life Admin",one:"calendar & errands",col:"#aab4d6",live:0},
    {id:"money",name:"Finances",one:"track your money",col:"#7ee0c0",live:0},
  ]},
 ];
 const byId={ceo:CEO};
 WORLDS.forEach(w=>{w.open=0;w.wantOpen=false;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
   const arc=Math.min(1.6,w.kids.length*.32);
-  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.radN=.66+((i%2)?.16:0);k.hov=0;k.kind="kid";k.world=w;k.r=.028;byId[k.id]=k;});});
-byId.manager={id:"manager",name:"Everything",col:"#5ad8ff",live:1};
+  w.kids.forEach((k,i)=>{k.ci=i;k.col=w.col;k.hov=0;k.kind="kid";k.world=w;k.r=.026;byId[k.id]=k;});});
+byId.manager={id:"manager",name:"Everything",col:"#8fd6f2",live:1};
 const CROSS=[["tk_video","ec_creative"],["sales","tk_writer"],["b2b","ec_creative"]].map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
 
 // ===== CANVAS =====
@@ -172,7 +172,7 @@ addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
 function SCX(){return W*.5+pan.x;} function SCY(){return H*.52+pan.y;}
 function OW(w){return[Math.cos(w.ang)*.42,Math.sin(w.ang)*.42];}
-function OK(k){const w=k.world;const o=OW(w);const rox=Math.cos(k.cang)*k.radN,roy=Math.sin(k.cang)*k.radN;return[o[0]+(rox-o[0])*w.open,o[1]+(roy-o[1])*w.open];}
+function OK(k){const w=k.world;const o=OW(w);const side=o[0]>=0?1:-1;const tx=o[0]+side*0.24;const ty=o[1]+(k.ci-(w.kids.length-1)/2)*0.13;return[o[0]+(tx-o[0])*w.open,o[1]+(ty-o[1])*w.open];}
 function ON(n){return n.id==="ceo"?[0,0]:n.kind==="world"?OW(n):OK(n);}
 function P(n){const o=ON(n);return[SCX()+o[0]*M*zoom,SCY()+o[1]*M*zoom];}
 function RAD(n){return n.r*M*zoom;}
@@ -197,24 +197,24 @@ function tbranch(ax,ay,bx,by,col,wBase,wTip,a){if(a<=0.01)return;const mx=(ax+bx
 function orb(n,t){const[cx,cy]=P(n);const op=n.kind==="kid"?n.world.open:1;if(op<.02)return;
   const hd=mouse.in?Math.hypot(mouse.x-cx,mouse.y-cy):999;n.hov+=((hd<Math.max(28,RAD(n)*1.5)?1:0)-n.hov)*.15;
   const live=(n.live!==0);const c=hx(n.col),R=c[0],G=c[1],B=c[2];const br=reduce?0:Math.sin(t/1100+(n.rot||0))*.03;const R0=RAD(n)*(1+br+n.hov*.08);
-  const gA=(n.id==="ceo"?.4:n.kind==="world"?.32:.22)*(live?1:.5)*op*(1+n.hov*.6);
+  const gA=(n.id==="ceo"?.3:n.kind==="world"?.22:.15)*(live?1:.5)*op*(1+n.hov*.6);
   ctx.globalCompositeOperation="lighter";const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*2.6);g.addColorStop(0,`rgba(${R},${G},${B},${gA})`);g.addColorStop(.5,`rgba(${R},${G},${B},${gA*.25})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R0*2.6,0,7);ctx.fill();
   ctx.globalCompositeOperation="source-over";
   ctx.beginPath();ctx.arc(cx,cy,R0,0,7);ctx.fillStyle="rgba(7,11,20,.92)";ctx.fill();
   if(!live)ctx.setLineDash([3,3]);ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(${R},${G},${B},${(live?.9:.5)*op})`;ctx.stroke();ctx.setLineDash([]);
   if(n.pts){if(!reduce)n.rot+=(n.id==="ceo"?.005:.008);const cR=Math.cos(n.rot),sR=Math.sin(n.rot),cT=Math.cos(.42),sT=Math.sin(.42);for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cT-z1*sT,z2=y*sT+z1*cT;const pr=1/(1-z2*.34);const sx=cx+x1*R0*.85*pr,sy=cy+y1*R0*.85*pr;const d=(z2+1)/2;ctx.fillStyle=`rgba(${R},${G},${B},${(0.08+d*.42)*op})`;ctx.fillRect(sx-1,sy-1,1.5,1.5);}}
-  ctx.globalCompositeOperation="lighter";const ic=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*.55);ic.addColorStop(0,`rgba(${R},${G},${B},${.8*op})`);ic.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=ic;ctx.beginPath();ctx.arc(cx,cy,R0*.55,0,7);ctx.fill();ctx.globalCompositeOperation="source-over";
+  ctx.globalCompositeOperation="lighter";const ic=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*.55);ic.addColorStop(0,`rgba(${R},${G},${B},${.55*op}`+`)`);ic.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=ic;ctx.beginPath();ctx.arc(cx,cy,R0*.55,0,7);ctx.fill();ctx.globalCompositeOperation="source-over";
 }
 function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   WORLDS.forEach(w=>w.open+=((w.wantOpen?1:0)-w.open)*.16);
   ctx.clearRect(0,0,W,H);
-  const bg=ctx.createRadialGradient(W*.5,H*.52,0,W*.5,H*.52,Math.max(W,H)*.8);bg.addColorStop(0,"#0a1526");bg.addColorStop(.6,"#05070f");bg.addColorStop(1,"#03040a");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const bg=ctx.createRadialGradient(W*.5,H*.52,0,W*.5,H*.52,Math.max(W,H)*.8);bg.addColorStop(0,"#0b1220");bg.addColorStop(.6,"#070a12");bg.addColorStop(1,"#04060c");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
   // trunks CEO -> world (tree limbs, tapered)
-  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=P(w);tbranch(ex,ey,wx,wy,w.col,Math.max(4,RAD(w)*.5),2,.32+w.hov*.4);});
+  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=P(w);tbranch(ex,ey,wx,wy,w.col,Math.max(2.5,RAD(w)*.32),1.4,.2+w.hov*.3);});
   // cross-world twigs
-  CROSS.forEach(p=>{const[ax,ay]=P(p[0]),[bx,by]=P(p[1]);const op=Math.max(p[0].world?p[0].world.open:0,p[1].world?p[1].world.open:0);tbranch(ax,ay,bx,by,"#9fc0ff",2,2,.04+op*.4);});
+  CROSS.forEach(p=>{const[ax,ay]=P(p[0]),[bx,by]=P(p[1]);const op=Math.max(p[0].world?p[0].world.open:0,p[1].world?p[1].world.open:0);tbranch(ax,ay,bx,by,"#9fc0ff",1.4,1.4,.03+op*.28);});
   // world -> kid twigs
-  WORLDS.forEach(w=>{if(w.open<.02)return;const[wx,wy]=P(w);w.kids.forEach(k=>{const[kx,ky]=P(k);tbranch(wx,wy,kx,ky,k.col,Math.max(2.5,RAD(w)*.28),1.5,(.15+w.open*.5));});});
+  WORLDS.forEach(w=>{if(w.open<.02)return;const[wx,wy]=P(w);w.kids.forEach(k=>{const[kx,ky]=P(k);tbranch(wx,wy,kx,ky,k.col,Math.max(1.4,RAD(w)*.18),1,(.1+w.open*.32));});});
   orb(CEO,t);WORLDS.forEach(w=>orb(w,t));WORLDS.forEach(w=>w.kids.forEach(k=>orb(k,t)));
   placeLabels();requestAnimationFrame(frame);
 }
