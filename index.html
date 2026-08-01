@@ -1,74 +1,71 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MDP Enterprises — Neural Command</title>
+<title>MDP Enterprises — AI Brain</title>
 <style>
   :root{
-    --bg:#03040a; --card:#0c1220; --line:#1a2537; --line2:#233449;
-    --ink:#ffffff; --dim:#b3c1d8; --faint:#6d7d99;
-    --core:#5ad8ff; --agency:#3dffb0; --content:#ff9a5c; --ecom:#ffd84d; --personal:#a9c0ff; --hot:#ff5c8a;
+    --bg:#04060e; --card:#0c1220; --line:#1a2537; --line2:#243550; --ink:#fff; --dim:#b3c1d8; --faint:#6d7d99;
+    --ceo:#5ad8ff; --agency:#3dffb0; --content:#ff9a5c; --ecom:#ffd84d; --personal:#a9c0ff; --hot:#ff5c8a;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;height:100%;overflow:hidden;background:#000;color:var(--ink);
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
-  canvas{position:fixed;inset:0;width:100%;height:100%;cursor:grab;touch-action:none;}
-  canvas:active{cursor:grabbing;}
+  html,body{margin:0;height:100%;overflow:hidden;background:#05070f;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
+  canvas{position:fixed;inset:0;width:100%;height:100%;cursor:default;}
   #labels{position:fixed;inset:0;pointer-events:none;z-index:5;}
-  .lbl{position:absolute;transform:translate(-50%,-50%);text-align:center;pointer-events:none;white-space:nowrap;transition:opacity .2s;}
-  .lbl .nm{font-size:14px;font-weight:800;text-shadow:0 0 16px currentColor,0 2px 8px #000;}
+  .lbl{position:absolute;transform:translate(-50%,0);text-align:center;white-space:nowrap;transition:opacity .25s;}
+  .lbl .nm{font-weight:800;text-shadow:0 0 14px currentColor,0 2px 8px #000;}
   .lbl .one{font-size:10.5px;color:var(--dim);margin-top:2px;text-shadow:0 1px 4px #000;}
-  .lbl .chip{display:inline-block;margin-top:5px;font-family:ui-monospace,monospace;font-size:10.5px;font-weight:800;padding:2px 10px;border-radius:99px;background:rgba(6,10,18,.85);border:1.5px solid currentColor;}
-  .lbl.soon{opacity:.6;} .lbl.soon .nm{text-shadow:0 2px 8px #000;}
-  .dlbl{position:absolute;transform:translate(-50%,-50%);pointer-events:none;text-align:center;}
-  .dlbl b{font-family:ui-monospace,monospace;font-size:13px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;text-shadow:0 0 22px currentColor,0 2px 10px #000;}
-  .dlbl small{display:block;font-size:9px;letter-spacing:.14em;color:var(--faint);margin-top:5px;text-transform:uppercase;}
+  .lbl.soon .one{color:var(--faint);}
 
   .top{position:fixed;left:0;top:0;right:0;padding:16px 20px;z-index:20;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;pointer-events:none;}
-  .brand .tag{font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--core);}
-  .brand h1{margin:4px 0 0;font-size:22px;font-weight:800;text-shadow:0 2px 12px #000;}
+  .brand .tag{font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--ceo);}
+  .brand h1{margin:4px 0 0;font-size:21px;font-weight:800;text-shadow:0 2px 12px #000;}
   .rightbar{display:flex;flex-direction:column;align-items:flex-end;gap:9px;pointer-events:auto;}
   .stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
-  .stat{background:linear-gradient(180deg,rgba(12,20,32,.9),rgba(7,11,18,.9));backdrop-filter:blur(8px);border:1.5px solid #1e2c42;border-radius:14px;padding:9px 14px;min-width:82px;}
-  .stat .v{font-family:ui-monospace,monospace;font-size:24px;font-weight:800;line-height:1;}
+  .stat{background:rgba(11,18,30,.85);backdrop-filter:blur(8px);border:1.5px solid #1e2c42;border-radius:14px;padding:9px 13px;min-width:78px;}
+  .stat .v{font-family:ui-monospace,monospace;font-size:23px;font-weight:800;line-height:1;}
   .stat .v small{font-size:11px;color:var(--faint);font-weight:500;}
   .stat .l{font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:700;}
-  .stat.rev .v{color:var(--core);} .stat.leads .v{color:var(--agency);} .stat.called .v{color:var(--ecom);} .stat.clients .v{color:var(--hot);}
+  .stat.rev .v{color:var(--ceo);} .stat.leads .v{color:var(--agency);} .stat.called .v{color:var(--ecom);} .stat.clients .v{color:var(--hot);}
   @keyframes fl{0%{transform:scale(1)}40%{transform:scale(1.22);filter:brightness(1.6)}100%{transform:scale(1)}}
   .stat .v.flash{animation:fl .6s ease;}
-  .exp{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--agency);background:rgba(61,255,176,.1);border:1.5px solid rgba(61,255,176,.4);border-radius:10px;padding:8px 13px;}
-  .exp:hover{background:rgba(61,255,176,.18);}
+  .btns{display:flex;gap:8px;}
+  .pill{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;border-radius:10px;padding:8px 12px;}
+  .pill.mgr{color:var(--ceo);background:rgba(90,216,255,.13);border:1.5px solid rgba(90,216,255,.5);}
+  .pill.csv{color:var(--agency);background:rgba(61,255,176,.1);border:1.5px solid rgba(61,255,176,.4);}
+  .pill:hover{filter:brightness(1.2);}
   .livebar{position:fixed;left:20px;bottom:16px;z-index:20;pointer-events:none;display:flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);background:rgba(6,10,18,.66);backdrop-filter:blur(8px);border:1px solid #1a2536;border-radius:99px;padding:8px 15px;}
   .livebar i{width:8px;height:8px;border-radius:99px;background:var(--agency);box-shadow:0 0 10px var(--agency);animation:bp 1.6s infinite;} @keyframes bp{50%{opacity:.3}}
   .livebar b{color:var(--ink);}
   .hint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;pointer-events:none;font-family:ui-monospace,monospace;font-size:11px;color:var(--faint);background:rgba(6,10,18,.6);border:1px solid #1a2536;border-radius:99px;padding:7px 15px;transition:opacity 1s;}
-  .reset{position:fixed;right:18px;bottom:16px;z-index:20;width:40px;height:40px;border-radius:12px;background:rgba(6,10,18,.8);border:1px solid var(--line2);color:var(--dim);font-size:17px;cursor:pointer;}
-  .back{position:fixed;left:20px;top:70px;z-index:25;display:none;align-items:center;gap:7px;cursor:pointer;font-family:ui-monospace,monospace;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--core);background:rgba(6,10,18,.82);backdrop-filter:blur(8px);border:1.5px solid rgba(90,216,255,.45);border-radius:11px;padding:10px 14px;}
-  .back:hover{background:rgba(90,216,255,.14);}
-  .reset:hover{color:#fff;border-color:var(--core);}
 
-  #chat{position:fixed;right:18px;bottom:66px;width:min(348px,calc(100% - 36px));z-index:30;background:rgba(8,12,20,.92);backdrop-filter:blur(16px);border:1px solid var(--line2);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.6);display:flex;flex-direction:column;max-height:min(56vh,480px);transition:transform .3s;}
-  #chat.min{transform:translateY(calc(100% - 50px));}
-  #chat .ch{display:flex;align-items:center;gap:9px;padding:13px 16px;cursor:pointer;border-bottom:1px solid var(--line);}
-  #chat .ch .d{width:9px;height:9px;border-radius:99px;background:var(--agency);box-shadow:0 0 9px var(--agency);}
-  #chat .ch .t{font-size:14px;font-weight:700;} #chat .ch .s{margin-left:auto;color:var(--faint);font-family:ui-monospace,monospace;font-size:12px;}
-  #log{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;}
-  .msg{max-width:84%;padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.5;}
-  .msg.me{align-self:flex-end;background:var(--core);color:#04070d;font-weight:600;border-bottom-right-radius:5px;}
-  .msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:5px;} .msg.ai b{color:var(--core);}
-  .chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 10px;}
-  .chips button{background:var(--card);border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:6px 11px;font-size:11.5px;cursor:pointer;font:inherit;} .chips button:hover{border-color:var(--core);color:#fff;}
-  .cin{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);}
-  .cin input{flex:1;background:var(--card);border:1px solid var(--line2);border-radius:11px;padding:11px 13px;color:var(--ink);font:inherit;font-size:14px;outline:none;} .cin input:focus{border-color:var(--core);}
-  .cin button{background:var(--core);color:#04070d;border:none;border-radius:11px;padding:0 15px;font-weight:800;cursor:pointer;}
-
+  /* CEO CHAT */
   .scrim{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:60;opacity:0;pointer-events:none;transition:opacity .3s;}
   .scrim.open{opacity:1;pointer-events:auto;}
-  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);z-index:70;width:min(720px,calc(100% - 36px));max-height:86vh;overflow-y:auto;background:rgba(9,13,21,.98);border:1.5px solid var(--line2);border-radius:24px;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.75);}
+  .chat{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);z-index:70;width:min(460px,calc(100% - 32px));max-height:78vh;display:flex;flex-direction:column;
+    background:rgba(9,14,23,.97);border:1.5px solid var(--line2);border-radius:24px;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.75);overflow:hidden;}
+  .chat.open{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;}
+  .chat .ch{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);}
+  .chat .ch .av{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:rgba(90,216,255,.14);box-shadow:0 0 24px -6px var(--ceo);}
+  .chat .ch .t{font-size:17px;font-weight:800;} .chat .ch .s{font-size:11.5px;color:var(--faint);margin-top:2px;font-family:ui-monospace,monospace;}
+  .chat .cx{margin-left:auto;width:34px;height:34px;border-radius:10px;background:#141d2b;border:1px solid var(--line2);color:var(--dim);font-size:20px;cursor:pointer;}
+  .chat .cx:hover{color:#fff;}
+  #log{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:11px;min-height:180px;}
+  .msg{max-width:86%;padding:11px 14px;border-radius:15px;font-size:14px;line-height:1.55;}
+  .msg.me{align-self:flex-end;background:var(--ceo);color:#04070d;font-weight:600;border-bottom-right-radius:5px;}
+  .msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:5px;} .msg.ai b{color:var(--ceo);}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 12px;}
+  .chips button{background:var(--card);border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:7px 12px;font-size:12px;cursor:pointer;font:inherit;} .chips button:hover{border-color:var(--ceo);color:#fff;}
+  .cin{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);}
+  .cin input{flex:1;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;color:var(--ink);font:inherit;font-size:14px;outline:none;} .cin input:focus{border-color:var(--ceo);}
+  .cin button{background:var(--ceo);color:#04070d;border:none;border-radius:12px;padding:0 16px;font-weight:800;cursor:pointer;font-size:14px;}
+
+  /* MODAL */
+  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);z-index:70;width:min(720px,calc(100% - 32px));max-height:86vh;overflow-y:auto;background:rgba(10,15,23,.98);border:1.5px solid var(--line2);border-radius:24px;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.75);}
   .modal.open{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;}
-  .m-head{position:sticky;top:0;background:rgba(10,15,23,.96);backdrop-filter:blur(10px);padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;gap:15px;align-items:flex-start;}
+  .m-head{position:sticky;top:0;background:rgba(11,17,25,.96);backdrop-filter:blur(10px);padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;gap:15px;align-items:flex-start;}
   .m-orb{width:50px;height:50px;flex:none;border-radius:15px;display:grid;place-items:center;font-size:25px;}
   .m-ey{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;}
   .m-head h2{margin:4px 0 0;font-size:26px;font-weight:800;} .m-head p{margin:7px 0 0;color:var(--dim);font-size:14.5px;line-height:1.5;}
-  .m-x{position:absolute;top:22px;right:24px;width:36px;height:36px;border-radius:11px;background:#141d2b;border:1px solid var(--line2);color:var(--dim);font-size:21px;cursor:pointer;display:grid;place-items:center;} .m-x:hover{color:#fff;}
+  .m-x{position:absolute;top:22px;right:24px;width:36px;height:36px;border-radius:11px;background:#141d2b;border:1px solid var(--line2);color:var(--dim);font-size:21px;cursor:pointer;} .m-x:hover{color:#fff;}
   .m-body{padding:22px 28px 36px;}
   .sec{margin-top:26px;} .sec:first-child{margin-top:4px;}
   .s-lbl{font-size:14px;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;} .s-lbl span{color:var(--faint);font-weight:600;font-size:12px;}
@@ -79,24 +76,24 @@
   .lead a.tel{font-family:ui-monospace,monospace;font-size:13.5px;color:#04070d;background:var(--agency);border-radius:10px;padding:9px 12px;text-decoration:none;font-weight:800;white-space:nowrap;}
   .lead .noph{font-family:ui-monospace,monospace;font-size:9.5px;text-transform:uppercase;color:var(--ecom);border:1.5px solid #4a3f22;border-radius:9px;padding:8px;font-weight:700;}
   .lead .ntbtn{background:#14202f;border:1px solid var(--line2);color:var(--dim);border-radius:9px;width:38px;height:38px;font-size:15px;cursor:pointer;} .lead .ntbtn.has{border-color:var(--ecom);color:var(--ecom);}
-  .lead textarea{width:100%;margin-top:10px;background:#0a121d;border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px;resize:vertical;min-height:56px;outline:none;} .lead textarea:focus{border-color:var(--ecom);} .lead .hide{display:none;}
+  .lead textarea{width:100%;margin-top:10px;background:#0a121d;border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px;resize:vertical;min-height:56px;outline:none;} .lead .hide{display:none;}
   .push{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:8px;} .push .q{font-size:15px;font-weight:800;color:var(--hot);} .push .a{font-size:14.5px;color:#eaf2fc;margin-top:6px;line-height:1.6;}
   .script{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:8px;} .script .sh{display:flex;justify-content:space-between;gap:8px;align-items:center;} .script .sw{font-size:14.5px;font-weight:800;} .script .sc{font-size:12px;color:var(--faint);font-family:ui-monospace,monospace;}
   .script a.tel{color:var(--agency);text-decoration:none;font-family:ui-monospace,monospace;font-weight:700;font-size:13px;border-bottom:1px solid #2a5c48;} .script .op{font-size:14.5px;color:#f2f7fd;line-height:1.7;margin-top:10px;} .script .vm{font-size:13px;color:var(--dim);margin-top:9px;line-height:1.6;} .script .vm b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:800;margin-bottom:3px;} .script .flag{font-size:12px;color:var(--ecom);margin-top:8px;}
-  .bars{display:flex;flex-direction:column;gap:7px;} .bar{display:flex;align-items:center;gap:11px;font-size:14px;} .bar .bn{width:104px;color:var(--dim);} .bar .bt{flex:1;height:18px;border-radius:5px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;} .bar .bt>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--core),rgba(90,216,255,.2));} .bar .bv{width:28px;text-align:right;font-family:ui-monospace,monospace;font-weight:800;}
+  .bars{display:flex;flex-direction:column;gap:7px;} .bar{display:flex;align-items:center;gap:11px;font-size:14px;} .bar .bn{width:104px;color:var(--dim);} .bar .bt{flex:1;height:18px;border-radius:5px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;} .bar .bt>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--ceo),rgba(90,216,255,.2));} .bar .bv{width:28px;text-align:right;font-family:ui-monospace,monospace;font-weight:800;}
   .fr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);} .fr:last-child{border-bottom:none;} .fr .fl{font-size:15px;font-weight:600;} .fr .fm{font-size:12px;color:var(--faint);margin-top:2px;}
   .badge{font-size:10px;font-weight:800;text-transform:uppercase;padding:5px 11px;border-radius:99px;} .badge.on{background:rgba(61,255,176,.16);color:var(--agency);} .badge.warn{background:rgba(255,216,77,.16);color:var(--ecom);} .badge.empty{background:rgba(109,125,153,.2);color:var(--dim);}
   .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:800;font-size:14px;color:#04070d;background:var(--agency);border:none;border-radius:12px;padding:12px 18px;}
   .note-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:8px;} .note-item .nc{font-size:14.5px;font-weight:700;} .note-item .nt{font-size:13.5px;color:#dbe6f4;margin-top:5px;line-height:1.55;white-space:pre-wrap;}
-  a.link{color:var(--core);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(90,216,255,.4);}
-  @media(max-width:640px){.rightbar{align-items:stretch;} .stats{justify-content:space-between;} .stat{flex:1;min-width:0;padding:8px 8px;} .stat .v{font-size:17px;} .lbl .one{display:none;} .m-body,.m-head{padding:20px;} #chat{right:12px;left:12px;bottom:62px;width:auto;} .livebar,.hint{font-size:10px;} .hint{display:none;}}
+  a.link{color:var(--ceo);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(90,216,255,.4);}
+  @media(max-width:640px){.rightbar{align-items:stretch;} .stats{justify-content:space-between;} .stat{flex:1;min-width:0;padding:8px 8px;} .stat .v{font-size:17px;} .m-body,.m-head{padding:20px;} .lbl .one{display:none;} .hint{display:none;}}
 </style>
 
 <canvas id="c"></canvas>
 <div id="labels"></div>
 
 <div class="top">
-  <div class="brand"><div class="tag">MDP Enterprises</div><h1>Neural Command</h1></div>
+  <div class="brand"><div class="tag">MDP Enterprises</div><h1>AI Brain</h1></div>
   <div class="rightbar">
     <div class="stats">
       <div class="stat rev"><div class="v" id="k-mrr">$0<small>/10k</small></div><div class="l">Revenue</div></div>
@@ -104,22 +101,20 @@
       <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called</div></div>
       <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
     </div>
-    <button class="exp" id="mgrBtn" style="color:var(--core);background:rgba(90,216,255,.14);border-color:rgba(90,216,255,.5)">📖 Manager · see everything</button>
-    <button class="exp" id="exportBtn">⬇ Export leads CSV</button>
+    <div class="btns"><button class="pill mgr" id="mgrBtn">📖 Everything</button><button class="pill csv" id="exportBtn">⬇ CSV</button></div>
   </div>
 </div>
 <div class="livebar"><i></i><span id="liveTxt">waking up…</span></div>
-<div class="hint" id="hint">tap a WORLD to zoom into its departments · drag to move · scroll to zoom</div>
-<button class="back" id="backBtn">← All worlds</button>
-<button class="reset" id="resetView" title="Reset view">⟳</button>
-
-<div id="chat">
-  <div class="ch" id="chatHead"><span class="d"></span><span class="t">Talk to your team</span><span class="s" id="chatToggle">▾</span></div>
-  <div id="log"></div><div class="chips" id="chips"></div>
-  <div class="cin"><input id="cinp" placeholder="Ask your team…" autocomplete="off"><button id="csend">Send</button></div>
-</div>
+<div class="hint" id="hint">tap the 🧠 to ask your CEO · tap a world to open its team</div>
 
 <div class="scrim" id="scrim"></div>
+
+<div class="chat" id="chat">
+  <div class="ch"><div class="av">🧠</div><div><div class="t">CEO</div><div class="s">ask me anything about the business</div></div><button class="cx" id="chatX">×</button></div>
+  <div id="log"></div><div class="chips" id="chips"></div>
+  <div class="cin"><input id="cinp" placeholder="Ask your CEO…" autocomplete="off"><button id="csend">Send</button></div>
+</div>
+
 <div class="modal" id="modal"><div class="m-head"><div class="m-orb" id="morb"></div><button class="m-x" id="mx">×</button><div><div class="m-ey" id="mey"></div><h2 id="mname"></h2><p id="msub"></p></div></div><div class="m-body" id="mbody"></div></div>
 
 <script>
@@ -127,213 +122,177 @@ const EMBED_LEADS=[{"co":"Rapid Dry STL","c":"Grant (Ops Mgr) · (314) 291-8888"
 const DATA={kpis:{mrr:"$0",leads:124,dials:"0/10",clients:0},pipeline:{new:124,contacted:0,replied:0,booked:0,"call held":0,proposal:0,won:0},leadList:EMBED_LEADS};
 const STAGES=[["new","Ready to call"],["contacted","Called"],["replied","Replied"],["booked","Booked"],["call held","Call done"],["proposal","Proposal sent"],["won","Won"]];
 const PUSH=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],["“We already have someone”","“Does a real person pick up at 2am, or does it go to voicemail? This never sleeps and books the job.”"],["“How much is it?”","“$500 a month, and I'm waiving setup for the first three shops — but hear it first, then price is easy.”"]];
-const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; I'd bet the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds.","Grant, it's [YOU] at Rapid Dry — a line that answers after-hours emergencies. Call (314) 887-9824."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — your site says you personally oversee every job, so you're answering at 2am too. That call goes to whoever picks up next. I built a line that answers those. Call it, 90 seconds.","Justin, it's [YOU]. This answers your after-hours calls. Call (314) 887-9824."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — you and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am call. I built a line that answers those. Call it — 90 seconds.","Matt, it's [YOU] — catches the calls you can't get to. Call (314) 887-9824."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — you promise 24/7/365. Who picks up at 2am? If it's voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.","Terry, it's [YOU] — makes your 24/7 true. Call (314) 887-9824."],[5,"Alan","Sage Restoration","9139050500","Ask if their ‘24/7 dispatch’ is a real person first.","Hey Alan — your site says live dispatch 24/7. Real person at 2am, or a service? I built a line that answers after-hours calls, often cheaper. Call it — 90 seconds.","Alan, it's [YOU] — answers after-hours calls, often cheaper. Call (314) 887-9824."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — water mitigation only since '88, so every after-hours call to voicemail is a big job lost. You and Ed can't be on the phone at 2am. Call it — 90 seconds.","Greg, it's [YOU] — catches the big after-hours jobs. Call (314) 887-9824."]];
-
+const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds.","Grant, it's [YOU] at Rapid Dry — a line that answers after-hours emergencies. Call (314) 887-9824."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — your site says you personally oversee every job, so you're answering at 2am too. That call goes to whoever picks up next. I built a line that answers those. Call it, 90 seconds.","Justin, it's [YOU]. This answers your after-hours calls. Call (314) 887-9824."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — you and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am call. I built a line that answers those. Call it — 90 seconds.","Matt, it's [YOU] — catches the calls you can't get to. Call (314) 887-9824."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — you promise 24/7/365. Who picks up at 2am? If it's voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.","Terry, it's [YOU] — makes your 24/7 true. Call (314) 887-9824."],[5,"Alan","Sage Restoration","9139050500","Ask if their ‘24/7 dispatch’ is a real person first.","Hey Alan — your site says live dispatch 24/7. Real person at 2am, or a service? I built a line that answers after-hours calls, often cheaper. Call it — 90 seconds.","Alan, it's [YOU] — answers after-hours calls, often cheaper. Call (314) 887-9824."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — water mitigation only since '88, so every after-hours call to voicemail is a big job lost. You and Ed can't be on the phone at 2am. Call it — 90 seconds.","Greg, it's [YOU] — catches the big after-hours jobs. Call (314) 887-9824."]];
 const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
 function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
 
-// ===== WORLDS · tree drill-down =====
-const AG=[
- {id:"lead",div:"agency",name:"Leads",one:"companies to call",col:"#3dffb0",ico:"📇",live:1,chip:"124"},
- {id:"sales",div:"agency",name:"Scripts",one:"what to say",col:"#ff6bb0",ico:"💬",live:1,chip:"READY"},
- {id:"notes",div:"agency",name:"Notes",one:"log each call",col:"#ffd84d",ico:"📝",live:1,chip:"0"},
- {id:"store",div:"agency",name:"Memory",one:"business info",col:"#ffc24d",ico:"🗄️",live:1,chip:"FILES"},
- {id:"engine",div:"agency",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",ico:"⚙️",live:1,chip:"5AM"},
- {id:"voice",div:"agency",name:"AI Caller",one:"calls for you",col:"#43dbe6",ico:"📞",live:0,chip:"SOON"},
- {id:"appt",div:"agency",name:"Booker",one:"sets appts",col:"#a99bff",ico:"📅",live:0,chip:"SOON"},
- {id:"tk_mgr",div:"content",name:"Content Mgr",one:"picks topics, approves",col:"#ff9a5c",ico:"🎬",live:0,chip:"PLAN"},
- {id:"tk_writer",div:"content",name:"Story Writer",one:"hook → payoff scripts",col:"#ffb27a",ico:"✍️",live:0,chip:"PLAN"},
- {id:"tk_video",div:"content",name:"Video Creator",one:"visuals + voice + edit",col:"#ff7ac2",ico:"🎥",live:0,chip:"PLAN"},
- {id:"tk_analytics",div:"content",name:"Analytics",one:"what's working",col:"#d07bff",ico:"📊",live:0,chip:"PLAN"},
- {id:"ec_mgr",div:"ecom",name:"Store Mgr",one:"runs the store",col:"#ffd84d",ico:"🏬",live:0,chip:"PLAN"},
- {id:"ec_product",div:"ecom",name:"Product & Offer",one:"product + pricing",col:"#ffc24d",ico:"🔎",live:0,chip:"PLAN"},
- {id:"ec_store",div:"ecom",name:"Storefront",one:"pages + checkout",col:"#ffab5c",ico:"🛒",live:0,chip:"PLAN"},
- {id:"ec_creative",div:"ecom",name:"Creative & Traffic",one:"ads + campaigns",col:"#ff9a5c",ico:"📣",live:0,chip:"PLAN"},
- {id:"ec_ops",div:"ecom",name:"Support & Ops",one:"orders + support",col:"#ffe08a",ico:"📦",live:0,chip:"PLAN"},
- {id:"life",div:"personal",name:"Life Admin",one:"calendar",col:"#a9c0ff",ico:"🗓️",live:0,chip:"IDEA"},
- {id:"money",div:"personal",name:"Finances",one:"your money",col:"#7ee0c0",ico:"💵",live:0,chip:"IDEA"},
+// ===== TREE =====
+const CEO={id:"ceo",name:"CEO",ico:"🧠",col:"#5ad8ff",r:.052,pts:fib(360),rot:0,hov:0,br:0};
+function fib(n){const a=[],GA=Math.PI*(3-Math.sqrt(5));for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
+const WORLDS=[
+ {id:"agency",name:"AI Agency",note:"sells AI automation",col:"#3dffb0",ico:"🏢",ang:-2.35,kids:[
+   {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#3dffb0",ico:"📞",live:1},
+   {id:"website",name:"Website AI",one:"chat + booking",col:"#57e0ff",ico:"🌐",live:1},
+   {id:"b2b",name:"B2B Outbound",one:"ways to sell",col:"#8affd0",ico:"📡",live:1},
+   {id:"lead",name:"Leads",one:"companies to call",col:"#3dffb0",ico:"📇",live:1,chip:"124"},
+   {id:"sales",name:"Scripts",one:"what to say",col:"#ff6bb0",ico:"💬",live:1},
+   {id:"notes",name:"Notes",one:"log each call",col:"#ffd84d",ico:"📝",live:1,chip:"0"},
+   {id:"engine",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",ico:"⚙️",live:1},
+ ]},
+ {id:"content",name:"Content · TikTok",note:"builds an audience",col:"#ff9a5c",ico:"🎬",ang:-0.79,kids:[
+   {id:"tk_mgr",name:"Content Mgr",one:"picks & approves",col:"#ff9a5c",ico:"🎬",live:0},
+   {id:"tk_writer",name:"Story Writer",one:"hook → payoff",col:"#ffb27a",ico:"✍️",live:0},
+   {id:"tk_video",name:"Video Creator",one:"visuals+voice+edit",col:"#ff7ac2",ico:"🎥",live:0},
+   {id:"tk_analytics",name:"Analytics",one:"what's working",col:"#d07bff",ico:"📊",live:0},
+ ]},
+ {id:"ecom",name:"Ecom",note:"future income",col:"#ffd84d",ico:"🛍️",ang:0.79,kids:[
+   {id:"ec_mgr",name:"Store Mgr",one:"runs the store",col:"#ffd84d",ico:"🏬",live:0},
+   {id:"ec_product",name:"Product & Offer",one:"product+pricing",col:"#ffc24d",ico:"🔎",live:0},
+   {id:"ec_store",name:"Storefront",one:"pages+checkout",col:"#ffab5c",ico:"🛒",live:0},
+   {id:"ec_creative",name:"Creative & Traffic",one:"ads+campaigns",col:"#ff9a5c",ico:"📣",live:0},
+   {id:"ec_ops",name:"Support & Ops",one:"orders+support",col:"#ffe08a",ico:"📦",live:0},
+ ]},
+ {id:"personal",name:"Personal",note:"your life",col:"#a9c0ff",ico:"🧬",ang:2.35,kids:[
+   {id:"life",name:"Life Admin",one:"calendar & errands",col:"#a9c0ff",ico:"🗓️",live:0},
+   {id:"money",name:"Finances",one:"track your money",col:"#7ee0c0",ico:"💵",live:0},
+ ]},
 ];
-const WMETA={
- agency:{name:"AI Agency",note:"makes money now",col:"#3dffb0",wx:-1.05,wy:-0.82,r:.1,ico:"🏢"},
- content:{name:"Content · TikTok",note:"builds audience",col:"#ff9a5c",wx:1.05,wy:-0.82,r:.094,ico:"🎬"},
- ecom:{name:"Ecom",note:"future income",col:"#ffd84d",wx:1.05,wy:0.82,r:.094,ico:"🛍️"},
- personal:{name:"Personal",note:"your life",col:"#a9c0ff",wx:-1.05,wy:0.82,r:.086,ico:"🧬"},
-};
-const GA=Math.PI*(3-Math.sqrt(5));
-function fib(n){const a=[];for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
-const core={id:"core",kind:"core",name:"Command",ico:"🧠",col:"#5ad8ff",wx:0,wy:0,r:.08,pts:fib(420),rot:0,hov:0};
-const byId={core};const worlds=[],depts=[],nodes=[core],clickable=[core];
-Object.keys(WMETA).forEach(wk=>{const m=WMETA[wk];const w=Object.assign({id:wk,kind:"world",open:0,hov:0,rot:Math.random()*6,pts:fib(90),depts:[]},m);
-  worlds.push(w);nodes.push(w);clickable.push(w);byId[wk]=w;
-  const mem=AG.filter(a=>a.div===wk);const baseA=Math.atan2(w.wy,w.wx);const arc=Math.min(1.8,mem.length*.32);
-  mem.forEach((a,i)=>{const f=mem.length===1?0:(i/(mem.length-1)-.5);const ang=baseA+f*arc;const bd=.52+((i%2)?.16:0);
-    const d=Object.assign({},a,{kind:"dept",world:w,bx:Math.cos(ang)*bd,by:Math.sin(ang)*bd,hov:0,r:.03});
-    depts.push(d);nodes.push(d);clickable.push(d);w.depts.push(d);byId[a.id]=d;});
-});
-byId.manager={id:"manager",name:"Everything",ico:"📖",col:"#5ad8ff",live:1,chip:""};
-const CROSSD=[["tk_video","ec_creative"],["tk_analytics","ec_creative"],["sales","tk_writer"],["engine","ec_product"],["sales","ec_product"],["lead","ec_ops"]];
-const cross=CROSSD.map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
+const byId={ceo:CEO};
+WORLDS.forEach(w=>{w.open=0;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
+  const arc=Math.min(1.7,w.kids.length*.32);
+  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.hov=0;k.kind="kid";k.world=w;k.r=.03;byId[k.id]=k;});});
+byId.manager={id:"manager",name:"Everything",ico:"📖",col:"#5ad8ff",live:1};
+const CROSS=[["tk_video","ec_creative"],["sales","tk_writer"],["b2b","ec_creative"]].map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
 
-// ===== CAMERA + INTERACTION =====
-const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;
-const pan={x:0,y:0};let zoom=.5;const tpan={x:0,y:0};let tzoom=.5;let active=null;
+// ===== CANVAS =====
+const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;let active=null;
 function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
-function WXn(n){return n.kind==="dept"?(n.world.wx+n.bx*n.world.open):n.wx;}
-function WYn(n){return n.kind==="dept"?(n.world.wy+n.by*n.world.open):n.wy;}
-function SX(n){return W*.5+pan.x+WXn(n)*M*zoom;}
-function SY(n){return H*.5+pan.y+WYn(n)*M*zoom;}
-function RAD(n){return (n.r||.03)*M*zoom;}
-function enterWorld(w){active=w;tzoom=1.15;tpan.x=-w.wx*M*tzoom;tpan.y=-w.wy*M*tzoom;updBack();}
-function overview(){active=null;tzoom=.5;tpan.x=0;tpan.y=0;updBack();}
-function updBack(){const b=document.getElementById("backBtn");if(b)b.style.display=active?"inline-flex":"none";}
-const mouse={x:-999,y:-999,in:false};const ptrs=new Map();let dragS=null,pinchS=null;
-function scr(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
-function pickable(){return active?[core,...worlds,...active.depts]:[core,...worlds];}
-function pick(mx,my){let hit=null,best=1e9;pickable().forEach(n=>{const d=Math.hypot(mx-SX(n),my-SY(n));const R=Math.max(26,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
-cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try{cv.setPointerCapture(e.pointerId);}catch(_){}
-  if(ptrs.size===1)dragS={x:p.x,y:p.y,px:pan.x,py:pan.y,hit:pick(p.x,p.y),moved:false};
-  else if(ptrs.size===2){const a=[...ptrs.values()];pinchS={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),z:zoom};dragS=null;}});
-cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
-  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=tzoom=Math.max(.3,Math.min(3,pinchS.z*d/pinchS.d));return;}
-  if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=tpan.x=dragS.px+dx;pan.y=tpan.y=dragS.py+dy;}});
-function endP(e){if(dragS&&!dragS.moved&&dragS.hit){const n=dragS.hit;if(n.kind==="world"){if(active!==n)enterWorld(n);}else if(n.kind==="core"){openModal("manager");}else{openModal(n.id);}}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
-cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
+const CX=()=>W*.5, CY=()=>H*.52;
+function WP(w){return[CX()+Math.cos(w.ang)*M*.27,CY()+Math.sin(w.ang)*M*.27];}
+function KP(k){const w=k.world,[wx,wy]=WP(w);const rx=CX()+Math.cos(k.cang)*M*.44,ry=CY()+Math.sin(k.cang)*M*.44;return[wx+(rx-wx)*w.open,wy+(ry-wy)*w.open];}
+function P(n){return n.id==="ceo"?[CX(),CY()]:n.kind==="world"?WP(n):KP(n);}
+function RAD(n){return n.r*M;}
+const mouse={x:-999,y:-999,in:false};
+addEventListener("pointermove",e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;});
 addEventListener("pointerleave",()=>mouse.in=false);
-cv.addEventListener("wheel",e=>{e.preventDefault();zoom=tzoom=Math.max(.3,Math.min(3,zoom*(1-e.deltaY*0.0012)));},{passive:false});
+function pickables(){return active?[CEO,...WORLDS,...active.kids]:[CEO,...WORLDS];}
+function pick(mx,my){let hit=null,best=1e9;pickables().forEach(n=>{const[x,y]=P(n);const d=Math.hypot(mx-x,my-y);const R=Math.max(28,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
+cv.addEventListener("pointerdown",e=>{const n=pick(e.clientX,e.clientY);if(!n)return;
+  if(n.id==="ceo")openChat();else if(n.kind==="world"){active=(active===n?null:n);}else openModal(n.id);});
 
-// ===== RENDER =====
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;let tPrev=0;
-function branch(ax,ay,bx,by,col,w,a){if(a<=0.004)return;const mx=(ax+bx)/2,my=(ay+by)/2,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;const cx=mx-dy/len*len*.16,cy=my+dx/len*len*.16;const c=hx(col);ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${a})`;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo(cx,cy,bx,by);ctx.stroke();}
-function drawNode(n,t){const op=n.kind==="dept"?n.world.open:1;if(op<.02)return;const cx=SX(n),cy=SY(n);
-  const hd=mouse.in?Math.hypot(mouse.x-cx,mouse.y-cy):999;n.hov+=((hd<Math.max(26,RAD(n)*1.5)?1:0)-n.hov)*.15;
-  const live=(n.live!==0);const c=hx(n.col),R=c[0],G=c[1],B=c[2];const R0=RAD(n)*(1+n.hov*.08);
-  const gA=(n.kind==="core"?.34:n.kind==="world"?.3:.22)*(live?1:.55)*op*(1+n.hov*.6);
-  ctx.globalCompositeOperation="lighter";
-  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*2.4);g.addColorStop(0,`rgba(${R},${G},${B},${gA})`);g.addColorStop(.5,`rgba(${R},${G},${B},${gA*.25})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R0*2.4,0,7);ctx.fill();
+function tbranch(ax,ay,bx,by,col,wBase,wTip,a){if(a<=0.01)return;const mx=(ax+bx)/2,my=(ay+by)/2,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;const cxp=mx-dy/len*len*.13,cyp=my+dx/len*len*.13;const c=hx(col);ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${a})`;ctx.lineCap="round";const N=10;let px=ax,py=ay;for(let i=1;i<=N;i++){const t=i/N,u=1-t;const x=u*u*ax+2*u*t*cxp+t*t*bx,y=u*u*ay+2*u*t*cyp+t*t*by;ctx.lineWidth=wBase+(wTip-wBase)*t;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(x,y);ctx.stroke();px=x;py=y;}}
+function orb(n,t){const[cx,cy]=P(n);const op=n.kind==="kid"?n.world.open:1;if(op<.02)return;
+  const hd=mouse.in?Math.hypot(mouse.x-cx,mouse.y-cy):999;n.hov+=((hd<Math.max(28,RAD(n)*1.5)?1:0)-n.hov)*.15;
+  const live=(n.live!==0);const c=hx(n.col),R=c[0],G=c[1],B=c[2];const br=reduce?0:Math.sin(t/1100+(n.rot||0))*.03;const R0=RAD(n)*(1+br+n.hov*.08);
+  const gA=(n.id==="ceo"?.4:n.kind==="world"?.32:.22)*(live?1:.5)*op*(1+n.hov*.6);
+  ctx.globalCompositeOperation="lighter";const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*2.6);g.addColorStop(0,`rgba(${R},${G},${B},${gA})`);g.addColorStop(.5,`rgba(${R},${G},${B},${gA*.25})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R0*2.6,0,7);ctx.fill();
   ctx.globalCompositeOperation="source-over";
   ctx.beginPath();ctx.arc(cx,cy,R0,0,7);ctx.fillStyle="rgba(7,11,20,.92)";ctx.fill();
   if(!live)ctx.setLineDash([3,3]);ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(${R},${G},${B},${(live?.9:.5)*op})`;ctx.stroke();ctx.setLineDash([]);
-  if(n.pts){if(!reduce)n.rot+=(n.kind==="core"?.006:.009);const cosR=Math.cos(n.rot),sinR=Math.sin(n.rot),cosT=Math.cos(.42),sinT=Math.sin(.42);for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cosR-z*sinR,z1=x*sinR+z*cosR;let y1=y*cosT-z1*sinT,z2=y*sinT+z1*cosT;const persp=1/(1-z2*.34);const sx=cx+x1*R0*.85*persp,sy=cy+y1*R0*.85*persp;const depth=(z2+1)/2;ctx.fillStyle=`rgba(${R},${G},${B},${(0.08+depth*.42)*op})`;ctx.fillRect(sx-1,sy-1,1.5,1.5);}}
-  ctx.globalAlpha=op;ctx.font=Math.round(R0*1.0)+"px system-ui";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.ico||"",cx,cy+1);ctx.globalAlpha=1;
+  if(n.pts){if(!reduce)n.rot+=(n.id==="ceo"?.005:.008);const cR=Math.cos(n.rot),sR=Math.sin(n.rot),cT=Math.cos(.42),sT=Math.sin(.42);for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cT-z1*sT,z2=y*sT+z1*cT;const pr=1/(1-z2*.34);const sx=cx+x1*R0*.85*pr,sy=cy+y1*R0*.85*pr;const d=(z2+1)/2;ctx.fillStyle=`rgba(${R},${G},${B},${(0.08+d*.42)*op})`;ctx.fillRect(sx-1,sy-1,1.5,1.5);}}
+  ctx.globalAlpha=op;ctx.font=Math.round(R0*1.02)+"px system-ui";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.ico,cx,cy+1);ctx.globalAlpha=1;
 }
 function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
-  pan.x+=(tpan.x-pan.x)*.12;pan.y+=(tpan.y-pan.y)*.12;zoom+=(tzoom-zoom)*.12;
-  worlds.forEach(w=>{w.open+=((active===w?1:0)-w.open)*.14;w.hov+=((mouse.in&&Math.hypot(mouse.x-SX(w),mouse.y-SY(w))<RAD(w)*1.5?1:0)-w.hov)*.15;});
+  WORLDS.forEach(w=>w.open+=((active===w?1:0)-w.open)*.16);
   ctx.clearRect(0,0,W,H);
-  const cxp=W*.5+pan.x*.2,cyp=H*.5+pan.y*.2;const bg=ctx.createRadialGradient(cxp,cyp,0,cxp,cyp,Math.max(W,H)*.95);bg.addColorStop(0,"#070d1c");bg.addColorStop(.6,"#04060e");bg.addColorStop(1,"#000");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-  worlds.forEach(w=>{const dim=active&&active!==w?.35:1;branch(SX(core),SY(core),SX(w),SY(w),w.col,Math.max(1.6,3.4*zoom)*(active===w?1.5:1),(.18+w.hov*.3)*dim);});
-  cross.forEach(p=>{const op=Math.max(p[0].world?p[0].world.open:0,p[1].world?p[1].world.open:0);branch(SX(p[0]),SY(p[0]),SX(p[1]),SY(p[1]),"#9fc0ff",Math.max(1,1.5*zoom),.05+op*.45);});
-  worlds.forEach(w=>{if(w.open<.02)return;w.depts.forEach(d=>branch(SX(w),SY(w),SX(d),SY(d),d.col,Math.max(1.2,2*zoom),.12+w.open*.4));});
-  drawNode(core,t);worlds.forEach(w=>drawNode(w,t));depts.forEach(d=>drawNode(d,t));
+  const bg=ctx.createRadialGradient(CX(),CY(),0,CX(),CY(),Math.max(W,H)*.8);bg.addColorStop(0,"#0a1526");bg.addColorStop(.6,"#05070f");bg.addColorStop(1,"#03040a");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  // trunks CEO -> world (tree limbs, tapered)
+  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=WP(w);const dim=active&&active!==w?.4:1;tbranch(ex,ey,wx,wy,w.col,Math.max(4,RAD(w)*.5),2,(.32+w.hov*.4)*dim);});
+  // cross-world twigs
+  CROSS.forEach(p=>{const[ax,ay]=P(p[0]),[bx,by]=P(p[1]);const op=Math.max(p[0].world?p[0].world.open:0,p[1].world?p[1].world.open:0);tbranch(ax,ay,bx,by,"#9fc0ff",2,2,.04+op*.4);});
+  // world -> kid twigs
+  WORLDS.forEach(w=>{if(w.open<.02)return;const[wx,wy]=WP(w);w.kids.forEach(k=>{const[kx,ky]=KP(k);tbranch(wx,wy,kx,ky,k.col,Math.max(2.5,RAD(w)*.28),1.5,(.15+w.open*.5));});});
+  orb(CEO,t);WORLDS.forEach(w=>orb(w,t));WORLDS.forEach(w=>w.kids.forEach(k=>orb(k,t)));
   placeLabels();requestAnimationFrame(frame);
 }
-
-// ===== LABELS =====
+// labels
 const labels=document.getElementById("labels");
-[...worlds,...depts].forEach(n=>{const d=document.createElement("div");d.className="lbl"+((n.live===0)?" soon":"");
-  d.innerHTML=`<div class="nm" style="color:${n.col};${n.kind==="world"?"font-size:16px":""}">${n.name}</div><div class="one">${n.one||n.note||""}</div>`+((n.chip!==undefined&&n.chip!=="")?`<div class="chip" style="color:${n.col}">${n.chip}</div>`:"");
-  labels.appendChild(d);n.lel=d;});
-const coreLabel=document.createElement("div");coreLabel.className="lbl";coreLabel.innerHTML=`<div class="nm" style="color:${core.col};font-size:15px">🧠 Command</div><div class="one">tap for everything</div>`;labels.appendChild(coreLabel);core.lel=coreLabel;
-function placeLabels(){[...worlds,...depts].forEach(n=>{if(!n.lel)return;const op=n.kind==="dept"?n.world.open:1;const off=(SX(n)<-90||SX(n)>W+90||SY(n)<-90||SY(n)>H+90);n.lel.style.left=SX(n)+"px";n.lel.style.top=(SY(n)+RAD(n)+13)+"px";n.lel.style.opacity=(off||op<.2)?0:(active&&n.kind==="world"&&active!==n?.45:1);});
-  coreLabel.style.left=SX(core)+"px";coreLabel.style.top=(SY(core)+RAD(core)+13)+"px";coreLabel.style.opacity=active?0:1;}
+[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const d=document.createElement("div");d.className="lbl"+((n.live===0)?" soon":"");d.innerHTML=`<div class="nm" style="color:${n.col};font-size:${n.kind==="world"?15:12.5}px">${n.name}</div><div class="one">${n.one||n.note||""}</div>`;labels.appendChild(d);n.lel=d;});
+const ceoL=document.createElement("div");ceoL.className="lbl";ceoL.innerHTML=`<div class="nm" style="color:${CEO.col};font-size:16px">CEO</div><div class="one">tap to ask anything</div>`;labels.appendChild(ceoL);
+function placeLabels(){[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const[x,y]=P(n);const op=n.kind==="kid"?n.world.open:1;n.lel.style.left=x+"px";n.lel.style.top=(y+RAD(n)+11)+"px";n.lel.style.opacity=op<.25?0:(active&&n.kind==="world"&&active!==n?.5:1);});
+  const[ex,ey]=P(CEO);ceoL.style.left=ex+"px";ceoL.style.top=(ey+RAD(CEO)+12)+"px";}
 
-// ===== MODAL / WORK (real data) =====
+// ===== MODAL / WORK =====
 function tel(d){return d?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:"";}
-function dial(p){return p?p.replace(/\D/g,""):"";}
+function dialn(p){return p?p.replace(/\D/g,""):"";}
 function esc(s){return(s||"").replace(/"/g,"&quot;");}
 const WORK={
- core:()=>`<div class="sec"><div class="s-lbl">The money</div><div class="say"><b style="font-size:26px;color:var(--core)">${DATA.kpis.mrr}</b> of $10,000/mo · <b>${DATA.kpis.clients}</b> clients · <b>${DATA.kpis.leads}</b> leads · <b>${DATA.kpis.dials.split("/")[0]}</b> called today</div></div>
-  <div class="sec"><div class="s-lbl">Where your leads stand</div><div class="bars">${STAGES.map(([k,label])=>{const v=DATA.pipeline[k]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x[0]]||0));return`<div class="bar"><span class="bn">${label}</span><span class="bt"><i style="width:${v/mx*100}%"></i></span><span class="bv">${v}</span></div>`;}).join("")}</div></div>
-  <div class="sec"><div class="s-lbl">Do this next</div><div class="say"><b>1.</b> Call <b>(314) 887-9824</b> — confirm your demo line rings and handles a fake 2am water call.<br><b>2.</b> Call the green leads.<br><b>3.</b> Log each call in Notes.</div></div>`,
- lead:()=>`<div class="sec"><div class="s-lbl">Companies to call <span>${DATA.leadList.length} · tap 📝 to note</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><div class="lr"><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dial(l.p)}">${l.p}</a>`:`<span class="noph">no #</span>`}<button class="ntbtn ${NOTES[l.co]?'has':''}" data-co="${esc(l.co)}">📝</button></div><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue, interested…)">${esc(NOTES[l.co]||"")}</textarea></div>`).join("")}</div>`,
- notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap 📝 on a company, and jot what happened. Saves on your device, shows here, and rides along in the CSV.</div>'}</div><div class="sec"><button class="btn" id="notesCsv">⬇ Export notes + leads CSV</button></div>`;},
- sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div>
-  <div class="sec"><div class="s-lbl">What to open with</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]} · ${o[2]}</div><div class="sc">${tel(o[3])}</div></div><a class="tel" href="tel:+1${o[3]}">Call</a></div>${o[4]?`<div class="flag">⚠ ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
- store:()=>`<div class="sec"><div class="s-lbl">Everything the team remembers</div>
-   <div class="fr"><div><div class="fl">Offer & pricing</div><div class="fm">$500/mo, setup waived for first 3</div></div><span class="badge on">Set</span></div>
-   <div class="fr"><div><div class="fl">Demo line</div><div class="fm">(314) 887-9824 — in every script</div></div><span class="badge on">Wired</span></div>
-   <div class="fr"><div><div class="fl">Your leads</div><div class="fm">${DATA.pipeline.new||0} waiting</div></div><span class="badge warn">${DATA.pipeline.new||0}</span></div>
-   <div class="fr"><div><div class="fl">Call notes</div><div class="fm">${Object.keys(NOTES).length} logged on this device</div></div><span class="badge ${Object.keys(NOTES).length?'on':'empty'}">${Object.keys(NOTES).length||'—'}</span></div></div>`,
- engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b> it finds ~150 new companies, checks the numbers, writes what to say (with your real demo line), and adds them to your list — while you sleep.</div></div>
-  <div class="sec"><div class="s-lbl">Latest</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
- voice:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>An AI that makes the calls for you</b> — same tech as your demo, pointed at the lead list.</div></div>`,
- appt:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>Books appointments into your calendar</b> when a lead replies.</div></div>`,
- tk_mgr:()=>`<div class="sec"><div class="s-lbl">TikTok video system · the plan</div><div class="say"><b>Flow:</b> Idea → Story Script → Assets → Voice → Video → Quality Check → Post → Feedback.<br><br><b>Content Manager's job:</b> picks the topic, assigns the work, approves the final video.<br><b>Output:</b> the content brief + approval.</div></div>
-  <div class="sec"><div class="s-lbl">Start with 4, not 9</div><div class="say"><b>Minimum team:</b> Content Manager · Story Writer · Video Creator · Analytics. The Video Creator can handle visuals, voice, captions, and editing at first.</div></div>
-  <div class="sec"><div class="s-lbl">Full roster (add only when overloaded)</div><div class="say">Trend & Idea · Story Writer · Visual Asset · Voice · Video Editor · Quality Control · Posting · Analytics. <b>Bottom line: start with ~6 combined agents, not 19.</b></div></div>`,
- tk_writer:()=>`<div class="sec"><div class="s-lbl">Story Writer</div><div class="say"><b>Job:</b> writes short TikTok stories — hook, escalation, payoff, call to action.<br><b>Output:</b> a 30–90 second script.</div></div>`,
- tk_video:()=>`<div class="sec"><div class="s-lbl">Video Creator</div><div class="say"><b>Job:</b> turns the script into a finished vertical video — visuals, narration voice, music, captions, cuts, transitions. Early on, one agent does visuals + voice + editing.<br><b>Output:</b> a ready-to-post video.</div></div>`,
- tk_analytics:()=>`<div class="sec"><div class="s-lbl">Analytics</div><div class="say"><b>Job:</b> reviews retention, watch time, shares, comments, and which story patterns win.<br><b>Output:</b> feedback that feeds the next videos.</div></div>`,
- ec_mgr:()=>`<div class="sec"><div class="s-lbl">E-commerce store · the plan</div><div class="say"><b>Flow:</b> Product → Offer → Store Page → Marketing → Orders → Support → Retention → Profit.<br><br><b>Store Manager's job:</b> coordinates the store, prioritizes work, tracks revenue goals.</div></div>
-  <div class="sec"><div class="s-lbl">Start with 5, not 10</div><div class="say"><b>Minimum team:</b> Store Manager · Product/Offer · Storefront · Creative/Traffic · Support/Fulfillment. Add retention + finance specialists after sales begin.</div></div>
-  <div class="sec"><div class="s-lbl">Full roster</div><div class="say">Product Research · Offer & Copy · Storefront · Creative · Traffic · Customer Support · Order & Fulfillment · Retention · Finance & Analytics. <b>Start with ~6 combined agents, not 19.</b></div></div>`,
- ec_product:()=>`<div class="sec"><div class="s-lbl">Product & Offer</div><div class="say"><b>Job:</b> evaluates products (demand, competition, margins), then builds the offer — positioning, pricing, bundles, guarantees, copy, upsells.<br><b>Output:</b> a product scorecard + a complete sales offer.</div></div>`,
- ec_store:()=>`<div class="sec"><div class="s-lbl">Storefront</div><div class="say"><b>Job:</b> builds and updates product pages, collections, FAQs, navigation, and checkout.<br><b>Output:</b> conversion-ready store pages.</div></div>`,
- ec_creative:()=>`<div class="sec"><div class="s-lbl">Creative & Traffic</div><div class="say"><b>Job:</b> makes TikTok ads, organic videos, hooks, and creator briefs — then runs campaigns, audiences, budgets, and testing.<br><b>Output:</b> marketing content + visitors.</div></div>`,
- ec_ops:()=>`<div class="sec"><div class="s-lbl">Support & Operations</div><div class="say"><b>Job:</b> answers product, shipping, return, and order-status questions; monitors inventory, suppliers, tracking, and delays.<br><b>Output:</b> resolved customers + accurate orders.</div></div>`,
+ receptionist:()=>`<div class="sec"><div class="s-lbl">AI Receptionist · your flagship</div><div class="say"><b>What it does:</b> answers every call 24/7, texts back missed calls, books the job, and qualifies the lead — so a business never loses a customer to voicemail.<br><br><b>Who you sell it to now:</b> restoration companies. A missed 2am water call = a lost 4–5 figure job.<br><br><b>Price:</b> $500/mo, setup waived for the first 3. <b>Demo:</b> (314) 887-9824.</div></div>`,
+ website:()=>`<div class="sec"><div class="s-lbl">Website AI · second offer</div><div class="say"><b>What it does:</b> an AI chat + booking widget on the client's website — answers FAQs, captures leads, and books appointments around the clock.<br><br><b>Who it's for:</b> any local business with a website and phone that rings out. Same pitch, different door — sell it alongside or instead of the receptionist.</div></div>`,
+ b2b:()=>`<div class="sec"><div class="s-lbl">B2B Outbound · how you sell</div><div class="say"><b>The offer is one thing; the doors are many.</b> Ways to put AI automation in front of businesses:</div></div>
+  <div class="sec"><div class="s-lbl">Channels</div>
+   <div class="fr"><div><div class="fl">📞 Cold calling</div><div class="fm">live now — 124 leads, scripts, demo line</div></div><span class="badge on">Active</span></div>
+   <div class="fr"><div><div class="fl">✉️ Cold email</div><div class="fm">needs a sending domain + tool (Instantly/Smartlead)</div></div><span class="badge warn">Setup</span></div>
+   <div class="fr"><div><div class="fl">💼 LinkedIn / DM</div><div class="fm">owner outreach, short video demos</div></div><span class="badge warn">Idea</span></div>
+   <div class="fr"><div><div class="fl">🤝 Referrals</div><div class="fm">first 3 clients → case studies → intros</div></div><span class="badge warn">After 1st close</span></div></div>`,
+ lead:()=>`<div class="sec"><div class="s-lbl">Companies to call <span>${DATA.leadList.length} · tap 📝 to note</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><div class="lr"><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${l.p}</a>`:`<span class="noph">no #</span>`}<button class="ntbtn ${NOTES[l.co]?'has':''}" data-co="${esc(l.co)}">📝</button></div><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue, interested…)">${esc(NOTES[l.co]||"")}</textarea></div>`).join("")}</div>`,
+ sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div><div class="sec"><div class="s-lbl">What to open with</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]} · ${o[2]}</div><div class="sc">${tel(o[3])}</div></div><a class="tel" href="tel:+1${o[3]}">Call</a></div>${o[4]?`<div class="flag">⚠ ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
+ notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap 📝 on a company, and jot what happened. Saves on your device and rides along in the CSV.</div>'}</div><div class="sec"><button class="btn" id="notesCsv">⬇ Export leads + notes CSV</button></div>`;},
+ engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b> it finds ~150 new companies, checks the numbers, writes what to say (with your demo line), and adds them to your list — while you sleep.</div></div><div class="sec"><div class="s-lbl">Latest</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
+ tk_mgr:()=>`<div class="sec"><div class="s-lbl">TikTok video system · the plan</div><div class="say"><b>Flow:</b> Idea → Script → Assets → Voice → Video → Quality Check → Post → Feedback.<br><br><b>Content Manager:</b> picks the topic, assigns work, approves the final video.</div></div><div class="sec"><div class="s-lbl">Start with 4, not 9</div><div class="say">Content Manager · Story Writer · Video Creator · Analytics. The Video Creator can do visuals, voice, captions, and editing at first. <b>Start with ~6 combined agents, not 19.</b></div></div>`,
+ tk_writer:()=>`<div class="sec"><div class="s-lbl">Story Writer</div><div class="say"><b>Job:</b> short TikTok stories — hook, escalation, payoff, call to action.<br><b>Output:</b> a 30–90 second script.</div></div>`,
+ tk_video:()=>`<div class="sec"><div class="s-lbl">Video Creator</div><div class="say"><b>Job:</b> turns the script into a finished vertical video — visuals, voice, music, captions, cuts.<br><b>Output:</b> a ready-to-post video.</div></div>`,
+ tk_analytics:()=>`<div class="sec"><div class="s-lbl">Analytics</div><div class="say"><b>Job:</b> reviews retention, watch time, shares, and which stories win.<br><b>Output:</b> feedback for the next videos.</div></div>`,
+ ec_mgr:()=>`<div class="sec"><div class="s-lbl">E-commerce store · the plan</div><div class="say"><b>Flow:</b> Product → Offer → Store Page → Marketing → Orders → Support → Retention → Profit.<br><br><b>Store Manager:</b> coordinates the store, tracks revenue goals.</div></div><div class="sec"><div class="s-lbl">Start with 5, not 10</div><div class="say">Store Manager · Product/Offer · Storefront · Creative/Traffic · Support/Fulfillment. Add retention + finance after sales begin.</div></div>`,
+ ec_product:()=>`<div class="sec"><div class="s-lbl">Product & Offer</div><div class="say"><b>Job:</b> evaluates products, then builds the offer — pricing, bundles, guarantees, copy, upsells.<br><b>Output:</b> a scorecard + a complete sales offer.</div></div>`,
+ ec_store:()=>`<div class="sec"><div class="s-lbl">Storefront</div><div class="say"><b>Job:</b> builds product pages, collections, FAQs, checkout.<br><b>Output:</b> conversion-ready store pages.</div></div>`,
+ ec_creative:()=>`<div class="sec"><div class="s-lbl">Creative & Traffic</div><div class="say"><b>Job:</b> makes the ads and organic videos, then runs campaigns, audiences, budgets, testing.<br><b>Output:</b> content + visitors.</div></div>`,
+ ec_ops:()=>`<div class="sec"><div class="s-lbl">Support & Operations</div><div class="say"><b>Job:</b> answers customer questions; monitors inventory, suppliers, tracking.<br><b>Output:</b> resolved customers + accurate orders.</div></div>`,
  life:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Your personal assistant</b> — calendar, reminders, errands, travel.</div></div>`,
  money:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Watches your money</b> — spending, bills, savings goals.</div></div>`,
- manager:()=>`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--core)">💰 The numbers</div></div>`+WORK.core()
-   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--agency)">📇 Every lead</div></div>`+WORK.lead()
-   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--hot)">💬 Every script</div></div>`+WORK.sales()
-   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">📝 Your notes</div></div>`+WORK.notes()
-   +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--personal)">⚙️ The 5am engine</div></div>`+WORK.engine(),
+ manager:()=>`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ceo)">💰 The numbers</div></div><div class="sec"><div class="s-lbl">The money</div><div class="say"><b style="font-size:26px;color:var(--ceo)">${DATA.kpis.mrr}</b> of $10,000/mo · <b>${DATA.kpis.clients}</b> clients · <b>${DATA.kpis.leads}</b> leads · <b>${DATA.kpis.dials.split("/")[0]}</b> called today</div></div>
+  <div class="sec"><div class="s-lbl">Pipeline</div><div class="bars">${STAGES.map(([k,label])=>{const v=DATA.pipeline[k]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x[0]]||0));return`<div class="bar"><span class="bn">${label}</span><span class="bt"><i style="width:${v/mx*100}%"></i></span><span class="bv">${v}</span></div>`;}).join("")}</div></div>
+  <div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--agency)">📇 Every lead</div></div>`+WORK.lead()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--hot)">💬 Every script</div></div>`+WORK.sales()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">📝 Your notes</div></div>`+WORK.notes(),
 };
-const SUB={manager:"Your whole business in one scroll — every number, lead, script, and note, translated plainly.",core:"The brainstem. All your key info and what to do next.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances."};
+const SUB={receptionist:"Your flagship offer — 24/7 AI call answering.",website:"Second offer — AI chat + booking on their site.",b2b:"The channels you use to sell the automation.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",engine:"Finds 150 new leads every morning while you sleep.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances.",manager:"Your whole business in one scroll."};
 const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
-function openModal(id){const n=byId[id];focusId=id;open=true;mey.textContent=n.live?"Working now":(n.chip==="IDEA"?"Just an idea":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";
-  morb.textContent=n.ico;morb.style.background=`rgba(${hx(n.col).join(",")},.14)`;morb.style.color=n.col;
-  mbody.innerHTML=(WORK[id]||(()=>""))();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
-function closeModal(){open=false;scrim.classList.remove("open");modal.classList.remove("open");}
-function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));
-  mbody.querySelectorAll("textarea[data-co]").forEach(ta=>ta.addEventListener("input",()=>{saveNote(ta.dataset.co,ta.value);const b=mbody.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(b)b.classList.toggle("has",!!ta.value.trim());}));
-  const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);}
-document.getElementById("mx").addEventListener("click",closeModal);scrim.addEventListener("click",closeModal);
-addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
-
-function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));
-  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
-document.getElementById("exportBtn").addEventListener("click",exportCSV);
+function openModal(id){const n=byId[id];const live=(n.live!==0);mey.textContent=live?"Working now":(id.startsWith("ec_")||id==="life"||id==="money"?"Planned":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";morb.textContent=n.ico;morb.style.background=`rgba(${hx(n.col).join(",")},.14)`;morb.style.color=n.col;mbody.innerHTML=(WORK[id]||(()=>""))();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
+function closeAll(){scrim.classList.remove("open");modal.classList.remove("open");document.getElementById("chat").classList.remove("open");}
+function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));mbody.querySelectorAll("textarea[data-co]").forEach(ta=>ta.addEventListener("input",()=>{saveNote(ta.dataset.co,ta.value);const b=mbody.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(b)b.classList.toggle("has",!!ta.value.trim());}));const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);}
+document.getElementById("mx").addEventListener("click",closeAll);scrim.addEventListener("click",closeAll);document.getElementById("chatX").addEventListener("click",closeAll);
+addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
 document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
 
-// ===== CHAT =====
-const log=document.getElementById("log"),cinp=document.getElementById("cinp");
+function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
+document.getElementById("exportBtn").addEventListener("click",exportCSV);
+
+// ===== CEO CHAT =====
+const log=document.getElementById("log"),cinp=document.getElementById("cinp");let chatSeeded=false;
+function openChat(){const c=document.getElementById("chat");scrim.classList.add("open");c.classList.add("open");if(!chatSeeded){add("ai","<b>CEO:</b> I run the whole operation. Ask me about the money, your leads, what to say on a call, or how we sell. Try a button 👇");chatSeeded=true;}setTimeout(()=>cinp.focus(),200);}
 function add(cls,html){const m=document.createElement("div");m.className="msg "+cls;m.innerHTML=html;log.appendChild(m);log.scrollTop=log.scrollHeight;}
 function reply(q){const s=q.toLowerCase();const ph=DATA.leadList.filter(l=>l.p).length;
-  if(/hi|hey|hello|yo|sup/.test(s)&&s.length<12)return "<b>Command:</b> Hey. Ask me about leads, what to say, notes, CSV, next steps, or the 5am engine.";
-  if(/how many|lead|compan|call list/.test(s))return `<b>Leads:</b> <b>${DATA.kpis.leads}</b> companies, <b>${ph}</b> with a phone ready to dial. Hottest: ${DATA.leadList.slice(0,3).map(l=>l.co).join(", ")}.`;
-  if(/csv|export|dialer|download/.test(s))return "<b>Command:</b> Hit <b>Export leads CSV</b> top-right — every company, phone, and note, ready for the auto-dialer.";
-  if(/note|log|track/.test(s))return "<b>Notes:</b> Open Leads, tap 📝 on a company, write what happened. Saves on your device, shows in the Notes neuron, and lands in the CSV.";
-  if(/next|what.*do|priority|today/.test(s))return "<b>Command:</b> First — <b>call (314) 887-9824</b> and confirm your demo line works. Then dial the green leads and log each in Notes.";
-  if(/say|script|opener|pitch|objection|push/.test(s))return "<b>Scripts:</b> Open with — “Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it, 90 seconds.” Tap Scripts for push-back answers.";
-  if(/demo|vapi|number|line/.test(s))return "<b>Command:</b> Your demo line <b>(314) 887-9824</b> is wired into every script. Call it once yourself to make sure it rings and sounds right.";
-  if(/money|revenue|mrr|close|client/.test(s))return `<b>Command:</b> Revenue <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week.`;
-  if(/engine|5am|auto|source|find more/.test(s))return "<b>Auto-Leads:</b> I run at 5am and add ~150 phone-checked companies. You're at "+DATA.kpis.leads+" now.";
-  if(/tiktok|video|content/.test(s))return "<b>Content:</b> The TikTok system is mapped — Content Manager → Story Writer → Video Creator → Analytics. Start with those 4. Tap the Content island for the full plan.";
-  if(/ecom|store|shopify|product|dropship/.test(s))return "<b>Ecom:</b> Store mapped — Store Manager → Product/Offer → Storefront → Creative/Traffic → Support. Tap the Ecom island for the plan.";
-  return "<b>Command:</b> I can talk leads, scripts, notes, CSV, next steps, revenue, or the engine. Try the buttons — or have your operator wire me to full AI.";}
+  if(/hi|hey|hello|yo|sup/.test(s)&&s.length<12)return "<b>CEO:</b> Talk to me. Money, leads, scripts, or how we sell — what do you need?";
+  if(/how many|lead|compan|call list/.test(s))return `<b>CEO:</b> <b>${DATA.kpis.leads}</b> companies in the pipeline, <b>${ph}</b> ready to dial. Hottest: ${DATA.leadList.slice(0,3).map(l=>l.co).join(", ")}. Open AI Agency → Leads.`;
+  if(/sell|offer|service|receptionist|website|automation|b2b|pitch/.test(s))return "<b>CEO:</b> We sell three ways: <b>AI Receptionist</b> (24/7 answering — our restoration play), <b>Website AI</b> (chat + booking), and <b>B2B Outbound</b> (cold call now, email/DM/referrals next). Same offer, many doors. Open AI Agency to drill in.";
+  if(/csv|export|dialer|download/.test(s))return "<b>CEO:</b> Hit <b>⬇ CSV</b> top-right — every company, phone, and note, ready for the dialer.";
+  if(/note|log|track/.test(s))return "<b>CEO:</b> Open AI Agency → Notes, or tap 📝 on any lead. It saves on your device and rides along in the CSV.";
+  if(/next|what.*do|priority|today/.test(s))return "<b>CEO:</b> One thing first — <b>call (314) 887-9824</b>, confirm the demo line works. Then dial the leads and log each call. That's the whole game today.";
+  if(/say|script|opener|objection|push/.test(s))return "<b>CEO:</b> Open with — “Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it, 90 seconds.” Full scripts in AI Agency → Scripts.";
+  if(/money|revenue|mrr|close|client/.test(s))return `<b>CEO:</b> <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week, turn them into case studies. Tap 📖 Everything for the full picture.`;
+  if(/engine|5am|auto|find more/.test(s))return "<b>CEO:</b> The 5am engine adds ~150 phone-checked companies every morning. You're at "+DATA.kpis.leads+" now.";
+  if(/tiktok|video|content/.test(s))return "<b>CEO:</b> Content world is mapped — Content Mgr → Story Writer → Video Creator → Analytics. Start with those 4.";
+  if(/ecom|store|shopify|product/.test(s))return "<b>CEO:</b> Ecom is mapped — Store Mgr → Product → Storefront → Creative → Support. It's the next business after the agency's paying.";
+  return "<b>CEO:</b> I can talk money, leads, scripts, how we sell, notes, CSV, or the 5am engine. Hit a button or ask again.";}
 function send(q){if(!q.trim())return;add("me",q);cinp.value="";setTimeout(()=>add("ai",reply(q)),340);}
 document.getElementById("csend").addEventListener("click",()=>send(cinp.value));cinp.addEventListener("keydown",e=>{if(e.key==="Enter")send(cinp.value);});
-const chips=document.getElementById("chips");["How many leads?","What do I say?","How do notes work?","What's next?"].forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>send(c);chips.appendChild(b);});
-document.getElementById("chatHead").addEventListener("click",()=>{const c=document.getElementById("chat");c.classList.toggle("min");document.getElementById("chatToggle").textContent=c.classList.contains("min")?"▴":"▾";});
-add("ai","<b>Command:</b> Your team's online. Ask about leads, scripts, or notes — buttons below.");
+["What do we sell?","What's next?","How many leads?","What do I say?"].forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>send(c);document.getElementById("chips").appendChild(b);});
 
 // ===== LIVE =====
 const last={};
 function flash(id){const el=document.getElementById(id);el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
 function renderKpis(){const set=(id,html,key)=>{const el=document.getElementById(id);el.innerHTML=html;if(last[key]!==undefined&&last[key]!==html)flash(id);last[key]=html;};
   set("k-mrr",DATA.kpis.mrr+'<small>/10k</small>',"m");set("k-leads",String(DATA.kpis.leads),"l");set("k-dials",DATA.kpis.dials.split("/")[0]+'<small>/'+DATA.kpis.dials.split("/")[1]+'</small>',"d");set("k-clients",String(DATA.kpis.clients),"c");
-  if(byId.lead.lel)byId.lead.lel.querySelector(".chip").textContent=DATA.kpis.leads;if(byId.notes.lel)byId.notes.lel.querySelector(".chip").textContent=Object.keys(NOTES).length;}
+  if(byId.lead.lel){const o=byId.lead.lel.querySelector(".one");if(o)o.textContent=DATA.kpis.leads+" companies to call";}}
 async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
   const counts={};STAGES.forEach(s=>counts[s[0]]=0);const list=[];let won=false;
   txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("| "))return;const c=line.split("|").map(x=>x.trim());if(c.length<4||c[1]===""||c[1]==="Company")return;const st=c[3].toLowerCase();if(!STAGES.some(s=>s[0]===st))return;counts[st]++;if(st==="new"){const m=(c[2]||"").match(/\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/);list.push({co:c[1],c:c[2],p:m?m[0]:""});}});
   if(list.length){DATA.pipeline=counts;DATA.kpis.leads=Object.values(counts).reduce((a,b)=>a+b,0);DATA.leadList=list;}
   const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const lr=rows[rows.length-1];if(lr){const c=lr.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
-  document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' neurons</b> firing';renderKpis();
+  document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' leads</b> in your files';renderKpis();
 }catch(e){document.getElementById("liveTxt").innerHTML='<b>'+DATA.kpis.leads+' leads</b> · snapshot';renderKpis();}}
-document.getElementById("resetView").addEventListener("click",overview);document.getElementById("backBtn").addEventListener("click",overview);
 setTimeout(()=>{const h=document.getElementById("hint");if(h)h.style.opacity="0";},7000);
 resize();renderKpis();requestAnimationFrame(frame);hydrate();setInterval(hydrate,5000);
 </script>
