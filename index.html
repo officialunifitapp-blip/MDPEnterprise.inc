@@ -1,64 +1,104 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MDP Enterprises — Agent OS</title>
+<title>MDP Enterprises — The Team</title>
 <style>
   :root{
-    --core:#d24bff; --lead:#4fe39c; --sales:#ff5db1; --store:#f2b53a; --engine:#5b9dff;
-    --tiktok:#ff7847; --voice:#35d0e0; --appt:#9b8cff; --clone:#c86bff;
-    --ink:#e9f0fa; --dim:#8ea3c0; --faint:#55688a;
+    --core:#7fe4ff; --lead:#4fe39c; --sales:#ff7ac2; --store:#f6c453; --engine:#6ea8ff;
+    --tiktok:#ff8a5c; --voice:#4fdbe6; --appt:#a99bff; --clone:#d07bff;
+    --ink:#eaf1fb; --dim:#93a6c4; --faint:#5a6d8c;
+    --room:#0a1220;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;height:100%;background:#03050b;overflow:hidden;color:var(--ink);
-    font-family:"SF Mono",ui-monospace,"Cascadia Code",Menlo,monospace;}
-  #stage{position:fixed;inset:0;} canvas{display:block;width:100%;height:100%;cursor:grab;}
-  canvas:active{cursor:grabbing;}
+  html,body{margin:0;height:100%;overflow:hidden;color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:radial-gradient(120% 90% at 50% 8%, #16223b 0%, #0a1120 42%, #05080f 100%);}
+  #scene{position:fixed;inset:0;perspective:1400px;perspective-origin:50% 42%;overflow:hidden;}
+  #room{position:absolute;inset:0;transform-style:preserve-3d;
+    transform:translateZ(0) rotateX(var(--rx,4deg)) rotateY(var(--ry,0deg));
+    transition:transform .18s ease-out;}
 
-  /* top HUD */
-  .hud{position:fixed;left:0;top:0;right:0;padding:16px 20px;pointer-events:none;z-index:6;
-    display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
-    background:linear-gradient(#03050bcc,#03050b00);}
-  .hud .brand .tag{font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--core);opacity:.85;}
-  .hud .brand h1{margin:4px 0 0;font-family:system-ui,sans-serif;font-size:19px;font-weight:600;letter-spacing:.01em;}
-  .hud .brand .st{font-size:10.5px;color:var(--faint);margin-top:5px;display:flex;align-items:center;gap:6px;}
-  .hud .brand .st i{width:6px;height:6px;border-radius:99px;background:var(--lead);box-shadow:0 0 8px var(--lead);animation:bp 2s ease-in-out infinite;}
-  @keyframes bp{50%{opacity:.35;}}
-  .kbar{display:flex;gap:1px;border:1px solid #23324a;border-radius:11px;overflow:hidden;background:#23324a;}
-  .kbar .k{background:#080e1a;padding:8px 13px;text-align:right;min-width:66px;}
-  .kbar .k .v{font-size:16px;font-weight:600;letter-spacing:.01em;line-height:1;}
+  /* floor */
+  .floor{position:absolute;left:50%;top:64%;width:2600px;height:2000px;transform:translate(-50%,0) rotateX(78deg);
+    transform-style:preserve-3d;
+    background:
+      repeating-linear-gradient(90deg, rgba(120,170,240,.08) 0 1px, transparent 1px 120px),
+      repeating-linear-gradient(0deg, rgba(120,170,240,.08) 0 1px, transparent 1px 120px);
+    -webkit-mask-image:radial-gradient(60% 55% at 50% 30%, #000 0%, transparent 78%);
+    mask-image:radial-gradient(60% 55% at 50% 30%, #000 0%, transparent 78%);}
+  .floorglow{position:absolute;left:50%;top:52%;width:900px;height:520px;transform:translate(-50%,-50%);
+    background:radial-gradient(50% 50% at 50% 50%, rgba(127,228,255,.14), transparent 70%);filter:blur(30px);}
+
+  /* atmosphere motes */
+  .mote{position:absolute;border-radius:99px;background:#bfe0ff;pointer-events:none;opacity:.4;
+    animation:rise linear infinite;}
+  @keyframes rise{from{transform:translateY(30px);opacity:0}10%{opacity:.5}to{transform:translateY(-160px);opacity:0}}
+
+  /* team */
+  .team{position:absolute;left:50%;top:50%;transform-style:preserve-3d;}
+  .member{position:absolute;transform-style:preserve-3d;cursor:pointer;
+    transition:filter .25s, transform .3s;will-change:transform;}
+  .member .lift{transform-style:preserve-3d;animation:breathe var(--bd,4s) ease-in-out infinite;animation-delay:var(--bdl,0s);}
+  @keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .member.off{filter:saturate(.35) brightness(.7);opacity:.62;}
+  .member:hover{filter:brightness(1.12) drop-shadow(0 0 20px var(--ac));}
+  .member.off:hover{filter:saturate(.5) brightness(.85);}
+
+  .pad{position:absolute;left:50%;bottom:-8px;width:150px;height:44px;transform:translate(-50%,0) rotateX(72deg);
+    border-radius:50%;background:radial-gradient(50% 50% at 50% 50%, var(--ac), transparent 66%);opacity:.5;}
+  .ring{position:absolute;left:50%;bottom:-8px;width:150px;height:44px;transform:translate(-50%,0) rotateX(72deg);
+    border-radius:50%;border:1.5px solid var(--ac);opacity:.5;animation:ping 3.4s ease-out infinite;animation-delay:var(--bdl,0s);}
+  @keyframes ping{0%{transform:translate(-50%,0) rotateX(72deg) scale(.5);opacity:.55}100%{transform:translate(-50%,0) rotateX(72deg) scale(1.35);opacity:0}}
+  .member.off .ring{display:none;}
+
+  .av{display:block;filter:drop-shadow(0 12px 18px rgba(0,0,0,.5));}
+  .plate{position:absolute;left:50%;bottom:-52px;transform:translateX(-50%);text-align:center;white-space:nowrap;}
+  .plate .nm{font-size:13px;font-weight:600;letter-spacing:.01em;}
+  .plate .rl{font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:3px;
+    display:inline-flex;align-items:center;gap:5px;}
+  .plate .rl i{width:6px;height:6px;border-radius:99px;background:var(--ac);box-shadow:0 0 7px var(--ac);}
+  .member.off .plate .rl i{background:#7c8aa3;box-shadow:none;animation:flick 2.4s steps(1) infinite;}
+  @keyframes flick{0%,100%{opacity:1}45%{opacity:.3}50%{opacity:.8}}
+
+  .blink{transform-box:fill-box;transform-origin:center;animation:blink var(--kd,5s) steps(1) infinite;animation-delay:var(--kdl,0s);}
+  @keyframes blink{0%,96%,100%{transform:scaleY(1)}98%{transform:scaleY(.08)}}
+  .chest{transform-box:fill-box;transform-origin:center;animation:cpulse 2.6s ease-in-out infinite;}
+  @keyframes cpulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+  /* HUD */
+  .hud{position:fixed;left:0;top:0;right:0;padding:16px 20px;z-index:20;pointer-events:none;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+  .brand .tag{font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--core);opacity:.85;}
+  .brand h1{margin:4px 0 0;font-size:20px;font-weight:600;}
+  .brand .st{font-family:ui-monospace,monospace;font-size:10.5px;color:var(--faint);margin-top:5px;display:flex;align-items:center;gap:6px;}
+  .brand .st i{width:6px;height:6px;border-radius:99px;background:var(--lead);box-shadow:0 0 8px var(--lead);animation:bp 2s ease-in-out infinite;}
+  @keyframes bp{50%{opacity:.35}}
+  .kbar{display:flex;gap:1px;border:1px solid #23324a;border-radius:11px;overflow:hidden;background:#23324a;pointer-events:auto;}
+  .kbar .k{background:#080e1acc;backdrop-filter:blur(8px);padding:8px 13px;text-align:right;min-width:64px;}
+  .kbar .k .v{font-family:ui-monospace,monospace;font-size:16px;font-weight:600;line-height:1;}
   .kbar .k .v small{font-size:10px;color:var(--faint);}
   .kbar .k .l{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:5px;}
   .kbar .mrr .v{color:var(--core);} .kbar .leads .v{color:var(--lead);} .kbar .dials .v{color:var(--store);} .kbar .clients .v{color:var(--tiktok);}
-
-  .foot{position:fixed;left:20px;bottom:16px;z-index:6;pointer-events:none;font-size:10px;color:var(--faint);letter-spacing:.04em;line-height:1.7;}
+  .foot{position:fixed;left:20px;bottom:16px;z-index:20;font-size:10px;color:var(--faint);letter-spacing:.03em;pointer-events:none;}
   .foot b{color:var(--dim);font-weight:500;}
-  .legend{position:fixed;right:18px;bottom:16px;z-index:6;pointer-events:none;display:flex;flex-direction:column;gap:4px;align-items:flex-end;font-size:9.5px;color:var(--dim);}
-  .legend span{display:inline-flex;align-items:center;gap:6px;} .legend i{width:7px;height:7px;border-radius:99px;box-shadow:0 0 7px currentColor;}
-  .legend .off{opacity:.5;}
 
-  /* drawer */
+  /* drawer (real work) */
   .scrim{position:fixed;inset:0;background:rgba(2,4,9,.6);backdrop-filter:blur(3px);z-index:40;opacity:0;pointer-events:none;transition:opacity .3s;}
   .scrim.open{opacity:1;pointer-events:auto;}
-  .drawer{position:fixed;top:0;right:0;height:100%;width:min(500px,100%);z-index:50;background:#060a12;
-    border-left:1px solid #1b2942;transform:translateX(100%);transition:transform .34s cubic-bezier(.2,.9,.2,1);
-    overflow-y:auto;box-shadow:-24px 0 70px rgba(0,0,0,.6);}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(500px,100%);z-index:50;background:#060a12;border-left:1px solid #1b2942;
+    transform:translateX(100%);transition:transform .34s cubic-bezier(.2,.9,.2,1);overflow-y:auto;box-shadow:-24px 0 70px rgba(0,0,0,.6);}
   .drawer.open{transform:translateX(0);}
-  .d-head{position:sticky;top:0;background:linear-gradient(#060a12,rgba(6,10,18,.9));backdrop-filter:blur(8px);
-    padding:20px 24px 15px;border-bottom:1px solid #1b2942;display:flex;align-items:center;gap:13px;}
-  .d-ava{width:46px;height:46px;flex:none;border-radius:13px;display:grid;place-items:center;border:1px solid #1b2942;position:relative;}
-  .d-ava svg{width:24px;height:24px;} .d-ava .dot{position:absolute;right:-3px;bottom:-3px;width:12px;height:12px;border-radius:99px;border:2px solid #060a12;}
-  .d-role{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;}
-  .d-head h2{margin:3px 0 0;font-family:system-ui,sans-serif;font-size:20px;font-weight:600;}
-  .d-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--faint);font-size:24px;cursor:pointer;}
-  .d-close:hover{color:var(--ink);}
-  .d-sub{padding:13px 24px 0;color:var(--dim);font-size:12px;line-height:1.55;font-family:system-ui,sans-serif;}
-  .d-body{padding:14px 24px 60px;font-family:system-ui,sans-serif;}
+  .d-head{position:sticky;top:0;background:linear-gradient(#060a12,rgba(6,10,18,.9));backdrop-filter:blur(8px);padding:20px 24px 15px;border-bottom:1px solid #1b2942;display:flex;align-items:center;gap:13px;}
+  .d-ava{width:52px;height:52px;flex:none;border-radius:13px;display:grid;place-items:center;border:1px solid #1b2942;overflow:hidden;}
+  .d-role{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;} .d-head h2{margin:3px 0 0;font-size:20px;font-weight:600;}
+  .d-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--faint);font-size:24px;cursor:pointer;} .d-close:hover{color:var(--ink);}
+  .d-sub{padding:13px 24px 0;color:var(--dim);font-size:12px;line-height:1.55;} .d-body{padding:14px 24px 60px;}
   .sec{margin-top:22px;} .sec:first-child{margin-top:8px;}
   .s-lbl{font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:10px;display:flex;justify-content:space-between;}
   .lead{display:flex;align-items:center;gap:11px;background:#0a1019;border:1px solid #17233a;border-radius:11px;padding:10px 12px;margin-bottom:7px;}
   .lead .lx{width:20px;font-family:ui-monospace,monospace;font-size:11px;color:var(--faint);text-align:center;}
   .lead .lb{flex:1;min-width:0;} .lead .lco{font-size:13px;font-weight:600;} .lead .lm{font-size:10.5px;color:var(--dim);margin-top:2px;}
   .lead a.tel{font-family:ui-monospace,monospace;font-size:12.5px;color:#03050b;background:var(--lead);border-radius:8px;padding:7px 11px;text-decoration:none;font-weight:700;white-space:nowrap;}
-  .lead .noph{font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--store);border:1px solid #4a3f22;border-radius:8px;padding:6px 8px;white-space:nowrap;}
+  .lead .noph{font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--store);border:1px solid #4a3f22;border-radius:8px;padding:6px 8px;}
   .lead .td{width:6px;height:6px;border-radius:99px;flex:none;}
   .chess{background:#0a1019;border:1px solid #17233a;border-radius:11px;padding:12px 13px;margin-bottom:7px;}
   .chess .obj{font-size:12px;font-weight:600;color:var(--sales);} .chess .rep{font-size:12px;color:#d3e3f4;margin-top:4px;line-height:1.5;} .chess .rep::before{content:"→ ";color:var(--faint);}
@@ -69,27 +109,30 @@
   .script .vm{font-size:11px;color:var(--dim);line-height:1.55;margin-top:8px;} .script .vm b{color:var(--faint);font-weight:600;font-family:ui-monospace,monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px;}
   .script .flag{font-size:10.5px;color:var(--store);margin-top:8px;}
   .mini{background:#0a1019;border:1px solid #17233a;border-radius:11px;padding:12px 13px;margin-bottom:8px;font-size:12px;color:var(--dim);line-height:1.6;} .mini b{color:var(--ink);font-weight:600;}
-  .stagebars{display:flex;flex-direction:column;gap:5px;}
-  .sb{display:flex;align-items:center;gap:9px;font-size:11px;} .sb .sn{font-family:ui-monospace,monospace;width:78px;color:var(--dim);text-transform:capitalize;}
+  .stagebars{display:flex;flex-direction:column;gap:5px;} .sb{display:flex;align-items:center;gap:9px;font-size:11px;} .sb .sn{font-family:ui-monospace,monospace;width:78px;color:var(--dim);text-transform:capitalize;}
   .sb .st2{flex:1;height:14px;border-radius:4px;background:#0a1019;border:1px solid #17233a;position:relative;overflow:hidden;} .sb .st2>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(79,227,156,.42),rgba(79,227,156,.12));}
   .sb .sv{font-family:ui-monospace,monospace;width:20px;text-align:right;font-weight:600;}
   .filerow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #121c2e;} .filerow:last-child{border-bottom:none;}
   .fname{font-family:ui-monospace,monospace;font-size:11.5px;} .fmeta{font-size:10px;color:var(--faint);margin-top:2px;}
   .badge{font-size:8.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px;white-space:nowrap;}
-  .badge.on{background:rgba(79,227,156,.14);color:var(--lead);} .badge.warn{background:rgba(242,181,58,.14);color:var(--store);} .badge.empty{background:rgba(85,104,138,.2);color:var(--dim);} .badge.off{background:rgba(120,130,150,.15);color:#8a94a8;}
-  .plan{background:linear-gradient(135deg,rgba(255,120,71,.08),#0a1019);border:1px dashed #4a3a2e;border-radius:12px;padding:15px;font-size:12.5px;color:var(--dim);line-height:1.6;} .plan b{color:var(--ink);}
-  a.link{color:var(--core);font-size:11.5px;text-decoration:none;border-bottom:1px solid rgba(210,75,255,.35);}
-  @media(max-width:640px){.hud{flex-direction:column;} .kbar{align-self:stretch;} .kbar .k{flex:1;} .legend{display:none;} .drawer{width:100%;}}
+  .badge.on{background:rgba(79,227,156,.14);color:var(--lead);} .badge.warn{background:rgba(246,196,83,.14);color:var(--store);} .badge.empty{background:rgba(90,109,140,.2);color:var(--dim);}
+  .plan{background:linear-gradient(135deg,rgba(255,138,92,.08),#0a1019);border:1px dashed #4a3a2e;border-radius:12px;padding:15px;font-size:12.5px;color:var(--dim);line-height:1.6;} .plan b{color:var(--ink);}
+  a.link{color:var(--core);font-size:11.5px;text-decoration:none;border-bottom:1px solid rgba(127,228,255,.35);}
+  @media(max-width:640px){.hud{flex-direction:column;} .kbar{align-self:stretch;} .kbar .k{flex:1;} .drawer{width:100%;} #scene{perspective:900px;}}
+  @media(prefers-reduced-motion:reduce){.member .lift,.blink,.chest,.ring,.mote{animation:none!important;}}
 </style>
 
-<div id="stage"><canvas id="c"></canvas></div>
+<div id="scene">
+  <div id="room">
+    <div class="floorglow"></div>
+    <div class="floor"></div>
+    <div class="team" id="team"></div>
+  </div>
+</div>
 
 <div class="hud">
-  <div class="brand">
-    <div class="tag">MDP Enterprises · Agent OS</div>
-    <h1>The Agency</h1>
-    <div class="st"><i></i><span id="liveTxt">booting…</span></div>
-  </div>
+  <div class="brand"><div class="tag">MDP Enterprises</div><h1>The Team</h1>
+    <div class="st"><i></i><span id="liveTxt">booting…</span></div></div>
   <div class="kbar">
     <div class="k mrr"><div class="v" id="k-mrr">$0<small>/10k</small></div><div class="l">MRR</div></div>
     <div class="k leads"><div class="v" id="k-leads">25</div><div class="l">Leads</div></div>
@@ -97,15 +140,7 @@
     <div class="k clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
   </div>
 </div>
-
-<div class="foot"><b>Tap an agent</b> to open its work · drag to pan the field</div>
-<div class="legend">
-  <span style="color:var(--core)"><i></i> Core</span>
-  <span style="color:var(--lead)"><i></i> Lead Research</span>
-  <span style="color:var(--sales)"><i></i> Sales</span>
-  <span style="color:var(--engine)"><i></i> 5am Engine</span>
-  <span class="off" style="color:var(--tiktok)"><i></i> Offline · building</span>
-</div>
+<div class="foot"><b>Tap a teammate</b> to see their work · move your mouse to look around the room</div>
 
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer">
@@ -115,161 +150,114 @@
 </aside>
 
 <script>
-// ============ DATA ============
-const DATA={kpis:{mrr:"$0",leads:25,dials:"0/10",clients:0},
-  pipeline:{new:10,contacted:0,replied:0,booked:0,"call held":0,proposal:0,won:0},
-  week:{nums:"0·0·0·0",constraint:"Zero dials — outreach not started"}};
+// ===== DATA (real) =====
+const DATA={kpis:{mrr:"$0",leads:25,dials:"0/10",clients:0},pipeline:{new:10,contacted:0,replied:0,booked:0,"call held":0,proposal:0,won:0}};
 const STAGES=["new","contacted","replied","booked","call held","proposal","won"];
-const T={strong:"#4fe39c",good:"#f2b53a",weak:"#8ea3c0",low:"#ff7847"};
-const LEADS=[[1,"Rapid Dry STL","Cottleville, MO · Grant, Ops Mgr","3142918888","strong"],[2,"Premier Restoration","Andover, KS · Justin, Owner","3163914400","strong"],[3,"Vortex Restoration","Derby, KS · Matt & Natalie","3165414362","strong"],[4,"Fast Restoration","Lake St. Louis, MO · Terry","6366813200","strong"],[5,"Sage Restoration","Shawnee, KS · probe 24/7 claim","9139050500","strong"],[6,"Power Dry","Lenexa, KS · Greg & Ed","9135861545","strong"],[7,"Pride Cleaning & Rest.","St. Louis, MO · owner TBD","3146681223","good"],[8,"Kelley Klean","Columbia, MO · owner TBD","5732140990","good"],[9,"Five One Five Rest.","Des Moines, IA · owner TBD","5154521876","good"],[10,"Omaha Damage Repair","Omaha, NE · new owner TBD","4027044921","good"],[11,"Cleaning Rest. Svcs","Tulsa, OK","9187100609","good"],[12,"Kwik Dry LLC","Springfield, MO","4177256978","good"],[13,"STL Cleaning & Rest.","St. Louis, MO","3144391665","good"],[14,"Smoke Services Rest.","Marissa, IL · Metro East","6182349696","good"],[15,"Arkansas Restoration","N. Little Rock, AR","5017533600","good"],[16,"Burggraf Disaster","Tulsa, OK · size risk","9185843737","good"],[17,"Best Option KC","Kansas City metro","","weak"],[18,"ABC Environmental","Columbia, MO","","weak"],[19,"Midwest Flood","St. Louis, MO","","weak"],[20,"Restoration Solutions","Springfield, MO","","weak"],[21,"Mr. Power Clean","Springfield, MO","","weak"],[22,"Water Damage 24","Little Rock, AR","","weak"],[23,"Patriot Water Damage","Tulsa, OK","","weak"],[24,"Elite Restoration","W. Des Moines, IA","","weak"],[25,"Mr. Restore","Dallas–Fort Worth, TX","8776317576","low"]];
+const T={strong:"#4fe39c",good:"#f6c453",weak:"#93a6c4",low:"#ff8a5c"};
+const LEADS=[[1,"Rapid Dry STL","Cottleville, MO · Grant, Ops Mgr","3142918888","strong"],[2,"Premier Restoration","Andover, KS · Justin, Owner","3163914400","strong"],[3,"Vortex Restoration","Derby, KS · Matt & Natalie","3165414362","strong"],[4,"Fast Restoration","Lake St. Louis, MO · Terry","6366813200","strong"],[5,"Sage Restoration","Shawnee, KS · probe 24/7 claim","9139050500","strong"],[6,"Power Dry","Lenexa, KS · Greg & Ed","9135861545","strong"],[7,"Pride Cleaning & Rest.","St. Louis, MO · owner TBD","3146681223","good"],[8,"Kelley Klean","Columbia, MO · owner TBD","5732140990","good"],[9,"Five One Five Rest.","Des Moines, IA · owner TBD","5154521876","good"],[10,"Omaha Damage Repair","Omaha, NE · new owner TBD","4027044921","good"],[11,"Cleaning Rest. Svcs","Tulsa, OK","9187100609","good"],[12,"Kwik Dry LLC","Springfield, MO","4177256978","good"],[13,"STL Cleaning & Rest.","St. Louis, MO","3144391665","good"],[14,"Smoke Services Rest.","Marissa, IL","6182349696","good"],[15,"Arkansas Restoration","N. Little Rock, AR","5017533600","good"],[16,"Burggraf Disaster","Tulsa, OK","9185843737","good"],[17,"Best Option KC","Kansas City","","weak"],[18,"ABC Environmental","Columbia, MO","","weak"],[19,"Midwest Flood","St. Louis, MO","","weak"],[20,"Restoration Solutions","Springfield, MO","","weak"],[21,"Mr. Power Clean","Springfield, MO","","weak"],[22,"Water Damage 24","Little Rock, AR","","weak"],[23,"Patriot Water Damage","Tulsa, OK","","weak"],[24,"Elite Restoration","W. Des Moines, IA","","weak"],[25,"Mr. Restore","Dallas–Fort Worth, TX","8776317576","low"]];
 const CHESS=[["“not interested”","Most guys say that till they hear it handle a real 2am water call. Two minutes, call the number, decide for yourself."],["“just send me info”","The demo IS the info — nothing to read. Call it, put a fake emergency through, 90 seconds."],["“we already have someone”","Does a person pick up at 2am, or roll to voicemail? This never sleeps and books the job."],["“how much is it”","$500/mo, setup waived for the first three shops — hear it first, then price is easy."]];
-const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; I'd bet the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds. Want the number?","Grant, it's [YOU] at Rapid Dry — built a line that answers after-hours emergencies so a 2am water job doesn't slip to voicemail. Call [DEMO #] and hear it."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — quick, not a pitch. Your site says you personally oversee every job — so you're the one answering at 2am too. When you're on a job or asleep, that call goes to whoever picks up next. I built a line that answers those and books them. Call it, 90 seconds. Want the number?","Justin, it's [YOU]. You run every job personally — this answers your after-hours calls so you stop losing the ones that come in while you're working. Call [DEMO #]."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — quick one. You and Natalie built 400-plus five-star reviews, but a husband-and-wife shop can't catch every 2am water call, and that job goes to whoever does. I built a line that answers those and books them. Call it yourself — 90 seconds. Want the number?","Matt, it's [YOU] — built a line that catches the after-hours water calls you and Natalie can't get to. Call [DEMO #]."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — not a pitch. You promise 24/7/365 — honest question, who picks up at 2am? If it's voicemail, that water job's gone. I built a line that answers those and books them. Call it and put a fake emergency through — 90 seconds. Want the number?","Terry, it's [YOU] — you promise 24/7, this makes it true after hours. Call [DEMO #] and hear it."],[5,"Alan","Sage Restoration","9139050500","Probe first — site claims ‘live dispatch 24/7.’","Hey Alan — quick one. Your site says live dispatch 24/7 — real person at 2am, or does it roll to a service? I built a line that answers after-hours water calls and books them, often cheaper. If your setup nails it, I'll leave you alone. Curious? Call it — 90 seconds. Fair?","Alan, it's [YOU] — you advertise 24/7 dispatch; here's a line that answers and books after-hours calls, often cheaper. Call [DEMO #]."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — not a pitch. Water mitigation only since '88, so every after-hours call to voicemail is a four or five-figure job walking to the next guy. If it's still you and Ed, you can't be on the phone at 2am every night. I built a line that answers and books those. Call it — 90 seconds. Want the number?","Greg, it's [YOU] — water-only means every missed 2am call is a big job lost; this answers and books them. Call [DEMO #]."],[7,"—","Pride Cleaning & Rest.","3146681223","Owner name not confirmed — get the right person first.","Hey — quick one, who owns the shop? ... Not a pitch: 30-plus years in STL, your phone rings a lot — who picks up when a water call hits at 2am? If it's voicemail, that job's gone. I built a line that answers those and books them. Call it — 90 seconds. Want the number?","Hey, it's [YOU] for whoever owns Pride — a line that answers your after-hours water calls so they don't hit voicemail. Call [DEMO #]."],[8,"—","Kelley Klean","5732140990","Owner unconfirmed — verify before using a name.","Hey — quick one, who's the owner these days? ... You're the oldest restoration shop in Central Missouri, so you're fielding a ton of calls — and I bet the after-hours ones roll to voicemail. I built a line that answers and books those. Call it — 90 seconds. Want the number?","Hey, it's [YOU] for the owner of Kelley Klean — this catches your after-hours calls before voicemail does. Call [DEMO #]."],[9,"—","Five One Five Rest.","5154521876","Owner not confirmed — get the right person.","Hey — are you the owner? ... You promise to respond in minutes, so it's you or a small crew catching the phone — nobody catches every 2am water call. I built a line that answers and books those. Call it yourself — 90 seconds. Want the number?","Hey, it's [YOU] for the owner of 515 Restoration — answers the after-hours calls you can't catch. Call [DEMO #]."],[10,"—","Omaha Damage Repair","4027044921","Ownership changed — confirm current owner.","Hey — who owns the shop now? ... 140-plus reviews means the phone's busy, and with a small team the after-hours water calls are the easy ones to miss. I built a line that answers and books those. Call it — 90 seconds. Want the number?","Hey, it's [YOU] for whoever owns Omaha Damage Repair now — answers your after-hours water calls so a small team doesn't lose them. Call [DEMO #]."]];
+const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; I'd bet the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds. Want the number?","Grant, it's [YOU] at Rapid Dry — built a line that answers after-hours emergencies so a 2am water job doesn't slip to voicemail. Call [DEMO #]."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — quick, not a pitch. Your site says you personally oversee every job — so you're answering at 2am too. When you're on a job or asleep, that call goes to whoever picks up next. I built a line that answers those and books them. Call it, 90 seconds. Want the number?","Justin, it's [YOU]. You run every job personally — this answers your after-hours calls. Call [DEMO #]."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — quick one. You and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am water call, and that job goes to whoever does. I built a line that answers those and books them. Call it — 90 seconds. Want the number?","Matt, it's [YOU] — catches the after-hours calls you and Natalie can't get to. Call [DEMO #]."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — not a pitch. You promise 24/7/365 — who picks up at 2am? If it's voicemail, that water job's gone. I built a line that answers those and books them. Call it — 90 seconds. Want the number?","Terry, it's [YOU] — you promise 24/7, this makes it true after hours. Call [DEMO #]."],[5,"Alan","Sage Restoration","9139050500","Probe first — ‘live dispatch 24/7’ claim.","Hey Alan — quick one. Your site says live dispatch 24/7 — real person at 2am, or a service? I built a line that answers after-hours water calls and books them, often cheaper. If your setup nails it, I'll leave you alone. Curious? Call it — 90 seconds.","Alan, it's [YOU] — a line that answers and books after-hours calls, often cheaper than a service. Call [DEMO #]."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — not a pitch. Water mitigation only since '88, so every after-hours call to voicemail is a big job walking to the next guy. If it's still you and Ed, you can't be on the phone at 2am. I built a line that answers and books those. Call it — 90 seconds.","Greg, it's [YOU] — every missed 2am call is a big job lost; this answers and books them. Call [DEMO #]."],[7,"—","Pride Cleaning & Rest.","3146681223","Get the owner's name first.","Hey — who owns the shop? ... 30-plus years in STL, your phone rings a lot — who picks up when a water call hits at 2am? If it's voicemail, that job's gone. I built a line that answers and books them. Call it — 90 seconds.","Hey, it's [YOU] for whoever owns Pride — answers your after-hours water calls. Call [DEMO #]."],[8,"—","Kelley Klean","5732140990","Owner unconfirmed.","Hey — who's the owner these days? ... Oldest restoration shop in Central Missouri, so tons of calls — I bet the after-hours ones roll to voicemail. I built a line that answers and books those. Call it — 90 seconds.","Hey, it's [YOU] for the owner of Kelley Klean — catches after-hours calls before voicemail. Call [DEMO #]."],[9,"—","Five One Five Rest.","5154521876","Get the right person.","Hey — are you the owner? ... You promise to respond in minutes, so it's you or a small crew — nobody catches every 2am call. I built a line that answers and books those. Call it — 90 seconds.","Hey, it's [YOU] for the owner of 515 — answers the after-hours calls you can't catch. Call [DEMO #]."],[10,"—","Omaha Damage Repair","4027044921","Confirm current owner.","Hey — who owns the shop now? ... 140-plus reviews means a busy phone, and a small team misses the after-hours water calls. I built a line that answers and books those. Call it — 90 seconds.","Hey, it's [YOU] for whoever owns Omaha Damage Repair now — answers your after-hours calls. Call [DEMO #]."]];
 
-// ============ ICONS ============
-const IC={
- core:'<path d="M12 2 3 7v6c0 5 3.8 8 9 9 5.2-1 9-4 9-9V7z"/><path d="m9 12 2 2 4-4"/>',
- lead:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.7-4.7"/>',
- sales:'<path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/>',
- store:'<ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/><path d="M4.5 11.5v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/>',
- engine:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
- tiktok:'<path d="M9 3v10.5a3 3 0 1 1-3-3"/><path d="M9 6.5c1.2 1.6 3 2.5 5 2.5"/>',
- voice:'<path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/>',
- appt:'<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4m-8 8 2 2 4-4"/>',
- clone:'<circle cx="9" cy="8" r="3.5"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.5a3.5 3.5 0 0 1 0 6.8M18.5 20a5.5 5.5 0 0 0-3-4.9"/>',
-};
-
-// ============ NODES ============
-// active: real agents. offline: planned/building. sats: orbiting satellites for density.
-const N=[
- {id:"core",label:"THE CORE",sub:"agency OS",x:.5,y:.44,r:44,c:"var(--core)",col:"#d24bff",active:true,sats:0,hex:true},
- {id:"lead",label:"LEAD RESEARCH",sub:"sourcing",x:.235,y:.30,r:30,c:"var(--lead)",col:"#4fe39c",active:true,sats:14},
- {id:"sales",label:"SALES ASSISTANT",sub:"scripts",x:.77,y:.31,r:30,c:"var(--sales)",col:"#ff5db1",active:true,sats:10},
- {id:"store",label:"THE STORE",sub:"memory",x:.5,y:.7,r:28,c:"var(--store)",col:"#f2b53a",active:true,sats:6},
- {id:"engine",label:"5AM ENGINE",sub:"scheduled",x:.2,y:.62,r:26,c:"var(--engine)",col:"#5b9dff",active:true,sats:8},
- {id:"tiktok",label:"TIKTOK STUDIO",sub:"offline · building",x:.82,y:.66,r:24,c:"var(--tiktok)",col:"#ff7847",active:false,sats:5},
- {id:"voice",label:"VOICE CALLER",sub:"offline · planned",x:.9,y:.46,r:22,c:"var(--voice)",col:"#35d0e0",active:false,sats:4},
- {id:"appt",label:"APPT SETTER",sub:"offline · planned",x:.62,y:.86,r:22,c:"var(--appt)",col:"#9b8cff",active:false,sats:4},
- {id:"clone",label:"CLONE GEN",sub:"offline · planned",x:.36,y:.85,r:22,c:"var(--clone)",col:"#c86bff",active:false,sats:4},
+// ===== TEAM =====
+const TEAM=[
+ {id:"core",name:"The Boss",role:"CEO Core",col:"#7fe4ff",active:true,motif:"crown"},
+ {id:"lead",name:"Scout",role:"Lead Research",col:"#4fe39c",active:true,motif:"scanner"},
+ {id:"sales",name:"Ace",role:"Sales Assistant",col:"#ff7ac2",active:true,motif:"headset"},
+ {id:"store",name:"Vault",role:"The Store",col:"#f6c453",active:true,motif:"keeper"},
+ {id:"engine",name:"Dawn",role:"5am Engine",col:"#6ea8ff",active:true,motif:"clock"},
+ {id:"tiktok",name:"Reel",role:"TikTok Studio",col:"#ff8a5c",active:false,motif:"play"},
+ {id:"voice",name:"Echo",role:"Voice Caller",col:"#4fdbe6",active:false,motif:"wave"},
+ {id:"appt",name:"Slot",role:"Appt Setter",col:"#a99bff",active:false,motif:"cal"},
+ {id:"clone",name:"Mirror",role:"Clone Gen",col:"#d07bff",active:false,motif:"twin"},
 ];
-const byId=Object.fromEntries(N.map(n=>[n.id,n]));
-N.forEach((n,i)=>{n.ph=i*1.7;n.px=0;n.py=0;n.pulse=0;n.hov=0;n.path=new Path2D(IC[n.id]||IC.core);
-  n.satA=[];for(let k=0;k<n.sats;k++)n.satA.push({a:Math.random()*7,rr:n.r+10+Math.random()*(n.r*0.7),sp:(Math.random()*.5+.3)*(Math.random()<.5?1:-1),s:Math.random()*1.4+.7});});
-const E=[["core","lead"],["core","sales"],["core","store"],["core","engine"],["core","tiktok"],["core","voice"],["core","appt"],["core","clone"],
-  ["lead","sales"],["lead","engine"],["sales","store"],["engine","store"],["tiktok","voice"],["store","appt"]].map(([a,b])=>({a,b,off:!byId[a].active||!byId[b].active}));
-const packets=[];E.forEach((e,ei)=>{if(!e.off)for(let k=0;k<3;k++)packets.push({ei,t:k/3,sp:.09+Math.random()*.06});});
-const bursts=[];
-const stars=[];for(let i=0;i<90;i++)stars.push({x:Math.random(),y:Math.random(),z:Math.random()*.8+.2,tw:Math.random()*7});
+const byId=Object.fromEntries(TEAM.map(m=>[m.id,m]));
 
-// ============ CANVAS ============
-const cv=document.getElementById("c"),ctx=cv.getContext("2d"),stg=document.getElementById("stage");
-const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-let W=0,H=0,DPR=1;
-function resize(){DPR=Math.min(devicePixelRatio||1,2);W=stg.clientWidth;H=stg.clientHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
-addEventListener("resize",resize);
-function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
-function glow(x,y,r,col,a){const[R,G,B]=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);
-  g.addColorStop(0,`rgba(${R},${G},${B},${.85*a})`);g.addColorStop(.4,`rgba(${R},${G},${B},${.22*a})`);g.addColorStop(1,`rgba(${R},${G},${B},0)`);
-  ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();}
-function distSeg(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy||1;let t=((px-ax)*dx+(py-ay)*dy)/l;t=Math.max(0,Math.min(1,t));return Math.hypot(px-(ax+dx*t),py-(ay+dy*t));}
-
-const mouse={x:-999,y:-999,ex:-999,ey:-999,in:false};
-let panX=0,panY=0,tpanX=0,tpanY=0,drag=null;
-cv.addEventListener("pointermove",e=>{const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.in=true;
-  if(drag){tpanX=drag.px+(mouse.x-drag.mx);tpanY=drag.py+(mouse.y-drag.my);}});
-cv.addEventListener("pointerleave",()=>{mouse.in=false;});
-cv.addEventListener("pointerdown",e=>{const r=cv.getBoundingClientRect();const mx=e.clientX-r.left,my=e.clientY-r.top;
-  const n=pick(mx,my);if(n){n.pulse=1;if(n.id==="core")E.forEach((e2,ei)=>{if(e2.a==="core"&&!e2.off)bursts.push({ei,t:0});});openDrawer(n.id);}
-  else drag={mx,my,px:tpanX,py:tpanY};});
-addEventListener("pointerup",()=>{drag=null;});
-function pick(mx,my){let hit=null,best=1e9;N.forEach(n=>{const d=Math.hypot(mx-n.px,my-n.py);if(d<n.r+16&&d<best){best=d;hit=n;}});return hit;}
-
-let tPrev=0,rot=0;
-function frame(t){
-  const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;rot+=dt*.04;
-  panX+=(tpanX-panX)*.1;panY+=(tpanY-panY)*.1;
-  if(mouse.in){mouse.ex+=(mouse.x-mouse.ex)*.2;mouse.ey+=(mouse.y-mouse.ey)*.2;}
-  // subtle breathing drift of whole field
-  const driftX=reduce?0:Math.sin(t/4000)*8, driftY=reduce?0:Math.cos(t/5200)*6;
-  const OX=panX+driftX, OY=panY+driftY;
-  N.forEach(n=>{n.px=n.x*W+OX;n.py=n.y*H+OY;});
-  const cx=byId.core.px,cy=byId.core.py;
-
-  // ground
-  const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H));
-  bg.addColorStop(0,"#0a1024");bg.addColorStop(.55,"#050912");bg.addColorStop(1,"#03050b");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-  // starfield
-  ctx.save();ctx.globalCompositeOperation="lighter";
-  stars.forEach(s=>{const x=s.x*W+OX*.3*s.z,y=s.y*H+OY*.3*s.z;const tw=reduce?.5:(Math.sin(t/700+s.tw)*.5+.5);
-    ctx.globalAlpha=.15+tw*.5*s.z;ctx.fillStyle="#bcd4ff";ctx.beginPath();ctx.arc((x%W+W)%W,(y%H+H)%H,s.z*1.2,0,7);ctx.fill();});
-  ctx.restore();
-
-  ctx.globalCompositeOperation="lighter";
-  // edges
-  E.forEach(e=>{const A=byId[e.a],B=byId[e.b];let near=0;if(mouse.in)near=Math.max(0,1-distSeg(mouse.ex,mouse.ey,A.px,A.py,B.px,B.py)/130);
-    const act=Math.max(A.hov,B.hov);const base=e.off?.04:.09;const a=base+near*.45+act*.4;
-    if(e.off){ctx.setLineDash([3,7]);}else ctx.setLineDash([]);
-    const g=ctx.createLinearGradient(A.px,A.py,B.px,B.py);const[ar,ag,ab]=hx(A.col),[br,bg2,bb]=hx(B.col);
-    g.addColorStop(0,`rgba(${ar},${ag},${ab},${a})`);g.addColorStop(1,`rgba(${br},${bg2},${bb},${a})`);
-    ctx.strokeStyle=g;ctx.lineWidth=(e.off?.9:1.3)+near+act;ctx.beginPath();ctx.moveTo(A.px,A.py);ctx.lineTo(B.px,B.py);ctx.stroke();});
-  ctx.setLineDash([]);
-  // packets
-  if(!reduce)packets.forEach(p=>{const e=E[p.ei],A=byId[e.a],B=byId[e.b];p.t+=p.sp*dt;if(p.t>1)p.t-=1;const x=A.px+(B.px-A.px)*p.t,y=A.py+(B.py-A.py)*p.t;
-    glow(x,y,5,B.col,.85);ctx.fillStyle="rgba(255,255,255,.9)";ctx.beginPath();ctx.arc(x,y,1.3,0,7);ctx.fill();});
-  // core bursts
-  for(let i=bursts.length-1;i>=0;i--){const b=bursts[i],e=E[b.ei],A=byId[e.a],B=byId[e.b];b.t+=1.1*dt;const x=A.px+(B.px-A.px)*b.t,y=A.py+(B.py-A.py)*b.t;
-    glow(x,y,12*(1-b.t*.4),"#f4e6ff",.9);if(b.t>=1){byId[e.b].pulse=1;bursts.splice(i,1);}}
-
-  // nodes
-  N.forEach(n=>{
-    const hd=mouse.in?Math.hypot(mouse.ex-n.px,mouse.ey-n.py):999;n.hov+=((hd<n.r+30?1:0)-n.hov)*.18;
-    n.pulse=Math.max(0,n.pulse-dt*1.5);const breathe=reduce?0:Math.sin(t/1000+n.ph)*(n.active?.05:.02);
-    const rr=n.r*(1+breathe+n.hov*.1+n.pulse*.3);const[R,G,B]=hx(n.col);
-    const base=n.active?1:.42;const bright=base*(.7+n.hov*.5+n.pulse*.5);
-    // satellites (orbiting dots)
-    n.satA.forEach(s=>{s.a+=s.sp*dt;const sx=n.px+Math.cos(s.a)*s.rr,sy=n.py+Math.sin(s.a)*s.rr;
-      ctx.globalCompositeOperation="lighter";glow(sx,sy,s.s*3.2,n.col,(n.active?.5:.22)*(.6+n.hov*.5));
-      ctx.fillStyle=`rgba(${R},${G},${B},${n.active?.85:.4})`;ctx.beginPath();ctx.arc(sx,sy,s.s,0,7);ctx.fill();});
-    ctx.globalCompositeOperation="lighter";glow(n.px,n.py,rr*2.5,n.col,(n.active?.3:.14)+n.hov*.4+n.pulse*.4);
-    ctx.globalCompositeOperation="source-over";
-    // core special: rotating hex
-    if(n.hex){ctx.save();ctx.translate(n.px,n.py);
-      for(let ring=0;ring<2;ring++){ctx.rotate(rot*(ring?-1:1.3));ctx.beginPath();
-        for(let k=0;k<6;k++){const ang=k*Math.PI/3,rad=rr*(ring?.72:1.05);const px=Math.cos(ang)*rad,py=Math.sin(ang)*rad;k?ctx.lineTo(px,py):ctx.moveTo(px,py);}
-        ctx.closePath();ctx.strokeStyle=`rgba(${R},${G},${B},${(.4-ring*.15)*(.6+bright*.4)})`;ctx.lineWidth=1.3;ctx.stroke();}
-      // spokes
-      for(let k=0;k<6;k++){const ang=k*Math.PI/3+rot;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(ang)*rr*1.05,Math.sin(ang)*rr*1.05);ctx.strokeStyle=`rgba(${R},${G},${B},.14)`;ctx.lineWidth=1;ctx.stroke();}
-      ctx.restore();}
-    // disc
-    ctx.beginPath();ctx.arc(n.px,n.py,rr,0,7);ctx.fillStyle=n.active?"rgba(7,12,22,.9)":"rgba(9,13,20,.85)";ctx.fill();
-    if(!n.active){ctx.setLineDash([3,4]);}ctx.strokeStyle=`rgba(${R},${G},${B},${Math.min(1,.45+bright*.5)})`;ctx.lineWidth=n.hov>.5?2.2:1.5;
-    ctx.beginPath();ctx.arc(n.px,n.py,rr,0,7);ctx.stroke();ctx.setLineDash([]);
-    // hover ticks
-    if(n.hov>.02){ctx.strokeStyle=`rgba(${R},${G},${B},${n.hov*.8})`;ctx.lineWidth=1.2;
-      for(let a=0;a<4;a++){const ang=a*Math.PI/2+t/2400;ctx.beginPath();ctx.moveTo(n.px+Math.cos(ang)*(rr+5),n.py+Math.sin(ang)*(rr+5));ctx.lineTo(n.px+Math.cos(ang)*(rr+5+6*n.hov),n.py+Math.sin(ang)*(rr+5+6*n.hov));ctx.stroke();}}
-    if(n.id==="engine"&&!reduce){const oa=t/900;ctx.fillStyle=`rgba(${R},${G},${B},.7)`;ctx.beginPath();ctx.arc(n.px+Math.cos(oa)*(rr+5),n.py+Math.sin(oa)*(rr+5),2,0,7);ctx.fill();}
-    // glyph
-    const gs=rr*0.05;ctx.save();ctx.translate(n.px-12*gs,n.py-12*gs);ctx.scale(gs,gs);
-    ctx.strokeStyle=`rgba(${R},${G},${B},${Math.min(1,(n.active?.85:.55)+bright*.3)})`;ctx.lineWidth=1.7/gs;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke(n.path);ctx.restore();
-    ctx.globalCompositeOperation="lighter";glow(n.px,n.py,rr*.42,n.col,(n.active?.35:.15)+bright*.3);
-    ctx.globalCompositeOperation="source-over";
-    // label
-    ctx.font="600 10px ui-monospace, monospace";ctx.textAlign="center";ctx.textBaseline="top";
-    ctx.fillStyle=`rgba(${R},${G},${B},${Math.min(1,(n.active?.6:.4)+n.hov+n.pulse)})`;ctx.fillText(n.label,n.px,n.py+rr+8);
-    ctx.font="9px ui-monospace, monospace";ctx.fillStyle=`rgba(142,163,192,${.4+n.hov*.5})`;ctx.fillText(n.sub,n.px,n.py+rr+21);
-  });
-  ctx.globalCompositeOperation="lighter";if(mouse.in)glow(mouse.ex,mouse.ey,80,"#9fd0ff",.07);
-  ctx.globalCompositeOperation="source-over";
-  requestAnimationFrame(frame);
+// robot bust SVG, parameterized by color + head motif
+function avatar(m,scale){
+  const c=m.col, s=scale||1;
+  const motifs={
+    crown:`<path d="M35 20 L41 12 L50 18 L59 12 L65 20" fill="none" stroke="${c}" stroke-width="2.4" stroke-linejoin="round"/><circle cx="41" cy="12" r="2.2" fill="${c}"/><circle cx="59" cy="12" r="2.2" fill="${c}"/><circle cx="50" cy="18" r="2.2" fill="${c}"/>`,
+    scanner:`<circle cx="50" cy="17" r="4.5" fill="none" stroke="${c}" stroke-width="2"/><line x1="50" y1="17" x2="50" y2="9" stroke="${c}" stroke-width="2"/><circle cx="50" cy="8" r="2" fill="${c}"/>`,
+    headset:`<path d="M33 40 Q33 22 50 22 Q67 22 67 40" fill="none" stroke="${c}" stroke-width="2.6"/><rect x="29" y="38" width="6" height="11" rx="3" fill="${c}"/><rect x="65" y="38" width="6" height="11" rx="3" fill="${c}"/><path d="M35 55 Q42 62 47 58" fill="none" stroke="${c}" stroke-width="2.4"/><circle cx="47" cy="58" r="2.4" fill="${c}"/>`,
+    keeper:`<rect x="42" y="10" width="16" height="12" rx="2" fill="none" stroke="${c}" stroke-width="2"/><line x1="50" y1="10" x2="50" y2="22" stroke="${c}" stroke-width="1.6"/>`,
+    clock:`<circle cx="50" cy="15" r="6" fill="none" stroke="${c}" stroke-width="2"/><path d="M50 15 L50 11 M50 15 L53 17" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/>`,
+    play:`<circle cx="50" cy="15" r="6.5" fill="none" stroke="${c}" stroke-width="2"/><path d="M47.5 12 L54 15 L47.5 18 Z" fill="${c}"/>`,
+    wave:`<path d="M40 15 q3 -7 6 0 q3 7 6 0 q3 -7 6 0" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round"/>`,
+    cal:`<rect x="42" y="9" width="16" height="13" rx="2" fill="none" stroke="${c}" stroke-width="2"/><line x1="42" y1="14" x2="58" y2="14" stroke="${c}" stroke-width="1.6"/><line x1="46" y1="9" x2="46" y2="6" stroke="${c}" stroke-width="1.8"/><line x1="54" y1="9" x2="54" y2="6" stroke="${c}" stroke-width="1.8"/>`,
+    twin:`<circle cx="45" cy="15" r="4" fill="none" stroke="${c}" stroke-width="1.8"/><circle cx="55" cy="15" r="4" fill="none" stroke="${c}" stroke-width="1.8" opacity=".55"/>`,
+  };
+  return `<svg class="av" width="${150*s}" height="${185*s}" viewBox="0 0 100 125" fill="none">
+    <defs><radialGradient id="bd_${m.id}" cx="50%" cy="35%" r="70%"><stop offset="0%" stop-color="#1a2740"/><stop offset="100%" stop-color="#0c1526"/></radialGradient>
+    <linearGradient id="rim_${m.id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c}" stop-opacity=".9"/><stop offset="100%" stop-color="${c}" stop-opacity=".25"/></linearGradient></defs>
+    <!-- shoulders/torso -->
+    <path d="M18 122 Q18 92 50 90 Q82 92 82 122 Z" fill="url(#bd_${m.id})" stroke="${c}" stroke-width="1.4" stroke-opacity=".55"/>
+    <path d="M42 90 h16 v6 q-8 4 -16 0 Z" fill="#0c1526" stroke="${c}" stroke-width="1" stroke-opacity=".4"/>
+    <!-- chest core -->
+    <circle class="chest" cx="50" cy="106" r="6.5" fill="${c}" opacity=".7"/>
+    <circle cx="50" cy="106" r="10" fill="none" stroke="${c}" stroke-width="1" stroke-opacity=".35"/>
+    <!-- neck -->
+    <rect x="45" y="80" width="10" height="12" rx="3" fill="#101d33" stroke="${c}" stroke-width="1" stroke-opacity=".4"/>
+    <!-- head -->
+    <rect x="30" y="34" width="40" height="50" rx="16" fill="url(#bd_${m.id})" stroke="url(#rim_${m.id})" stroke-width="2"/>
+    <!-- visor -->
+    <rect x="35" y="48" width="30" height="16" rx="8" fill="#050a14" stroke="${c}" stroke-width="1" stroke-opacity=".5"/>
+    <!-- eyes -->
+    <g class="blink" style="--kd:${(4+Math.random()*4).toFixed(1)}s;--kdl:-${(Math.random()*4).toFixed(1)}s">
+      <circle cx="43" cy="56" r="3" fill="${c}"/><circle cx="57" cy="56" r="3" fill="${c}"/>
+      <circle cx="43" cy="56" r="5.5" fill="${c}" opacity=".25"/><circle cx="57" cy="56" r="5.5" fill="${c}" opacity=".25"/>
+    </g>
+    <!-- cheek vents -->
+    <line x1="34" y1="70" x2="40" y2="70" stroke="${c}" stroke-width="1.4" stroke-opacity=".5"/><line x1="60" y1="70" x2="66" y2="70" stroke="${c}" stroke-width="1.4" stroke-opacity=".5"/>
+    ${motifs[m.motif]||""}
+  </svg>`;
 }
 
-// ============ DRAWER ============
+// place members in a shallow arc facing camera
+const team=document.getElementById("team");
+const active=TEAM.filter(m=>m.active), off=TEAM.filter(m=>!m.active);
+function layout(list,rowZ,rowY,spread,scale,cls){
+  const n=list.length;
+  list.forEach((m,i)=>{
+    const f=n===1?0:(i/(n-1)-.5); // -.5..h.5
+    const ang=f*1.1; // arc
+    const x=Math.sin(ang)*spread;
+    const z=rowZ - Math.cos(ang)*140 + 140;
+    const el=document.createElement("div");
+    el.className="member"+(cls||"");
+    el.style.setProperty("--ac",m.col);
+    el.style.setProperty("--bd",(3.4+Math.random()*1.6).toFixed(2)+"s");
+    el.style.setProperty("--bdl","-"+(Math.random()*3).toFixed(2)+"s");
+    el.style.transform=`translate3d(${x}px, ${rowY}px, ${z}px) rotateY(${-f*10}deg)`;
+    el.dataset.id=m.id;
+    el.innerHTML=`<div class="lift"><div class="pad"></div><div class="ring"></div>${avatar(m,scale)}</div>
+      <div class="plate"><div class="nm">${m.name}</div><div class="rl"><i></i>${m.role}</div></div>`;
+    el.addEventListener("click",()=>openDrawer(m.id));
+    team.appendChild(el);
+  });
+}
+layout(off,-260,-150,560,.82," off");   // back row, planned
+layout(active,60,10,520,1.05,"");        // front row, active
+
+// atmosphere motes
+for(let i=0;i<26;i++){const d=document.createElement("div");d.className="mote";
+  const sz=(Math.random()*2+1).toFixed(1);d.style.width=d.style.height=sz+"px";
+  d.style.left=(Math.random()*100)+"%";d.style.top=(50+Math.random()*45)+"%";
+  d.style.animationDuration=(6+Math.random()*8).toFixed(1)+"s";d.style.animationDelay="-"+(Math.random()*8).toFixed(1)+"s";
+  document.getElementById("scene").appendChild(d);}
+
+// camera parallax
+const room=document.getElementById("room");
+addEventListener("pointermove",e=>{const rx=4-(e.clientY/innerHeight-.5)*8, ry=(e.clientX/innerWidth-.5)*14;
+  room.style.setProperty("--rx",rx.toFixed(2)+"deg");room.style.setProperty("--ry",ry.toFixed(2)+"deg");});
+addEventListener("pointerleave",()=>{room.style.setProperty("--rx","4deg");room.style.setProperty("--ry","0deg");});
+
+// ===== DRAWER (real work) =====
 function tel(d){return d?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:"";}
 const WORK={
- core:()=>`<div class="sec"><div class="s-lbl"><span>Scoreboard</span></div>
-   <div class="mini">MRR <b style="color:var(--core)">${DATA.kpis.mrr}</b> / $10k · Leads <b style="color:var(--lead)">${DATA.kpis.leads}</b> · Clients <b style="color:var(--tiktok)">${DATA.kpis.clients}</b></div></div>
+ core:()=>`<div class="sec"><div class="s-lbl"><span>Scoreboard</span></div><div class="mini">MRR <b style="color:var(--core)">${DATA.kpis.mrr}</b> / $10k · Leads <b style="color:var(--lead)">${DATA.kpis.leads}</b> · Clients <b style="color:var(--tiktok)">${DATA.kpis.clients}</b></div></div>
   <div class="sec"><div class="s-lbl"><span>Pipeline</span></div><div class="stagebars">${STAGES.map(s=>{const v=DATA.pipeline[s]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x]||0));return`<div class="sb"><span class="sn">${s}</span><span class="st2"><i style="width:${v/mx*100}%"></i></span><span class="sv">${v}</span></div>`;}).join("")}</div></div>
-  <div class="sec"><div class="s-lbl"><span>Binding constraint</span></div><div class="mini"><b style="color:var(--sales)">Conversion, not volume.</b><br>You call 75–150/day — effort isn't the gap. The engine keeps the pipeline full; leverage now is the call: opener, objection tree, demo.</div></div>
-  <div class="sec"><div class="s-lbl"><span>Next action</span></div><div class="mini"><b>Verify the Vapi demo number.</b> Every script drives to [DEMO #]. Until a stranger can call it and hear it work, the whole funnel is capped there.</div></div>`,
+  <div class="sec"><div class="s-lbl"><span>Binding constraint</span></div><div class="mini"><b style="color:var(--sales)">Conversion, not volume.</b><br>You call 75–150/day — effort isn't the gap. The team keeps the pipeline full; leverage now is the call: opener, objection tree, demo.</div></div>
+  <div class="sec"><div class="s-lbl"><span>Next action</span></div><div class="mini"><b>Verify the Vapi demo number.</b> Every script drives to [DEMO #]. Until a stranger can call it and hear it work, the funnel is capped there.</div></div>`,
  lead:()=>`<div class="sec"><div class="s-lbl"><span>25 prospects · tap to call</span><span>ranked</span></div>${LEADS.map(l=>`<div class="lead"><span class="td" style="background:${T[l[4]]}"></span><span class="lx">${l[0]}</span><div class="lb"><div class="lco">${l[1]}</div><div class="lm">${l[2]}</div></div>${l[3]?`<a class="tel" href="tel:+1${l[3]}">${tel(l[3])}</a>`:`<span class="noph">verify</span>`}</div>`).join("")}</div>`,
  sales:()=>`<div class="sec"><div class="s-lbl"><span>Chess · objection tree</span></div>${CHESS.map(c=>`<div class="chess"><div class="obj">${c[0]}</div><div class="rep">${c[1]}</div></div>`).join("")}</div>
   <div class="sec"><div class="s-lbl"><span>Personalized openers · top 10</span></div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]==="—"?"":o[1]+" · "}${o[2]}</div><div class="sc">${o[3]?tel(o[3]):""}</div></div>${o[3]?`<a class="tel" href="tel:+1${o[3]}">Call</a>`:""}</div>${o[4]?`<div class="flag">⚠ ${o[4]}</div>`:""}<div class="op">${o[5]}</div><div class="vm"><b>voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
@@ -279,37 +267,32 @@ const WORK={
    <div class="filerow"><div><div class="fname">pipeline.md</div><div class="fmeta">10 queued · new</div></div><span class="badge warn">Queued</span></div>
    <div class="filerow"><div><div class="fname">metrics.md</div><div class="fmeta">1 row · zeros</div></div><span class="badge warn">Seeded</span></div>
    <div class="filerow"><div><div class="fname">objections.md</div><div class="fmeta">fills after dials</div></div><span class="badge empty">Empty</span></div></div>`,
- engine:()=>`<div class="sec"><div class="s-lbl"><span>Schedule</span></div><div class="mini"><b>Every day · 5:00am Central.</b> Cron 0 10 * * * UTC. One fresh cloud run per morning — no machine open.</div></div>
+ engine:()=>`<div class="sec"><div class="s-lbl"><span>Schedule</span></div><div class="mini"><b>Every day · 5:00am Central.</b> One fresh cloud run per morning — no machine open.</div></div>
   <div class="sec"><div class="s-lbl"><span>Each run</span></div><div class="mini">1 · sources 100–200 qualified leads<br>2 · checker verifies a phone, flags the rest<br>3 · writes chess tree + top-25 openers<br>4 · commits to the repo → this dashboard updates</div></div>
   <div class="sec"><div class="s-lbl"><span>Status</span></div><div class="mini">Wired to MDPEnterprise.inc — writes leads into your files each morning. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">Open runs →</a></div></div>`,
- tiktok:()=>`<div class="sec"><div class="s-lbl"><span>Status · Offline</span></div><div class="plan"><b>Building tomorrow.</b> Generates faceless AI story videos daily for you to post to TikTok manually (no auto-posting). Needs a video tool + posting tool (~$50–150/mo) before it goes live. Script generation is ready; the render + queue pipeline gets wired next session.</div></div>`,
- voice:()=>`<div class="sec"><div class="s-lbl"><span>Status · Planned</span></div><div class="plan"><b>Not built yet.</b> An outbound AI voice caller (Vapi) — the same tech as your demo, pointed at the lead list to pre-qualify or set appointments. Lives in Vapi, not this repo; we'd design the assistant + call flow there.</div></div>`,
- appt:()=>`<div class="sec"><div class="s-lbl"><span>Status · Planned</span></div><div class="plan"><b>Not built yet.</b> Books demos/calls straight into your calendar from replies — SMS or voice. Pairs with the voice caller. Requires a calendar + booking tool connection.</div></div>`,
- clone:()=>`<div class="sec"><div class="s-lbl"><span>Status · Planned</span></div><div class="plan"><b>Not built yet.</b> An AI voice/face clone (ElevenLabs / HeyGen) for the TikTok + UGC content, so videos use a consistent persona. Needs those tool accounts + API keys.</div></div>`,
+ tiktok:()=>`<div class="sec"><div class="s-lbl"><span>Status · Offline</span></div><div class="plan"><b>Building tomorrow.</b> Generates faceless AI story videos daily for you to post to TikTok manually. Needs a video tool + posting tool (~$50–150/mo) before going live.</div></div>`,
+ voice:()=>`<div class="sec"><div class="s-lbl"><span>Status · Planned</span></div><div class="plan"><b>Not built yet.</b> Outbound AI voice caller (Vapi) — same tech as your demo, pointed at the lead list to pre-qualify or set appointments.</div></div>`,
+ appt:()=>`<div class="sec"><div class="s-lbl"><span>Status · Planned</span></div><div class="plan"><b>Not built yet.</b> Books demos into your calendar from replies — SMS or voice. Pairs with the voice caller.</div></div>`,
+ clone:()=>`<div class="sec"><div class="s-lbl"><span>Status · Planned</span></div><div class="plan"><b>Not built yet.</b> AI voice/face clone (ElevenLabs / HeyGen) for the TikTok + UGC content, for a consistent persona.</div></div>`,
 };
-const SUB={core:"The agency OS. Routes work, owns the number, never does the agents' jobs.",lead:"Sources & qualifies restoration prospects.",sales:"Writes openers, objection handling, follow-ups.",store:"The files every agent reads before working and writes after.",engine:"The autonomous 5am routine — runs in the cloud.",tiktok:"Daily AI story videos for TikTok.",voice:"Outbound AI voice caller.",appt:"Books demos into your calendar.",clone:"AI voice/face clone for content."};
+const SUB={core:"The boss. Routes work, owns the number, never does the team's jobs.",lead:"Sources & qualifies restoration prospects.",sales:"Writes openers, objection handling, follow-ups.",store:"The files every teammate reads before working and writes after.",engine:"The autonomous 5am routine — runs in the cloud.",tiktok:"Daily AI story videos for TikTok.",voice:"Outbound AI voice caller.",appt:"Books demos into your calendar.",clone:"AI voice/face clone for content."};
 const scrim=document.getElementById("scrim"),drawer=document.getElementById("drawer"),drole=document.getElementById("drole"),dname=document.getElementById("dname"),dsub=document.getElementById("dsub"),dbody=document.getElementById("dbody"),dava=document.getElementById("dava");
-function openDrawer(id){const n=byId[id];drole.textContent=n.active?"Active":"Offline · planned";drole.style.color=n.col;dname.textContent=n.label.replace(/\b\w/g,c=>c)+"";
-  dname.textContent=n.label.split(" ").map(w=>w[0]+w.slice(1).toLowerCase()).join(" ");
-  dsub.textContent=SUB[id];dava.style.background=`rgba(${hx(n.col).join(",")},.12)`;
-  dava.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="${n.col}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${IC[id]}</svg><span class="dot" style="background:${n.active?"var(--lead)":"#8a94a8"}"></span>`;
+function openDrawer(id){const m=byId[id];drole.textContent=(m.active?"Active":"Offline · planned")+" · "+m.name;drole.style.color=m.col;
+  dname.textContent=m.role;dsub.textContent=SUB[id];dava.innerHTML=avatar(m,.34);dava.style.background=`rgba(${[parseInt(m.col.slice(1,3),16),parseInt(m.col.slice(3,5),16),parseInt(m.col.slice(5,7),16)].join(",")},.1)`;
   dbody.innerHTML=WORK[id]();drawer.scrollTop=0;scrim.classList.add("open");drawer.classList.add("open");}
 function closeDrawer(){scrim.classList.remove("open");drawer.classList.remove("open");}
 document.getElementById("dclose").addEventListener("click",closeDrawer);scrim.addEventListener("click",closeDrawer);
 addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
 
-// ============ HUD + HYDRATE ============
-function renderKpis(){document.getElementById("k-mrr").innerHTML=DATA.kpis.mrr+'<small>/10k</small>';
-  document.getElementById("k-leads").textContent=DATA.kpis.leads;
-  document.getElementById("k-dials").innerHTML=DATA.kpis.dials.split("/")[0]+'<small>/'+DATA.kpis.dials.split("/")[1]+'</small>';
-  document.getElementById("k-clients").textContent=DATA.kpis.clients;}
-async function hydrate(){try{
-  const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
+// ===== HUD hydrate =====
+function renderKpis(){document.getElementById("k-mrr").innerHTML=DATA.kpis.mrr+'<small>/10k</small>';document.getElementById("k-leads").textContent=DATA.kpis.leads;
+  document.getElementById("k-dials").innerHTML=DATA.kpis.dials.split("/")[0]+'<small>/'+DATA.kpis.dials.split("/")[1]+'</small>';document.getElementById("k-clients").textContent=DATA.kpis.clients;}
+async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
   const counts={};STAGES.forEach(s=>counts[s]=0);let won=false;
   txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("|"))return;const c=line.split("|").map(x=>x.trim());if(c.length<4)return;STAGES.forEach(s=>{if(c[3].toLowerCase()===s)counts[s]++;});});
   if(Object.values(counts).some(v=>v>0)){DATA.pipeline=counts;DATA.kpis.leads=Object.values(counts).reduce((a,b)=>a+b,0)||DATA.kpis.leads;}
-  const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const last=rows[rows.length-1];if(last){const c=last.split("|").map(x=>x.trim());if(c.length>=9){DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}}
+  const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const last=rows[rows.length-1];if(last){const c=last.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
   document.getElementById("liveTxt").textContent="live · reading files";renderKpis();
 }catch(e){document.getElementById("liveTxt").textContent="snapshot";}}
-resize();renderKpis();requestAnimationFrame(frame);hydrate();
+renderKpis();hydrate();
 </script>
