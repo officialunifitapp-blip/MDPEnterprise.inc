@@ -1,7 +1,7 @@
 # Restoration Cold Outreach — Campaign v1
 
 Placeholders to fill before sending:
-- `[DEMO #]` = Vapi demo number (UNVERIFIED — insert real number)
+- `(314) 887-9824` = Vapi demo number (UNVERIFIED — insert real number)
 - `[FIRST NAME]`, `[COMPANY]`, `[YOUR NAME]`, `[CITY]`
 
 Every asset drives to ONE action: **call the demo number and hear it work.**
@@ -17,7 +17,7 @@ If "not interested":
 > "Fair — most guys say that till they hear it handle a real 2am water call. Two minutes, call the number, decide for yourself. Worst case you hang up. Cool?"
 
 **Voicemail (one line):**
-> "[FIRST NAME], it's [YOUR NAME]. Built a line that answers your after-hours emergency calls so you stop losing them to voicemail — call [DEMO #] and hear it handle one. That's it."
+> "[FIRST NAME], it's [YOUR NAME]. Built a line that answers your after-hours emergency calls so you stop losing them to voicemail — call (314) 887-9824 and hear it handle one. That's it."
 
 ---
 
@@ -36,7 +36,7 @@ If "not interested":
 >
 > I built a phone line that answers those calls 24/7, sounds like a real person, and books the job. Don't take my word — call it and put it through a fake 2am water emergency yourself:
 >
-> **[DEMO #]**
+> **(314) 887-9824**
 >
 > If it's as good as it sounds on your end, I'm setting up 3 restoration companies this month with the setup fee waived, month-to-month, live within a week. Call the number first. Then we talk.
 >
@@ -46,7 +46,7 @@ If "not interested":
 
 ## 3. SMS / DM
 
-> [FIRST NAME] — after-hours water calls going to voicemail = jobs lost to whoever answers first. I built a line that answers + books them 24/7. Call [DEMO #] and hear it handle a fake 2am emergency yourself. 90 sec. — [YOUR NAME]
+> [FIRST NAME] — after-hours water calls going to voicemail = jobs lost to whoever answers first. I built a line that answers + books them 24/7. Call (314) 887-9824 and hear it handle a fake 2am emergency yourself. 90 sec. — [YOUR NAME]
 
 ---
 

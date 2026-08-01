@@ -1,7 +1,7 @@
 # Personalized Cold-Call Openers — Top 10 Restoration Leads (2026-07-31)
 
 Base script: `assets/restoration-cold-outreach.md`. Same structure/tone, personalized per lead.
-`[DEMO #]` = Vapi demo line (still UNVERIFIED — do NOT invent a number). `[YOUR NAME]` = your name.
+`(314) 887-9824` = Vapi demo line (still UNVERIFIED — do NOT invent a number). `[YOUR NAME]` = your name.
 One action every time: **they call the demo and hear it answer a fake 2am water call.**
 
 ---
@@ -13,7 +13,7 @@ Cottleville, MO
 > "Hey Grant — not a pitch, I'll be quick. With 288 five-star reviews you've got calls coming in all day, and I'd bet the after-hours ones ring your cell or drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a phone line that answers those emergency calls and books them. Call it yourself and hear it handle one — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Grant, it's [YOUR NAME] at Rapid Dry — built a line that answers your after-hours emergency calls so a 2am water job doesn't slip to voicemail. Call [DEMO #] and hear it handle one. That's it."
+> "Grant, it's [YOUR NAME] at Rapid Dry — built a line that answers your after-hours emergency calls so a 2am water job doesn't slip to voicemail. Call (314) 887-9824 and hear it handle one. That's it."
 
 ---
 
@@ -24,7 +24,7 @@ Andover, KS
 > "Hey Justin — this isn't a pitch, I'll be quick. Your site says you personally oversee every job, which tells me you're also the guy answering the phone at 2am. When you're on a job or asleep, that emergency water call goes to whoever picks up next. I built a line that answers those for you and books them — sounds like a real person. Call it and hear it yourself, takes 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Justin, it's [YOUR NAME]. You run every job personally — this answers your after-hours calls so you stop losing the ones that come in while you're working. Call [DEMO #] and hear it. That's it."
+> "Justin, it's [YOUR NAME]. You run every job personally — this answers your after-hours calls so you stop losing the ones that come in while you're working. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -35,7 +35,7 @@ Derby, KS
 > "Hey Matt — quick one, not a pitch. You and Natalie built 400-plus five-star reviews, so the phone's ringing plenty — but a husband-and-wife shop can't catch every 2am water call, and that job goes to whoever does. I built a line that answers those after-hours calls for you and books them. Call it yourself and hear it handle a fake emergency — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Matt, it's [YOUR NAME] — built a line that catches the after-hours water calls you and Natalie can't get to, so they don't go to the next guy. Call [DEMO #] and hear it. That's it."
+> "Matt, it's [YOUR NAME] — built a line that catches the after-hours water calls you and Natalie can't get to, so they don't go to the next guy. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -46,7 +46,7 @@ Lake St. Louis, MO
 > "Hey Terry — not a pitch, I'll be quick. You promise 24/7/365, and I'm calling to ask the honest question: who actually picks up at 2am? If it's voicemail, that water job's already gone to whoever answered. I built a line that answers those after-hours calls for you and books them. Call it and put a fake emergency through yourself — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Terry, it's [YOUR NAME] — you promise 24/7, this makes it true after hours so a 2am water call doesn't hit voicemail. Call [DEMO #] and hear it. That's it."
+> "Terry, it's [YOUR NAME] — you promise 24/7, this makes it true after hours so a 2am water call doesn't hit voicemail. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -59,7 +59,7 @@ Shawnee, KS
 > "Hey Alan — quick one, not a pitch. Your site says live dispatch 24/7 — is that a real person answering at 2am, or does it roll to a cell or a service? Reason I ask: I built a phone line that answers after-hours water calls and books them, and for a lot of family shops it's cheaper and never misses. If your setup already nails it, I'll leave you alone. If you're curious, call it and hear it — 90 seconds. Fair?"
 
 **Voicemail:**
-> "Alan, it's [YOUR NAME] — you advertise 24/7 dispatch; wanted to show you a line that answers and books after-hours water calls, often cheaper than a service. Call [DEMO #] and hear it. That's it."
+> "Alan, it's [YOUR NAME] — you advertise 24/7 dispatch; wanted to show you a line that answers and books after-hours water calls, often cheaper than a service. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -70,7 +70,7 @@ Lenexa, KS
 > "Hey Greg — not a pitch, I'll be quick. You've run water mitigation only since '88, so every after-hours call that goes to voicemail is a four or five-figure job walking to the next guy. And if it's still you and Ed running it, you can't be on the phone at 2am every night. I built a line that answers those calls and books them. Call it yourself and hear it — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Greg, it's [YOUR NAME] — water-only means every missed 2am call is a big job lost; this answers and books them so you and Ed don't. Call [DEMO #] and hear it. That's it."
+> "Greg, it's [YOUR NAME] — water-only means every missed 2am call is a big job lost; this answers and books them so you and Ed don't. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -83,7 +83,7 @@ St. Louis, MO
 > "Hey — quick one, who owns the shop? ... Appreciate it. Not a pitch: 30-plus years in STL means your phone rings a lot, and I'm calling to ask who actually picks up when a water call hits at 2am. If it's voicemail, that job's gone to whoever answered. I built a line that answers those after-hours calls and books them. Call it and hear it yourself — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Hey, it's [YOUR NAME] for whoever owns Pride Restoration — built a line that answers your after-hours water calls so they don't hit voicemail. Call [DEMO #] and hear it. That's it."
+> "Hey, it's [YOUR NAME] for whoever owns Pride Restoration — built a line that answers your after-hours water calls so they don't hit voicemail. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -96,7 +96,7 @@ Columbia, MO
 > "Hey — quick one, who's the owner these days? ... Thanks. Not a pitch: you're the oldest restoration shop in Central Missouri, so you're fielding a ton of calls — and I'm betting the after-hours ones roll to voicemail or a cell. When a 2am water call gets missed, it's gone to whoever answered. I built a line that answers and books those. Call it and hear it — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Hey, it's [YOUR NAME] for the owner of Kelley Klean — oldest shop in Central MO means heavy call volume; this catches the after-hours ones before voicemail does. Call [DEMO #] and hear it. That's it."
+> "Hey, it's [YOUR NAME] for the owner of Kelley Klean — oldest shop in Central MO means heavy call volume; this catches the after-hours ones before voicemail does. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -109,7 +109,7 @@ Des Moines, IA
 > "Hey — quick one, are you the owner? ... Not a pitch, I'll be fast. You promise to respond in minutes, which tells me it's you or a small crew catching the phone — and nobody catches every 2am water call. When one drops to voicemail, that job's gone to the next guy. I built a line that answers and books those after-hours calls. Call it yourself and hear it — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Hey, it's [YOUR NAME] for the owner of 515 Restoration — you promise a fast response; this answers the after-hours calls you can't catch so none slip away. Call [DEMO #] and hear it. That's it."
+> "Hey, it's [YOUR NAME] for the owner of 515 Restoration — you promise a fast response; this answers the after-hours calls you can't catch so none slip away. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
@@ -122,7 +122,7 @@ Omaha, NE
 > "Hey — quick one, who owns the shop now? ... Appreciate it. Not a pitch: 140-plus five-star reviews means the phone's busy, and with a small team the after-hours water calls are the easy ones to miss. When one goes to voicemail, that job walks to whoever picked up. I built a line that answers and books those. Call it and hear it — 90 seconds. Want the number?"
 
 **Voicemail:**
-> "Hey, it's [YOUR NAME] for whoever owns Omaha Damage Repair now — built a line that answers your after-hours water calls so a small team doesn't lose them to voicemail. Call [DEMO #] and hear it. That's it."
+> "Hey, it's [YOUR NAME] for whoever owns Omaha Damage Repair now — built a line that answers your after-hours water calls so a small team doesn't lose them to voicemail. Call (314) 887-9824 and hear it. That's it."
 
 ---
 
