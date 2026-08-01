@@ -175,7 +175,7 @@ function SY(n){return H*.5+pan.y+n.wy*M*zoom;}
 function RAD(n){return n.r*M*zoom;}
 // focus zoom (click)
 let focusId=null,open=false,fp=0;
-function foc(n){const bx=SX(n),by=SY(n);if(!focusId||fp<.001)return{x:bx,y:by,s:1};const fx=W*.5,fy=H*.42;if(n.id===focusId)return{x:bx+(fx-bx)*fp,y:by+(fy-by)*fp,s:1+fp*.7,dim:1};return{x:bx,y:by,s:1,dim:1-fp*.86};}
+function foc(n){const bx=SX(n),by=SY(n);if(!focusId||fp<.001)return{x:bx,y:by,s:1,dim:1};const fx=W*.5,fy=H*.42;if(n.id===focusId)return{x:bx+(fx-bx)*fp,y:by+(fy-by)*fp,s:1+fp*.7,dim:1};return{x:bx,y:by,s:1,dim:1-fp*.86};}
 
 const mouse={x:-999,y:-999,in:false};const ptrs=new Map();let dragS=null,pinchS=null;
 function scr(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}

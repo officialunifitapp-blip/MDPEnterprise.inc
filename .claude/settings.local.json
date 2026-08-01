@@ -59,7 +59,8 @@
       "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Restore dotted spheres \\(spaced out\\), add Notes agent + per-lead notes, CSV export for auto-dialer\")",
       "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Drag to pan, scroll/pinch to zoom, smaller balls + reset-view for easier navigation\")",
       "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Wire real Vapi demo number \\(314\\) 887-9824 into all scripts + dashboard\")",
-      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Neural Command: living brain — curved synapses, firing signal cascades, spread-out cortical regions you fly through\")"
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Neural Command: living brain — curved synapses, firing signal cascades, spread-out cortical regions you fly through\")",
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Fix crash: sub-neuron NaN opacity killed the render loop\")"
     ]
   }
 }
