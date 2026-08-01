@@ -21,7 +21,9 @@
       "Skill(update-config)",
       "Skill(artifact-design)",
       "Artifact",
-      "Skill(schedule)"
+      "Skill(schedule)",
+      "Bash(git add *)",
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Command center: agent glyphs, leads+scripts inline in drawer *)"
     ]
   }
 }
