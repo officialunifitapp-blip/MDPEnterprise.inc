@@ -23,7 +23,15 @@
       "Artifact",
       "Skill(schedule)",
       "Bash(git add *)",
-      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Command center: agent glyphs, leads+scripts inline in drawer *)"
+      "Bash(git -c 'user.name=Agency CEO' -c user.email=mariodel2005@icloud.com commit -q -m 'Command center: agent glyphs, leads+scripts inline in drawer *)",
+      "Bash(command -v gh)",
+      "Bash(gh --version)",
+      "Bash(command -v brew)",
+      "Read(//Users/mariodelpietro/**)",
+      "Bash(git config *)",
+      "Bash(brew install *)",
+      "Bash(gh auth *)",
+      "Bash(gh repo *)"
     ]
   }
 }
