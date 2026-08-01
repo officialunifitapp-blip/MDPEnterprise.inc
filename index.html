@@ -31,6 +31,7 @@
   .pill{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;border-radius:10px;padding:8px 12px;}
   .pill.mgr{color:var(--ceo);background:rgba(90,216,255,.13);border:1.5px solid rgba(90,216,255,.5);}
   .pill.csv{color:var(--agency);background:rgba(61,255,176,.1);border:1.5px solid rgba(61,255,176,.4);}
+  .pill.exp2{color:var(--dim);background:rgba(120,140,170,.1);border:1.5px solid var(--line2);}
   .pill:hover{filter:brightness(1.2);}
   .livebar{position:fixed;left:20px;bottom:16px;z-index:20;pointer-events:none;display:flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);background:rgba(6,10,18,.66);backdrop-filter:blur(8px);border:1px solid #1a2536;border-radius:99px;padding:8px 15px;}
   .livebar i{width:8px;height:8px;border-radius:99px;background:var(--agency);box-shadow:0 0 10px var(--agency);animation:bp 1.6s infinite;} @keyframes bp{50%{opacity:.3}}
@@ -101,16 +102,16 @@
       <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called</div></div>
       <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
     </div>
-    <div class="btns"><button class="pill mgr" id="mgrBtn">📖 Everything</button><button class="pill csv" id="exportBtn">⬇ CSV</button></div>
+    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="expandBtn">Collapse all</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
   </div>
 </div>
 <div class="livebar"><i></i><span id="liveTxt">waking up…</span></div>
-<div class="hint" id="hint">tap the 🧠 to ask your CEO · tap a world to open its team</div>
+<div class="hint" id="hint">Tap the center to talk to your CEO · tap a world to open its team</div>
 
 <div class="scrim" id="scrim"></div>
 
 <div class="chat" id="chat">
-  <div class="ch"><div class="av">🧠</div><div><div class="t">CEO</div><div class="s">ask me anything about the business</div></div><button class="cx" id="chatX">×</button></div>
+  <div class="ch"><div class="av"></div><div><div class="t">CEO</div><div class="s">ask me anything about the business</div></div><button class="cx" id="chatX">×</button></div>
   <div id="log"></div><div class="chips" id="chips"></div>
   <div class="cin"><input id="cinp" placeholder="Ask your CEO…" autocomplete="off"><button id="csend">Send</button></div>
 </div>
@@ -127,41 +128,41 @@ const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
 function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
 
 // ===== TREE =====
-const CEO={id:"ceo",name:"CEO",ico:"🧠",col:"#5ad8ff",r:.052,pts:fib(360),rot:0,hov:0,br:0};
+const CEO={id:"ceo",name:"CEO",col:"#5ad8ff",r:.052,pts:fib(360),rot:0,hov:0,br:0};
 function fib(n){const a=[],GA=Math.PI*(3-Math.sqrt(5));for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
 const WORLDS=[
- {id:"agency",name:"AI Agency",note:"sells AI automation",col:"#3dffb0",ico:"🏢",ang:-2.35,kids:[
-   {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#3dffb0",ico:"📞",live:1},
-   {id:"website",name:"Website AI",one:"chat + booking",col:"#57e0ff",ico:"🌐",live:1},
-   {id:"b2b",name:"B2B Outbound",one:"ways to sell",col:"#8affd0",ico:"📡",live:1},
-   {id:"lead",name:"Leads",one:"companies to call",col:"#3dffb0",ico:"📇",live:1,chip:"124"},
-   {id:"sales",name:"Scripts",one:"what to say",col:"#ff6bb0",ico:"💬",live:1},
-   {id:"notes",name:"Notes",one:"log each call",col:"#ffd84d",ico:"📝",live:1,chip:"0"},
-   {id:"engine",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",ico:"⚙️",live:1},
+ {id:"agency",name:"AI Agency",note:"sells AI automation",col:"#3dffb0",ang:-2.35,kids:[
+   {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#3dffb0",live:1},
+   {id:"website",name:"Website AI",one:"chat + booking",col:"#57e0ff",live:1},
+   {id:"b2b",name:"B2B Outbound",one:"ways to sell",col:"#8affd0",live:1},
+   {id:"lead",name:"Leads",one:"companies to call",col:"#3dffb0",live:1,chip:"124"},
+   {id:"sales",name:"Scripts",one:"what to say",col:"#ff6bb0",live:1},
+   {id:"notes",name:"Notes",one:"log each call",col:"#ffd84d",live:1,chip:"0"},
+   {id:"engine",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",live:1},
  ]},
- {id:"content",name:"Content · TikTok",note:"builds an audience",col:"#ff9a5c",ico:"🎬",ang:-0.79,kids:[
-   {id:"tk_mgr",name:"Content Mgr",one:"picks & approves",col:"#ff9a5c",ico:"🎬",live:0},
-   {id:"tk_writer",name:"Story Writer",one:"hook → payoff",col:"#ffb27a",ico:"✍️",live:0},
-   {id:"tk_video",name:"Video Creator",one:"visuals+voice+edit",col:"#ff7ac2",ico:"🎥",live:0},
-   {id:"tk_analytics",name:"Analytics",one:"what's working",col:"#d07bff",ico:"📊",live:0},
+ {id:"content",name:"Content · TikTok",note:"builds an audience",col:"#ff9a5c",ang:-0.79,kids:[
+   {id:"tk_mgr",name:"Content Mgr",one:"picks & approves",col:"#ff9a5c",live:0},
+   {id:"tk_writer",name:"Story Writer",one:"hook → payoff",col:"#ffb27a",live:0},
+   {id:"tk_video",name:"Video Creator",one:"visuals+voice+edit",col:"#ff7ac2",live:0},
+   {id:"tk_analytics",name:"Analytics",one:"what's working",col:"#d07bff",live:0},
  ]},
- {id:"ecom",name:"Ecom",note:"future income",col:"#ffd84d",ico:"🛍️",ang:0.79,kids:[
-   {id:"ec_mgr",name:"Store Mgr",one:"runs the store",col:"#ffd84d",ico:"🏬",live:0},
-   {id:"ec_product",name:"Product & Offer",one:"product+pricing",col:"#ffc24d",ico:"🔎",live:0},
-   {id:"ec_store",name:"Storefront",one:"pages+checkout",col:"#ffab5c",ico:"🛒",live:0},
-   {id:"ec_creative",name:"Creative & Traffic",one:"ads+campaigns",col:"#ff9a5c",ico:"📣",live:0},
-   {id:"ec_ops",name:"Support & Ops",one:"orders+support",col:"#ffe08a",ico:"📦",live:0},
+ {id:"ecom",name:"Ecom",note:"future income",col:"#ffd84d",ang:0.79,kids:[
+   {id:"ec_mgr",name:"Store Mgr",one:"runs the store",col:"#ffd84d",live:0},
+   {id:"ec_product",name:"Product & Offer",one:"product+pricing",col:"#ffc24d",live:0},
+   {id:"ec_store",name:"Storefront",one:"pages+checkout",col:"#ffab5c",live:0},
+   {id:"ec_creative",name:"Creative & Traffic",one:"ads+campaigns",col:"#ff9a5c",live:0},
+   {id:"ec_ops",name:"Support & Ops",one:"orders+support",col:"#ffe08a",live:0},
  ]},
- {id:"personal",name:"Personal",note:"your life",col:"#a9c0ff",ico:"🧬",ang:2.35,kids:[
-   {id:"life",name:"Life Admin",one:"calendar & errands",col:"#a9c0ff",ico:"🗓️",live:0},
-   {id:"money",name:"Finances",one:"track your money",col:"#7ee0c0",ico:"💵",live:0},
+ {id:"personal",name:"Personal",note:"your life",col:"#a9c0ff",ang:2.35,kids:[
+   {id:"life",name:"Life Admin",one:"calendar & errands",col:"#a9c0ff",live:0},
+   {id:"money",name:"Finances",one:"track your money",col:"#7ee0c0",live:0},
  ]},
 ];
 const byId={ceo:CEO};
-WORLDS.forEach(w=>{w.open=0;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
-  const arc=Math.min(1.7,w.kids.length*.32);
-  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.hov=0;k.kind="kid";k.world=w;k.r=.03;byId[k.id]=k;});});
-byId.manager={id:"manager",name:"Everything",ico:"📖",col:"#5ad8ff",live:1};
+WORLDS.forEach(w=>{w.open=0;w.wantOpen=true;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
+  const arc=Math.min(1.5,w.kids.length*.3);
+  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.radN=.42+((i%2)?.1:0);k.hov=0;k.kind="kid";k.world=w;k.r=.028;byId[k.id]=k;});});
+byId.manager={id:"manager",name:"Everything",col:"#5ad8ff",live:1};
 const CROSS=[["tk_video","ec_creative"],["sales","tk_writer"],["b2b","ec_creative"]].map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
 
 // ===== CANVAS =====
@@ -171,16 +172,16 @@ addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
 const CX=()=>W*.5, CY=()=>H*.52;
 function WP(w){return[CX()+Math.cos(w.ang)*M*.27,CY()+Math.sin(w.ang)*M*.27];}
-function KP(k){const w=k.world,[wx,wy]=WP(w);const rx=CX()+Math.cos(k.cang)*M*.44,ry=CY()+Math.sin(k.cang)*M*.44;return[wx+(rx-wx)*w.open,wy+(ry-wy)*w.open];}
+function KP(k){const w=k.world,[wx,wy]=WP(w);const rx=CX()+Math.cos(k.cang)*M*k.radN,ry=CY()+Math.sin(k.cang)*M*k.radN;return[wx+(rx-wx)*w.open,wy+(ry-wy)*w.open];}
 function P(n){return n.id==="ceo"?[CX(),CY()]:n.kind==="world"?WP(n):KP(n);}
 function RAD(n){return n.r*M;}
 const mouse={x:-999,y:-999,in:false};
 addEventListener("pointermove",e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;});
 addEventListener("pointerleave",()=>mouse.in=false);
-function pickables(){return active?[CEO,...WORLDS,...active.kids]:[CEO,...WORLDS];}
+function pickables(){return [CEO,...WORLDS,...WORLDS.filter(w=>w.open>.25).flatMap(w=>w.kids)];}
 function pick(mx,my){let hit=null,best=1e9;pickables().forEach(n=>{const[x,y]=P(n);const d=Math.hypot(mx-x,my-y);const R=Math.max(28,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
 cv.addEventListener("pointerdown",e=>{const n=pick(e.clientX,e.clientY);if(!n)return;
-  if(n.id==="ceo")openChat();else if(n.kind==="world"){active=(active===n?null:n);}else openModal(n.id);});
+  if(n.id==="ceo")openChat();else if(n.kind==="world"){n.wantOpen=!n.wantOpen;}else openModal(n.id);});
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;let tPrev=0;
 function tbranch(ax,ay,bx,by,col,wBase,wTip,a){if(a<=0.01)return;const mx=(ax+bx)/2,my=(ay+by)/2,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;const cxp=mx-dy/len*len*.13,cyp=my+dx/len*len*.13;const c=hx(col);ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${a})`;ctx.lineCap="round";const N=10;let px=ax,py=ay;for(let i=1;i<=N;i++){const t=i/N,u=1-t;const x=u*u*ax+2*u*t*cxp+t*t*bx,y=u*u*ay+2*u*t*cyp+t*t*by;ctx.lineWidth=wBase+(wTip-wBase)*t;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(x,y);ctx.stroke();px=x;py=y;}}
@@ -193,14 +194,14 @@ function orb(n,t){const[cx,cy]=P(n);const op=n.kind==="kid"?n.world.open:1;if(op
   ctx.beginPath();ctx.arc(cx,cy,R0,0,7);ctx.fillStyle="rgba(7,11,20,.92)";ctx.fill();
   if(!live)ctx.setLineDash([3,3]);ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(${R},${G},${B},${(live?.9:.5)*op})`;ctx.stroke();ctx.setLineDash([]);
   if(n.pts){if(!reduce)n.rot+=(n.id==="ceo"?.005:.008);const cR=Math.cos(n.rot),sR=Math.sin(n.rot),cT=Math.cos(.42),sT=Math.sin(.42);for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cT-z1*sT,z2=y*sT+z1*cT;const pr=1/(1-z2*.34);const sx=cx+x1*R0*.85*pr,sy=cy+y1*R0*.85*pr;const d=(z2+1)/2;ctx.fillStyle=`rgba(${R},${G},${B},${(0.08+d*.42)*op})`;ctx.fillRect(sx-1,sy-1,1.5,1.5);}}
-  ctx.globalAlpha=op;ctx.font=Math.round(R0*1.02)+"px system-ui";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.ico,cx,cy+1);ctx.globalAlpha=1;
+  ctx.globalCompositeOperation="lighter";const ic=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*.55);ic.addColorStop(0,`rgba(${R},${G},${B},${.8*op})`);ic.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=ic;ctx.beginPath();ctx.arc(cx,cy,R0*.55,0,7);ctx.fill();ctx.globalCompositeOperation="source-over";
 }
 function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
-  WORLDS.forEach(w=>w.open+=((active===w?1:0)-w.open)*.16);
+  WORLDS.forEach(w=>w.open+=((w.wantOpen?1:0)-w.open)*.16);
   ctx.clearRect(0,0,W,H);
   const bg=ctx.createRadialGradient(CX(),CY(),0,CX(),CY(),Math.max(W,H)*.8);bg.addColorStop(0,"#0a1526");bg.addColorStop(.6,"#05070f");bg.addColorStop(1,"#03040a");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
   // trunks CEO -> world (tree limbs, tapered)
-  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=WP(w);const dim=active&&active!==w?.4:1;tbranch(ex,ey,wx,wy,w.col,Math.max(4,RAD(w)*.5),2,(.32+w.hov*.4)*dim);});
+  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=WP(w);tbranch(ex,ey,wx,wy,w.col,Math.max(4,RAD(w)*.5),2,.32+w.hov*.4);});
   // cross-world twigs
   CROSS.forEach(p=>{const[ax,ay]=P(p[0]),[bx,by]=P(p[1]);const op=Math.max(p[0].world?p[0].world.open:0,p[1].world?p[1].world.open:0);tbranch(ax,ay,bx,by,"#9fc0ff",2,2,.04+op*.4);});
   // world -> kid twigs
@@ -212,7 +213,7 @@ function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
 const labels=document.getElementById("labels");
 [...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const d=document.createElement("div");d.className="lbl"+((n.live===0)?" soon":"");d.innerHTML=`<div class="nm" style="color:${n.col};font-size:${n.kind==="world"?15:12.5}px">${n.name}</div><div class="one">${n.one||n.note||""}</div>`;labels.appendChild(d);n.lel=d;});
 const ceoL=document.createElement("div");ceoL.className="lbl";ceoL.innerHTML=`<div class="nm" style="color:${CEO.col};font-size:16px">CEO</div><div class="one">tap to ask anything</div>`;labels.appendChild(ceoL);
-function placeLabels(){[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const[x,y]=P(n);const op=n.kind==="kid"?n.world.open:1;n.lel.style.left=x+"px";n.lel.style.top=(y+RAD(n)+11)+"px";n.lel.style.opacity=op<.25?0:(active&&n.kind==="world"&&active!==n?.5:1);});
+function placeLabels(){[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const[x,y]=P(n);const op=n.kind==="kid"?n.world.open:1;n.lel.style.left=x+"px";n.lel.style.top=(y+RAD(n)+11)+"px";n.lel.style.opacity=op<.25?0:1;});
   const[ex,ey]=P(CEO);ceoL.style.left=ex+"px";ceoL.style.top=(ey+RAD(CEO)+12)+"px";}
 
 // ===== MODAL / WORK =====
@@ -224,13 +225,13 @@ const WORK={
  website:()=>`<div class="sec"><div class="s-lbl">Website AI · second offer</div><div class="say"><b>What it does:</b> an AI chat + booking widget on the client's website — answers FAQs, captures leads, and books appointments around the clock.<br><br><b>Who it's for:</b> any local business with a website and phone that rings out. Same pitch, different door — sell it alongside or instead of the receptionist.</div></div>`,
  b2b:()=>`<div class="sec"><div class="s-lbl">B2B Outbound · how you sell</div><div class="say"><b>The offer is one thing; the doors are many.</b> Ways to put AI automation in front of businesses:</div></div>
   <div class="sec"><div class="s-lbl">Channels</div>
-   <div class="fr"><div><div class="fl">📞 Cold calling</div><div class="fm">live now — 124 leads, scripts, demo line</div></div><span class="badge on">Active</span></div>
-   <div class="fr"><div><div class="fl">✉️ Cold email</div><div class="fm">needs a sending domain + tool (Instantly/Smartlead)</div></div><span class="badge warn">Setup</span></div>
-   <div class="fr"><div><div class="fl">💼 LinkedIn / DM</div><div class="fm">owner outreach, short video demos</div></div><span class="badge warn">Idea</span></div>
-   <div class="fr"><div><div class="fl">🤝 Referrals</div><div class="fm">first 3 clients → case studies → intros</div></div><span class="badge warn">After 1st close</span></div></div>`,
- lead:()=>`<div class="sec"><div class="s-lbl">Companies to call <span>${DATA.leadList.length} · tap 📝 to note</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><div class="lr"><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${l.p}</a>`:`<span class="noph">no #</span>`}<button class="ntbtn ${NOTES[l.co]?'has':''}" data-co="${esc(l.co)}">📝</button></div><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue, interested…)">${esc(NOTES[l.co]||"")}</textarea></div>`).join("")}</div>`,
- sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div><div class="sec"><div class="s-lbl">What to open with</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]} · ${o[2]}</div><div class="sc">${tel(o[3])}</div></div><a class="tel" href="tel:+1${o[3]}">Call</a></div>${o[4]?`<div class="flag">⚠ ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
- notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap 📝 on a company, and jot what happened. Saves on your device and rides along in the CSV.</div>'}</div><div class="sec"><button class="btn" id="notesCsv">⬇ Export leads + notes CSV</button></div>`;},
+   <div class="fr"><div><div class="fl">Cold calling</div><div class="fm">live now — 124 leads, scripts, demo line</div></div><span class="badge on">Active</span></div>
+   <div class="fr"><div><div class="fl">Cold email</div><div class="fm">needs a sending domain + tool (Instantly / Smartlead)</div></div><span class="badge warn">Setup</span></div>
+   <div class="fr"><div><div class="fl">LinkedIn / DM</div><div class="fm">owner outreach, short video demos</div></div><span class="badge warn">Idea</span></div>
+   <div class="fr"><div><div class="fl">Referrals</div><div class="fm">first 3 clients, case studies, warm intros</div></div><span class="badge warn">After 1st close</span></div></div>`,
+ lead:()=>`<div class="sec"><div class="s-lbl">Companies to call <span>${DATA.leadList.length} · tap  to note</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><div class="lr"><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${l.p}</a>`:`<span class="noph">no #</span>`}<button class="ntbtn ${NOTES[l.co]?'has':''}" data-co="${esc(l.co)}"></button></div><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue, interested…)">${esc(NOTES[l.co]||"")}</textarea></div>`).join("")}</div>`,
+ sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div><div class="sec"><div class="s-lbl">What to open with</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]} · ${o[2]}</div><div class="sc">${tel(o[3])}</div></div><a class="tel" href="tel:+1${o[3]}">Call</a></div>${o[4]?`<div class="flag"> ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
+ notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap  on a company, and jot what happened. Saves on your device and rides along in the CSV.</div>'}</div><div class="sec"><button class="btn" id="notesCsv"> Export leads + notes CSV</button></div>`;},
  engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b> it finds ~150 new companies, checks the numbers, writes what to say (with your demo line), and adds them to your list — while you sleep.</div></div><div class="sec"><div class="s-lbl">Latest</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
  tk_mgr:()=>`<div class="sec"><div class="s-lbl">TikTok video system · the plan</div><div class="say"><b>Flow:</b> Idea → Script → Assets → Voice → Video → Quality Check → Post → Feedback.<br><br><b>Content Manager:</b> picks the topic, assigns work, approves the final video.</div></div><div class="sec"><div class="s-lbl">Start with 4, not 9</div><div class="say">Content Manager · Story Writer · Video Creator · Analytics. The Video Creator can do visuals, voice, captions, and editing at first. <b>Start with ~6 combined agents, not 19.</b></div></div>`,
  tk_writer:()=>`<div class="sec"><div class="s-lbl">Story Writer</div><div class="say"><b>Job:</b> short TikTok stories — hook, escalation, payoff, call to action.<br><b>Output:</b> a 30–90 second script.</div></div>`,
@@ -243,35 +244,36 @@ const WORK={
  ec_ops:()=>`<div class="sec"><div class="s-lbl">Support & Operations</div><div class="say"><b>Job:</b> answers customer questions; monitors inventory, suppliers, tracking.<br><b>Output:</b> resolved customers + accurate orders.</div></div>`,
  life:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Your personal assistant</b> — calendar, reminders, errands, travel.</div></div>`,
  money:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Watches your money</b> — spending, bills, savings goals.</div></div>`,
- manager:()=>`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ceo)">💰 The numbers</div></div><div class="sec"><div class="s-lbl">The money</div><div class="say"><b style="font-size:26px;color:var(--ceo)">${DATA.kpis.mrr}</b> of $10,000/mo · <b>${DATA.kpis.clients}</b> clients · <b>${DATA.kpis.leads}</b> leads · <b>${DATA.kpis.dials.split("/")[0]}</b> called today</div></div>
+ manager:()=>`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ceo)">The numbers</div><div class="say"><b style="font-size:26px;color:var(--ceo)">${DATA.kpis.mrr}</b> of $10,000/mo · <b>${DATA.kpis.clients}</b> clients · <b>${DATA.kpis.leads}</b> leads · <b>${DATA.kpis.dials.split("/")[0]}</b> called today</div></div>
   <div class="sec"><div class="s-lbl">Pipeline</div><div class="bars">${STAGES.map(([k,label])=>{const v=DATA.pipeline[k]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x[0]]||0));return`<div class="bar"><span class="bn">${label}</span><span class="bt"><i style="width:${v/mx*100}%"></i></span><span class="bv">${v}</span></div>`;}).join("")}</div></div>
-  <div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--agency)">📇 Every lead</div></div>`+WORK.lead()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--hot)">💬 Every script</div></div>`+WORK.sales()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">📝 Your notes</div></div>`+WORK.notes(),
+  <div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--agency)">Every lead</div></div>`+WORK.lead()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--hot)">Every script</div></div>`+WORK.sales()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">Your notes</div></div>`+WORK.notes(),
 };
-const SUB={receptionist:"Your flagship offer — 24/7 AI call answering.",website:"Second offer — AI chat + booking on their site.",b2b:"The channels you use to sell the automation.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",engine:"Finds 150 new leads every morning while you sleep.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances.",manager:"Your whole business in one scroll."};
+const SUB={receptionist:"Your flagship offer — 24/7 AI call answering.",website:"Second offer — AI chat + booking on their site.",b2b:"The channels you use to sell the automation.",lead:"Companies to call, hottest first. Tap  to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",engine:"Finds 150 new leads every morning while you sleep.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances.",manager:"Your whole business in one scroll."};
 const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
-function openModal(id){const n=byId[id];const live=(n.live!==0);mey.textContent=live?"Working now":(id.startsWith("ec_")||id==="life"||id==="money"?"Planned":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";morb.textContent=n.ico;morb.style.background=`rgba(${hx(n.col).join(",")},.14)`;morb.style.color=n.col;mbody.innerHTML=(WORK[id]||(()=>""))();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
+function openModal(id){const n=byId[id];const live=(n.live!==0);mey.textContent=live?"Working now":(id.startsWith("ec_")||id==="life"||id==="money"?"Planned":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";morb.innerHTML='<span style="display:block;width:16px;height:16px;border-radius:50%;background:'+n.col+';box-shadow:0 0 16px '+n.col+'"></span>';morb.style.background=`rgba(${hx(n.col).join(",")},.12)`;mbody.innerHTML=(WORK[id]||(()=>""))();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
 function closeAll(){scrim.classList.remove("open");modal.classList.remove("open");document.getElementById("chat").classList.remove("open");}
 function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));mbody.querySelectorAll("textarea[data-co]").forEach(ta=>ta.addEventListener("input",()=>{saveNote(ta.dataset.co,ta.value);const b=mbody.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(b)b.classList.toggle("has",!!ta.value.trim());}));const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);}
 document.getElementById("mx").addEventListener("click",closeAll);scrim.addEventListener("click",closeAll);document.getElementById("chatX").addEventListener("click",closeAll);
 addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
 document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
+document.getElementById("expandBtn").addEventListener("click",()=>{const any=WORLDS.some(w=>w.wantOpen);WORLDS.forEach(w=>w.wantOpen=!any);document.getElementById("expandBtn").textContent=any?"Expand all":"Collapse all";});
 
 function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
 document.getElementById("exportBtn").addEventListener("click",exportCSV);
 
 // ===== CEO CHAT =====
 const log=document.getElementById("log"),cinp=document.getElementById("cinp");let chatSeeded=false;
-function openChat(){const c=document.getElementById("chat");scrim.classList.add("open");c.classList.add("open");if(!chatSeeded){add("ai","<b>CEO:</b> I run the whole operation. Ask me about the money, your leads, what to say on a call, or how we sell. Try a button 👇");chatSeeded=true;}setTimeout(()=>cinp.focus(),200);}
+function openChat(){const c=document.getElementById("chat");scrim.classList.add("open");c.classList.add("open");if(!chatSeeded){add("ai","<b>CEO:</b> I run the whole operation. Ask me about the money, your leads, what to say on a call, or how we sell. Ask me, or hit a button below.");chatSeeded=true;}setTimeout(()=>cinp.focus(),200);}
 function add(cls,html){const m=document.createElement("div");m.className="msg "+cls;m.innerHTML=html;log.appendChild(m);log.scrollTop=log.scrollHeight;}
 function reply(q){const s=q.toLowerCase();const ph=DATA.leadList.filter(l=>l.p).length;
   if(/hi|hey|hello|yo|sup/.test(s)&&s.length<12)return "<b>CEO:</b> Talk to me. Money, leads, scripts, or how we sell — what do you need?";
   if(/how many|lead|compan|call list/.test(s))return `<b>CEO:</b> <b>${DATA.kpis.leads}</b> companies in the pipeline, <b>${ph}</b> ready to dial. Hottest: ${DATA.leadList.slice(0,3).map(l=>l.co).join(", ")}. Open AI Agency → Leads.`;
   if(/sell|offer|service|receptionist|website|automation|b2b|pitch/.test(s))return "<b>CEO:</b> We sell three ways: <b>AI Receptionist</b> (24/7 answering — our restoration play), <b>Website AI</b> (chat + booking), and <b>B2B Outbound</b> (cold call now, email/DM/referrals next). Same offer, many doors. Open AI Agency to drill in.";
-  if(/csv|export|dialer|download/.test(s))return "<b>CEO:</b> Hit <b>⬇ CSV</b> top-right — every company, phone, and note, ready for the dialer.";
-  if(/note|log|track/.test(s))return "<b>CEO:</b> Open AI Agency → Notes, or tap 📝 on any lead. It saves on your device and rides along in the CSV.";
+  if(/csv|export|dialer|download/.test(s))return "<b>CEO:</b> Hit <b> CSV</b> top-right — every company, phone, and note, ready for the dialer.";
+  if(/note|log|track/.test(s))return "<b>CEO:</b> Open AI Agency → Notes, or tap  on any lead. It saves on your device and rides along in the CSV.";
   if(/next|what.*do|priority|today/.test(s))return "<b>CEO:</b> One thing first — <b>call (314) 887-9824</b>, confirm the demo line works. Then dial the leads and log each call. That's the whole game today.";
   if(/say|script|opener|objection|push/.test(s))return "<b>CEO:</b> Open with — “Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it, 90 seconds.” Full scripts in AI Agency → Scripts.";
-  if(/money|revenue|mrr|close|client/.test(s))return `<b>CEO:</b> <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week, turn them into case studies. Tap 📖 Everything for the full picture.`;
+  if(/money|revenue|mrr|close|client/.test(s))return `<b>CEO:</b> <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week, turn them into case studies. Tap  Everything for the full picture.`;
   if(/engine|5am|auto|find more/.test(s))return "<b>CEO:</b> The 5am engine adds ~150 phone-checked companies every morning. You're at "+DATA.kpis.leads+" now.";
   if(/tiktok|video|content/.test(s))return "<b>CEO:</b> Content world is mapped — Content Mgr → Story Writer → Video Creator → Analytics. Start with those 4.";
   if(/ecom|store|shopify|product/.test(s))return "<b>CEO:</b> Ecom is mapped — Store Mgr → Product → Storefront → Creative → Support. It's the next business after the agency's paying.";
