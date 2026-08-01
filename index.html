@@ -10,9 +10,9 @@
   html,body{margin:0;height:100%;overflow:hidden;background:#05070f;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
   canvas{position:fixed;inset:0;width:100%;height:100%;cursor:default;}
   #labels{position:fixed;inset:0;pointer-events:none;z-index:5;}
-  .lbl{position:absolute;transform:translate(-50%,0);text-align:center;white-space:nowrap;transition:opacity .25s;}
-  .lbl .nm{font-weight:800;text-shadow:0 0 14px currentColor,0 2px 8px #000;}
-  .lbl .one{font-size:10.5px;color:var(--dim);margin-top:2px;text-shadow:0 1px 4px #000;}
+  .lbl{position:absolute;transform:translate(-50%,0);text-align:center;white-space:nowrap;transition:opacity .25s;background:rgba(4,7,14,.66);backdrop-filter:blur(3px);border:1px solid rgba(130,160,200,.14);border-radius:10px;padding:5px 11px;}
+  .lbl .nm{font-weight:800;letter-spacing:.01em;text-shadow:0 0 10px currentColor;}
+  .lbl .one{font-size:12px;color:#cdd8ea;margin-top:2px;}
   .lbl.soon .one{color:var(--faint);}
 
   .top{position:fixed;left:0;top:0;right:0;padding:16px 20px;z-index:20;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;pointer-events:none;}
@@ -102,11 +102,11 @@
       <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called</div></div>
       <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
     </div>
-    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="expandBtn">Collapse all</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
+    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="expandBtn">Collapse all</button><button class="pill exp2" id="resetBtn">Reset view</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
   </div>
 </div>
 <div class="livebar"><i></i><span id="liveTxt">waking up…</span></div>
-<div class="hint" id="hint">Tap the center to talk to your CEO · tap a world to open its team</div>
+<div class="hint" id="hint">Tap the center to talk to your CEO · tap a node for detail · drag to move · scroll to zoom</div>
 
 <div class="scrim" id="scrim"></div>
 
@@ -166,22 +166,31 @@ byId.manager={id:"manager",name:"Everything",col:"#5ad8ff",live:1};
 const CROSS=[["tk_video","ec_creative"],["sales","tk_writer"],["b2b","ec_creative"]].map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
 
 // ===== CANVAS =====
-const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;let active=null;
+const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;const pan={x:0,y:0};let zoom=.85;
 function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
-const CX=()=>W*.5, CY=()=>H*.52;
-function WP(w){return[CX()+Math.cos(w.ang)*M*.27,CY()+Math.sin(w.ang)*M*.27];}
-function KP(k){const w=k.world,[wx,wy]=WP(w);const rx=CX()+Math.cos(k.cang)*M*k.radN,ry=CY()+Math.sin(k.cang)*M*k.radN;return[wx+(rx-wx)*w.open,wy+(ry-wy)*w.open];}
-function P(n){return n.id==="ceo"?[CX(),CY()]:n.kind==="world"?WP(n):KP(n);}
-function RAD(n){return n.r*M;}
-const mouse={x:-999,y:-999,in:false};
-addEventListener("pointermove",e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;});
-addEventListener("pointerleave",()=>mouse.in=false);
+function SCX(){return W*.5+pan.x;} function SCY(){return H*.52+pan.y;}
+function OW(w){return[Math.cos(w.ang)*.27,Math.sin(w.ang)*.27];}
+function OK(k){const w=k.world;const o=OW(w);const rox=Math.cos(k.cang)*k.radN,roy=Math.sin(k.cang)*k.radN;return[o[0]+(rox-o[0])*w.open,o[1]+(roy-o[1])*w.open];}
+function ON(n){return n.id==="ceo"?[0,0]:n.kind==="world"?OW(n):OK(n);}
+function P(n){const o=ON(n);return[SCX()+o[0]*M*zoom,SCY()+o[1]*M*zoom];}
+function RAD(n){return n.r*M*zoom;}
+const mouse={x:-999,y:-999,in:false};const ptrs=new Map();let dragS=null,pinchS=null;
+function scr(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
 function pickables(){return [CEO,...WORLDS,...WORLDS.filter(w=>w.open>.25).flatMap(w=>w.kids)];}
 function pick(mx,my){let hit=null,best=1e9;pickables().forEach(n=>{const[x,y]=P(n);const d=Math.hypot(mx-x,my-y);const R=Math.max(28,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
-cv.addEventListener("pointerdown",e=>{const n=pick(e.clientX,e.clientY);if(!n)return;
-  if(n.id==="ceo")openChat();else if(n.kind==="world"){n.wantOpen=!n.wantOpen;}else openModal(n.id);});
+cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try{cv.setPointerCapture(e.pointerId);}catch(_){}
+  if(ptrs.size===1)dragS={x:p.x,y:p.y,px:pan.x,py:pan.y,hit:pick(p.x,p.y),moved:false};
+  else if(ptrs.size===2){const a=[...ptrs.values()];pinchS={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),z:zoom};dragS=null;}});
+cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=p.x;mouse.y=p.y;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
+  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.4,Math.min(2.4,pinchS.z*d/pinchS.d));return;}
+  if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=dragS.px+dx;pan.y=dragS.py+dy;}});
+function endP(e){if(dragS&&!dragS.moved&&dragS.hit){const n=dragS.hit;if(n.id==="ceo")openChat();else if(n.kind==="world")n.wantOpen=!n.wantOpen;else openModal(n.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
+cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
+addEventListener("pointerleave",()=>mouse.in=false);
+cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.4,Math.min(2.4,zoom*(1-e.deltaY*0.0012)));},{passive:false});
+cv.style.cursor="grab";
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;let tPrev=0;
 function tbranch(ax,ay,bx,by,col,wBase,wTip,a){if(a<=0.01)return;const mx=(ax+bx)/2,my=(ay+by)/2,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;const cxp=mx-dy/len*len*.13,cyp=my+dx/len*len*.13;const c=hx(col);ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${a})`;ctx.lineCap="round";const N=10;let px=ax,py=ay;for(let i=1;i<=N;i++){const t=i/N,u=1-t;const x=u*u*ax+2*u*t*cxp+t*t*bx,y=u*u*ay+2*u*t*cyp+t*t*by;ctx.lineWidth=wBase+(wTip-wBase)*t;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(x,y);ctx.stroke();px=x;py=y;}}
@@ -199,7 +208,7 @@ function orb(n,t){const[cx,cy]=P(n);const op=n.kind==="kid"?n.world.open:1;if(op
 function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   WORLDS.forEach(w=>w.open+=((w.wantOpen?1:0)-w.open)*.16);
   ctx.clearRect(0,0,W,H);
-  const bg=ctx.createRadialGradient(CX(),CY(),0,CX(),CY(),Math.max(W,H)*.8);bg.addColorStop(0,"#0a1526");bg.addColorStop(.6,"#05070f");bg.addColorStop(1,"#03040a");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const bg=ctx.createRadialGradient(W*.5,H*.52,0,W*.5,H*.52,Math.max(W,H)*.8);bg.addColorStop(0,"#0a1526");bg.addColorStop(.6,"#05070f");bg.addColorStop(1,"#03040a");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
   // trunks CEO -> world (tree limbs, tapered)
   const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=WP(w);tbranch(ex,ey,wx,wy,w.col,Math.max(4,RAD(w)*.5),2,.32+w.hov*.4);});
   // cross-world twigs
@@ -211,7 +220,7 @@ function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
 }
 // labels
 const labels=document.getElementById("labels");
-[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const d=document.createElement("div");d.className="lbl"+((n.live===0)?" soon":"");d.innerHTML=`<div class="nm" style="color:${n.col};font-size:${n.kind==="world"?15:12.5}px">${n.name}</div><div class="one">${n.one||n.note||""}</div>`;labels.appendChild(d);n.lel=d;});
+[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const d=document.createElement("div");d.className="lbl"+((n.live===0)?" soon":"");d.innerHTML=`<div class="nm" style="color:${n.col};font-size:${n.kind==="world"?16:14}px">${n.name}</div><div class="one">${n.one||n.note||""}</div>`;labels.appendChild(d);n.lel=d;});
 const ceoL=document.createElement("div");ceoL.className="lbl";ceoL.innerHTML=`<div class="nm" style="color:${CEO.col};font-size:16px">CEO</div><div class="one">tap to ask anything</div>`;labels.appendChild(ceoL);
 function placeLabels(){[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const[x,y]=P(n);const op=n.kind==="kid"?n.world.open:1;n.lel.style.left=x+"px";n.lel.style.top=(y+RAD(n)+11)+"px";n.lel.style.opacity=op<.25?0:1;});
   const[ex,ey]=P(CEO);ceoL.style.left=ex+"px";ceoL.style.top=(ey+RAD(CEO)+12)+"px";}
@@ -257,6 +266,7 @@ document.getElementById("mx").addEventListener("click",closeAll);scrim.addEventL
 addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
 document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
 document.getElementById("expandBtn").addEventListener("click",()=>{const any=WORLDS.some(w=>w.wantOpen);WORLDS.forEach(w=>w.wantOpen=!any);document.getElementById("expandBtn").textContent=any?"Expand all":"Collapse all";});
+document.getElementById("resetBtn").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.85;});
 
 function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
 document.getElementById("exportBtn").addEventListener("click",exportCSV);

@@ -76,7 +76,9 @@
       "Bash(perl -CSD -0pi -e 's/[\\\\x{1F000}-\\\\x{1FAFF}\\\\x{1F300}-\\\\x{1FAFF}\\\\x{2600}-\\\\x{27BF}\\\\x{2B00}-\\\\x{2BFF}\\\\x{FE0F}\\\\x{200D}]//g' index.html)",
       "Bash(perl -0pi -e 's/tap the  to ask your CEO/Tap the center to talk to your CEO/; s/Try a button \\\\s*/Ask me, or hit a button below./; s/ico:\"\",?//g' index.html)",
       "Bash(perl -CSD -ne 'print \"1\" if /[\\\\x{1F000}-\\\\x{1FAFF}\\\\x{2600}-\\\\x{27BF}\\\\x{2B00}-\\\\x{2BFF}]/' index.html)",
-      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Remove all emojis \\(clean glowing nodes\\), open all worlds by default + Expand/Collapse-all to see everything\")"
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Remove all emojis \\(clean glowing nodes\\), open all worlds by default + Expand/Collapse-all to see everything\")",
+      "Bash(perl -0pi -e 's/Tap the center to talk to your CEO · tap a world to open its team/Tap the center to talk to your CEO · tap a node for detail · drag to move · scroll to zoom/' index.html)",
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Drag to pan + scroll/pinch zoom + reset; readable label backgrounds and bigger text\")"
     ]
   }
 }
