@@ -161,17 +161,17 @@ const WORLDS=[
 const byId={ceo:CEO};
 WORLDS.forEach(w=>{w.open=0;w.wantOpen=false;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
   const arc=Math.min(1.6,w.kids.length*.32);
-  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.radN=.46+((i%2)?.13:0);k.hov=0;k.kind="kid";k.world=w;k.r=.028;byId[k.id]=k;});});
+  w.kids.forEach((k,i)=>{const f=w.kids.length===1?0:(i/(w.kids.length-1)-.5);k.cang=w.ang+f*arc;k.radN=.66+((i%2)?.16:0);k.hov=0;k.kind="kid";k.world=w;k.r=.028;byId[k.id]=k;});});
 byId.manager={id:"manager",name:"Everything",col:"#5ad8ff",live:1};
 const CROSS=[["tk_video","ec_creative"],["sales","tk_writer"],["b2b","ec_creative"]].map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
 
 // ===== CANVAS =====
-const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;const pan={x:0,y:0};let zoom=.85;
+const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;const pan={x:0,y:0};let zoom=.62;
 function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
 function SCX(){return W*.5+pan.x;} function SCY(){return H*.52+pan.y;}
-function OW(w){return[Math.cos(w.ang)*.27,Math.sin(w.ang)*.27];}
+function OW(w){return[Math.cos(w.ang)*.42,Math.sin(w.ang)*.42];}
 function OK(k){const w=k.world;const o=OW(w);const rox=Math.cos(k.cang)*k.radN,roy=Math.sin(k.cang)*k.radN;return[o[0]+(rox-o[0])*w.open,o[1]+(roy-o[1])*w.open];}
 function ON(n){return n.id==="ceo"?[0,0]:n.kind==="world"?OW(n):OK(n);}
 function P(n){const o=ON(n);return[SCX()+o[0]*M*zoom,SCY()+o[1]*M*zoom];}
@@ -266,7 +266,7 @@ document.getElementById("mx").addEventListener("click",closeAll);scrim.addEventL
 addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
 document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
 document.getElementById("expandBtn").addEventListener("click",()=>{const any=WORLDS.some(w=>w.wantOpen);WORLDS.forEach(w=>w.wantOpen=!any);document.getElementById("expandBtn").textContent=any?"Expand all":"Collapse all";});
-document.getElementById("resetBtn").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.85;});
+document.getElementById("resetBtn").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.62;});
 
 function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
 document.getElementById("exportBtn").addEventListener("click",exportCSV);
