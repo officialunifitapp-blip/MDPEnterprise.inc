@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "WebFetch(domain:sagerestorationkc.com)",
+      "WebFetch(domain:premierrestorationks.com)",
+      "WebFetch(domain:midlandsrestorationservices.com)",
+      "WebFetch(domain:crsoftulsa.com)",
+      "WebFetch(domain:mrrestore.com)",
+      "WebFetch(domain:rapiddrystl.com)",
+      "WebFetch(domain:www.kwikdrysystems.com)",
+      "WebFetch(domain:smokeservicesrestoration.com)",
+      "WebFetch(domain:515restoration.com)",
+      "WebFetch(domain:omahadamagerepair.com)",
+      "WebFetch(domain:www.burggrafrestoration.com)",
+      "WebFetch(domain:stlouiscleaningandrestoration.com)",
+      "WebFetch(domain:vortexrestorationks.com)",
+      "WebFetch(domain:www.arkrestoration.com)",
+      "WebFetch(domain:fastrestoration247.com)",
+      "Skill(update-config)",
+      "Skill(artifact-design)",
+      "Artifact",
+      "Skill(schedule)"
+    ]
+  }
+}

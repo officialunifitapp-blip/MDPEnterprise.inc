@@ -1,0 +1,322 @@
+<title>Agency Brain — Agent Map</title>
+<style>
+  :root {
+    --bg: #f3f5f8;
+    --bg-2: #e9edf2;
+    --surface: #ffffff;
+    --ink: #131a21;
+    --muted: #5c6773;
+    --faint: #8b96a2;
+    --line: #d7dee5;
+    --wire: #b9c4cf;
+    --ceo: #0f5c6e;
+    --ceo-glow: rgba(15,92,110,.22);
+    --agent: #1a7f4b;
+    --agent-glow: rgba(26,127,75,.20);
+    --store: #a86a12;
+    --store-glow: rgba(168,106,18,.18);
+    --locked: #9aa5b1;
+    --panel-shadow: 0 2px 6px rgba(19,26,33,.08), 0 12px 40px rgba(19,26,33,.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0e14;
+      --bg-2: #0f141c;
+      --surface: #161d27;
+      --ink: #e7edf3;
+      --muted: #97a2af;
+      --faint: #67717e;
+      --line: #26303c;
+      --wire: #2f3d4c;
+      --ceo: #3fb6cf;
+      --ceo-glow: rgba(63,182,207,.30);
+      --agent: #4fce8b;
+      --agent-glow: rgba(79,206,139,.28);
+      --store: #e2b25a;
+      --store-glow: rgba(226,178,90,.22);
+      --locked: #47525f;
+      --panel-shadow: 0 2px 6px rgba(0,0,0,.4), 0 16px 50px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{--bg:#f3f5f8;--bg-2:#e9edf2;--surface:#fff;--ink:#131a21;--muted:#5c6773;--faint:#8b96a2;--line:#d7dee5;--wire:#b9c4cf;--ceo:#0f5c6e;--ceo-glow:rgba(15,92,110,.22);--agent:#1a7f4b;--agent-glow:rgba(26,127,75,.20);--store:#a86a12;--store-glow:rgba(168,106,18,.18);--locked:#9aa5b1;--panel-shadow:0 2px 6px rgba(19,26,33,.08),0 12px 40px rgba(19,26,33,.12);}
+  :root[data-theme="dark"]{--bg:#0a0e14;--bg-2:#0f141c;--surface:#161d27;--ink:#e7edf3;--muted:#97a2af;--faint:#67717e;--line:#26303c;--wire:#2f3d4c;--ceo:#3fb6cf;--ceo-glow:rgba(63,182,207,.30);--agent:#4fce8b;--agent-glow:rgba(79,206,139,.28);--store:#e2b25a;--store-glow:rgba(226,178,90,.22);--locked:#47525f;--panel-shadow:0 2px 6px rgba(0,0,0,.4),0 16px 50px rgba(0,0,0,.5);}
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: radial-gradient(circle at 50% 22%, var(--bg-2), var(--bg));
+    color: var(--ink); min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .head { text-align: center; padding: 26px 18px 6px; }
+  .eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--ceo); font-weight: 700; margin: 0 0 4px; }
+  h1 { margin: 0; font-size: 24px; letter-spacing: -.02em; }
+  .head p { color: var(--muted); font-size: 13px; margin: 6px auto 0; max-width: 44ch; line-height: 1.5; }
+
+  .gate {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    margin: 16px auto 0; max-width: 340px; padding: 10px 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: var(--panel-shadow);
+  }
+  .gate .track { flex: 1; }
+  .gate .lbl { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .gate .dots { display: flex; gap: 6px; margin-top: 6px; }
+  .gate .dot { width: 20px; height: 8px; border-radius: 99px; background: var(--bg-2); border: 1px solid var(--line); }
+  .gate .dot.on { background: var(--agent); border-color: transparent; }
+  .gate .count { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .gate .count small { font-size: 12px; color: var(--faint); font-weight: 600; }
+
+  .stage { position: relative; max-width: 860px; margin: 8px auto 0; padding: 20px 16px 40px; }
+  svg.wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  svg.wires path { fill: none; stroke: var(--wire); stroke-width: 2; }
+  svg.wires path.dashed { stroke-dasharray: 5 6; opacity: .55; }
+  @keyframes flow { to { stroke-dashoffset: -22; } }
+  svg.wires path.live { stroke: var(--agent); stroke-width: 2.5; stroke-dasharray: 4 8; animation: flow 1.1s linear infinite; opacity: .75; }
+
+  .tier { position: relative; z-index: 1; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+  .tier.agents { margin-top: 44px; }
+  .tier.store { margin-top: 44px; }
+  .tier.locked { margin-top: 44px; }
+
+  .node {
+    position: relative; width: 176px; text-align: left; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 14px 15px; box-shadow: var(--panel-shadow);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .node:hover { transform: translateY(-3px); }
+  .node:focus-visible { outline: 2px solid var(--ceo); outline-offset: 3px; }
+  .node .ico { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; margin-bottom: 9px; }
+  .node .ico svg { width: 19px; height: 19px; }
+  .node .role { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; color: var(--faint); }
+  .node .name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; margin-top: 2px; }
+  .node .tag { font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.35; }
+  .node .status { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .node .status i { width: 7px; height: 7px; border-radius: 99px; display: inline-block; }
+
+  .node.ceo { width: 230px; border-color: color-mix(in srgb, var(--ceo) 45%, var(--line)); }
+  .node.ceo .ico { background: var(--ceo-glow); color: var(--ceo); }
+  .node.ceo .status i { background: var(--ceo); box-shadow: 0 0 0 3px var(--ceo-glow); }
+  .node.ceo .status { color: var(--ceo); }
+
+  .node.agent .ico { background: var(--agent-glow); color: var(--agent); }
+  .node.agent .status i { background: var(--agent); box-shadow: 0 0 0 3px var(--agent-glow); }
+  .node.agent .status { color: var(--agent); }
+
+  .node.store { width: 260px; }
+  .node.store .ico { background: var(--store-glow); color: var(--store); }
+  .node.store .status i { background: var(--store); }
+  .node.store .status { color: var(--store); }
+
+  .node.locked { border-style: dashed; opacity: .62; box-shadow: none; background: transparent; }
+  .node.locked .ico { background: var(--bg-2); color: var(--locked); }
+  .node.locked .name, .node.locked .role { color: var(--locked); }
+  .node.locked .status { color: var(--locked); }
+  .node.locked .lockrow { display: flex; align-items: center; gap: 5px; margin-top: 9px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--locked); }
+  .ceo-hub { display: flex; justify-content: center; position: relative; z-index: 1; }
+
+  /* detail panel */
+  .scrim { position: fixed; inset: 0; background: rgba(6,10,15,.5); opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 40; }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .panel {
+    position: fixed; z-index: 50; left: 50%; bottom: 0; transform: translate(-50%, 100%);
+    width: min(460px, 100%); background: var(--surface);
+    border: 1px solid var(--line); border-bottom: none;
+    border-radius: 20px 20px 0 0; padding: 22px 22px 30px;
+    box-shadow: var(--panel-shadow); transition: transform .26s cubic-bezier(.2,.8,.2,1);
+  }
+  .panel.open { transform: translate(-50%, 0); }
+  .panel .grip { width: 40px; height: 4px; border-radius: 99px; background: var(--line); margin: -8px auto 14px; }
+  .panel .p-role { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; }
+  .panel h2 { margin: 3px 0 0; font-size: 21px; letter-spacing: -.01em; }
+  .panel .p-desc { color: var(--muted); font-size: 13.5px; line-height: 1.55; margin: 12px 0 0; }
+  .panel .kv { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .panel .k { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; color: var(--faint); margin-bottom: 4px; }
+  .panel .v { font-size: 13.5px; color: var(--ink); line-height: 1.5; }
+  .panel .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .panel .ch { font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 99px; background: var(--bg-2); color: var(--muted); border: 1px solid var(--line); }
+  .panel .close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--faint); font-size: 22px; cursor: pointer; line-height: 1; padding: 4px; }
+  .panel .close:hover { color: var(--ink); }
+  .panel .locknote { margin-top: 16px; font-size: 12.5px; padding: 11px 13px; border-radius: 10px; background: var(--bg-2); color: var(--muted); border: 1px dashed var(--line); line-height: 1.5; }
+
+  footer { text-align: center; font-size: 11.5px; color: var(--faint); padding: 8px 18px 40px; line-height: 1.6; }
+  @media (prefers-reduced-motion: reduce) { svg.wires path.live { animation: none; } * { transition: none !important; } }
+  @media (max-width: 560px) { .node, .node.ceo, .node.store { width: 100%; max-width: 300px; } .tier { gap: 14px; } }
+</style>
+
+<div class="head">
+  <p class="eyebrow">AI Automation Agency</p>
+  <h1>Agency Brain</h1>
+  <p>Every worker in the operation. The CEO routes the work; the agents deliver files; the store is the memory they all read and write.</p>
+  <div class="gate">
+    <span class="count" id="cCount">0<small>/5</small></span>
+    <div class="track">
+      <div class="lbl">Paying clients → unlock new agents</div>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+  <svg class="wires" id="wires" preserveAspectRatio="none"></svg>
+
+  <div class="ceo-hub">
+    <div class="node ceo" data-id="ceo" tabindex="0" id="n-ceo">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 3.8 8 9 9 5.2-1 9-4 9-9V7z"/><path d="m9 12 2 2 4-4"/></svg></div>
+      <div class="role">You · Founder-Operator</div>
+      <div class="name">CEO Agent</div>
+      <div class="tag">Owns the number. Routes work, sets strategy, never does the agents' jobs.</div>
+      <div class="status"><i></i>Active</div>
+    </div>
+  </div>
+
+  <div class="tier agents">
+    <div class="node agent" data-id="lead" tabindex="0" id="n-lead">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+      <div class="role">Subagent</div>
+      <div class="name">Lead Research</div>
+      <div class="tag">Sources & qualifies restoration prospects.</div>
+      <div class="status"><i></i>Active</div>
+    </div>
+    <div class="node agent" data-id="sales" tabindex="0" id="n-sales">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="role">Subagent</div>
+      <div class="name">Sales Assistant</div>
+      <div class="tag">Outreach, follow-ups, call & demo review.</div>
+      <div class="status"><i></i>Active</div>
+    </div>
+  </div>
+
+  <div class="tier store">
+    <div class="node store" data-id="store" tabindex="0" id="n-store">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+      <div class="role">Source of Truth</div>
+      <div class="name">The Store</div>
+      <div class="tag">business-context · pipeline · objections · metrics · decisions · leads · assets</div>
+      <div class="status"><i></i>Read before · Write after</div>
+    </div>
+  </div>
+
+  <div class="tier locked">
+    <div class="node locked" data-id="proposal" tabindex="0">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+      <div class="role">Locked</div>
+      <div class="name">Proposal Agent</div>
+      <div class="lockrow">🔒 Unlocks at 5 clients</div>
+    </div>
+    <div class="node locked" data-id="onboarding" tabindex="0">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+      <div class="role">Locked</div>
+      <div class="name">Onboarding Agent</div>
+      <div class="lockrow">🔒 Unlocks at 5 clients</div>
+    </div>
+    <div class="node locked" data-id="analytics" tabindex="0">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+      <div class="role">Locked</div>
+      <div class="name">Analytics Agent</div>
+      <div class="lockrow">🔒 Unlocks at 5 clients</div>
+    </div>
+  </div>
+</div>
+
+<footer>The brain is complete for pre-revenue. New nodes stay locked until the client counter earns them — complexity before sales is procrastination.</footer>
+
+<div class="scrim" id="scrim"></div>
+<div class="panel" id="panel" role="dialog" aria-modal="true">
+  <div class="grip"></div>
+  <button class="close" id="close" aria-label="Close">×</button>
+  <div class="p-role" id="pRole"></div>
+  <h2 id="pName"></h2>
+  <p class="p-desc" id="pDesc"></p>
+  <div class="kv" id="pKV"></div>
+</div>
+
+<script>
+  const DATA = {
+    ceo: { role:"You · Founder-Operator", color:"var(--ceo)", name:"CEO Agent",
+      desc:"Not an assistant — the founder-operator accountable for hitting $10k/mo MRR. Reads every file before advising, routes work to the subagents so strategy context isn't burned, and never lets a session end without one dated next action.",
+      kv:[["Owns","The number. Pipeline, positioning, which channel lives or dies."],["Delegates to","Lead Research · Sales Assistant"],["Rule","Selling beats building. Protect outreach + call hours."]] },
+    lead: { role:"Subagent · Active", color:"var(--agent)", name:"Lead Research",
+      desc:"Sources and qualifies restoration companies as outbound prospects. Strips franchises, verifies phones and owners from each company's own site, ranks by reachability and missed-call pain.",
+      kv:[["Tools","WebSearch · WebFetch · Read · Write"],["Produces","leads/ — ranked prospect tables"],["Last run","25 leads · 2026-07-31"]] },
+    sales: { role:"Subagent · Active", color:"var(--agent)", name:"Sales Assistant",
+      desc:"Sharpens execution: cold-call openers, follow-ups, objection handling, and review of call transcripts and demo recordings. Never fabricates proof — leans on the live Vapi demo.",
+      kv:[["Tools","Read · Write · WebSearch"],["Produces","assets/ — scripts, emails, DMs"],["Last run","Cold-outreach kit · 2026-07-31"]] },
+    store: { role:"Source of Truth", color:"var(--store)", name:"The Store",
+      desc:"The shared memory every agent reads before working and writes after. If a file exists, no one advises from memory — they read it.",
+      kv:[["Strategy","business-context · pipeline · decisions"],["Scoreboard","metrics · objections"],["Output","leads/ · assets/"]] },
+    proposal: { role:"Locked", color:"var(--locked)", name:"Proposal Agent", locked:true,
+      desc:"A future worker for generating client proposals — not needed while the job is booking first calls.",
+      note:"Unlocks at 5 paying clients. Adding it now is complexity dressed up as progress: it books zero calls." },
+    onboarding: { role:"Locked", color:"var(--locked)", name:"Onboarding Agent", locked:true,
+      desc:"A future worker for standing up new clients on Vapi. Meaningless until there are clients to onboard.",
+      note:"Unlocks at 5 paying clients. Pre-revenue, this is procrastination." },
+    analytics: { role:"Locked", color:"var(--locked)", name:"Analytics Agent", locked:true,
+      desc:"A future worker for reporting. You already have metrics.md — that's enough until the numbers are big enough to need automating.",
+      note:"Unlocks at 5 paying clients. Until then, the weekly metrics row is the analytics." },
+  };
+
+  const CONNECTIONS = [
+    ["ceo","lead","live"], ["ceo","sales","live"], ["ceo","store",""],
+    ["lead","store",""], ["sales","store",""],
+    ["ceo","proposal","dashed"], ["ceo","onboarding","dashed"], ["ceo","analytics","dashed"],
+  ];
+
+  // client gate dots
+  const CLIENTS = 0;
+  document.getElementById("cCount").innerHTML = CLIENTS + "<small>/5</small>";
+  const dots = document.getElementById("dots");
+  for (let i=0;i<5;i++){ const d=document.createElement("div"); d.className="dot"+(i<CLIENTS?" on":""); dots.appendChild(d); }
+
+  // draw wires between real node positions
+  const stage = document.getElementById("stage");
+  const wires = document.getElementById("wires");
+  function center(id){
+    const el = document.querySelector('[data-id="'+id+'"]');
+    const s = stage.getBoundingClientRect(); const r = el.getBoundingClientRect();
+    return { x: r.left - s.left + r.width/2, y: r.top - s.top + r.height/2, top: r.top - s.top, bottom: r.bottom - s.top };
+  }
+  function draw(){
+    const s = stage.getBoundingClientRect();
+    wires.setAttribute("viewBox", `0 0 ${s.width} ${s.height}`);
+    wires.innerHTML = "";
+    CONNECTIONS.forEach(([a,b,cls])=>{
+      const p1 = center(a), p2 = center(b);
+      const x1=p1.x, y1=p1.bottom-6, x2=p2.x, y2=p2.top+6;
+      const my=(y1+y2)/2;
+      const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+      path.setAttribute("d", `M ${x1} ${y1} C ${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`);
+      if (cls) path.setAttribute("class", cls);
+      wires.appendChild(path);
+    });
+  }
+  window.addEventListener("resize", draw);
+  window.addEventListener("load", draw);
+  draw(); setTimeout(draw, 60);
+
+  // panel
+  const scrim=document.getElementById("scrim"), panel=document.getElementById("panel");
+  const pRole=document.getElementById("pRole"), pName=document.getElementById("pName"), pDesc=document.getElementById("pDesc"), pKV=document.getElementById("pKV");
+  function open(id){
+    const d=DATA[id]; if(!d) return;
+    pRole.textContent=d.role; pRole.style.color=d.color;
+    pName.textContent=d.name; pDesc.textContent=d.desc;
+    pKV.innerHTML="";
+    (d.kv||[]).forEach(([k,v])=>{
+      const row=document.createElement("div");
+      row.innerHTML=`<div class="k">${k}</div><div class="v">${v}</div>`;
+      pKV.appendChild(row);
+    });
+    if(d.note){ const n=document.createElement("div"); n.className="locknote"; n.textContent="🔒 "+d.note; pKV.appendChild(n); }
+    scrim.classList.add("open"); panel.classList.add("open");
+  }
+  function close(){ scrim.classList.remove("open"); panel.classList.remove("open"); }
+  document.querySelectorAll(".node").forEach(n=>{
+    n.addEventListener("click", ()=>open(n.dataset.id));
+    n.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(n.dataset.id);} });
+  });
+  document.getElementById("close").addEventListener("click", close);
+  scrim.addEventListener("click", close);
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape") close(); });
+</script>
