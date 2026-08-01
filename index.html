@@ -130,7 +130,7 @@ const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
 function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
 
 // ===== NEURAL MODEL =====
-const DIVS={agency:{label:"AI Agency",note:"makes money now",dir:Math.PI,spread:2.2,col:"#3dffb0"},content:{label:"Content",note:"builds audience",dir:-Math.PI/2,spread:.8,col:"#ff9a5c"},ecom:{label:"Ecom",note:"future income",dir:0,spread:.8,col:"#ffd84d"},personal:{label:"Personal",note:"your life",dir:Math.PI/2,spread:.8,col:"#a9c0ff"}};
+const DIVS={agency:{label:"AI Agency",note:"makes money now",dir:Math.PI,spread:2.2,col:"#3dffb0"},content:{label:"Content · TikTok",note:"builds audience",dir:-Math.PI/2,spread:1.5,col:"#ff9a5c"},ecom:{label:"Ecom",note:"future income",dir:0,spread:1.7,col:"#ffd84d"},personal:{label:"Personal",note:"your life",dir:Math.PI/2,spread:.8,col:"#a9c0ff"}};
 const AG=[
  {id:"lead",div:"agency",name:"Leads",one:"companies to call",col:"#3dffb0",ico:"📇",live:1,chip:"124",subs:16},
  {id:"sales",div:"agency",name:"Scripts",one:"what to say",col:"#ff6bb0",ico:"💬",live:1,chip:"READY",subs:9},
@@ -139,10 +139,15 @@ const AG=[
  {id:"engine",div:"agency",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",ico:"⚙️",live:1,chip:"5AM",subs:7},
  {id:"voice",div:"agency",name:"AI Caller",one:"calls for you",col:"#43dbe6",ico:"📞",live:0,chip:"SOON",subs:4},
  {id:"appt",div:"agency",name:"Booker",one:"sets appts",col:"#a99bff",ico:"📅",live:0,chip:"SOON",subs:4},
- {id:"tiktok",div:"content",name:"TikTok",one:"daily videos",col:"#ff9a5c",ico:"🎬",live:0,chip:"TOMORROW",subs:6},
- {id:"clone",div:"content",name:"AI Clone",one:"your face on cam",col:"#d07bff",ico:"👤",live:0,chip:"SOON",subs:4},
- {id:"ecomstore",div:"ecom",name:"Ecom Store",one:"online shop",col:"#ffd84d",ico:"🛒",live:0,chip:"IDEA",subs:6},
- {id:"adstudio",div:"ecom",name:"Ad Studio",one:"makes ads",col:"#ffab5c",ico:"📸",live:0,chip:"IDEA",subs:4},
+ {id:"tk_mgr",div:"content",name:"Content Mgr",one:"picks topics, approves",col:"#ff9a5c",ico:"🎬",live:0,chip:"PLAN",subs:5},
+ {id:"tk_writer",div:"content",name:"Story Writer",one:"hook → payoff scripts",col:"#ffb27a",ico:"✍️",live:0,chip:"PLAN",subs:4},
+ {id:"tk_video",div:"content",name:"Video Creator",one:"visuals + voice + edit",col:"#ff7ac2",ico:"🎥",live:0,chip:"PLAN",subs:5},
+ {id:"tk_analytics",div:"content",name:"Analytics",one:"what's working",col:"#d07bff",ico:"📊",live:0,chip:"PLAN",subs:4},
+ {id:"ec_mgr",div:"ecom",name:"Store Mgr",one:"runs the store",col:"#ffd84d",ico:"🏬",live:0,chip:"PLAN",subs:5},
+ {id:"ec_product",div:"ecom",name:"Product & Offer",one:"product + pricing",col:"#ffc24d",ico:"🔎",live:0,chip:"PLAN",subs:4},
+ {id:"ec_store",div:"ecom",name:"Storefront",one:"pages + checkout",col:"#ffab5c",ico:"🛒",live:0,chip:"PLAN",subs:4},
+ {id:"ec_creative",div:"ecom",name:"Creative & Traffic",one:"ads + campaigns",col:"#ff9a5c",ico:"📣",live:0,chip:"PLAN",subs:4},
+ {id:"ec_ops",div:"ecom",name:"Support & Ops",one:"orders + support",col:"#ffe08a",ico:"📦",live:0,chip:"PLAN",subs:4},
  {id:"life",div:"personal",name:"Life Admin",one:"calendar",col:"#a9c0ff",ico:"🗓️",live:0,chip:"IDEA",subs:6},
  {id:"money",div:"personal",name:"Finances",one:"your money",col:"#7ee0c0",ico:"💵",live:0,chip:"IDEA",subs:4},
 ];
@@ -209,9 +214,7 @@ function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
   ctx.globalCompositeOperation="lighter";
   Object.keys(DIVS).forEach(dk=>{const D=DIVS[dk];const ix=W*.5+pan.x+Math.cos(D.dir)*1.0*M*zoom,iy=H*.5+pan.y+Math.sin(D.dir)*1.0*M*zoom;const cc=hx(D.col);const rr=.44*M*zoom;const gg=ctx.createRadialGradient(ix,iy,0,ix,iy,rr);gg.addColorStop(0,`rgba(${cc[0]},${cc[1]},${cc[2]},.05)`);gg.addColorStop(.7,`rgba(${cc[0]},${cc[1]},${cc[2]},.015)`);gg.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=gg;ctx.beginPath();ctx.arc(ix,iy,rr,0,7);ctx.fill();});
   // firing scheduler
-  if(!reduce){fireT-=dt;if(fireT<=0){fireT=3.8+Math.random()*2.6;core.flare=1;coreEdges.forEach(e=>spawn(e,0));}
-    // ambient random sub twinkle
-    if(Math.random()<.1){const s=subs[Math.floor(Math.random()*subs.length)];if(s)s.flare=Math.max(s.flare,.7);}}
+  // decorative firing/flashing disabled — calm, isolated brain
   // EDGES (curved)
   edges.forEach(e=>{const c=ctrl(e);const[R,G,B]=hx(e.b.col||e.a.col||"#5ad8ff");
     const act=Math.max(e.a.flare||0,e.b.flare||0,e.a.hov||0,e.b.hov||0);const live=(e.a.live!==0&&e.b.live!==0);
@@ -273,10 +276,19 @@ const WORK={
   <div class="sec"><div class="s-lbl">Latest</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
  voice:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>An AI that makes the calls for you</b> — same tech as your demo, pointed at the lead list.</div></div>`,
  appt:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>Books appointments into your calendar</b> when a lead replies.</div></div>`,
- tiktok:()=>`<div class="sec"><div class="s-lbl">Building tomorrow</div><div class="say"><b>Makes a faceless AI story video every day</b> to post on TikTok for views. Needs a video + posting tool (~$50–150/mo).</div></div>`,
- clone:()=>`<div class="sec"><div class="s-lbl">Coming soon</div><div class="say"><b>An AI version of your voice and face</b> for content videos.</div></div>`,
- ecomstore:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>An online store</b> — finds a product, builds it, runs ads. Best once the agency's making money.</div></div>`,
- adstudio:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Makes the photos, video, and copy</b> for the store's ads.</div></div>`,
+ tk_mgr:()=>`<div class="sec"><div class="s-lbl">TikTok video system · the plan</div><div class="say"><b>Flow:</b> Idea → Story Script → Assets → Voice → Video → Quality Check → Post → Feedback.<br><br><b>Content Manager's job:</b> picks the topic, assigns the work, approves the final video.<br><b>Output:</b> the content brief + approval.</div></div>
+  <div class="sec"><div class="s-lbl">Start with 4, not 9</div><div class="say"><b>Minimum team:</b> Content Manager · Story Writer · Video Creator · Analytics. The Video Creator can handle visuals, voice, captions, and editing at first.</div></div>
+  <div class="sec"><div class="s-lbl">Full roster (add only when overloaded)</div><div class="say">Trend & Idea · Story Writer · Visual Asset · Voice · Video Editor · Quality Control · Posting · Analytics. <b>Bottom line: start with ~6 combined agents, not 19.</b></div></div>`,
+ tk_writer:()=>`<div class="sec"><div class="s-lbl">Story Writer</div><div class="say"><b>Job:</b> writes short TikTok stories — hook, escalation, payoff, call to action.<br><b>Output:</b> a 30–90 second script.</div></div>`,
+ tk_video:()=>`<div class="sec"><div class="s-lbl">Video Creator</div><div class="say"><b>Job:</b> turns the script into a finished vertical video — visuals, narration voice, music, captions, cuts, transitions. Early on, one agent does visuals + voice + editing.<br><b>Output:</b> a ready-to-post video.</div></div>`,
+ tk_analytics:()=>`<div class="sec"><div class="s-lbl">Analytics</div><div class="say"><b>Job:</b> reviews retention, watch time, shares, comments, and which story patterns win.<br><b>Output:</b> feedback that feeds the next videos.</div></div>`,
+ ec_mgr:()=>`<div class="sec"><div class="s-lbl">E-commerce store · the plan</div><div class="say"><b>Flow:</b> Product → Offer → Store Page → Marketing → Orders → Support → Retention → Profit.<br><br><b>Store Manager's job:</b> coordinates the store, prioritizes work, tracks revenue goals.</div></div>
+  <div class="sec"><div class="s-lbl">Start with 5, not 10</div><div class="say"><b>Minimum team:</b> Store Manager · Product/Offer · Storefront · Creative/Traffic · Support/Fulfillment. Add retention + finance specialists after sales begin.</div></div>
+  <div class="sec"><div class="s-lbl">Full roster</div><div class="say">Product Research · Offer & Copy · Storefront · Creative · Traffic · Customer Support · Order & Fulfillment · Retention · Finance & Analytics. <b>Start with ~6 combined agents, not 19.</b></div></div>`,
+ ec_product:()=>`<div class="sec"><div class="s-lbl">Product & Offer</div><div class="say"><b>Job:</b> evaluates products (demand, competition, margins), then builds the offer — positioning, pricing, bundles, guarantees, copy, upsells.<br><b>Output:</b> a product scorecard + a complete sales offer.</div></div>`,
+ ec_store:()=>`<div class="sec"><div class="s-lbl">Storefront</div><div class="say"><b>Job:</b> builds and updates product pages, collections, FAQs, navigation, and checkout.<br><b>Output:</b> conversion-ready store pages.</div></div>`,
+ ec_creative:()=>`<div class="sec"><div class="s-lbl">Creative & Traffic</div><div class="say"><b>Job:</b> makes TikTok ads, organic videos, hooks, and creator briefs — then runs campaigns, audiences, budgets, and testing.<br><b>Output:</b> marketing content + visitors.</div></div>`,
+ ec_ops:()=>`<div class="sec"><div class="s-lbl">Support & Operations</div><div class="say"><b>Job:</b> answers product, shipping, return, and order-status questions; monitors inventory, suppliers, tracking, and delays.<br><b>Output:</b> resolved customers + accurate orders.</div></div>`,
  life:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Your personal assistant</b> — calendar, reminders, errands, travel.</div></div>`,
  money:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Watches your money</b> — spending, bills, savings goals.</div></div>`,
  manager:()=>`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--core)">💰 The numbers</div></div>`+WORK.core()
@@ -285,7 +297,7 @@ const WORK={
    +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">📝 Your notes</div></div>`+WORK.notes()
    +`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--personal)">⚙️ The 5am engine</div></div>`+WORK.engine(),
 };
-const SUB={manager:"Your whole business in one scroll — every number, lead, script, and note, translated plainly.",core:"The brainstem. All your key info and what to do next.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments.",tiktok:"Daily AI videos for views.",clone:"An AI you for content.",ecomstore:"An online store for profit.",adstudio:"Makes the store's ads.",life:"Runs your personal life admin.",money:"Watches your finances."};
+const SUB={manager:"Your whole business in one scroll — every number, lead, script, and note, translated plainly.",core:"The brainstem. All your key info and what to do next.",lead:"Companies to call, hottest first. Tap 📝 to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",store:"Everything the team knows about your business.",engine:"Finds 150 new leads every morning while you sleep.",voice:"An AI that makes calls for you.",appt:"Books your appointments.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances."};
 const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
 function openModal(id){const n=byId[id];focusId=id;open=true;mey.textContent=n.live?"Working now":(n.chip==="IDEA"?"Just an idea":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";
   morb.textContent=n.ico;morb.style.background=`rgba(${hx(n.col).join(",")},.14)`;morb.style.color=n.col;
@@ -315,7 +327,8 @@ function reply(q){const s=q.toLowerCase();const ph=DATA.leadList.filter(l=>l.p).
   if(/demo|vapi|number|line/.test(s))return "<b>Command:</b> Your demo line <b>(314) 887-9824</b> is wired into every script. Call it once yourself to make sure it rings and sounds right.";
   if(/money|revenue|mrr|close|client/.test(s))return `<b>Command:</b> Revenue <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week.`;
   if(/engine|5am|auto|source|find more/.test(s))return "<b>Auto-Leads:</b> I run at 5am and add ~150 phone-checked companies. You're at "+DATA.kpis.leads+" now.";
-  if(/tiktok|video|content|clone/.test(s))return "<b>Content:</b> TikTok's next — daily AI story videos you post yourself.";
+  if(/tiktok|video|content/.test(s))return "<b>Content:</b> The TikTok system is mapped — Content Manager → Story Writer → Video Creator → Analytics. Start with those 4. Tap the Content island for the full plan.";
+  if(/ecom|store|shopify|product|dropship/.test(s))return "<b>Ecom:</b> Store mapped — Store Manager → Product/Offer → Storefront → Creative/Traffic → Support. Tap the Ecom island for the plan.";
   return "<b>Command:</b> I can talk leads, scripts, notes, CSV, next steps, revenue, or the engine. Try the buttons — or have your operator wire me to full AI.";}
 function send(q){if(!q.trim())return;add("me",q);cinp.value="";setTimeout(()=>add("ai",reply(q)),340);}
 document.getElementById("csend").addEventListener("click",()=>send(cinp.value));cinp.addEventListener("keydown",e=>{if(e.key==="Enter")send(cinp.value);});
