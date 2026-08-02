@@ -128,6 +128,23 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | True North Restoration of Iowa (Cedar Valley) | Waterloo/Cedar Falls, IA · (319) 220-3228 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 |
 | Siouxland Restoration Inc | Sioux City, IA · (712) 481-4325 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 |
 | Allied Restoration Service | Sioux City, IA · (712) 204-0868 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 |
+| On Call Restoration (CIFAL USA) | Owner TBD · (573) 240-8283 | new | 2026-08-02 sourced | Cold call → demo # | 2026-08-02 |
+| McMahill & Sons Construction | Owner TBD · (309) 676-2597 | new | 2026-08-02 sourced | Cold call → demo # | 2026-08-02 |
+| ABC Carpet Cleaning | Owner TBD · (815) 282-1222 | new | 2026-08-02 sourced | Cold call → demo # | 2026-08-02 |
+| Columbia Water Restoration | Columbia, MO · no # yet | new | 2026-08-02 sourced | Find number first | 2026-08-02 |
+| A & D Fire/Water Restoration LLC | Cape Girardeau, MO · (573) 979-0958 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Midwest Restoration Pros LLC | De Soto, MO · (314) 221-9640 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| No Sloth Mold and Water Damage | Tazewell County/Peoria, IL · no # yet | new | 2026-08-02 sourced | Find number first | 2026-08-02 |
+| Illinois Home Solutions | East Peoria, IL · (309) 300-2112 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Power Restoration of Rockford | Rockford, IL · (815) 721-3493 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Advantage Kwik-Dry (Flood Pros division) | Rockford/Machesney Park, IL · (815) 332-3299 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Mustang Disaster CleanUp | Story City/Ames, IA · (515) 620-3772 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Burlington Restoration Solutions | Burlington, IA · (319) 671-6640 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Allen's Restoration | Hannibal, MO · (573) 221-0107 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Ameristeam Restoration | Ottumwa, IA · (641) 632-9945 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Clinton Water Damage Pro | Clinton, IA · (563) 503-6066 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| ProSteam Branson | Branson, MO · (417) 598-2080 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Performance Restoration LLC | North Liberty/Iowa City, IA · (319) 626-2292 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
 
 ## Won
 | Company | MRR | Start date |
