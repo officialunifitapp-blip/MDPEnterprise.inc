@@ -94,7 +94,7 @@
 <div id="labels"></div>
 
 <div class="top">
-  <div class="brand"><div class="tag">MDP Enterprises</div><h1>AI Brain</h1></div>
+  <div class="brand"><div class="tag">MDP Enterprises</div><h1>AI Agency</h1></div>
   <div class="rightbar">
     <div class="stats">
       <div class="stat rev"><div class="v" id="k-mrr">$0<small>/10k</small></div><div class="l">Revenue</div></div>
@@ -102,11 +102,11 @@
       <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called</div></div>
       <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
     </div>
-    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="expandBtn">Expand all</button><button class="pill exp2" id="resetBtn">Reset view</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
+    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="resetBtn">Reset view</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
   </div>
 </div>
 <div class="livebar"><i></i><span id="liveTxt">waking up…</span></div>
-<div class="hint" id="hint">Tap the center to talk to your CEO · tap a node for detail · drag to move · scroll to zoom</div>
+<div class="hint" id="hint">Tap the CEO to ask anything · tap a node for detail · drag to move · scroll to zoom</div>
 
 <div class="scrim" id="scrim"></div>
 
@@ -127,102 +127,73 @@ const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a
 const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
 function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
 
-// ===== TREE =====
-const CEO={id:"ceo",name:"CEO",col:"#8fd6f2",r:.052,pts:fib(360),rot:0,hov:0,br:0};
+// ===== AI AGENCY BRAIN (focused) =====
 function fib(n){const a=[],GA=Math.PI*(3-Math.sqrt(5));for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
-const WORLDS=[
- {id:"agency",name:"AI Agency",note:"sells AI automation",col:"#74c9a8",ang:-2.35,kids:[
-   {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#74c9a8",live:1},
-   {id:"website",name:"Website AI",one:"chat + booking",col:"#57e0ff",live:1},
-   {id:"b2b",name:"B2B Outbound",one:"ways to sell",col:"#8affd0",live:1},
-   {id:"lead",name:"Leads",one:"companies to call",col:"#74c9a8",live:1,chip:"124"},
-   {id:"sales",name:"Scripts",one:"what to say",col:"#ff6bb0",live:1},
-   {id:"notes",name:"Notes",one:"log each call",col:"#d6c184",live:1,chip:"0"},
-   {id:"engine",name:"Auto-Leads",one:"150 every 5am",col:"#6f9dff",live:1},
- ]},
- {id:"content",name:"Content · TikTok",note:"builds an audience",col:"#d3a284",ang:-0.79,kids:[
-   {id:"tk_mgr",name:"Content Mgr",one:"picks & approves",col:"#d3a284",live:0},
-   {id:"tk_writer",name:"Story Writer",one:"hook → payoff",col:"#ffb27a",live:0},
-   {id:"tk_video",name:"Video Creator",one:"visuals+voice+edit",col:"#ff7ac2",live:0},
-   {id:"tk_analytics",name:"Analytics",one:"what's working",col:"#d07bff",live:0},
- ]},
- {id:"ecom",name:"Ecom",note:"future income",col:"#d6c184",ang:0.79,kids:[
-   {id:"ec_mgr",name:"Store Mgr",one:"runs the store",col:"#d6c184",live:0},
-   {id:"ec_product",name:"Product & Offer",one:"product+pricing",col:"#ffc24d",live:0},
-   {id:"ec_store",name:"Storefront",one:"pages+checkout",col:"#ffab5c",live:0},
-   {id:"ec_creative",name:"Creative & Traffic",one:"ads+campaigns",col:"#d3a284",live:0},
-   {id:"ec_ops",name:"Support & Ops",one:"orders+support",col:"#ffe08a",live:0},
- ]},
- {id:"personal",name:"Personal",note:"your life",col:"#aab4d6",ang:2.35,kids:[
-   {id:"life",name:"Life Admin",one:"calendar & errands",col:"#aab4d6",live:0},
-   {id:"money",name:"Finances",one:"track your money",col:"#7ee0c0",live:0},
- ]},
+const CEO={id:"ceo",name:"CEO",col:"#8fd6f2",r:.058,pts:fib(420),rot:0,hov:0};
+const DEPTS=[
+ {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#5fd9c2",live:1},
+ {id:"website",name:"Website AI",one:"chat + booking",col:"#7fc9e6",live:1},
+ {id:"b2b",name:"B2B Outbound",one:"how you sell",col:"#8fd6b0",live:1},
+ {id:"lead",name:"Leads",one:"companies to call",col:"#74c9a8",live:1,chip:"124"},
+ {id:"sales",name:"Scripts",one:"what to say",col:"#9fd0c0",live:1},
+ {id:"notes",name:"Notes",one:"log each call",col:"#a9c6d0",live:1},
+ {id:"engine",name:"Auto-Leads",one:"150 every 5am",col:"#8fb6e0",live:1},
 ];
 const byId={ceo:CEO};
-WORLDS.forEach(w=>{w.open=0;w.wantOpen=false;w.hov=0;w.pts=fib(80);w.rot=Math.random()*6;w.r=.04;w.kind="world";byId[w.id]=w;
-  const arc=Math.min(1.6,w.kids.length*.32);
-  w.kids.forEach((k,i)=>{k.ci=i;k.col=w.col;k.hov=0;k.kind="kid";k.world=w;k.r=.026;byId[k.id]=k;});});
+DEPTS.forEach((d,i)=>{d.ang=-Math.PI/2+(i/DEPTS.length)*Math.PI*2;d.kind="dept";d.hov=0;d.r=.031;byId[d.id]=d;});
 byId.manager={id:"manager",name:"Everything",col:"#8fd6f2",live:1};
-const CROSS=[["tk_video","ec_creative"],["sales","tk_writer"],["b2b","ec_creative"]].map(p=>[byId[p[0]],byId[p[1]]]).filter(p=>p[0]&&p[1]);
+const NODES=[CEO,...DEPTS];
 
-// ===== CANVAS =====
-const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;const pan={x:0,y:0};let zoom=.62;
+// ===== CANVAS + CAMERA =====
+const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;const pan={x:0,y:0};let zoom=.92;
 function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
 addEventListener("resize",resize);
 function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
 function SCX(){return W*.5+pan.x;} function SCY(){return H*.52+pan.y;}
-function OW(w){return[Math.cos(w.ang)*.42,Math.sin(w.ang)*.42];}
-function OK(k){const w=k.world;const o=OW(w);const side=o[0]>=0?1:-1;const tx=o[0]+side*0.24;const ty=o[1]+(k.ci-(w.kids.length-1)/2)*0.13;return[o[0]+(tx-o[0])*w.open,o[1]+(ty-o[1])*w.open];}
-function ON(n){return n.id==="ceo"?[0,0]:n.kind==="world"?OW(n):OK(n);}
-function P(n){const o=ON(n);return[SCX()+o[0]*M*zoom,SCY()+o[1]*M*zoom];}
+function P(n){if(n.id==="ceo")return[SCX(),SCY()];return[SCX()+Math.cos(n.ang)*M*.42*zoom,SCY()+Math.sin(n.ang)*M*.42*zoom];}
 function RAD(n){return n.r*M*zoom;}
 const mouse={x:-999,y:-999,in:false};const ptrs=new Map();let dragS=null,pinchS=null;
 function scr(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
-function pickables(){return [CEO,...WORLDS,...WORLDS.filter(w=>w.open>.25).flatMap(w=>w.kids)];}
-function pick(mx,my){let hit=null,best=1e9;pickables().forEach(n=>{const[x,y]=P(n);const d=Math.hypot(mx-x,my-y);const R=Math.max(28,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
+function pick(mx,my){let hit=null,best=1e9;NODES.forEach(n=>{const[x,y]=P(n);const d=Math.hypot(mx-x,my-y);const R=Math.max(30,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
 cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try{cv.setPointerCapture(e.pointerId);}catch(_){}
   if(ptrs.size===1)dragS={x:p.x,y:p.y,px:pan.x,py:pan.y,hit:pick(p.x,p.y),moved:false};
   else if(ptrs.size===2){const a=[...ptrs.values()];pinchS={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),z:zoom};dragS=null;}});
 cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=p.x;mouse.y=p.y;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
-  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.4,Math.min(2.4,pinchS.z*d/pinchS.d));return;}
+  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.5,Math.min(2.4,pinchS.z*d/pinchS.d));return;}
   if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=dragS.px+dx;pan.y=dragS.py+dy;}});
-function endP(e){if(dragS&&!dragS.moved&&dragS.hit){const n=dragS.hit;if(n.id==="ceo")openChat();else if(n.kind==="world"){const was=n.wantOpen;WORLDS.forEach(w=>w.wantOpen=false);n.wantOpen=!was;}else openModal(n.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
+function endP(e){if(dragS&&!dragS.moved&&dragS.hit){const n=dragS.hit;if(n.id==="ceo")openChat();else openModal(n.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
 cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
 addEventListener("pointerleave",()=>mouse.in=false);
-cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.4,Math.min(2.4,zoom*(1-e.deltaY*0.0012)));},{passive:false});
+cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2.4,zoom*(1-e.deltaY*0.0012)));},{passive:false});
 cv.style.cursor="grab";
 
+// ===== RENDER =====
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;let tPrev=0;
-function tbranch(ax,ay,bx,by,col,wBase,wTip,a){if(a<=0.01)return;const mx=(ax+bx)/2,my=(ay+by)/2,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;const cxp=mx-dy/len*len*.13,cyp=my+dx/len*len*.13;const c=hx(col);ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${a})`;ctx.lineCap="round";const N=10;let px=ax,py=ay;for(let i=1;i<=N;i++){const t=i/N,u=1-t;const x=u*u*ax+2*u*t*cxp+t*t*bx,y=u*u*ay+2*u*t*cyp+t*t*by;ctx.lineWidth=wBase+(wTip-wBase)*t;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(x,y);ctx.stroke();px=x;py=y;}}
-function orb(n,t){const[cx,cy]=P(n);const op=n.kind==="kid"?n.world.open:1;if(op<.02)return;
-  const hd=mouse.in?Math.hypot(mouse.x-cx,mouse.y-cy):999;n.hov+=((hd<Math.max(28,RAD(n)*1.5)?1:0)-n.hov)*.15;
-  const live=(n.live!==0);const c=hx(n.col),R=c[0],G=c[1],B=c[2];const br=reduce?0:Math.sin(t/1100+(n.rot||0))*.03;const R0=RAD(n)*(1+br+n.hov*.08);
-  const gA=(n.id==="ceo"?.3:n.kind==="world"?.22:.15)*(live?1:.5)*op*(1+n.hov*.6);
-  ctx.globalCompositeOperation="lighter";const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*2.6);g.addColorStop(0,`rgba(${R},${G},${B},${gA})`);g.addColorStop(.5,`rgba(${R},${G},${B},${gA*.25})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R0*2.6,0,7);ctx.fill();
+function tbranch(ax,ay,bx,by,col,wBase,wTip,a){if(a<=0.01)return;const mx=(ax+bx)/2,my=(ay+by)/2,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;const cxp=mx-dy/len*len*.1,cyp=my+dx/len*len*.1;const c=hx(col);ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${a})`;ctx.lineCap="round";const N=12;let px=ax,py=ay;for(let i=1;i<=N;i++){const t=i/N,u=1-t;const x=u*u*ax+2*u*t*cxp+t*t*bx,y=u*u*ay+2*u*t*cyp+t*t*by;ctx.lineWidth=wBase+(wTip-wBase)*t;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(x,y);ctx.stroke();px=x;py=y;}}
+function orb(n,t){const[cx,cy]=P(n);
+  const hd=mouse.in?Math.hypot(mouse.x-cx,mouse.y-cy):999;n.hov+=((hd<Math.max(30,RAD(n)*1.5)?1:0)-n.hov)*.15;
+  const c=hx(n.col),R=c[0],G=c[1],B=c[2];const br=reduce?0:Math.sin(t/1100+(n.ang||0))*.03;const R0=RAD(n)*(1+br+n.hov*.1);
+  const gA=(n.id==="ceo"?.32:.2)*(1+n.hov*.7);
+  ctx.globalCompositeOperation="lighter";const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*2.7);g.addColorStop(0,`rgba(${R},${G},${B},${gA})`);g.addColorStop(.5,`rgba(${R},${G},${B},${gA*.25})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R0*2.7,0,7);ctx.fill();
   ctx.globalCompositeOperation="source-over";
   ctx.beginPath();ctx.arc(cx,cy,R0,0,7);ctx.fillStyle="rgba(7,11,20,.92)";ctx.fill();
-  if(!live)ctx.setLineDash([3,3]);ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(${R},${G},${B},${(live?.9:.5)*op})`;ctx.stroke();ctx.setLineDash([]);
-  if(n.pts){if(!reduce)n.rot+=(n.id==="ceo"?.005:.008);const cR=Math.cos(n.rot),sR=Math.sin(n.rot),cT=Math.cos(.42),sT=Math.sin(.42);for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cT-z1*sT,z2=y*sT+z1*cT;const pr=1/(1-z2*.34);const sx=cx+x1*R0*.85*pr,sy=cy+y1*R0*.85*pr;const d=(z2+1)/2;ctx.fillStyle=`rgba(${R},${G},${B},${(0.08+d*.42)*op})`;ctx.fillRect(sx-1,sy-1,1.5,1.5);}}
-  ctx.globalCompositeOperation="lighter";const ic=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*.55);ic.addColorStop(0,`rgba(${R},${G},${B},${.55*op}`+`)`);ic.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=ic;ctx.beginPath();ctx.arc(cx,cy,R0*.55,0,7);ctx.fill();ctx.globalCompositeOperation="source-over";
+  ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(${R},${G},${B},.85)`;ctx.stroke();
+  if(n.pts){if(!reduce)n.rot+=.005;const cR=Math.cos(n.rot),sR=Math.sin(n.rot),cT=Math.cos(.42),sT=Math.sin(.42);for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cT-z1*sT,z2=y*sT+z1*cT;const pr=1/(1-z2*.34);const sx=cx+x1*R0*.85*pr,sy=cy+y1*R0*.85*pr;const d=(z2+1)/2;ctx.fillStyle=`rgba(${R},${G},${B},${0.08+d*.42})`;ctx.fillRect(sx-1,sy-1,1.5,1.5);}}
+  ctx.globalCompositeOperation="lighter";const ic=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*.55);ic.addColorStop(0,`rgba(${R},${G},${B},.5`+`)`);ic.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=ic;ctx.beginPath();ctx.arc(cx,cy,R0*.55,0,7);ctx.fill();ctx.globalCompositeOperation="source-over";
 }
 function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
-  WORLDS.forEach(w=>w.open+=((w.wantOpen?1:0)-w.open)*.16);
   ctx.clearRect(0,0,W,H);
   const bg=ctx.createRadialGradient(W*.5,H*.52,0,W*.5,H*.52,Math.max(W,H)*.8);bg.addColorStop(0,"#0b1220");bg.addColorStop(.6,"#070a12");bg.addColorStop(1,"#04060c");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-  // trunks CEO -> world (tree limbs, tapered)
-  const[ex,ey]=P(CEO);WORLDS.forEach(w=>{const[wx,wy]=P(w);tbranch(ex,ey,wx,wy,w.col,Math.max(2.5,RAD(w)*.32),1.4,.2+w.hov*.3);});
-  // cross-world twigs
-  CROSS.forEach(p=>{const[ax,ay]=P(p[0]),[bx,by]=P(p[1]);const op=Math.max(p[0].world?p[0].world.open:0,p[1].world?p[1].world.open:0);tbranch(ax,ay,bx,by,"#9fc0ff",1.4,1.4,.03+op*.28);});
-  // world -> kid twigs
-  WORLDS.forEach(w=>{if(w.open<.02)return;const[wx,wy]=P(w);w.kids.forEach(k=>{const[kx,ky]=P(k);tbranch(wx,wy,kx,ky,k.col,Math.max(1.4,RAD(w)*.18),1,(.1+w.open*.32));});});
-  orb(CEO,t);WORLDS.forEach(w=>orb(w,t));WORLDS.forEach(w=>w.kids.forEach(k=>orb(k,t)));
+  const[ex,ey]=P(CEO);DEPTS.forEach(d=>{const[dx,dy]=P(d);tbranch(ex,ey,dx,dy,d.col,Math.max(2.5,RAD(CEO)*.26),1.3,.22+d.hov*.35);});
+  orb(CEO,t);DEPTS.forEach(d=>orb(d,t));
   placeLabels();requestAnimationFrame(frame);
 }
-// labels
+
+// ===== LABELS =====
 const labels=document.getElementById("labels");
-[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const d=document.createElement("div");d.className="lbl"+((n.live===0)?" soon":"");d.innerHTML=`<div class="nm" style="color:${n.col};font-size:${n.kind==="world"?16:14}px">${n.name}</div><div class="one">${n.one||n.note||""}</div>`;labels.appendChild(d);n.lel=d;});
+DEPTS.forEach(n=>{const d=document.createElement("div");d.className="lbl";d.innerHTML=`<div class="nm" style="color:${n.col};font-size:14px">${n.name}</div><div class="one">${n.one||""}</div>`;labels.appendChild(d);n.lel=d;});
 const ceoL=document.createElement("div");ceoL.className="lbl";ceoL.innerHTML=`<div class="nm" style="color:${CEO.col};font-size:16px">CEO</div><div class="one">tap to ask anything</div>`;labels.appendChild(ceoL);
-function placeLabels(){[...WORLDS,...WORLDS.flatMap(w=>w.kids)].forEach(n=>{const[x,y]=P(n);const op=n.kind==="kid"?n.world.open:1;n.lel.style.left=x+"px";n.lel.style.top=(y+RAD(n)+11)+"px";n.lel.style.opacity=op<.25?0:1;});
+function placeLabels(){DEPTS.forEach(n=>{const[x,y]=P(n);n.lel.style.left=x+"px";n.lel.style.top=(y+RAD(n)+11)+"px";});
   const[ex,ey]=P(CEO);ceoL.style.left=ex+"px";ceoL.style.top=(ey+RAD(CEO)+12)+"px";}
 
 // ===== MODAL / WORK =====
@@ -267,7 +238,6 @@ function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListe
 document.getElementById("mx").addEventListener("click",closeAll);scrim.addEventListener("click",closeAll);document.getElementById("chatX").addEventListener("click",closeAll);
 addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
 document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
-document.getElementById("expandBtn").addEventListener("click",()=>{const any=WORLDS.some(w=>w.wantOpen);WORLDS.forEach(w=>w.wantOpen=!any);document.getElementById("expandBtn").textContent=any?"Expand all":"Collapse all";});
 document.getElementById("resetBtn").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.62;});
 
 function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
