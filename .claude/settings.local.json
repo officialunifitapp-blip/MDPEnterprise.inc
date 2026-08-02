@@ -93,7 +93,9 @@
       "Bash(perl -0pi -e 's/tbranch\\\\\\(wx,wy,kx,ky,k\\\\.col,Math\\\\.max\\\\\\(2\\\\.5,RAD\\\\\\(w\\\\\\)\\\\*\\\\.28\\\\\\),1\\\\.5,\\\\\\(\\\\.15\\\\+w\\\\.open\\\\*\\\\.5\\\\\\)\\\\\\)/tbranch\\(wx,wy,kx,ky,k.col,Math.max\\(1.4,RAD\\(w\\)*.18\\),1,\\(.1+w.open*.32\\)\\)/' index.html)",
       "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Tasteful pass: muted palette, softer glow/branches, departments open as clean vertical columns not a ring\")",
       "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Build AI Receptionist: full Vapi config \\(restoration\\) + wire status into brain\")",
-      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Add agency marketing site \\(site/index.html\\) — 3 offers, live demo hook, for mdpenterprises.com\")"
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Add agency marketing site \\(site/index.html\\) — 3 offers, live demo hook, for mdpenterprises.com\")",
+      "Bash(perl -0pi -e 's/mdpenterprises\\\\.com/mdpenterprises.org/g' site/index.html)",
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Use mdpenterprises.org domain in site contact\")"
     ]
   }
 }
