@@ -91,7 +91,8 @@
       "Bash(perl -0pi -e 's/ic\\\\.addColorStop\\\\\\(0,`rgba\\\\\\(\\\\$\\\\{R\\\\},\\\\$\\\\{G\\\\},\\\\$\\\\{B\\\\},\\\\$\\\\{\\\\.8\\\\*op\\\\}\\\\\\)`\\\\\\)/ic.addColorStop\\(0,`rgba\\(\\\\${R},\\\\${G},\\\\${B},\\\\${.55*op}`+`\\)`\\)/' index.html)",
       "Bash(perl -0pi -e 's/tbranch\\\\\\(ex,ey,wx,wy,w\\\\.col,Math\\\\.max\\\\\\(4,RAD\\\\\\(w\\\\\\)\\\\*\\\\.5\\\\\\),2,\\\\.32\\\\+w\\\\.hov\\\\*\\\\.4\\\\\\)/tbranch\\(ex,ey,wx,wy,w.col,Math.max\\(2.5,RAD\\(w\\)*.32\\),1.4,.2+w.hov*.3\\)/' index.html)",
       "Bash(perl -0pi -e 's/tbranch\\\\\\(wx,wy,kx,ky,k\\\\.col,Math\\\\.max\\\\\\(2\\\\.5,RAD\\\\\\(w\\\\\\)\\\\*\\\\.28\\\\\\),1\\\\.5,\\\\\\(\\\\.15\\\\+w\\\\.open\\\\*\\\\.5\\\\\\)\\\\\\)/tbranch\\(wx,wy,kx,ky,k.col,Math.max\\(1.4,RAD\\(w\\)*.18\\),1,\\(.1+w.open*.32\\)\\)/' index.html)",
-      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Tasteful pass: muted palette, softer glow/branches, departments open as clean vertical columns not a ring\")"
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Tasteful pass: muted palette, softer glow/branches, departments open as clean vertical columns not a ring\")",
+      "Bash(git -c user.name='Agency CEO' -c user.email='mariodel2005@icloud.com' commit -q -m \"Build AI Receptionist: full Vapi config \\(restoration\\) + wire status into brain\")"
     ]
   }
 }
