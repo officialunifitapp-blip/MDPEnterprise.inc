@@ -145,6 +145,21 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Clinton Water Damage Pro | Clinton, IA · (563) 503-6066 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
 | ProSteam Branson | Branson, MO · (417) 598-2080 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
 | Performance Restoration LLC | North Liberty/Iowa City, IA · (319) 626-2292 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 |
+| Srita & Sons Restoration | Fayetteville, AR · (479) 900-2639 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| Red Carpet Flood Restoration of NE Kansas | Keaton · (785) 766-0439 / (877) 723-5663 | new | 2026-08-03 sourced | Cold call (probe live-answer on 24/7 line) | 2026-08-03 |
+| Chavez Restoration & Cleaning | Dan & Amanda Chavez · (785) 232-3779 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| 24/7 Disaster Group | Owner TBD · (918) 779-4900 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| All Care Restoration | Steve & Carol Busboom · (402) 421-3779 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| DryHero Water & Mold | Ritch Paprocki (Founder) · (402) 438-2379 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| 13:12 Restoration | Owner TBD · (479) 977-1312 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| Wall 2 Wall Restoration | Kevin · (479) 252-6650 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| ARS Restoration (Ark-La-Tex) | Owner TBD · (903) 832-3389 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| Courtesy Care Restoration | Jason Birk (Owner) · (918) 233-6477 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| Murphree Restoration Inc | Owner TBD · (785) 357-5335 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| Safe Home Restoration of NW Arkansas | Rob Stover & Mike Alley · (479) 257-5960 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 |
+| 777 Restoration LLC | Claremore, OK · (918) 777-3211 unverified | new | 2026-08-03 sourced | Verify phone first | 2026-08-03 |
+| Extremely Clean | Lincoln/Omaha, NE · (402) 932-3257 unverified | new | 2026-08-03 sourced | Verify phone + which city first | 2026-08-03 |
+| RK Janitorial Inc | Junction City/Manhattan, KS · 3 conflicting #s | new | 2026-08-03 sourced | Verify phone first | 2026-08-03 |
 
 ## Won
 | Company | MRR | Start date |
