@@ -160,6 +160,18 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | 777 Restoration LLC | Claremore, OK · (918) 777-3211 unverified | new | 2026-08-03 sourced | Verify phone first | 2026-08-03 |
 | Extremely Clean | Lincoln/Omaha, NE · (402) 932-3257 unverified | new | 2026-08-03 sourced | Verify phone + which city first | 2026-08-03 |
 | RK Janitorial Inc | Junction City/Manhattan, KS · 3 conflicting #s | new | 2026-08-03 sourced | Verify phone first | 2026-08-03 |
+| EnteX Cleaning & Restoration Inc. | Owner TBD · (816) 233-5557 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| ONIT Cleaning and Restoration | Jacob · (515) 408-2800 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| PacePro Carpet Cleaners and Restoration | Casondra Pashos (President) · (217) 417-2255 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| Hoerr Carpet Cleaning and Water Restoration Inc. | Bill Hoerr (Founder/CEO) · (309) 696-1170 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| X-Treme Carpet Cleaning | Owner TBD · (618) 451-8044 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| RESTORx (Northern Illinois) | Owner TBD · (815) 235-9606 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| In-Tech Carpet Cleaning & Disaster Restoration | Owner TBD · (417) 257-2493 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| Simply Clean of the QC | Matt Hamilton (Owner) · (309) 797-7740 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| Water Damage Restore | Owner TBD · (515) 420-0411 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| McKee Construction & Abatement, LLC | Weston McKee (Owner) · (641) 226-4412 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| Chem-Care Carpet and Upholstery Cleaning | Owner TBD · (217) 525-2233 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 |
+| Restore It Restoration LLC | Lonnie A. Beauchamp · 4 conflicting #s | new | 2026-08-04 sourced | Verify phone first | 2026-08-04 |
 
 ## Won
 | Company | MRR | Start date |
