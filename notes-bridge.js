@@ -334,6 +334,33 @@ http.createServer(async (req, res) => {
           return json(res, 200, { items: await scout.listOpportunities(notion, db, { rating }) });
         }
 
+        /* Structured listings from a browser session (scout-watch.sh). Same
+           scoring, same store, same dedupe as the email path. */
+        if (req.url === "/scout/ingest" && req.method === "POST") {
+          const b = await body();
+          const raw = Array.isArray(b) ? b : (b.listings || []);
+          const cfg = scout.loadConfig();
+          const norm = raw.map(scout.normalizeListing).filter(Boolean);
+          const stored = [], alerted = [];
+          for (const l of norm) {
+            const o = await scout.analyse(l, cfg, {});
+            const r = await scout.upsertOpportunity(notion, db, o);
+            stored.push({ ...o, ...r });
+            // Only alert on genuinely new BUYs — never re-alert a duplicate.
+            if (r.action === "created" && o.rating === "BUY") {
+              const sent = await scout.notify(o, cfg);
+              alerted.push({ id: o.id, via: sent });
+            }
+          }
+          const fresh = stored.filter(s => s.action === "created");
+          return json(res, 200, {
+            received: raw.length, valid: norm.length,
+            created: fresh.length, duplicates: stored.length - fresh.length,
+            buys: fresh.filter(s => s.rating === "BUY").length,
+            alerted, results: stored,
+          });
+        }
+
         if (req.url === "/scout/analyze" && req.method === "POST") {
           const b = await body();
           if (!b.html) return json(res, 400, { error: "html is required" });

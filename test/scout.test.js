@@ -122,3 +122,25 @@ test("replica wording is surfaced as a risk", async () => {
   const out = await S.analyse(l, { ...cfg, brands: [] });
   assert.ok(out.risks.some(r => /replica/i.test(r)));
 });
+
+test("normalizeListing accepts only depop.com as the actual host", () => {
+  const ok = S.normalizeListing({ url: "https://www.depop.com/products/real-item/", price: "$10" });
+  assert.equal(ok.id, "real-item");
+  for (const bad of [
+    "https://not-depop.com/products/nope/",
+    "https://evil-depop.com/products/nope/",
+    "https://depop.com.attacker.net/products/nope/",
+    "https://attacker.net/depop.com/products/nope/",
+    "", "javascript:alert(1)",
+  ]) assert.equal(S.normalizeListing({ url: bad }), null, `should reject ${bad}`);
+});
+
+test("normalizeListing sanitises and keeps only https images", () => {
+  const l = S.normalizeListing({
+    url: "https://www.depop.com/products/x-y-z/",
+    title: "<script>alert(1)</script>Jacket", image: "http://insecure.example/x.jpg", price: "$12.50",
+  });
+  assert.ok(!/<script>/i.test(JSON.stringify(l)));
+  assert.equal(l.image, null);
+  assert.equal(l.price, 12.5);
+});
