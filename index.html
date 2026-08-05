@@ -313,18 +313,38 @@ function appendNote(co,t){
   NOTE_AT[co]=iso();cacheState();pushState();
 }
 
-/* ---- cross-device sync ---- */
+/* ---- cross-device sync ----
+   Reconcile runs on every hydrate, not just after an edit. A device that has
+   been writing notes with no bridge in reach — which is every note written
+   before this existed — otherwise keeps them to itself forever, because
+   nothing but an edit ever pushed. */
 async function pullState(){
-  try{
-    const s=await (await bfetch("/state")).json();
-    for(const [co,n] of Object.entries(s.notes||{})){
-      // Server wins only when it is actually newer — otherwise a slow pull
-      // would clobber something typed on this device a second ago.
-      if(!NOTE_AT[co]||String(n.at||"")>NOTE_AT[co]){NOTES[co]=n.text;NOTE_AT[co]=n.at;}
-    }
-    if(s.thoughts&&s.thoughts.length)THOUGHTS=s.thoughts;
-    cacheState();return true;
-  }catch(e){return false;}
+  let s;
+  try{ s=await (await bfetch("/state")).json(); }catch(e){ return false; }
+
+  const upload={};
+  for(const [co,n] of Object.entries(s.notes||{})){
+    // Server wins only when it is actually newer — otherwise a slow pull
+    // would clobber something typed on this device a second ago.
+    if(!NOTE_AT[co]||String(n.at||"")>NOTE_AT[co]){NOTES[co]=n.text;NOTE_AT[co]=n.at;}
+  }
+  for(const co of Object.keys(NOTES)){
+    const mine=NOTES[co],srv=(s.notes||{})[co];
+    if(!mine)continue;
+    if(!srv){upload[co]={text:mine,at:NOTE_AT[co]||iso()};continue;}
+    if(srv.text===mine||srv.text.includes(mine))continue;      // already up there
+    if(mine.includes(srv.text)){upload[co]={text:mine,at:iso()};continue;}
+    // Both sides wrote for this company while apart. Last-write-wins would
+    // throw one away, so keep both — a duplicated line is recoverable, a
+    // deleted call note is not.
+    NOTES[co]=srv.text+"\n"+mine;NOTE_AT[co]=iso();
+    upload[co]={text:NOTES[co],at:NOTE_AT[co]};
+  }
+
+  if(s.thoughts&&s.thoughts.length)THOUGHTS=s.thoughts;
+  cacheState();
+  if(Object.keys(upload).length)await pushState();
+  return true;
 }
 async function pushState(){
   const notes={};for(const co of Object.keys(NOTES))notes[co]={text:NOTES[co],at:NOTE_AT[co]||iso()};
