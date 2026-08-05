@@ -199,6 +199,52 @@ async function findRow(company) {
       || null;
 }
 
+/* ---- pipeline.md write-back ----
+   CLAUDE.md makes pipeline.md canonical for stage, so an outcome tapped in
+   the dashboard has to land here, not only in Notion. */
+
+// Only advance on evidence, same rule the note parser follows: nobody picking
+// up is not a conversation, so it records the attempt without moving anyone
+// down the funnel. `null` means "leave the stage alone".
+const OUTCOME_STAGE = {
+  "no answer":      null,
+  "voicemail":      null,
+  "gatekeeper":     null,
+  "spoke to owner": "contacted",
+  "callback set":   "contacted",
+  "demo sent":      "contacted",
+  "not interested": "lost",
+  "booked":         "booked",
+};
+
+function markLead(company, outcome) {
+  const fs = require("fs"), path = require("path");
+  const file = path.join(__dirname, "pipeline.md");
+  const lines = fs.readFileSync(file, "utf8").split("\n");
+  const want = strict(company) || loose(company);
+
+  let hit = -1, won = false;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^##\s*Won/i.test(lines[i])) won = true;
+    if (won || !lines[i].startsWith("| ")) continue;
+    const c = lines[i].split("|").map(x => x.trim());
+    if (!c[1] || c[1] === "Company") continue;
+    if (loose(c[1]) === loose(company) || (want && strict(c[1]) === want)) { hit = i; break; }
+  }
+  if (hit < 0) throw new Error(`"${company}" is not in pipeline.md`);
+
+  const c = lines[hit].split("|").map(x => x.trim());
+  const stage = OUTCOME_STAGE[outcome];
+  if (stage) c[3] = stage;
+  // "2026-08-05 sourced" becomes "2026-08-05 no answer" — the column already
+  // carries what happened, so the outcome needs no new column to live in.
+  c[4] = `${today()} ${outcome}`;
+  lines[hit] = "| " + c.slice(1, 9).join(" | ") + " |";
+
+  fs.writeFileSync(file, lines.join("\n"));
+  return { company: c[1], stage: c[3], last: c[4] };
+}
+
 async function upsert(entry) {
   await ensureDb();
   const { company, note = "", contact = "", phone = "", stage, seed } = entry;
@@ -466,6 +512,31 @@ http.createServer(async (req, res) => {
         if (!message) return json(res, 400, { error: "message is required" });
         console.log("chat:", message.slice(0, 60));
         json(res, 200, await askCeo(message, session));
+      } catch (e) { json(res, 400, { error: e.message }); }
+    });
+    return;
+  }
+
+  /* One tap on a lead: record the outcome in pipeline.md, then mirror it to
+     Notion. Notion failing must not lose the tap — pipeline.md is canonical
+     and the 5am sync will carry it over. */
+  if (req.method === "POST" && req.url === "/lead") {
+    let raw = "";
+    req.on("data", c => { raw += c; if (raw.length > 1e5) req.destroy(); });
+    req.on("end", async () => {
+      try {
+        const { company, outcome, note = "" } = JSON.parse(raw || "{}");
+        if (!company) return json(res, 400, { error: "company is required" });
+        if (!(outcome in OUTCOME_STAGE)) return json(res, 400, { error: `unknown outcome "${outcome}"` });
+
+        const local = markLead(company, outcome);
+        console.log("lead:", company, "->", outcome);
+
+        let notion = null;
+        try { notion = await upsert({ company, outcome, note: note || outcome, stage: local.stage }); }
+        catch (e) { notion = { error: e.message }; }
+
+        json(res, 200, { ...local, notion });
       } catch (e) { json(res, 400, { error: e.message }); }
     });
     return;

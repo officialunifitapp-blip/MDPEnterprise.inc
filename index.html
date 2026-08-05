@@ -129,6 +129,11 @@ td{padding:6px;border-top:1px solid rgba(90,175,255,.09);vertical-align:middle}
 .ntbtn{width:24px;height:24px;border-radius:6px;border:1px solid var(--line2);
   background:transparent;color:var(--dim);cursor:pointer;font-size:11px}
 .ntbtn.has{background:rgba(79,211,154,.16);border-color:var(--ok);color:var(--ok)}
+/* Outcome picker. Tall enough to hit with a thumb — this gets used mid-call. */
+select.oc{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:6px;
+  color:var(--dim);font:11.5px inherit;padding:5px 6px;min-height:30px;max-width:150px}
+select.oc.set{color:var(--ok);border-color:rgba(79,211,154,.45);background:rgba(79,211,154,.08)}
+select.oc:disabled{opacity:.5}
 textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:7px;
   color:var(--txt);padding:7px 8px;font:12px/1.45 inherit;resize:vertical;min-height:52px;margin:4px 0 6px}
 .hide{display:none}
@@ -377,7 +382,11 @@ async function hydrate(){
         // Niche is the trailing column; fall back to name-matching for rows
         // written before the column existed (the 5am job appends without it).
         const niche=(c[7]||"").trim()||(/med ?spa|aesthetic|botox|derm|skin|laser|salon|injectable/i.test(c[1]+c[2])?"MedSpa":"Restoration");
-        list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:c[4]||"",next:c[5]||"",niche});
+        // "2026-08-05 sourced" vs "2026-08-05 no answer" — the trailing text is
+        // the outcome, and "sourced" means the phone has never been picked up.
+        const lt=c[4]||"",tail=lt.slice(10).trim();
+        list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:lt,next:c[5]||"",niche,
+          out:(tail&&tail!=="sourced")?tail:""});
       });
       DATA.counts=counts;DATA.leads=list;
     }
@@ -402,9 +411,13 @@ const n=v=>v==null||v===""?"—":v;
 function paint(){
   const M=DATA.metrics,total=DATA.leads.length||0;
   const dialed=total-(DATA.counts.new||0);
+  // Stage cannot answer "did I call them" — a no-answer leaves the lead in
+  // new, which is correct for the funnel and useless for a dial list. The
+  // logged outcome is what says the phone was actually picked up.
+  const called=DATA.leads.filter(l=>l.out).length;
   $("metrics").innerHTML=[
-    ["Leads in pipeline",total,`${DATA.counts.new||0} not yet called`],
-    ["Dials made",n(M.calls||M.out),"this week"],
+    ["Leads in pipeline",total,`${total-called} not yet called`],
+    ["Dials made",called||n(M.calls||M.out),called?"logged outcomes":"this week"],
     ["MRR",n(M.mrr),"toward $10k"],
     ["Meetings booked",n(M.mtg),"this week"],
     ["Replies",n(M.rep),"this week"],
@@ -673,8 +686,13 @@ function scoutPanel(){
 }
 const SORT={key:"co",dir:1};
 let LEAD_NICHE="";   // "", "Restoration", "MedSpa" — set by walking into a branch
+let CALLED="all";    // "all" | "no" | "yes" — working a dial list means "no"
+// Mirrors the list the bridge accepts; anything else it rejects outright.
+const OUTCOMES=["no answer","voicemail","gatekeeper","spoke to owner",
+                "callback set","demo sent","not interested","booked"];
 function leadTable(){
-  const rows=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE).sort((a,b)=>{
+  const rows=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE)
+    .filter(l=>CALLED==="all"||(CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
     let x,y;
     if(SORT.key==="st"){x=STAGES.indexOf(a.st||"new");y=STAGES.indexOf(b.st||"new");}
     else{x=(a[SORT.key]||"").toLowerCase();y=(b[SORT.key]||"").toLowerCase();}
@@ -684,19 +702,48 @@ function leadTable(){
   const chips=STAGES.map(s=>`<span class="chip">${s.toUpperCase()} <b>${cnt(s)}</b></span>`).join("");
   const branch=(n,label)=>`<span class="chip" data-niche="${n}" style="cursor:pointer;${LEAD_NICHE===n?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${label} <b>${n?inNiche(n):DATA.leads.length}</b></span>`;
   const th=(k,l)=>`<th data-sort="${k}">${l}${SORT.key===k?(SORT.dir>0?" ▲":" ▼"):""}</th>`;
+  const pool=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE);
+  const done=pool.filter(l=>l.out).length;
+  const cf=(k,label,n)=>`<span class="chip" data-called="${k}" style="cursor:pointer;${CALLED===k?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${label} <b>${n}</b></span>`;
   return `<div class="sec"><div class="slb">Branch</div>
-    ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}
-    ${inNiche("MedSpa")===0?`<div class="say" style="color:var(--dim);margin-top:6px">MedSpa is empty. Share your <b>MedSpa Leads</b> page with the Notion integration and I'll import it.</div>`:""}</div>
+    ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
+  <div class="sec"><div class="slb">Calls</div>
+    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}</div>
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
-  <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}${th("last","Last touch")}<th></th></tr></thead>
-  <tbody>${rows.map(l=>`<tr>
+  <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}<th>Outcome</th><th></th></tr></thead>
+  <tbody>${rows.map(l=>`<tr${l.out?' style="background:rgba(79,211,154,.05)"':""}>
     <td>${esc(l.co)}</td>
     <td style="white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${esc(l.p)}</a>`:'<span class="noph">—</span>'}</td>
     <td style="opacity:.8;white-space:nowrap">${esc(l.st||"new")}</td>
-    <td style="opacity:.55;white-space:nowrap;font:11px var(--mono)">${esc((l.last||"—").slice(0,10))}</td>
+    <td><select class="oc${l.out?" set":""}" data-co="${esc(l.co)}">
+      <option value="">—</option>
+      ${OUTCOMES.map(o=>`<option value="${o}"${l.out===o?" selected":""}>${o}</option>`).join("")}
+    </select>
+    <div style="font:10px var(--mono);color:var(--dim);margin-top:2px">${esc((l.last||"—").slice(0,10))}</div></td>
     <td style="text-align:right"><button class="ntbtn ${NOTES[l.co]?"has":""}" data-co="${esc(l.co)}">✎</button></td></tr>
     <tr><td colspan="5" style="border:0;padding:0"><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened?">${esc(NOTES[l.co]||"")}</textarea></td></tr>`).join("")}
   </tbody></table></div>`;
+}
+
+/* One tap has to survive a dropped connection — the phone is used on the move
+   and a silently lost outcome means the lead gets called twice. */
+async function markLead(co,outcome,sel){
+  const lead=DATA.leads.find(l=>l.co===co);
+  const prev=lead?lead.out:"";
+  if(lead)lead.out=outcome;
+  if(sel){sel.disabled=true;sel.classList.toggle("set",!!outcome);}
+  try{
+    const r=await bfetch("/lead",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({company:co,outcome})});
+    const j=await r.json();
+    if(!r.ok||j.error)throw new Error(j.error||"bridge refused it");
+    if(lead)lead.st=j.stage||lead.st;
+    hydrate();
+  }catch(e){
+    if(lead)lead.out=prev;
+    if(sel){sel.value=prev;sel.classList.toggle("set",!!prev);}
+    alert("Could not save: "+e.message+"\nThe bridge may be offline.");
+  }finally{ if(sel)sel.disabled=false; }
 }
 function scriptsPanel(){
   const P=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],
@@ -743,6 +790,9 @@ function wireSheet(){
     const x=b.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(x)x.classList.toggle("has",!!ta.value.trim());});
   b.querySelectorAll("[data-niche]").forEach(x=>x.onclick=()=>{
     LEAD_NICHE=x.dataset.niche;b.innerHTML=leadTable();wireSheet();});
+  b.querySelectorAll("[data-called]").forEach(x=>x.onclick=()=>{
+    CALLED=x.dataset.called;b.innerHTML=leadTable();wireSheet();});
+  b.querySelectorAll("select.oc").forEach(s=>s.onchange=()=>markLead(s.dataset.co,s.value,s));
   b.querySelectorAll("th[data-sort]").forEach(h=>h.onclick=()=>{
     const k=h.dataset.sort;if(SORT.key===k)SORT.dir*=-1;else{SORT.key=k;SORT.dir=1;}
     b.innerHTML=leadTable();wireSheet();});
