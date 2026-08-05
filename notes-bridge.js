@@ -20,7 +20,7 @@ const { execFile } = require("child_process");
    CLAUDE.md, the three subagents, and the Notion MCP connection. Opus answers
    at roughly $0.19 and 40s per message; MODEL is here so that is a choice. */
 const MODEL    = process.env.CEO_MODEL || "claude-sonnet-5";
-const PERMS    = process.env.CEO_PERMS || "acceptEdits";
+const PERMS    = process.env.CEO_PERMS || "bypassPermissions";
 const CEO_WAIT = Number(process.env.CEO_TIMEOUT || 180000);
 
 function askCeo(message, session) {
