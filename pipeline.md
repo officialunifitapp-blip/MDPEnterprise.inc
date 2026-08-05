@@ -171,6 +171,28 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | McKee Construction & Abatement, LLC | Weston McKee (Owner) · (641) 226-4412 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 | Restoration |  |
 | Chem-Care Carpet and Upholstery Cleaning | Owner TBD · (217) 525-2233 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 | Restoration |  |
 | Restore It Restoration LLC | Lonnie A. Beauchamp · 4 conflicting #s | new | 2026-08-04 sourced | Verify phone first | 2026-08-04 | Restoration |  |
+| Red River Water Restoration | Andrew Jones & Les Moore (co-founders) · (405) 565-9833 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Absolute Clean & Restore | Family/veteran-owned · (580) 722-3035 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Dri Right | Clayton Hutson (Owner) · (580) 574-2383 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| FloodSERV, Inc. | Damon & Kristi Thompson (Owners) · (918) 429-1911 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Disaster Masters, LLC | Jake Yancey (Owner) · (501) 441-4087 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| SteamPro Restoration | Family-owned since 1994 · (870) 793-4834 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Veteran Restoration | Steven Gern (President) · (469) 521-9511 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Restoration Warriors | Jordan Plunk (Owner) · (903) 278-1120 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Magna-Dry Central Kansas | Clark family (Owners) · (620) 282-2267 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Butler Plumbing & Restoration | Owner TBD · (316) 542-2818 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Armada Disaster Solutions | Owner TBD · (855) 527-6232 unverified | new | 2026-08-05 sourced | Verify phone + headcount fit | 2026-08-05 | Restoration |  |
+| All-Clean USA | Brett Overman (Owner) · (870) 972-1922 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| CleanWay Restoration & Construction | Nate & Shawn Easley · 2 conflicting #s | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Arkansas Restoration Services, Inc. | 2nd-gen family owned · (479) 967-2018 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Titan Restoration & Cleaning | Robert & Leslie Gamez (Owners) · (940) 782-9211 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Alpha One Restore | Owner TBD · (972) 363-9577 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Flood Out Restoration | "Wes" (Owner) · (903) 235-2969 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| LMS Restoration | Don Preston (Founder/CEO) · (903) 784-3559 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Phoenix Restoration Services, Inc. | Dave Salas (Owner) · (620) 276-6994 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Stover's Restoration, Inc. | Owner TBD · (316) 722-5005 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Teddy's Cleaning & Restoration LLC | Father-son team · no # yet | new | 2026-08-05 sourced | Find number first | 2026-08-05 | Restoration |  |
+| Arsicdry Water Damage Restoration | Owner TBD · no # yet | new | 2026-08-05 sourced | Find number first | 2026-08-05 | Restoration |  |
 
 ## Won
 | Company | MRR | Start date |
