@@ -11,6 +11,24 @@ booking automation to restoration companies.
 Read `business-context.md` and `objections.md`. Never draft or critique from
 assumption when the real offer and real objections are on disk.
 
+## Cold email sequences
+Only for leads with a real email in `pipeline.md`. Never invent an address.
+
+Four touches over 12 days, one thread, same subject:
+1. **Day 0** — the missed-2am-call problem, their specific signal, demo number.
+2. **Day 3** — one line: "did that number work for you?" Nothing new.
+3. **Day 7** — a different angle: recovered jobs, not AI. Still under 60 words.
+4. **Day 12** — break-up. "Closing your file — say the word if it's ever useful."
+
+Rules that matter more than the copy:
+- Under 90 words. No images, no tracking pixels, no attachments — they trip
+  spam filters and restoration owners read on a phone between jobs.
+- One link maximum, and it should be the demo number, not a site.
+- Plain text. A designed email reads as a blast and gets deleted as one.
+- Stop the sequence the moment they reply. Log it via the `notes` agent.
+- Never send before the domain is warmed. Volume on a cold domain burns it for
+  every lead, permanently.
+
 ## Drafting outreach
 - Under 90 words. Restoration owners read on a phone between jobs.
 - Open with THEIR specific pain signal from the lead record — a verbatim

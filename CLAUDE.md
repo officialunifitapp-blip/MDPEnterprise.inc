@@ -69,10 +69,16 @@ Specifically: no Proposal Agent, Onboarding Agent, or Analytics Agent before
 ## Routines
 **5:00 daily (Manager)** — In order:
 1. `lead-research` sources the day's new prospects.
-2. `notes` pushes everything that changed since the last run into Notion —
+2. `lead-research` fills the `Email` column for up to 15 blank leads, best
+   first. Never guess an address — a bounced invention damages the sending
+   domain for every other lead on it. Blank beats wrong.
+3. `notes` pushes everything that changed since the last run into Notion —
    every call logged, every stage move, every new lead as a row. Notion should
    never be more than a day behind `pipeline.md`.
-3. State the day's dial list.
+4. State the day's dial list.
+
+At 15/day the 167-lead backlog is enriched in under two weeks, without anyone
+sitting there doing it.
 
 **Daily (~15 min)** — Read pipeline.md. State the single highest-leverage
 action for today. Ask what the user avoided yesterday and why. Log it.

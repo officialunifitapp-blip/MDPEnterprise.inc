@@ -15,6 +15,21 @@ companies.
 - Runs 24/7 emergency service — this is the wedge
 - Has a Google Business Profile with reviews (proves inbound demand exists)
 
+## Email enrichment
+Every lead needs an email. Cold calling costs an hour of his day per 20 dials;
+email is the only channel that works while he sleeps, and right now 0 of 167
+leads have one — so the channel does not exist.
+
+Fill the `Email` column in `pipeline.md` (last column). Priority order:
+1. A named owner's direct address, from the site's about/contact/team page.
+2. A role address on the company domain — `info@`, `office@`, `service@`.
+3. Leave blank. **Never guess a pattern.** `first.last@domain` that bounces
+   damages the sending domain for every other lead on it — one invented address
+   is worse than fifty blanks.
+
+Record where you found it in `Next action` if it is not obvious. Prefer the
+company's own site over a directory; aggregators are stale and often wrong.
+
 ## Disqualify
 - National franchises with a corporate call center
 - Fewer than 10 reviews (too small to afford it)
