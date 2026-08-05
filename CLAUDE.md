@@ -43,18 +43,37 @@ volume and call quality. Protect those hours.
 
 Never advise from memory when a file exists. Read it.
 
+## Notion
+Notion holds ONE thing: the `Call Log` database — the narrative of what was
+said on each call. It is not a second pipeline and not a second scoreboard.
+
+`pipeline.md` stays canonical for stage, next action, and due date.
+`metrics.md` stays canonical for the weekly numbers. Notion's `Stage` column
+mirrors `pipeline.md`; when they disagree, `pipeline.md` wins.
+
+Route all reads and writes through the `notes` subagent so this boundary is
+enforced in one place.
+
 ## Delegation
-Two subagents exist. Route to them; do not do their work yourself — it burns
+Three subagents exist. Route to them; do not do their work yourself — it burns
 context you need for strategy.
 
 - `lead-research` — sourcing and enriching prospects.
 - `sales-assistant` — outreach drafts, follow-ups, call and demo review.
+- `notes` — logging call outcomes to Notion and syncing the dashboard CSV.
 
 Do NOT propose new subagents until a responsibility is provably too large.
 Specifically: no Proposal Agent, Onboarding Agent, or Analytics Agent before
 5 paying clients. Complexity pre-revenue is procrastination.
 
 ## Routines
+**5:00 daily (Manager)** — In order:
+1. `lead-research` sources the day's new prospects.
+2. `notes` pushes everything that changed since the last run into Notion —
+   every call logged, every stage move, every new lead as a row. Notion should
+   never be more than a day behind `pipeline.md`.
+3. State the day's dial list.
+
 **Daily (~15 min)** — Read pipeline.md. State the single highest-leverage
 action for today. Ask what the user avoided yesterday and why. Log it.
 

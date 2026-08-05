@@ -113,7 +113,7 @@
 <div class="chat" id="chat">
   <div class="ch"><div class="av"></div><div><div class="t">CEO</div><div class="s">ask me anything about the business</div></div><button class="cx" id="chatX">×</button></div>
   <div id="log"></div><div class="chips" id="chips"></div>
-  <div class="cin"><input id="cinp" placeholder="Ask your CEO…" autocomplete="off"><button id="csend">Send</button></div>
+  <div class="cin"><input id="cinp" placeholder="Ask your CEO — or: log Rapid Dry — no answer" autocomplete="off"><button id="csend">Send</button></div>
 </div>
 
 <div class="modal" id="modal"><div class="m-head"><div class="m-orb" id="morb"></div><button class="m-x" id="mx">×</button><div><div class="m-ey" id="mey"></div><h2 id="mname"></h2><p id="msub"></p></div></div><div class="m-body" id="mbody"></div></div>
@@ -127,17 +127,43 @@ const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a
 const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
 function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
 
+/* ===== NOTION BRIDGE =====
+   The browser can't call Notion directly — the API rejects browser origins and
+   a token in this file would ship with the site. notes-bridge.js holds the
+   token on your machine; we post plain JSON to it. If it isn't running, notes
+   queue in localStorage and go up on the next flush. Capture never blocks. */
+const BRIDGE="http://localhost:8787";
+let OUTBOX=JSON.parse(localStorage.getItem("mdp-outbox")||"[]");
+const saveOutbox=()=>localStorage.setItem("mdp-outbox",JSON.stringify(OUTBOX));
+function appendNote(co,txt){const line=new Date().toISOString().slice(0,10)+" — "+txt;NOTES[co]=NOTES[co]?NOTES[co]+"\n"+line:line;localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
+function queueNote(co,txt){const l=DATA.leadList.find(x=>x.co===co)||{};OUTBOX.push({company:co,note:txt,contact:l.c||"",phone:l.p||""});saveOutbox();}
+async function flushOutbox(){let sent=0;
+  while(OUTBOX.length){
+    try{const r=await fetch(BRIDGE+"/note",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(OUTBOX[0])});
+      if(!r.ok)break;const j=await r.json();
+      if(j.results&&j.results[0]&&j.results[0].action==="error")break;
+      OUTBOX.shift();sent++;}
+    catch(_){break;}}
+  saveOutbox();return{sent,left:OUTBOX.length};}
+const normCo=s=>String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\b(llc|inc|co|corp|company|services?|restorations?|cleaning)\b/g,"").replace(/\s+/g," ").trim();
+function matchCo(q){const n=normCo(q);if(!n)return null;const L=DATA.leadList;
+  return L.find(l=>normCo(l.co)===n)||L.find(l=>normCo(l.co).startsWith(n))||L.find(l=>normCo(l.co).includes(n))||null;}
+/* Niche comes from the name — pipeline.md has no column for it. Restoration is
+   the current book; Med Spa is here because the next list is already sourced. */
+const NICHE=l=>{const s=((l.co||"")+" "+(l.c||"")).toLowerCase();
+  if(/med ?spa|aesthetic|botox|derm|skin|laser|wellness|salon|beauty/.test(s))return "Med Spa";
+  if(/dental|dentist|orthodont|chiro|vet |veterinar|law |attorney|legal|hvac|plumb|roofing co/.test(s))return "Other";
+  return "Restoration";};  // the current book is restoration — default there, don't strand names like "Kwik Dry"
+const LEADSORT={key:"co",dir:1};
+
 // ===== AI AGENCY BRAIN (focused) =====
 function fib(n){const a=[],GA=Math.PI*(3-Math.sqrt(5));for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
 const CEO={id:"ceo",name:"CEO",col:"#8fd6f2",r:.058,pts:fib(420),rot:0,hov:0};
 const DEPTS=[
- {id:"receptionist",name:"AI Receptionist",one:"24/7 call answering",col:"#5fd9c2",live:1},
- {id:"website",name:"Website AI",one:"chat + booking",col:"#7fc9e6",live:1},
- {id:"b2b",name:"B2B Outbound",one:"how you sell",col:"#8fd6b0",live:1},
  {id:"lead",name:"Leads",one:"companies to call",col:"#74c9a8",live:1,chip:"124"},
  {id:"sales",name:"Scripts",one:"what to say",col:"#9fd0c0",live:1},
  {id:"notes",name:"Notes",one:"log each call",col:"#a9c6d0",live:1},
- {id:"engine",name:"Auto-Leads",one:"150 every 5am",col:"#8fb6e0",live:1},
+ {id:"engine",name:"Manager",one:"runs the 5am list",col:"#8fb6e0",live:1},
 ];
 const byId={ceo:CEO};
 DEPTS.forEach((d,i)=>{d.ang=-Math.PI/2+(i/DEPTS.length)*Math.PI*2;d.kind="dept";d.hov=0;d.r=.031;byId[d.id]=d;});
@@ -211,7 +237,27 @@ const WORK={
    <div class="fr"><div><div class="fl">Cold email</div><div class="fm">needs a sending domain + tool (Instantly / Smartlead)</div></div><span class="badge warn">Setup</span></div>
    <div class="fr"><div><div class="fl">LinkedIn / DM</div><div class="fm">owner outreach, short video demos</div></div><span class="badge warn">Idea</span></div>
    <div class="fr"><div><div class="fl">Referrals</div><div class="fm">first 3 clients, case studies, warm intros</div></div><span class="badge warn">After 1st close</span></div></div>`,
- lead:()=>`<div class="sec"><div class="s-lbl">Companies to call <span>${DATA.leadList.length} · tap  to note</span></div>${DATA.leadList.map((l,i)=>`<div class="lead"><div class="lr"><span class="lx">${i+1}</span><div class="lb"><div class="lco">${l.co}</div><div class="lm">${l.c||''}</div></div>${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${l.p}</a>`:`<span class="noph">no #</span>`}<button class="ntbtn ${NOTES[l.co]?'has':''}" data-co="${esc(l.co)}"></button></div><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue, interested…)">${esc(NOTES[l.co]||"")}</textarea></div>`).join("")}</div>`,
+ lead:()=>{const S=LEADSORT,all=DATA.leadList.slice();
+  const cnt=st=>all.filter(l=>(l.st||"new")===st).length;
+  const chips=STAGES.map(s=>`<span style="display:inline-block;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.06);font-size:11px;letter-spacing:.04em">${s[0].toUpperCase()} <b style="color:#8fd6f2">${cnt(s[0])}</b></span>`).join("");
+  const groups={};all.forEach(l=>{const n=NICHE(l);(groups[n]=groups[n]||[]).push(l);});
+  const order=["Restoration","Med Spa","Other"].filter(n=>groups[n]);
+  const si=l=>STAGES.findIndex(s=>s[0]===(l.st||"new"));
+  const cmp=(a,b)=>{let x,y;if(S.key==="st"){x=si(a);y=si(b);}else{x=(a[S.key]||"").toLowerCase();y=(b[S.key]||"").toLowerCase();}
+    return (x>y?1:x<y?-1:0)*S.dir;};
+  const th=(k,lbl)=>`<th data-sort="${k}" style="text-align:left;padding:4px 6px;font-weight:600;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;cursor:pointer;user-select:none;white-space:nowrap">${lbl}${S.key===k?(S.dir>0?" ▲":" ▼"):""}</th>`;
+  return `<div class="sec"><div class="s-lbl">Pipeline <span>${all.length} companies</span></div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">${chips}</div></div>`+
+  order.map(n=>{const rows=groups[n].slice().sort(cmp);
+    return `<div class="sec"><div class="s-lbl">${n} <span>${rows.length} · tap a column to sort</span></div>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12.5px">
+      <thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}${th("last","Last touch")}<th></th></tr></thead>
+      <tbody>${rows.map(l=>`<tr style="border-top:1px solid rgba(255,255,255,.07)">
+        <td style="padding:6px">${esc(l.co)}</td>
+        <td style="padding:6px;white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${l.p}</a>`:`<span class="noph">—</span>`}</td>
+        <td style="padding:6px;white-space:nowrap;opacity:.8">${esc(l.st||"new")}</td>
+        <td style="padding:6px;white-space:nowrap;opacity:.5">${esc((l.last||"—").slice(0,10))}</td>
+        <td style="padding:6px;text-align:right"><button class="ntbtn ${NOTES[l.co]?"has":""}" data-co="${esc(l.co)}"></button></td></tr>
+        <tr><td colspan="5" style="padding:0"><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue…)">${esc(NOTES[l.co]||"")}</textarea></td></tr>`).join("")}</tbody></table></div></div>`;}).join("");},
  sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div><div class="sec"><div class="s-lbl">What to open with</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]} · ${o[2]}</div><div class="sc">${tel(o[3])}</div></div><a class="tel" href="tel:+1${o[3]}">Call</a></div>${o[4]?`<div class="flag"> ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
  notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap  on a company, and jot what happened. Saves on your device and rides along in the CSV.</div>'}</div><div class="sec"><button class="btn" id="notesCsv"> Export leads + notes CSV</button></div>`;},
  engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b> it finds ~150 new companies, checks the numbers, writes what to say (with your demo line), and adds them to your list — while you sleep.</div></div><div class="sec"><div class="s-lbl">Latest</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
@@ -230,11 +276,14 @@ const WORK={
   <div class="sec"><div class="s-lbl">Pipeline</div><div class="bars">${STAGES.map(([k,label])=>{const v=DATA.pipeline[k]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x[0]]||0));return`<div class="bar"><span class="bn">${label}</span><span class="bt"><i style="width:${v/mx*100}%"></i></span><span class="bv">${v}</span></div>`;}).join("")}</div></div>
   <div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--agency)">Every lead</div></div>`+WORK.lead()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--hot)">Every script</div></div>`+WORK.sales()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">Your notes</div></div>`+WORK.notes(),
 };
-const SUB={receptionist:"Your flagship offer — 24/7 AI call answering.",website:"Second offer — AI chat + booking on their site.",b2b:"The channels you use to sell the automation.",lead:"Companies to call, hottest first. Tap  to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",engine:"Finds 150 new leads every morning while you sleep.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances.",manager:"Your whole business in one scroll."};
+const SUB={receptionist:"Your flagship offer — 24/7 AI call answering.",website:"Second offer — AI chat + booking on their site.",b2b:"The channels you use to sell the automation.",lead:"Companies to call, hottest first. Tap  to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",engine:"Runs the 5am list: sources ~150 new leads, then has Notes push everything that happened since the last update into Notion.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances.",manager:"Your whole business in one scroll."};
 const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
 function openModal(id){const n=byId[id];const live=(n.live!==0);mey.textContent=live?"Working now":(id.startsWith("ec_")||id==="life"||id==="money"?"Planned":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";morb.innerHTML='<span style="display:block;width:16px;height:16px;border-radius:50%;background:'+n.col+';box-shadow:0 0 16px '+n.col+'"></span>';morb.style.background=`rgba(${hx(n.col).join(",")},.12)`;mbody.innerHTML=(WORK[id]||(()=>""))();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
 function closeAll(){scrim.classList.remove("open");modal.classList.remove("open");document.getElementById("chat").classList.remove("open");}
-function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));mbody.querySelectorAll("textarea[data-co]").forEach(ta=>ta.addEventListener("input",()=>{saveNote(ta.dataset.co,ta.value);const b=mbody.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(b)b.classList.toggle("has",!!ta.value.trim());}));const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);}
+function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));mbody.querySelectorAll("textarea[data-co]").forEach(ta=>ta.addEventListener("input",()=>{saveNote(ta.dataset.co,ta.value);const b=mbody.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(b)b.classList.toggle("has",!!ta.value.trim());}));const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);
+  mbody.querySelectorAll("th[data-sort]").forEach(h=>h.addEventListener("click",()=>{const k=h.dataset.sort;
+    if(LEADSORT.key===k)LEADSORT.dir*=-1;else{LEADSORT.key=k;LEADSORT.dir=1;}
+    mbody.innerHTML=WORK.lead();wireModal();}));}
 document.getElementById("mx").addEventListener("click",closeAll);scrim.addEventListener("click",closeAll);document.getElementById("chatX").addEventListener("click",closeAll);
 addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
 document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
@@ -260,7 +309,40 @@ function reply(q){const s=q.toLowerCase();const ph=DATA.leadList.filter(l=>l.p).
   if(/tiktok|video|content/.test(s))return "<b>CEO:</b> Content world is mapped — Content Mgr → Story Writer → Video Creator → Analytics. Start with those 4.";
   if(/ecom|store|shopify|product/.test(s))return "<b>CEO:</b> Ecom is mapped — Store Mgr → Product → Storefront → Creative → Support. It's the next business after the agency's paying.";
   return "<b>CEO:</b> I can talk money, leads, scripts, how we sell, notes, CSV, or the 5am engine. Hit a button or ask again.";}
-function send(q){if(!q.trim())return;add("me",q);cinp.value="";setTimeout(()=>add("ai",reply(q)),340);}
+function send(q){if(!q.trim())return;add("me",q);cinp.value="";
+  const m=q.match(/^\s*(?:log|note)\s+(.+)$/i);
+  if(m){setTimeout(()=>logCall(m[1]),200);return;}
+  askCEO(q);}
+/* Everything that isn't a log goes to Claude Code running in ~/agency — it has
+   CLAUDE.md, the subagents and Notion, so it routes the question itself. If the
+   bridge is down we fall back to the old canned replies rather than nothing. */
+let CEO_SESSION=localStorage.getItem("mdp-ceo-session")||null;
+const fmt=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`(.+?)`/g,"<code>$1</code>").replace(/\n/g,"<br>");
+async function askCEO(q){
+  const t=document.createElement("div");t.className="msg ai";t.innerHTML="<b>CEO:</b> <i>thinking…</i>";
+  log.appendChild(t);log.scrollTop=log.scrollHeight;
+  try{
+    const r=await fetch(BRIDGE+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message:q,session:CEO_SESSION})});
+    const j=await r.json();
+    if(j.error)throw new Error(j.error);
+    if(j.session){CEO_SESSION=j.session;localStorage.setItem("mdp-ceo-session",CEO_SESSION);}
+    t.innerHTML="<b>CEO:</b> "+fmt(j.text||"(no reply)");
+  }catch(_){t.innerHTML=reply(q)+"<br><i style='opacity:.55;font-size:11px'>bridge offline — canned reply</i>";}
+  log.scrollTop=log.scrollHeight;}
+async function logCall(rest){
+  const parts=rest.split(/\s+[—–-]{1,2}\s+|\s*:\s+/);
+  const who=parts.shift().trim(),what=parts.join(" — ").trim();
+  const lead=matchCo(who);
+  if(!lead)return add("ai",`<b>Notes:</b> Nothing in your leads matches “${esc(who)}”. Use the company name as it reads in Leads.`);
+  if(!what)return add("ai",`<b>Notes:</b> Matched <b>${esc(lead.co)}</b> — what happened? Try <i>log ${esc(lead.co)} — gatekeeper, callback Tue</i>`);
+  appendNote(lead.co,what);queueNote(lead.co,what);
+  add("ai",`<b>Notes:</b> Logged <b>${esc(lead.co)}</b> — “${esc(what)}”. Saved on this device.`);
+  const r=await flushOutbox();
+  if(r.sent)add("ai",`<b>Notes:</b> Sent to Notion${r.left?` · ${r.left} still queued`:""}.`);
+  else add("ai",`<b>Notes:</b> Bridge offline — ${r.left} note${r.left>1?"s":""} queued. Start it with <code>node notes-bridge.js</code> and they'll go up automatically.`);
+}
+flushOutbox();
 document.getElementById("csend").addEventListener("click",()=>send(cinp.value));cinp.addEventListener("keydown",e=>{if(e.key==="Enter")send(cinp.value);});
 ["What do we sell?","What's next?","How many leads?","What do I say?"].forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>send(c);document.getElementById("chips").appendChild(b);});
 
@@ -272,7 +354,7 @@ function renderKpis(){const set=(id,html,key)=>{const el=document.getElementById
   if(byId.lead.lel){const o=byId.lead.lel.querySelector(".one");if(o)o.textContent=DATA.kpis.leads+" companies to call";}}
 async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
   const counts={};STAGES.forEach(s=>counts[s[0]]=0);const list=[];let won=false;
-  txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("| "))return;const c=line.split("|").map(x=>x.trim());if(c.length<4||c[1]===""||c[1]==="Company")return;const st=c[3].toLowerCase();if(!STAGES.some(s=>s[0]===st))return;counts[st]++;if(st==="new"){const m=(c[2]||"").match(/\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/);list.push({co:c[1],c:c[2],p:m?m[0]:""});}});
+  txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("| "))return;const c=line.split("|").map(x=>x.trim());if(c.length<4||c[1]===""||c[1]==="Company")return;const st=c[3].toLowerCase();if(!STAGES.some(s=>s[0]===st))return;counts[st]++;const m=(c[2]||"").match(/\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/);list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:c[4]||"",next:c[5]||""});});
   if(list.length){DATA.pipeline=counts;DATA.kpis.leads=Object.values(counts).reduce((a,b)=>a+b,0);DATA.leadList=list;}
   const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const lr=rows[rows.length-1];if(lr){const c=lr.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
   document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' leads</b> in your files';renderKpis();

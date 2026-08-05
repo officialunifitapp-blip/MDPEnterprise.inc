@@ -4,7 +4,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 
 | Company | Contact | Stage | Last touch | Next action | Due |
 |---|---|---|---|---|---|
-| Rapid Dry STL | Grant (Ops Mgr) · (314) 291-8888 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 |
+| Rapid Dry STL | Grant (Ops Mgr) · (314) 291-8888 | new | 2026-08-02 dial 1 — no answer | Redial Mon AM 7:30–8:30 | 2026-08-03 |
 | Premier Restoration | Justin (Owner) · (316) 391-4400 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 |
 | Vortex Restoration | Matt & Natalie Inbody · (316) 541-4362 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 |
 | Fast Restoration | Terry (Owner) · (636) 681-3200 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 |

@@ -3,4 +3,4 @@
 
 | Week of | Outreach sent | Replies | Meetings booked | Calls held | Closes | MRR | Binding constraint |
 |---|---|---|---|---|---|---|---|
-| 2026-07-27 | 0 | 0 | 0 | 0 | 0 | $0 | Zero dials — outreach not started. 25 leads + scripts staged; first dials due 2026-08-01. |
+| 2026-07-27 | 1 | 0 | 0 | 0 | 0 | $0 | Dial volume. 130 leads staged, 1 dial made. |
