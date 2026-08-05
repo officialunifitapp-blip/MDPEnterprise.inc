@@ -1,364 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MDP Enterprises — AI Brain</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MDP Enterprises — A.I. Operating System</title>
 <style>
-  :root{
-    --bg:#04060e; --card:#0c1220; --line:#1a2537; --line2:#243550; --ink:#fff; --dim:#b3c1d8; --faint:#6d7d99;
-    --ceo:#8fd6f2; --agency:#74c9a8; --content:#d3a284; --ecom:#d6c184; --personal:#aab4d6; --hot:#d38aa4;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;height:100%;overflow:hidden;background:#05070f;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
-  canvas{position:fixed;inset:0;width:100%;height:100%;cursor:default;}
-  #labels{position:fixed;inset:0;pointer-events:none;z-index:5;}
-  .lbl{position:absolute;transform:translate(-50%,0);text-align:center;white-space:nowrap;transition:opacity .25s;background:rgba(4,7,14,.66);backdrop-filter:blur(3px);border:1px solid rgba(130,160,200,.14);border-radius:10px;padding:5px 11px;}
-  .lbl .nm{font-weight:800;letter-spacing:.01em;text-shadow:0 0 10px currentColor;}
-  .lbl .one{font-size:12px;color:#cdd8ea;margin-top:2px;}
-  .lbl.soon .one{color:var(--faint);}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05080f; --panel:rgba(9,18,32,.72); --line:rgba(90,175,255,.16);
+  --line2:rgba(90,175,255,.30); --txt:#cfe3f4; --dim:#7d94aa; --acc:#4fc3f7;
+  --acc2:#7fe6ff; --ok:#4fd39a; --warn:#e0b45c; --bad:#e5697a;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(1100px 700px at 50% 42%,rgba(20,70,130,.30),transparent 62%),
+    radial-gradient(900px 600px at 8% 0%,rgba(15,50,95,.22),transparent 60%),
+    var(--bg);
+  color:var(--txt);font:13px/1.45 ui-sans-serif,-apple-system,"SF Pro Text",system-ui,sans-serif;
+  overflow:hidden;-webkit-font-smoothing:antialiased;
+}
+/* faint HUD grid */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(80,160,240,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(80,160,240,.045) 1px,transparent 1px);
+  background-size:46px 46px}
 
-  .top{position:fixed;left:0;top:0;right:0;padding:16px 20px;z-index:20;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;pointer-events:none;}
-  .brand .tag{font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--ceo);}
-  .brand h1{margin:4px 0 0;font-size:21px;font-weight:800;text-shadow:0 2px 12px #000;}
-  .rightbar{display:flex;flex-direction:column;align-items:flex-end;gap:9px;pointer-events:auto;}
-  .stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
-  .stat{background:rgba(11,18,30,.85);backdrop-filter:blur(8px);border:1.5px solid #1e2c42;border-radius:14px;padding:9px 13px;min-width:78px;}
-  .stat .v{font-family:ui-monospace,monospace;font-size:23px;font-weight:800;line-height:1;}
-  .stat .v small{font-size:11px;color:var(--faint);font-weight:500;}
-  .stat .l{font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:6px;font-weight:700;}
-  .stat.rev .v{color:var(--ceo);} .stat.leads .v{color:var(--agency);} .stat.called .v{color:var(--ecom);} .stat.clients .v{color:var(--hot);}
-  @keyframes fl{0%{transform:scale(1)}40%{transform:scale(1.22);filter:brightness(1.6)}100%{transform:scale(1)}}
-  .stat .v.flash{animation:fl .6s ease;}
-  .btns{display:flex;gap:8px;}
-  .pill{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;border-radius:10px;padding:8px 12px;}
-  .pill.mgr{color:var(--ceo);background:rgba(90,216,255,.13);border:1.5px solid rgba(90,216,255,.5);}
-  .pill.csv{color:var(--agency);background:rgba(61,255,176,.1);border:1.5px solid rgba(61,255,176,.4);}
-  .pill.exp2{color:var(--dim);background:rgba(120,140,170,.1);border:1.5px solid var(--line2);}
-  .pill:hover{filter:brightness(1.2);}
-  .livebar{position:fixed;left:20px;bottom:16px;z-index:20;pointer-events:none;display:flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);background:rgba(6,10,18,.66);backdrop-filter:blur(8px);border:1px solid #1a2536;border-radius:99px;padding:8px 15px;}
-  .livebar i{width:8px;height:8px;border-radius:99px;background:var(--agency);box-shadow:0 0 10px var(--agency);animation:bp 1.6s infinite;} @keyframes bp{50%{opacity:.3}}
-  .livebar b{color:var(--ink);}
-  .hint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;pointer-events:none;font-family:ui-monospace,monospace;font-size:11px;color:var(--faint);background:rgba(6,10,18,.6);border:1px solid #1a2536;border-radius:99px;padding:7px 15px;transition:opacity 1s;}
+.app{position:fixed;inset:0;display:grid;
+  grid-template-columns:266px 1fr 288px;grid-template-rows:52px 1fr;gap:12px;padding:12px}
 
-  /* CEO CHAT */
-  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:60;opacity:0;pointer-events:none;transition:opacity .3s;}
-  .scrim.open{opacity:1;pointer-events:auto;}
-  .chat{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);z-index:70;width:min(460px,calc(100% - 32px));max-height:78vh;display:flex;flex-direction:column;
-    background:rgba(9,14,23,.97);border:1.5px solid var(--line2);border-radius:24px;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.75);overflow:hidden;}
-  .chat.open{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;}
-  .chat .ch{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);}
-  .chat .ch .av{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:rgba(90,216,255,.14);box-shadow:0 0 24px -6px var(--ceo);}
-  .chat .ch .t{font-size:17px;font-weight:800;} .chat .ch .s{font-size:11.5px;color:var(--faint);margin-top:2px;font-family:ui-monospace,monospace;}
-  .chat .cx{margin-left:auto;width:34px;height:34px;border-radius:10px;background:#141d2b;border:1px solid var(--line2);color:var(--dim);font-size:20px;cursor:pointer;}
-  .chat .cx:hover{color:#fff;}
-  #log{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:11px;min-height:180px;}
-  .msg{max-width:86%;padding:11px 14px;border-radius:15px;font-size:14px;line-height:1.55;}
-  .msg.me{align-self:flex-end;background:var(--ceo);color:#04070d;font-weight:600;border-bottom-right-radius:5px;}
-  .msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:5px;} .msg.ai b{color:var(--ceo);}
-  .chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 12px;}
-  .chips button{background:var(--card);border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:7px 12px;font-size:12px;cursor:pointer;font:inherit;} .chips button:hover{border-color:var(--ceo);color:#fff;}
-  .cin{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);}
-  .cin input{flex:1;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;color:var(--ink);font:inherit;font-size:14px;outline:none;} .cin input:focus{border-color:var(--ceo);}
-  .cin button{background:var(--ceo);color:#04070d;border:none;border-radius:12px;padding:0 16px;font-weight:800;cursor:pointer;font-size:14px;}
+/* ---------- header ---------- */
+.top{grid-column:1/-1;display:flex;align-items:center;gap:14px;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 14px;
+  backdrop-filter:blur(8px)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:.16em;
+  font-size:11.5px;text-transform:uppercase;color:#dbeeff}
+.mark{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--acc);
+  display:grid;place-items:center;box-shadow:0 0 14px rgba(79,195,247,.45)}
+.mark i{width:7px;height:7px;border-radius:50%;background:var(--acc);display:block}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);
+  border-radius:20px;padding:3px 10px;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ok);
+  box-shadow:0 0 8px var(--ok);animation:bp 2.4s infinite}
+@keyframes bp{50%{opacity:.35}}
+.clock{margin-left:auto;font:11.5px/1 var(--mono);color:var(--dim);letter-spacing:.08em}
 
-  /* MODAL */
-  .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-48%) scale(.97);z-index:70;width:min(720px,calc(100% - 32px));max-height:86vh;overflow-y:auto;background:rgba(10,15,23,.98);border:1.5px solid var(--line2);border-radius:24px;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.2,1);box-shadow:0 40px 120px rgba(0,0,0,.75);}
-  .modal.open{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;}
-  .m-head{position:sticky;top:0;background:rgba(11,17,25,.96);backdrop-filter:blur(10px);padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;gap:15px;align-items:flex-start;}
-  .m-orb{width:50px;height:50px;flex:none;border-radius:15px;display:grid;place-items:center;font-size:25px;}
-  .m-ey{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;}
-  .m-head h2{margin:4px 0 0;font-size:26px;font-weight:800;} .m-head p{margin:7px 0 0;color:var(--dim);font-size:14.5px;line-height:1.5;}
-  .m-x{position:absolute;top:22px;right:24px;width:36px;height:36px;border-radius:11px;background:#141d2b;border:1px solid var(--line2);color:var(--dim);font-size:21px;cursor:pointer;} .m-x:hover{color:#fff;}
-  .m-body{padding:22px 28px 36px;}
-  .sec{margin-top:26px;} .sec:first-child{margin-top:4px;}
-  .s-lbl{font-size:14px;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;} .s-lbl span{color:var(--faint);font-weight:600;font-size:12px;}
-  .say{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 17px;margin-bottom:9px;font-size:15px;color:#eaf2fc;line-height:1.65;} .say b{color:#fff;font-weight:800;}
-  .lead{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px;margin-bottom:7px;}
-  .lead .lr{display:flex;align-items:center;gap:12px;} .lead .lx{width:24px;font-family:ui-monospace,monospace;font-size:12px;color:var(--faint);text-align:center;font-weight:700;}
-  .lead .lb{flex:1;min-width:0;} .lead .lco{font-size:15px;font-weight:700;} .lead .lm{font-size:12px;color:var(--dim);margin-top:2px;}
-  .lead a.tel{font-family:ui-monospace,monospace;font-size:13.5px;color:#04070d;background:var(--agency);border-radius:10px;padding:9px 12px;text-decoration:none;font-weight:800;white-space:nowrap;}
-  .lead .noph{font-family:ui-monospace,monospace;font-size:9.5px;text-transform:uppercase;color:var(--ecom);border:1.5px solid #4a3f22;border-radius:9px;padding:8px;font-weight:700;}
-  .lead .ntbtn{background:#14202f;border:1px solid var(--line2);color:var(--dim);border-radius:9px;width:38px;height:38px;font-size:15px;cursor:pointer;} .lead .ntbtn.has{border-color:var(--ecom);color:var(--ecom);}
-  .lead textarea{width:100%;margin-top:10px;background:#0a121d;border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px;resize:vertical;min-height:56px;outline:none;} .lead .hide{display:none;}
-  .push{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:8px;} .push .q{font-size:15px;font-weight:800;color:var(--hot);} .push .a{font-size:14.5px;color:#eaf2fc;margin-top:6px;line-height:1.6;}
-  .script{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:8px;} .script .sh{display:flex;justify-content:space-between;gap:8px;align-items:center;} .script .sw{font-size:14.5px;font-weight:800;} .script .sc{font-size:12px;color:var(--faint);font-family:ui-monospace,monospace;}
-  .script a.tel{color:var(--agency);text-decoration:none;font-family:ui-monospace,monospace;font-weight:700;font-size:13px;border-bottom:1px solid #2a5c48;} .script .op{font-size:14.5px;color:#f2f7fd;line-height:1.7;margin-top:10px;} .script .vm{font-size:13px;color:var(--dim);margin-top:9px;line-height:1.6;} .script .vm b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:800;margin-bottom:3px;} .script .flag{font-size:12px;color:var(--ecom);margin-top:8px;}
-  .bars{display:flex;flex-direction:column;gap:7px;} .bar{display:flex;align-items:center;gap:11px;font-size:14px;} .bar .bn{width:104px;color:var(--dim);} .bar .bt{flex:1;height:18px;border-radius:5px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden;} .bar .bt>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--ceo),rgba(90,216,255,.2));} .bar .bv{width:28px;text-align:right;font-family:ui-monospace,monospace;font-weight:800;}
-  .fr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);} .fr:last-child{border-bottom:none;} .fr .fl{font-size:15px;font-weight:600;} .fr .fm{font-size:12px;color:var(--faint);margin-top:2px;}
-  .badge{font-size:10px;font-weight:800;text-transform:uppercase;padding:5px 11px;border-radius:99px;} .badge.on{background:rgba(61,255,176,.16);color:var(--agency);} .badge.warn{background:rgba(255,216,77,.16);color:var(--ecom);} .badge.empty{background:rgba(109,125,153,.2);color:var(--dim);}
-  .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:800;font-size:14px;color:#04070d;background:var(--agency);border:none;border-radius:12px;padding:12px 18px;}
-  .note-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:8px;} .note-item .nc{font-size:14.5px;font-weight:700;} .note-item .nt{font-size:13.5px;color:#dbe6f4;margin-top:5px;line-height:1.55;white-space:pre-wrap;}
-  a.link{color:var(--ceo);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(90,216,255,.4);}
-  @media(max-width:640px){.rightbar{align-items:stretch;} .stats{justify-content:space-between;} .stat{flex:1;min-width:0;padding:8px 8px;} .stat .v{font-size:17px;} .m-body,.m-head{padding:20px;} .lbl .one{display:none;} .hint{display:none;}}
+/* ---------- rails ---------- */
+.rail{display:flex;flex-direction:column;gap:12px;overflow-y:auto;scrollbar-width:thin}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:rgba(90,175,255,.22);border-radius:3px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:11px 12px 12px;backdrop-filter:blur(8px)}
+.ct{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--acc);margin-bottom:9px;font-weight:600}
+.ct svg{width:13px;height:13px;stroke:var(--acc);fill:none;stroke-width:1.7}
+
+/* metrics */
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.mt{border:1px solid var(--line);border-radius:8px;padding:8px 9px;background:rgba(255,255,255,.015)}
+.ml{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.mv{font:600 20px/1.15 var(--mono);color:#eaf6ff;margin-top:3px;letter-spacing:-.01em}
+.mv small{font-size:11px;color:var(--dim);font-weight:400}
+.md{font-size:10px;margin-top:2px;color:var(--dim)}
+
+/* status rows */
+.sr{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid rgba(90,175,255,.09);font-size:12px}
+.sr:first-of-type{border-top:0}
+.sr .nm{flex:1;color:var(--txt)}
+.sr .vl{font:11px var(--mono);color:var(--dim)}
+.sd{width:7px;height:7px;border-radius:50%;flex:none}
+
+/* feed */
+.fi{display:flex;gap:9px;padding:8px 0;border-top:1px solid rgba(90,175,255,.09)}
+.fi:first-of-type{border-top:0}
+.fic{width:24px;height:24px;border-radius:7px;border:1px solid var(--line2);flex:none;
+  display:grid;place-items:center;font-size:11px;color:var(--acc);background:rgba(79,195,247,.07)}
+.fb{flex:1;min-width:0}
+.fn{font-size:12px;color:#e2f1ff}
+.fs{font-size:10.5px;color:var(--dim);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ft{font:10px var(--mono);color:#5f7a92;flex:none}
+
+/* thoughts */
+.th{display:flex;gap:8px;padding:6px 0;font-size:12px;line-height:1.4}
+.th b{color:var(--acc);font-weight:400}
+.addbtn,.qa{width:100%;display:flex;align-items:center;gap:8px;background:rgba(79,195,247,.07);
+  border:1px solid var(--line2);color:var(--acc2);border-radius:8px;padding:8px 10px;
+  font-size:11.5px;cursor:pointer;font-family:inherit;text-align:left;margin-top:4px;transition:.15s}
+.addbtn:hover,.qa:hover{background:rgba(79,195,247,.16);border-color:var(--acc)}
+
+/* ---------- stage ---------- */
+.stage{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  background:radial-gradient(600px 460px at 50% 48%,rgba(20,75,140,.20),rgba(5,10,20,.55))}
+#net{display:block;width:100%;height:100%}
+.hint{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:10.5px;
+  color:#5f7a92;letter-spacing:.05em;pointer-events:none;transition:opacity 1s}
+
+/* ---------- modal / chat ---------- */
+.scrim{position:fixed;inset:0;background:rgba(2,6,14,.72);backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:.22s;z-index:40}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:50;top:50%;left:50%;transform:translate(-50%,-46%) scale(.97);
+  width:min(760px,92vw);max-height:82vh;overflow-y:auto;background:rgba(8,16,29,.97);
+  border:1px solid var(--line2);border-radius:12px;opacity:0;pointer-events:none;transition:.22s;
+  box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.sheet.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.sh{display:flex;align-items:center;gap:11px;padding:14px 16px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:rgba(8,16,29,.98);z-index:2}
+.sh h2{font-size:15px;font-weight:600;color:#eaf6ff}
+.sh p{font-size:11.5px;color:var(--dim);margin-top:1px}
+.sx{margin-left:auto;background:none;border:0;color:var(--dim);font-size:22px;cursor:pointer;line-height:1}
+.sb{padding:14px 16px}
+.sec{margin-bottom:16px}
+.slb{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--acc);
+  margin-bottom:7px;display:flex;justify-content:space-between;align-items:baseline}
+.slb span{color:var(--dim);letter-spacing:.03em;text-transform:none;font-size:11px}
+.say{font-size:12.5px;line-height:1.55;color:#c3d8ea}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;padding:5px 6px;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--dim);cursor:pointer;user-select:none;white-space:nowrap;font-weight:600}
+td{padding:6px;border-top:1px solid rgba(90,175,255,.09);vertical-align:middle}
+.tel{color:var(--acc2);text-decoration:none;font-family:var(--mono);font-size:11.5px}
+.noph{color:#4d6478}
+.chip{display:inline-block;padding:3px 9px;border-radius:20px;background:rgba(79,195,247,.09);
+  border:1px solid var(--line);font-size:10.5px;letter-spacing:.05em;margin:0 5px 5px 0}
+.chip b{color:var(--acc2)}
+.ntbtn{width:24px;height:24px;border-radius:6px;border:1px solid var(--line2);
+  background:transparent;color:var(--dim);cursor:pointer;font-size:11px}
+.ntbtn.has{background:rgba(79,211,154,.16);border-color:var(--ok);color:var(--ok)}
+textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:7px;
+  color:var(--txt);padding:7px 8px;font:12px/1.45 inherit;resize:vertical;min-height:52px;margin:4px 0 6px}
+.hide{display:none}
+
+/* chat */
+.chat{position:fixed;z-index:50;right:14px;bottom:14px;width:min(400px,94vw);height:min(560px,80vh);
+  background:rgba(8,16,29,.97);border:1px solid var(--line2);border-radius:12px;display:flex;
+  flex-direction:column;opacity:0;pointer-events:none;transform:translateY(14px);transition:.22s;
+  box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.chat.on{opacity:1;pointer-events:auto;transform:none}
+#log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:88%;padding:8px 11px;border-radius:11px;font-size:12.5px;line-height:1.5}
+.msg.me{align-self:flex-end;background:rgba(79,195,247,.16);border:1px solid var(--line2)}
+.msg.ai{align-self:flex-start;background:rgba(255,255,255,.045);border:1px solid var(--line)}
+.msg code{font:11.5px var(--mono);background:rgba(0,0,0,.4);padding:1px 4px;border-radius:4px}
+.cin{display:flex;gap:7px;padding:10px;border-top:1px solid var(--line)}
+.cin input{flex:1;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt);padding:9px 11px;font:12.5px inherit;outline:none}
+.cin input:focus{border-color:var(--acc)}
+.cin button{background:var(--acc);border:0;color:#04141f;font-weight:600;border-radius:8px;
+  padding:0 15px;cursor:pointer;font-size:12px}
+
+@media(max-width:1180px){
+  .app{grid-template-columns:1fr;grid-template-rows:52px 46vh auto}
+  .rail{flex-direction:row;overflow-x:auto}
+  .card{min-width:250px;flex:none}
+}
 </style>
+</head>
+<body>
+<div class="app">
 
-<canvas id="c"></canvas>
-<div id="labels"></div>
+  <header class="top">
+    <div class="brand"><span class="mark"><i></i></span> MDP Enterprises — A.I. Operating System</div>
+    <span class="pill" id="sysPill"><span class="dot"></span><span id="sysTxt">Booting</span></span>
+    <div class="clock" id="clock"></div>
+  </header>
 
-<div class="top">
-  <div class="brand"><div class="tag">MDP Enterprises</div><h1>AI Agency</h1></div>
-  <div class="rightbar">
-    <div class="stats">
-      <div class="stat rev"><div class="v" id="k-mrr">$0<small>/10k</small></div><div class="l">Revenue</div></div>
-      <div class="stat leads"><div class="v" id="k-leads">124</div><div class="l">Leads</div></div>
-      <div class="stat called"><div class="v" id="k-dials">0<small>/10</small></div><div class="l">Called</div></div>
-      <div class="stat clients"><div class="v" id="k-clients">0</div><div class="l">Clients</div></div>
+  <!-- LEFT -->
+  <aside class="rail">
+    <div class="card">
+      <div class="ct"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg> Live Metrics</div>
+      <div class="mg" id="metrics"></div>
     </div>
-    <div class="btns"><button class="pill mgr" id="mgrBtn">Everything</button><button class="pill exp2" id="resetBtn">Reset view</button><button class="pill csv" id="exportBtn">Export CSV</button></div>
-  </div>
+    <div class="card">
+      <div class="ct"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> CEO Thoughts</div>
+      <div id="thoughts"></div>
+      <button class="addbtn" id="addThought">+ Add new thought</button>
+    </div>
+    <div class="card">
+      <div class="ct"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg> System Status</div>
+      <div id="status"></div>
+    </div>
+  </aside>
+
+  <!-- CENTER -->
+  <main class="stage">
+    <canvas id="net"></canvas>
+    <div class="hint" id="hint">tap the core to talk to your CEO · tap a hub to open it</div>
+  </main>
+
+  <!-- RIGHT -->
+  <aside class="rail">
+    <div class="card">
+      <div class="ct"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg> Activity Feed</div>
+      <div id="feed"></div>
+    </div>
+    <div class="card">
+      <div class="ct"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg> AI Agent Activity</div>
+      <div id="agents"></div>
+    </div>
+    <div class="card">
+      <div class="ct"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg> Quick Actions</div>
+      <button class="qa" data-act="log">▸ Log a call</button>
+      <button class="qa" data-act="leads">▸ Open call list</button>
+      <button class="qa" data-act="csv">▸ Export CSV for dialer</button>
+      <button class="qa" data-act="notion">▸ Open Notion Call Log</button>
+    </div>
+  </aside>
 </div>
-<div class="livebar"><i></i><span id="liveTxt">waking up…</span></div>
-<div class="hint" id="hint">Tap the CEO to ask anything · tap a node for detail · drag to move · scroll to zoom</div>
 
 <div class="scrim" id="scrim"></div>
-
-<div class="chat" id="chat">
-  <div class="ch"><div class="av"></div><div><div class="t">CEO</div><div class="s">ask me anything about the business</div></div><button class="cx" id="chatX">×</button></div>
-  <div id="log"></div><div class="chips" id="chips"></div>
-  <div class="cin"><input id="cinp" placeholder="Ask your CEO — or: log Rapid Dry — no answer" autocomplete="off"><button id="csend">Send</button></div>
+<div class="sheet" id="sheet">
+  <div class="sh"><div><h2 id="shName"></h2><p id="shSub"></p></div><button class="sx" id="shX">×</button></div>
+  <div class="sb" id="shBody"></div>
 </div>
 
-<div class="modal" id="modal"><div class="m-head"><div class="m-orb" id="morb"></div><button class="m-x" id="mx">×</button><div><div class="m-ey" id="mey"></div><h2 id="mname"></h2><p id="msub"></p></div></div><div class="m-body" id="mbody"></div></div>
+<div class="chat" id="chat">
+  <div class="sh"><div><h2>CEO</h2><p id="ceoSub">Claude Code, running in ~/agency</p></div><button class="sx" id="chX">×</button></div>
+  <div id="log"></div>
+  <div class="cin"><input id="cinp" placeholder='Ask, or: log Rapid Dry — no answer' autocomplete="off"><button id="csend">Send</button></div>
+</div>
 
 <script>
-const EMBED_LEADS=[{"co":"Rapid Dry STL","c":"Grant (Ops Mgr) · (314) 291-8888","p":"(314) 291-8888"},{"co":"Premier Restoration","c":"Justin (Owner) · (316) 391-4400","p":"(316) 391-4400"},{"co":"Vortex Restoration","c":"Matt & Natalie Inbody · (316) 541-4362","p":"(316) 541-4362"},{"co":"Fast Restoration","c":"Terry (Owner) · (636) 681-3200","p":"(636) 681-3200"},{"co":"Sage Restoration","c":"Stephanie & Alan Sage · (913) 905-0500","p":"(913) 905-0500"},{"co":"Power Dry","c":"Greg Petropoulos & Ed Bledsoe · (913) 586-1545","p":"(913) 586-1545"},{"co":"Pride Cleaning & Restoration","c":"Owner TBD · (314) 668-1223","p":"(314) 668-1223"},{"co":"Kelley Klean","c":"Owner TBD · (573) 214-0990","p":"(573) 214-0990"},{"co":"Five One Five Restoration","c":"Owner TBD · (515) 452-1876","p":"(515) 452-1876"},{"co":"Omaha Damage Repair","c":"Current owner TBD · (402) 704-4921","p":"(402) 704-4921"},{"co":"Cleaning Restoration Services","c":"Family-run · (918) 710-0609","p":"(918) 710-0609"},{"co":"Kwik Dry LLC","c":"Family-run · (417) 725-6978","p":"(417) 725-6978"},{"co":"St. Louis Cleaning & Restoration","c":"Family since '91 · (314) 439-1665","p":"(314) 439-1665"},{"co":"Smoke Services Restoration","c":"Metro East · (618) 234-9696","p":"(618) 234-9696"},{"co":"Arkansas Restoration","c":"(501) 753-3600","p":"(501) 753-3600"},{"co":"Burggraf Disaster","c":"(918) 584-3737","p":"(918) 584-3737"},{"co":"Best Option Restoration KC","c":"Kansas City · no # yet","p":""},{"co":"ABC Environmental","c":"Owner TBD · (573) 928-2668","p":"(573) 928-2668"},{"co":"Midwest Flood","c":"St. Louis, MO · no # yet","p":""},{"co":"Restoration Solutions","c":"Springfield, MO · no # yet","p":""},{"co":"Mr. Power Clean","c":"Springfield, MO · no # yet","p":""},{"co":"Water Damage 24","c":"Little Rock, AR · no # yet","p":""},{"co":"Patriot Water Damage","c":"Tulsa, OK · no # yet","p":""},{"co":"Elite Restoration","c":"W. Des Moines, IA · (515) 216-4293 (unverified, 3rd-party)","p":"(515) 216-4293"},{"co":"Mr. Restore","c":"Clint Junell · (877) 631-7576","p":"(877) 631-7576"},{"co":"Vital Restoration","c":"Timothy Brown (Owner) · (217) 679-0254","p":"(217) 679-0254"},{"co":"Menold Construction & Restoration","c":"Tom Menold / Steve Driscoll · (309) 263-8728","p":"(309) 263-8728"},{"co":"Tri County Cleaning Systems","c":"Owner TBD · (309) 266-5755","p":"(309) 266-5755"},{"co":"Kelley Construction Contractors","c":"Michael Kelley (President) · (309) 346-6604","p":"(309) 346-6604"},{"co":"911 Restoration of Central Illinois","c":"Alex & Aaron Peters · (309) 244-4178","p":"(309) 244-4178"},{"co":"Healthy Homes LLC","c":"Caleb Wilson (Owner) · (309) 418-9511","p":"(309) 418-9511"},{"co":"Newton's Cleaning & Restoration","c":"Michelle Newton (Owner) · (217) 442-1288","p":"(217) 442-1288"},{"co":"Freeman General Contracting","c":"Jacob & James Freeman · (217) 442-2281","p":"(217) 442-2281"},{"co":"Peerless Cleaning & Restoration","c":"Wike family · (217) 423-7704","p":"(217) 423-7704"},{"co":"J.J. Swartz Co","c":"Owner TBD · (217) 877-2611","p":"(217) 877-2611"},{"co":"CLEAN Restoration","c":"Jeff Butler (Owner) · (217) 440-1292","p":"(217) 440-1292"},{"co":"American Hometown Services","c":"Owner TBD · (217) 228-7563","p":"(217) 228-7563"},{"co":"911 Restoration of Southern Illinois","c":"John Fowler (CEO) · (618) 679-4021","p":"(618) 679-4021"},{"co":"Restoration Connection Inc","c":"John Fowler (Owner) · (618) 925-0085","p":"(618) 925-0085"},{"co":"Leading Edge Restoration","c":"Eric Speakman (Founder) · (618) 694-4568","p":"(618) 694-4568"},{"co":"American Patriot Restoration","c":"Curt (Owner) · (217) 342-3206","p":"(217) 342-3206"},{"co":"All Clean Restoration Services Inc","c":"Mike Nagy (President/Owner) · (618) 235-3202","p":"(618) 235-3202"},{"co":"Innovative Cleaning & Restoration LLC","c":"Nick (Owner) · (314) 300-9610","p":"(314) 300-9610"},{"co":"Atlas Restoration Specialists","c":"Brian Mullins (President) · (314) 822-0090","p":"(314) 822-0090"},{"co":"Eversafe Restoration LLC","c":"Owner TBD · (636) 219-9302","p":"(636) 219-9302"},{"co":"Crown Restoration","c":"Owner TBD · (636) 544-1330","p":"(636) 544-1330"},{"co":"Dalmation Cleaning and Restoration","c":"Owner TBD · (314) 423-0101","p":"(314) 423-0101"},{"co":"Fast Help (Suntide Companies)","c":"Owner TBD · (314) 558-5599","p":"(314) 558-5599"},{"co":"Franklin Fire Restoration","c":"Owner TBD · (573) 969-3774","p":"(573) 969-3774"},{"co":"Jefferson Water Restoration","c":"Owner TBD · (636) 263-9322","p":"(636) 263-9322"},{"co":"Mold Solutions (St. Louis)","c":"Owner TBD · (314) 993-6653","p":"(314) 993-6653"},{"co":"Water Mold Fire Restoration","c":"Eric Rajchel (Owner) · (314) 282-4140","p":"(314) 282-4140"},{"co":"Shadco Restoration & Reconstruction","c":"Shadi Khair (Founder) · (314) 600-3001","p":"(314) 600-3001"},{"co":"Century Restoration & Construction","c":"Owner TBD · (314) 487-5000","p":"(314) 487-5000"},{"co":"H2O Cleaning & Restoration","c":"Owner TBD · (618) 219-2038","p":"(618) 219-2038"},{"co":"Sansara 24/7 Restoration & Remodeling","c":"Owner TBD · (636) 812-3838","p":"(636) 812-3838"},{"co":"Independent Restoration Services (STL)","c":"Josh (Team Lead) · (314) 455-8996","p":"(314) 455-8996"},{"co":"RCC Restoration","c":"Owner TBD · (618) 406-5121","p":"(618) 406-5121"},{"co":"STL Mold Removal","c":"Owner TBD · (314) 936-4445","p":"(314) 936-4445"},{"co":"B&B Restoration","c":"Travis Derrell Burks (Owner) · (573) 443-3507","p":"(573) 443-3507"},{"co":"Missouri Restoration & Construction LLC","c":"Owner TBD · (573) 474-1788","p":"(573) 474-1788"},{"co":"Water Damage Restoration Eldon","c":"Owner TBD · (573) 226-0622","p":"(573) 226-0622"},{"co":"Lake Regional Restoration","c":"Mark VanRonzelen (Founder) · (573) 302-8739","p":"(573) 302-8739"},{"co":"U.S. Disaster Restoration","c":"Owner TBD · (573) 552-1972","p":"(573) 552-1972"},{"co":"A-Z Home Services and Restoration","c":"Kristin & Jeff Reed · (573) 317-0155","p":"(573) 317-0155"},{"co":"Ozarks Fire and Water Restoration","c":"Owner TBD · (417) 233-4833","p":"(417) 233-4833"},{"co":"Clean Green Restoration","c":"Miles & Tarah McNeill · (417) 300-5062","p":"(417) 300-5062"},{"co":"Tri Cat Restoration","c":"Owner TBD · (417) 200-2018","p":"(417) 200-2018"},{"co":"4-D Home Solutions","c":"Anthony Decker (Owner) · (417) 531-0635","p":"(417) 531-0635"},{"co":"Chief Restoration Services","c":"Christy & Matthew Brown · (417) 337-3770","p":"(417) 337-3770"},{"co":"Brilliant Cleaning and Restoration","c":"Justin (Owner) · (620) 210-0424","p":"(620) 210-0424"},{"co":"MRC Restoration of Southeast Missouri","c":"Mark Curfman (Founder) · (573) 200-7272","p":"(573) 200-7272"},{"co":"Ben Davis Restoration","c":"Shad Friend (Founder) · (417) 860-9767","p":"(417) 860-9767"},{"co":"Fine Restoration","c":"Jason Erps (Owner) · (816) 307-3972","p":"(816) 307-3972"},{"co":"Renew Restoration","c":"Owner TBD · (816) 701-6628","p":"(816) 701-6628"},{"co":"Dalton Brothers Restoration","c":"Mike Dalton (Owner) · (816) 616-7667","p":"(816) 616-7667"},{"co":"Certified Water & Mold Restoration","c":"Owner TBD · (816) 835-4959","p":"(816) 835-4959"},{"co":"Certified Restoration","c":"Owner TBD · (816) 589-6300","p":"(816) 589-6300"},{"co":"Phoenix Renovation & Restoration","c":"Brad Heise (CEO) · (913) 599-0055","p":"(913) 599-0055"},{"co":"First Call Restoration","c":"Owner TBD · (816) 804-0154","p":"(816) 804-0154"},{"co":"Restoration Services (RestorationServicesKC)","c":"Owner TBD · (816) 286-5835","p":"(816) 286-5835"},{"co":"Frontier Restoration","c":"Owner TBD · (913) 800-4980","p":"(913) 800-4980"},{"co":"Heartland Flood, Mold & Restoration","c":"Owner TBD · (913) 213-3686","p":"(913) 213-3686"},{"co":"Repairs Unlimited (RUI Restoration)","c":"Chris Santiago (CEO) · (913) 262-6937","p":"(913) 262-6937"},{"co":"Emergency Mitigation Services","c":"Owner TBD · (913) 773-6777","p":"(913) 773-6777"},{"co":"Restore & More","c":"Mike (Owner) · (913) 247-4379","p":"(913) 247-4379"},{"co":"Brown Restoration","c":"Owner TBD · (816) 994-9600","p":"(816) 994-9600"},{"co":"Mold Remediation Kansas City Solutions","c":"Owner TBD · (816) 300-9272","p":"(816) 300-9272"},{"co":"First Response Restoration","c":"David Shoemaker (Owner) · (913) 839-2051","p":"(913) 839-2051"},{"co":"HazPro LLC","c":"Owner TBD · (816) 218-5887","p":"(816) 218-5887"},{"co":"AAS Restoration & Roofing","c":"Owner TBD · (816) 861-1550","p":"(816) 861-1550"},{"co":"Dubuque Area Steamatic","c":"Jim Denman (Owner) · (563) 556-5821","p":"(563) 556-5821"},{"co":"Kramer Carpet Cleaning","c":"Rob & Russ Kramer · (563) 590-5722","p":"(563) 590-5722"},{"co":"B.J.'s Restoration","c":"Bloomington, IL · no # yet","p":""},{"co":"White Construction Co","c":"Danville, IL · conflicting #s","p":""},{"co":"Water Damage Pro of Edwardsville","c":"Edwardsville, IL · (618) 800-3633","p":"(618) 800-3633"},{"co":"Independent Restoration Services (Lake Ozark)","c":"Osage Beach/Lake Ozark, MO · (573) 964-6767 unverified","p":"(573) 964-6767"},{"co":"Simpson Restoration LLC","c":"Springfield/Nixa, MO · no # yet","p":""},{"co":"Bryant Restoration","c":"Farmington, MO · ambiguous #","p":""},{"co":"Greene Planet","c":"Springfield, MO · no # yet","p":""},{"co":"Beadles Property Maintenance","c":"Springfield, MO · no # yet","p":""},{"co":"McDowell Roofing & Restoration","c":"Joplin, MO · no # yet","p":""},{"co":"Advanced Restorations","c":"Joplin, MO · no # yet","p":""},{"co":"True North Exteriors","c":"Joplin, MO · no # yet","p":""},{"co":"Missouri Restoration Contractor","c":"Ste. Genevieve, MO · no # yet","p":""},{"co":"KennCo Construction","c":"Ozark/Nixa/Springfield, MO · no # yet","p":""},{"co":"Compass Restoration LLC","c":"Springfield, MO · no # yet","p":""},{"co":"R&J Services","c":"Grandview, MO · no # yet","p":""},{"co":"RC Restoration LLC","c":"Dubuque, IA · (563) 543-3121","p":"(563) 543-3121"},{"co":"Service Pro Restoration","c":"Des Moines, IA · (515) 517-1283 unverified","p":"(515) 517-1283"},{"co":"MacPro Restore Cleaning & Restoration","c":"West Des Moines, IA · (515) 257-6578 unverified","p":"(515) 257-6578"},{"co":"FirstCall Restoration","c":"Grimes, IA · (515) 986-9300 unverified","p":"(515) 986-9300"},{"co":"Service Pros (Service Restore Pro)","c":"Cedar Rapids, IA · (319) 299-2080 unverified","p":"(319) 299-2080"},{"co":"380 Companies","c":"Cedar Rapids, IA · (319) 777-7380 unverified","p":"(319) 777-7380"},{"co":"Home Pro Services","c":"Cedar Rapids/Iowa City, IA · (319) 382-0217 unverified","p":"(319) 382-0217"},{"co":"Werner Restoration Services Inc","c":"Davenport, IA · (563) 322-0535 unverified","p":"(563) 322-0535"},{"co":"Blumer Restoration","c":"Davenport, IA · (309) 235-2992 unverified","p":"(309) 235-2992"},{"co":"Blaze Restoration Inc","c":"Bettendorf, IA · (563) 324-4741 unverified","p":"(563) 324-4741"},{"co":"Brown's Floor Care & Restoration","c":"Swisher, IA · (319) 337-7721 unverified","p":"(319) 337-7721"},{"co":"Americlean of Iowa","c":"Iowa City, IA · (319) 354-4577 unverified","p":"(319) 354-4577"},{"co":"Hambly & Sons Cleaning & Restoration","c":"Waterloo, IA · (319) 266-1629 unverified","p":"(319) 266-1629"},{"co":"True North Restoration of Iowa (Cedar Valley)","c":"Waterloo/Cedar Falls, IA · (319) 220-3228 unverified","p":"(319) 220-3228"},{"co":"Siouxland Restoration Inc","c":"Sioux City, IA · (712) 481-4325 unverified","p":"(712) 481-4325"},{"co":"Allied Restoration Service","c":"Sioux City, IA · (712) 204-0868 unverified","p":"(712) 204-0868"}];
-const DATA={kpis:{mrr:"$0",leads:124,dials:"0/10",clients:0},pipeline:{new:124,contacted:0,replied:0,booked:0,"call held":0,proposal:0,won:0},leadList:EMBED_LEADS};
-const STAGES=[["new","Ready to call"],["contacted","Called"],["replied","Replied"],["booked","Booked"],["call held","Call done"],["proposal","Proposal sent"],["won","Won"]];
-const PUSH=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],["“We already have someone”","“Does a real person pick up at 2am, or does it go to voicemail? This never sleeps and books the job.”"],["“How much is it?”","“$500 a month, and I'm waiving setup for the first three shops — but hear it first, then price is easy.”"]];
-const OPENERS=[[1,"Grant","Rapid Dry STL","3142918888",null,"Hey Grant — not a pitch, quick. 288 five-star reviews means calls all day; the after-hours ones drop to voicemail. When a water job hits at 2am and nobody picks up, it's gone to whoever answered. I built a line that answers those and books them. Call it yourself — 90 seconds.","Grant, it's [YOU] at Rapid Dry — a line that answers after-hours emergencies. Call (314) 887-9824."],[2,"Justin","Premier Restoration","3163914400",null,"Hey Justin — your site says you personally oversee every job, so you're answering at 2am too. That call goes to whoever picks up next. I built a line that answers those. Call it, 90 seconds.","Justin, it's [YOU]. This answers your after-hours calls. Call (314) 887-9824."],[3,"Matt","Vortex Restoration","3165414362",null,"Hey Matt — you and Natalie built 400-plus reviews, but a husband-and-wife shop can't catch every 2am call. I built a line that answers those. Call it — 90 seconds.","Matt, it's [YOU] — catches the calls you can't get to. Call (314) 887-9824."],[4,"Terry","Fast Restoration","6366813200",null,"Hey Terry — you promise 24/7/365. Who picks up at 2am? If it's voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.","Terry, it's [YOU] — makes your 24/7 true. Call (314) 887-9824."],[5,"Alan","Sage Restoration","9139050500","Ask if their ‘24/7 dispatch’ is a real person first.","Hey Alan — your site says live dispatch 24/7. Real person at 2am, or a service? I built a line that answers after-hours calls, often cheaper. Call it — 90 seconds.","Alan, it's [YOU] — answers after-hours calls, often cheaper. Call (314) 887-9824."],[6,"Greg","Power Dry","9135861545",null,"Hey Greg — water mitigation only since '88, so every after-hours call to voicemail is a big job lost. You and Ed can't be on the phone at 2am. Call it — 90 seconds.","Greg, it's [YOU] — catches the big after-hours jobs. Call (314) 887-9824."]];
-const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
-function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
-
-/* ===== NOTION BRIDGE =====
-   The browser can't call Notion directly — the API rejects browser origins and
-   a token in this file would ship with the site. notes-bridge.js holds the
-   token on your machine; we post plain JSON to it. If it isn't running, notes
-   queue in localStorage and go up on the next flush. Capture never blocks. */
 const BRIDGE="http://localhost:8787";
+const STAGES=["new","contacted","replied","booked","call held","proposal","won","lost"];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dialn=p=>String(p||"").replace(/\D/g,"");
+const $=id=>document.getElementById(id);
+
+const DATA={leads:[],counts:{},metrics:{},status:null,feed:[]};
+const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
 let OUTBOX=JSON.parse(localStorage.getItem("mdp-outbox")||"[]");
 const saveOutbox=()=>localStorage.setItem("mdp-outbox",JSON.stringify(OUTBOX));
-function appendNote(co,txt){const line=new Date().toISOString().slice(0,10)+" — "+txt;NOTES[co]=NOTES[co]?NOTES[co]+"\n"+line:line;localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
-function queueNote(co,txt){const l=DATA.leadList.find(x=>x.co===co)||{};OUTBOX.push({company:co,note:txt,contact:l.c||"",phone:l.p||""});saveOutbox();}
+function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
+function appendNote(co,t){const l=new Date().toISOString().slice(0,10)+" — "+t;NOTES[co]=NOTES[co]?NOTES[co]+"\n"+l:l;localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
+
+/* ============ data ============ */
+async function hydrate(){
+  try{
+    const r=await fetch("pipeline.md",{cache:"no-store"});
+    if(r.ok){
+      const counts={};STAGES.forEach(s=>counts[s]=0);const list=[];let won=false;
+      (await r.text()).split("\n").forEach(line=>{
+        if(/^##\s*Won/i.test(line))won=true;
+        if(won||!line.startsWith("| "))return;
+        const c=line.split("|").map(x=>x.trim());
+        if(c.length<4||!c[1]||c[1]==="Company")return;
+        const st=(c[3]||"").toLowerCase();if(!STAGES.includes(st))return;
+        counts[st]++;
+        const m=(c[2]||"").match(/\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/);
+        list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:c[4]||"",next:c[5]||""});
+      });
+      DATA.counts=counts;DATA.leads=list;
+    }
+  }catch(e){}
+  try{
+    const m=await fetch("metrics.md",{cache:"no-store"});
+    if(m.ok){
+      const rows=(await m.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));
+      const c=(rows[rows.length-1]||"").split("|").map(x=>x.trim());
+      if(c.length>=9)DATA.metrics={week:c[1],out:c[2],rep:c[3],mtg:c[4],calls:c[5],closes:c[6],mrr:c[7],constraint:c[8]};
+    }
+  }catch(e){}
+  try{DATA.status=await (await fetch(BRIDGE+"/status")).json();}catch(e){DATA.status=null;}
+  try{DATA.feed=(await (await fetch(BRIDGE+"/activity")).json()).items||[];}catch(e){DATA.feed=[];}
+  paint();
+}
+
+/* ============ panels ============ */
+const n=v=>v==null||v===""?"—":v;
+function paint(){
+  const M=DATA.metrics,total=DATA.leads.length||0;
+  const dialed=total-(DATA.counts.new||0);
+  $("metrics").innerHTML=[
+    ["Leads in pipeline",total,`${DATA.counts.new||0} not yet called`],
+    ["Dials made",n(M.calls||M.out),"this week"],
+    ["MRR",n(M.mrr),"toward $10k"],
+    ["Meetings booked",n(M.mtg),"this week"],
+    ["Replies",n(M.rep),"this week"],
+    ["Worked",dialed,"past stage new"],
+  ].map(([l,v,d])=>`<div class="mt"><div class="ml">${l}</div><div class="mv">${esc(String(v))}</div><div class="md">${esc(d)}</div></div>`).join("");
+
+  const S=DATA.status;
+  const row=(nm,ok,vl)=>`<div class="sr"><span class="sd" style="background:${ok?"var(--ok)":"var(--bad)"};box-shadow:0 0 8px ${ok?"var(--ok)":"var(--bad)"}"></span><span class="nm">${nm}</span><span class="vl">${esc(vl)}</span></div>`;
+  let mgr="never run",mgrOk=false;
+  if(S&&S.manager){const d=new Date(S.manager.lastRun);const hrs=(Date.now()-d)/36e5;
+    mgr=hrs<24?"ran "+(hrs<1?Math.round(hrs*60)+"m":Math.round(hrs)+"h")+" ago":d.toISOString().slice(0,10);mgrOk=hrs<26;}
+  $("status").innerHTML=
+    row("Notes bridge",!!S,S?"online":"offline")+
+    row("Notion Call Log",!!(S&&S.notion),S&&S.notion?"connected":"not connected")+
+    row("Manager · 5am job",mgrOk,mgr)+
+    row("CEO model",!!S,S?String(S.model).replace(/-\d{8}$/,""):"—")+
+    row("Leads file",total>0,total?"pipeline.md":"unreadable");
+
+  $("feed").innerHTML=DATA.feed.length?DATA.feed.map(f=>`
+    <div class="fi"><div class="fic">▸</div><div class="fb">
+      <div class="fn">${esc(f.company)}</div>
+      <div class="fs">${esc(f.last||f.outcome||"")}</div>
+    </div><div class="ft">${esc((f.when||"").slice(5))}</div></div>`).join("")
+    :`<div class="say" style="color:var(--dim)">Nothing logged yet. Log a call and it lands here and in Notion.</div>`;
+
+  const ag=[["Notes","logs calls to Notion",!!(S&&S.notion)],
+            ["Manager","5am list + Notion sync",mgrOk],
+            ["Lead Research","sources prospects",true],
+            ["Sales Assistant","scripts + objections",true]];
+  $("agents").innerHTML=ag.map(([nm,d,on])=>`<div class="sr">
+    <span class="sd" style="background:${on?"var(--ok)":"var(--warn)"};box-shadow:0 0 8px ${on?"var(--ok)":"var(--warn)"}"></span>
+    <span class="nm">${nm}<div style="font-size:10.5px;color:var(--dim)">${d}</div></span>
+    <span class="vl">${on?"Ready":"Idle"}</span></div>`).join("");
+
+  const th=JSON.parse(localStorage.getItem("mdp-thoughts")||"null")||
+    [M.constraint||"Dial volume is the constraint.","Confirm the demo line answers: (314) 887-9824.","Waive setup for the first 3 — case studies close the next 10."];
+  $("thoughts").innerHTML=th.map(t=>`<div class="th"><b>▸</b><span>${esc(t)}</span></div>`).join("");
+  $("sysTxt").textContent=S?"System online":"Bridge offline";
+  $("sysPill").querySelector(".dot").style.background=S?"var(--ok)":"var(--warn)";
+}
+
+/* ============ graph ============ */
+const cv=$("net"),cx=cv.getContext("2d");
+const HUBS=[
+  {id:"lead",  name:"LEADS",   subs:["New","Contacted","Replied","Booked"]},
+  {id:"sales", name:"SCRIPTS", subs:["Openers","Objections","Voicemail"]},
+  {id:"notes", name:"NOTES",   subs:["Call Log","Notion","CSV"]},
+  {id:"mgr",   name:"MANAGER", subs:["5am job","Sourcing","Sync"]},
+];
+let W=0,H=0,DPR=1,t=0;
+function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(devicePixelRatio||1,2);
+  W=r.width;H=r.height;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);}
+addEventListener("resize",resize);
+const core=[];for(let i=0;i<300;i++){const y=1-(i/299)*2,rr=Math.sqrt(1-y*y),th=i*Math.PI*(3-Math.sqrt(5));
+  core.push([Math.cos(th)*rr,y,Math.sin(th)*rr]);}
+function hubPos(i){const a=-Math.PI/2+(i/HUBS.length)*Math.PI*2;const R=Math.min(W,H)*.315;
+  return[W/2+Math.cos(a)*R,H/2+Math.sin(a)*R,a];}
+function frame(){
+  t+=.006;cx.clearRect(0,0,W,H);
+  const cxp=W/2,cyp=H/2,CR=Math.min(W,H)*.115;
+  // rings
+  for(let i=1;i<=3;i++){cx.beginPath();cx.arc(cxp,cyp,CR*(1+i*.42),0,7);
+    cx.strokeStyle=`rgba(79,195,247,${.13-i*.03})`;cx.lineWidth=1;cx.stroke();}
+  // links + hubs
+  HUBS.forEach((h,i)=>{
+    const[hx,hy,a]=hubPos(i);
+    cx.beginPath();cx.moveTo(cxp,cyp);cx.lineTo(hx,hy);
+    cx.strokeStyle="rgba(79,195,247,.20)";cx.lineWidth=1;cx.stroke();
+    // travelling pulse
+    const p=((t*.6+i*.25)%1);
+    cx.beginPath();cx.arc(cxp+(hx-cxp)*p,cyp+(hy-cyp)*p,2.1,0,7);
+    cx.fillStyle="rgba(150,225,255,.85)";cx.fill();
+    // sub nodes
+    h.subs.forEach((s,j)=>{
+      const sa=a+(j-(h.subs.length-1)/2)*.42, SR=Math.min(W,H)*.135;
+      const sx=hx+Math.cos(sa)*SR, sy=hy+Math.sin(sa)*SR;
+      cx.beginPath();cx.moveTo(hx,hy);cx.lineTo(sx,sy);
+      cx.strokeStyle="rgba(79,195,247,.13)";cx.stroke();
+      cx.beginPath();cx.arc(sx,sy,3.4,0,7);cx.fillStyle="rgba(10,25,45,.95)";cx.fill();
+      cx.strokeStyle="rgba(120,215,255,.55)";cx.lineWidth=1.2;cx.stroke();
+      cx.fillStyle="rgba(150,185,210,.72)";cx.font="9.5px ui-sans-serif";
+      cx.textAlign=Math.cos(sa)<0?"right":"left";
+      cx.fillText(s,sx+(Math.cos(sa)<0?-8:8),sy+3);
+    });
+    // hub body
+    const hr=Math.min(W,H)*.052;
+    const g=cx.createRadialGradient(hx,hy,1,hx,hy,hr*1.7);
+    g.addColorStop(0,"rgba(60,150,225,.42)");g.addColorStop(1,"rgba(20,60,110,0)");
+    cx.beginPath();cx.arc(hx,hy,hr*1.7,0,7);cx.fillStyle=g;cx.fill();
+    cx.beginPath();cx.arc(hx,hy,hr,0,7);cx.fillStyle="rgba(8,20,38,.92)";cx.fill();
+    cx.strokeStyle="rgba(120,215,255,.75)";cx.lineWidth=1.5;cx.stroke();
+    cx.beginPath();cx.arc(hx,hy,hr*1.22,0,7);cx.strokeStyle="rgba(79,195,247,.28)";cx.lineWidth=1;cx.stroke();
+    h._x=hx;h._y=hy;h._r=hr*1.25;
+    cx.fillStyle="#dcf1ff";cx.font="600 10.5px ui-sans-serif";cx.textAlign="center";
+    cx.fillText(h.name,hx,hy+hr+15);
+    if(h.id==="lead"){cx.fillStyle="rgba(127,230,255,.9)";cx.font="600 13px "+getComputedStyle(document.body).getPropertyValue("--mono");
+      cx.fillText(String(DATA.leads.length||""),hx,hy+4);}
+  });
+  // core
+  const gg=cx.createRadialGradient(cxp,cyp,2,cxp,cyp,CR*2.2);
+  gg.addColorStop(0,"rgba(70,175,255,.5)");gg.addColorStop(1,"rgba(20,70,130,0)");
+  cx.beginPath();cx.arc(cxp,cyp,CR*2.2,0,7);cx.fillStyle=gg;cx.fill();
+  core.forEach(([x,y,z])=>{
+    const ca=Math.cos(t),sa=Math.sin(t);
+    const X=x*ca-z*sa,Z=x*sa+z*ca,d=(Z+1.6)/2.6;
+    cx.beginPath();cx.arc(cxp+X*CR,cyp+y*CR,.9*d+.3,0,7);
+    cx.fillStyle=`rgba(160,230,255,${.10+d*.5})`;cx.fill();
+  });
+  cx.beginPath();cx.arc(cxp,cyp,CR,0,7);cx.strokeStyle="rgba(140,225,255,.6)";cx.lineWidth=1.6;cx.stroke();
+  cx.fillStyle="#eaf7ff";cx.font="600 19px ui-sans-serif";cx.textAlign="center";
+  cx.fillText("CEO",cxp,cyp+CR+26);
+  requestAnimationFrame(frame);
+}
+cv.addEventListener("click",e=>{
+  const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  const CR=Math.min(W,H)*.115;
+  if(Math.hypot(x-W/2,y-H/2)<CR*1.3)return openChat();
+  for(const h of HUBS)if(Math.hypot(x-h._x,y-h._y)<h._r)return openSheet(h.id);
+});
+
+/* ============ sheets ============ */
+const SHEET={
+  lead:["Leads","Every company, by stage. Tap a column to sort.",()=>leadTable()],
+  sales:["Scripts","What to say, and what to say back.",()=>scriptsPanel()],
+  notes:["Notes","Your call log — local capture, Notion is the record.",()=>notesPanel()],
+  mgr:["Manager","Runs at 5:00 daily via launchd.",()=>managerPanel()],
+};
+const SORT={key:"co",dir:1};
+function leadTable(){
+  const rows=DATA.leads.slice().sort((a,b)=>{
+    let x,y;
+    if(SORT.key==="st"){x=STAGES.indexOf(a.st||"new");y=STAGES.indexOf(b.st||"new");}
+    else{x=(a[SORT.key]||"").toLowerCase();y=(b[SORT.key]||"").toLowerCase();}
+    return (x>y?1:x<y?-1:0)*SORT.dir;});
+  const chips=STAGES.map(s=>`<span class="chip">${s.toUpperCase()} <b>${DATA.counts[s]||0}</b></span>`).join("");
+  const th=(k,l)=>`<th data-sort="${k}">${l}${SORT.key===k?(SORT.dir>0?" ▲":" ▼"):""}</th>`;
+  return `<div class="sec"><div class="slb">Pipeline <span>${rows.length} companies</span></div>${chips}</div>
+  <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}${th("last","Last touch")}<th></th></tr></thead>
+  <tbody>${rows.map(l=>`<tr>
+    <td>${esc(l.co)}</td>
+    <td style="white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${esc(l.p)}</a>`:'<span class="noph">—</span>'}</td>
+    <td style="opacity:.8;white-space:nowrap">${esc(l.st||"new")}</td>
+    <td style="opacity:.55;white-space:nowrap;font:11px var(--mono)">${esc((l.last||"—").slice(0,10))}</td>
+    <td style="text-align:right"><button class="ntbtn ${NOTES[l.co]?"has":""}" data-co="${esc(l.co)}">✎</button></td></tr>
+    <tr><td colspan="5" style="border:0;padding:0"><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened?">${esc(NOTES[l.co]||"")}</textarea></td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+function scriptsPanel(){
+  const P=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],
+  ["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],
+  ["“We already have someone”","“Does a real person pick up at 2am, or does it go to voicemail? This never sleeps and books the job.”"],
+  ["“How much is it?”","“$500 a month, and I'm waiving setup for the first three shops — but hear it first, then price is easy.”"]];
+  return `<div class="sec"><div class="slb">The opener</div><div class="say">“Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.”</div></div>
+  <div class="sec"><div class="slb">Demo line</div><div class="say"><a class="tel" href="tel:+13148879824" style="font-size:15px">(314) 887-9824</a> — the demo is the sale.</div></div>
+  <div class="sec"><div class="slb">When they push back</div>${P.map(([a,b])=>`<div style="margin-bottom:10px"><div class="say" style="color:var(--acc2)">${esc(a)}</div><div class="say">${esc(b)}</div></div>`).join("")}</div>`;
+}
+function notesPanel(){
+  const ks=Object.keys(NOTES).filter(k=>NOTES[k]);
+  return `<div class="sec"><div class="slb">Local capture <span>${ks.length} companies</span></div>
+    ${ks.length?ks.map(k=>`<div style="margin-bottom:9px"><div class="say" style="color:var(--acc2)">${esc(k)}</div><div class="say" style="white-space:pre-wrap">${esc(NOTES[k])}</div></div>`).join(""):'<div class="say" style="color:var(--dim)">Nothing captured on this device yet.</div>'}</div>
+  <div class="sec"><div class="slb">Queue</div><div class="say">${OUTBOX.length?OUTBOX.length+" note(s) waiting for the bridge.":"Nothing queued — everything synced."}</div></div>
+  <div class="sec"><button class="qa" data-act="csv">▸ Export leads + notes CSV</button></div>`;
+}
+function managerPanel(){
+  const S=DATA.status,m=S&&S.manager;
+  return `<div class="sec"><div class="slb">The 5:00 run</div><div class="say">
+    1. <b>lead-research</b> sources the day's new prospects into pipeline.md.<br>
+    2. <b>notes</b> pushes everything changed since the last run into the Notion Call Log.<br>
+    3. Prints the dial list, hottest first.</div></div>
+  <div class="sec"><div class="slb">Status</div><div class="say">
+    Job: <b>com.mdp.agency.manager</b> (launchd)<br>
+    Last run: ${m?esc(new Date(m.lastRun).toLocaleString()):"never"}<br>
+    Log: logs/manager.log${m?` · ${m.size} bytes`:""}</div></div>
+  <div class="sec"><div class="slb">Caveat</div><div class="say" style="color:var(--dim)">launchd cannot run on a sleeping Mac. If it's asleep at 5:00 the job runs on next wake.</div></div>`;
+}
+function openSheet(id){
+  const[nm,sub,fn]=SHEET[id];
+  $("shName").textContent=nm;$("shSub").textContent=sub;$("shBody").innerHTML=fn();
+  $("scrim").classList.add("on");$("sheet").classList.add("on");wireSheet();
+}
+function wireSheet(){
+  const b=$("shBody");
+  b.querySelectorAll(".ntbtn").forEach(x=>x.onclick=()=>{
+    const ta=b.querySelector(`textarea[data-co="${x.dataset.co}"]`);
+    if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}});
+  b.querySelectorAll("textarea[data-co]").forEach(ta=>ta.oninput=()=>{
+    saveNote(ta.dataset.co,ta.value);
+    const x=b.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(x)x.classList.toggle("has",!!ta.value.trim());});
+  b.querySelectorAll("th[data-sort]").forEach(h=>h.onclick=()=>{
+    const k=h.dataset.sort;if(SORT.key===k)SORT.dir*=-1;else{SORT.key=k;SORT.dir=1;}
+    b.innerHTML=leadTable();wireSheet();});
+  b.querySelectorAll("[data-act]").forEach(x=>x.onclick=()=>act(x.dataset.act));
+}
+function closeAll(){["scrim","sheet","chat"].forEach(i=>$(i).classList.remove("on"));}
+$("scrim").onclick=closeAll;$("shX").onclick=closeAll;$("chX").onclick=closeAll;
+addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
+
+/* ============ actions ============ */
+function exportCSV(){
+  const rows=[["Company","Contact / Owner","Phone","Stage","Note"]];
+  DATA.leads.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g,"-"),l.p||"",l.st||"new",NOTES[l.co]||""]));
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  const u=URL.createObjectURL(new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"}));
+  const a=document.createElement("a");a.href=u;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(u);
+}
+function act(a){
+  if(a==="csv")return exportCSV();
+  if(a==="leads")return openSheet("lead");
+  if(a==="notion")return window.open("https://www.notion.so/"+((DATA.status&&DATA.status.db)||"").replace(/-/g,""),"_blank");
+  if(a==="log"){openChat();$("cinp").value="log ";$("cinp").focus();}
+}
+document.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>act(b.dataset.act));
+$("addThought").onclick=()=>{
+  const t=prompt("New CEO thought:");if(!t)return;
+  const cur=JSON.parse(localStorage.getItem("mdp-thoughts")||"null")||[];
+  cur.unshift(t);localStorage.setItem("mdp-thoughts",JSON.stringify(cur.slice(0,8)));paint();
+};
+
+/* ============ chat ============ */
+const logEl=$("log"),cinp=$("cinp");let seeded=false;
+let CEO_SESSION=localStorage.getItem("mdp-ceo-session")||null;
+function openChat(){$("chat").classList.add("on");
+  if(!seeded){add("ai","<b>CEO:</b> Ask me anything about the business — I read your files. Or log a call: <code>log Rapid Dry — no answer</code>");seeded=true;}
+  setTimeout(()=>cinp.focus(),150);}
+function add(cls,html){const d=document.createElement("div");d.className="msg "+cls;d.innerHTML=html;
+  logEl.appendChild(d);logEl.scrollTop=logEl.scrollHeight;return d;}
+const fmt=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`(.+?)`/g,"<code>$1</code>").replace(/\n/g,"<br>");
+const normCo=s=>String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+function matchCo(q){const k=normCo(q);if(!k)return null;const L=DATA.leads;
+  return L.find(l=>normCo(l.co)===k)||L.find(l=>normCo(l.co).startsWith(k))||L.find(l=>normCo(l.co).includes(k))||null;}
 async function flushOutbox(){let sent=0;
   while(OUTBOX.length){
     try{const r=await fetch(BRIDGE+"/note",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(OUTBOX[0])});
       if(!r.ok)break;const j=await r.json();
       if(j.results&&j.results[0]&&j.results[0].action==="error")break;
-      OUTBOX.shift();sent++;}
-    catch(_){break;}}
+      OUTBOX.shift();sent++;}catch(e){break;}}
   saveOutbox();return{sent,left:OUTBOX.length};}
-const normCo=s=>String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\b(llc|inc|co|corp|company|services?|restorations?|cleaning)\b/g,"").replace(/\s+/g," ").trim();
-function matchCo(q){const n=normCo(q);if(!n)return null;const L=DATA.leadList;
-  return L.find(l=>normCo(l.co)===n)||L.find(l=>normCo(l.co).startsWith(n))||L.find(l=>normCo(l.co).includes(n))||null;}
-/* Niche comes from the name — pipeline.md has no column for it. Restoration is
-   the current book; Med Spa is here because the next list is already sourced. */
-const NICHE=l=>{const s=((l.co||"")+" "+(l.c||"")).toLowerCase();
-  if(/med ?spa|aesthetic|botox|derm|skin|laser|wellness|salon|beauty/.test(s))return "Med Spa";
-  if(/dental|dentist|orthodont|chiro|vet |veterinar|law |attorney|legal|hvac|plumb|roofing co/.test(s))return "Other";
-  return "Restoration";};  // the current book is restoration — default there, don't strand names like "Kwik Dry"
-const LEADSORT={key:"co",dir:1};
-
-// ===== AI AGENCY BRAIN (focused) =====
-function fib(n){const a=[],GA=Math.PI*(3-Math.sqrt(5));for(let i=0;i<n;i++){const y=1-(i/(n-1))*2,r=Math.sqrt(1-y*y),th=i*GA;a.push([Math.cos(th)*r,y,Math.sin(th)*r]);}return a;}
-const CEO={id:"ceo",name:"CEO",col:"#8fd6f2",r:.058,pts:fib(420),rot:0,hov:0};
-const DEPTS=[
- {id:"lead",name:"Leads",one:"companies to call",col:"#74c9a8",live:1,chip:"124"},
- {id:"sales",name:"Scripts",one:"what to say",col:"#9fd0c0",live:1},
- {id:"notes",name:"Notes",one:"log each call",col:"#a9c6d0",live:1},
- {id:"engine",name:"Manager",one:"runs the 5am list",col:"#8fb6e0",live:1},
-];
-const byId={ceo:CEO};
-DEPTS.forEach((d,i)=>{d.ang=-Math.PI/2+(i/DEPTS.length)*Math.PI*2;d.kind="dept";d.hov=0;d.r=.031;byId[d.id]=d;});
-byId.manager={id:"manager",name:"Everything",col:"#8fd6f2",live:1};
-const NODES=[CEO,...DEPTS];
-
-// ===== CANVAS + CAMERA =====
-const cv=document.getElementById("c"),ctx=cv.getContext("2d");let W=0,H=0,DPR=1,M=0;const pan={x:0,y:0};let zoom=.92;
-function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;M=Math.min(W,H);cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
-addEventListener("resize",resize);
-function hx(h){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255];}
-function SCX(){return W*.5+pan.x;} function SCY(){return H*.52+pan.y;}
-function P(n){if(n.id==="ceo")return[SCX(),SCY()];return[SCX()+Math.cos(n.ang)*M*.42*zoom,SCY()+Math.sin(n.ang)*M*.42*zoom];}
-function RAD(n){return n.r*M*zoom;}
-const mouse={x:-999,y:-999,in:false};const ptrs=new Map();let dragS=null,pinchS=null;
-function scr(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
-function pick(mx,my){let hit=null,best=1e9;NODES.forEach(n=>{const[x,y]=P(n);const d=Math.hypot(mx-x,my-y);const R=Math.max(30,RAD(n)*1.5);if(d<R&&d<best){best=d;hit=n;}});return hit;}
-cv.addEventListener("pointerdown",e=>{const p=scr(e);ptrs.set(e.pointerId,p);try{cv.setPointerCapture(e.pointerId);}catch(_){}
-  if(ptrs.size===1)dragS={x:p.x,y:p.y,px:pan.x,py:pan.y,hit:pick(p.x,p.y),moved:false};
-  else if(ptrs.size===2){const a=[...ptrs.values()];pinchS={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),z:zoom};dragS=null;}});
-cv.addEventListener("pointermove",e=>{const p=scr(e);mouse.x=p.x;mouse.y=p.y;mouse.in=true;if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,p);
-  if(pinchS&&ptrs.size>=2){const a=[...ptrs.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);zoom=Math.max(.5,Math.min(2.4,pinchS.z*d/pinchS.d));return;}
-  if(dragS){const dx=p.x-dragS.x,dy=p.y-dragS.y;if(Math.hypot(dx,dy)>5)dragS.moved=true;pan.x=dragS.px+dx;pan.y=dragS.py+dy;}});
-function endP(e){if(dragS&&!dragS.moved&&dragS.hit){const n=dragS.hit;if(n.id==="ceo")openChat();else openModal(n.id);}ptrs.delete(e.pointerId);if(ptrs.size<2)pinchS=null;if(ptrs.size===0)dragS=null;}
-cv.addEventListener("pointerup",endP);cv.addEventListener("pointercancel",endP);
-addEventListener("pointerleave",()=>mouse.in=false);
-cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2.4,zoom*(1-e.deltaY*0.0012)));},{passive:false});
-cv.style.cursor="grab";
-
-// ===== RENDER =====
-const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;let tPrev=0;
-function tbranch(ax,ay,bx,by,col,wBase,wTip,a){if(a<=0.01)return;const mx=(ax+bx)/2,my=(ay+by)/2,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;const cxp=mx-dy/len*len*.1,cyp=my+dx/len*len*.1;const c=hx(col);ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${a})`;ctx.lineCap="round";const N=12;let px=ax,py=ay;for(let i=1;i<=N;i++){const t=i/N,u=1-t;const x=u*u*ax+2*u*t*cxp+t*t*bx,y=u*u*ay+2*u*t*cyp+t*t*by;ctx.lineWidth=wBase+(wTip-wBase)*t;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(x,y);ctx.stroke();px=x;py=y;}}
-function orb(n,t){const[cx,cy]=P(n);
-  const hd=mouse.in?Math.hypot(mouse.x-cx,mouse.y-cy):999;n.hov+=((hd<Math.max(30,RAD(n)*1.5)?1:0)-n.hov)*.15;
-  const c=hx(n.col),R=c[0],G=c[1],B=c[2];const br=reduce?0:Math.sin(t/1100+(n.ang||0))*.03;const R0=RAD(n)*(1+br+n.hov*.1);
-  const gA=(n.id==="ceo"?.32:.2)*(1+n.hov*.7);
-  ctx.globalCompositeOperation="lighter";const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*2.7);g.addColorStop(0,`rgba(${R},${G},${B},${gA})`);g.addColorStop(.5,`rgba(${R},${G},${B},${gA*.25})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R0*2.7,0,7);ctx.fill();
-  ctx.globalCompositeOperation="source-over";
-  ctx.beginPath();ctx.arc(cx,cy,R0,0,7);ctx.fillStyle="rgba(7,11,20,.92)";ctx.fill();
-  ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(${R},${G},${B},.85)`;ctx.stroke();
-  if(n.pts){if(!reduce)n.rot+=.005;const cR=Math.cos(n.rot),sR=Math.sin(n.rot),cT=Math.cos(.42),sT=Math.sin(.42);for(let i=0;i<n.pts.length;i++){let[x,y,z]=n.pts[i];let x1=x*cR-z*sR,z1=x*sR+z*cR;let y1=y*cT-z1*sT,z2=y*sT+z1*cT;const pr=1/(1-z2*.34);const sx=cx+x1*R0*.85*pr,sy=cy+y1*R0*.85*pr;const d=(z2+1)/2;ctx.fillStyle=`rgba(${R},${G},${B},${0.08+d*.42})`;ctx.fillRect(sx-1,sy-1,1.5,1.5);}}
-  ctx.globalCompositeOperation="lighter";const ic=ctx.createRadialGradient(cx,cy,0,cx,cy,R0*.55);ic.addColorStop(0,`rgba(${R},${G},${B},.5`+`)`);ic.addColorStop(1,`rgba(${R},${G},${B},0)`);ctx.fillStyle=ic;ctx.beginPath();ctx.arc(cx,cy,R0*.55,0,7);ctx.fill();ctx.globalCompositeOperation="source-over";
-}
-function frame(t){const dt=Math.min((t-tPrev)/1000||0,.05);tPrev=t;
-  ctx.clearRect(0,0,W,H);
-  const bg=ctx.createRadialGradient(W*.5,H*.52,0,W*.5,H*.52,Math.max(W,H)*.8);bg.addColorStop(0,"#0b1220");bg.addColorStop(.6,"#070a12");bg.addColorStop(1,"#04060c");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-  const[ex,ey]=P(CEO);DEPTS.forEach(d=>{const[dx,dy]=P(d);tbranch(ex,ey,dx,dy,d.col,Math.max(2.5,RAD(CEO)*.26),1.3,.22+d.hov*.35);});
-  orb(CEO,t);DEPTS.forEach(d=>orb(d,t));
-  placeLabels();requestAnimationFrame(frame);
-}
-
-// ===== LABELS =====
-const labels=document.getElementById("labels");
-DEPTS.forEach(n=>{const d=document.createElement("div");d.className="lbl";d.innerHTML=`<div class="nm" style="color:${n.col};font-size:14px">${n.name}</div><div class="one">${n.one||""}</div>`;labels.appendChild(d);n.lel=d;});
-const ceoL=document.createElement("div");ceoL.className="lbl";ceoL.innerHTML=`<div class="nm" style="color:${CEO.col};font-size:16px">CEO</div><div class="one">tap to ask anything</div>`;labels.appendChild(ceoL);
-function placeLabels(){DEPTS.forEach(n=>{const[x,y]=P(n);n.lel.style.left=x+"px";n.lel.style.top=(y+RAD(n)+11)+"px";});
-  const[ex,ey]=P(CEO);ceoL.style.left=ex+"px";ceoL.style.top=(ey+RAD(CEO)+12)+"px";}
-
-// ===== MODAL / WORK =====
-function tel(d){return d?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:"";}
-function dialn(p){return p?p.replace(/\D/g,""):"";}
-function esc(s){return(s||"").replace(/"/g,"&quot;");}
-const WORK={
- receptionist:()=>`<div class="sec"><div class="s-lbl">AI Receptionist · your flagship</div><div class="say"><b>What it does:</b> answers every call 24/7, texts back missed calls, books the job, and qualifies the lead — so a business never loses a customer to voicemail.<br><br><b>Who you sell it to now:</b> restoration companies. A missed 2am water call = a lost 4–5 figure job.<br><br><b>Price:</b> $500/mo, setup waived for the first 3. <b>Demo:</b> (314) 887-9824.</div></div>
-  <div class="sec"><div class="s-lbl">Build status · ready to paste</div><div class="say">The full Vapi config is written — persona, triage-first greeting, capture flow, guardrails (never quotes a price), dispatch + confirmation texts, and a test script. It's in <b>assets/ai-receptionist-vapi.md</b>. Paste it into your Vapi assistant so <b>(314) 887-9824</b> answers like a real restoration dispatcher, then run the 4-step test before you demo it to a lead.</div></div>
-  <div class="sec"><div class="s-lbl">The demo IS the sale</div><div class="say">Pitch: “Call this number, throw a fake 2am flood at it, watch it capture the job you'd have lost to voicemail.” Nail that 90 seconds and the owner closes himself.</div></div>`,
- website:()=>`<div class="sec"><div class="s-lbl">Website AI · second offer</div><div class="say"><b>What it does:</b> an AI chat + booking widget on the client's website — answers FAQs, captures leads, and books appointments around the clock.<br><br><b>Who it's for:</b> any local business with a website and phone that rings out. Same pitch, different door — sell it alongside or instead of the receptionist.</div></div>`,
- b2b:()=>`<div class="sec"><div class="s-lbl">B2B Outbound · how you sell</div><div class="say"><b>The offer is one thing; the doors are many.</b> Ways to put AI automation in front of businesses:</div></div>
-  <div class="sec"><div class="s-lbl">Channels</div>
-   <div class="fr"><div><div class="fl">Cold calling</div><div class="fm">live now — 124 leads, scripts, demo line</div></div><span class="badge on">Active</span></div>
-   <div class="fr"><div><div class="fl">Cold email</div><div class="fm">needs a sending domain + tool (Instantly / Smartlead)</div></div><span class="badge warn">Setup</span></div>
-   <div class="fr"><div><div class="fl">LinkedIn / DM</div><div class="fm">owner outreach, short video demos</div></div><span class="badge warn">Idea</span></div>
-   <div class="fr"><div><div class="fl">Referrals</div><div class="fm">first 3 clients, case studies, warm intros</div></div><span class="badge warn">After 1st close</span></div></div>`,
- lead:()=>{const S=LEADSORT,all=DATA.leadList.slice();
-  const cnt=st=>all.filter(l=>(l.st||"new")===st).length;
-  const chips=STAGES.map(s=>`<span style="display:inline-block;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.06);font-size:11px;letter-spacing:.04em">${s[0].toUpperCase()} <b style="color:#8fd6f2">${cnt(s[0])}</b></span>`).join("");
-  const groups={};all.forEach(l=>{const n=NICHE(l);(groups[n]=groups[n]||[]).push(l);});
-  const order=["Restoration","Med Spa","Other"].filter(n=>groups[n]);
-  const si=l=>STAGES.findIndex(s=>s[0]===(l.st||"new"));
-  const cmp=(a,b)=>{let x,y;if(S.key==="st"){x=si(a);y=si(b);}else{x=(a[S.key]||"").toLowerCase();y=(b[S.key]||"").toLowerCase();}
-    return (x>y?1:x<y?-1:0)*S.dir;};
-  const th=(k,lbl)=>`<th data-sort="${k}" style="text-align:left;padding:4px 6px;font-weight:600;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;cursor:pointer;user-select:none;white-space:nowrap">${lbl}${S.key===k?(S.dir>0?" ▲":" ▼"):""}</th>`;
-  return `<div class="sec"><div class="s-lbl">Pipeline <span>${all.length} companies</span></div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">${chips}</div></div>`+
-  order.map(n=>{const rows=groups[n].slice().sort(cmp);
-    return `<div class="sec"><div class="s-lbl">${n} <span>${rows.length} · tap a column to sort</span></div>
-      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12.5px">
-      <thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}${th("last","Last touch")}<th></th></tr></thead>
-      <tbody>${rows.map(l=>`<tr style="border-top:1px solid rgba(255,255,255,.07)">
-        <td style="padding:6px">${esc(l.co)}</td>
-        <td style="padding:6px;white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${l.p}</a>`:`<span class="noph">—</span>`}</td>
-        <td style="padding:6px;white-space:nowrap;opacity:.8">${esc(l.st||"new")}</td>
-        <td style="padding:6px;white-space:nowrap;opacity:.5">${esc((l.last||"—").slice(0,10))}</td>
-        <td style="padding:6px;text-align:right"><button class="ntbtn ${NOTES[l.co]?"has":""}" data-co="${esc(l.co)}"></button></td></tr>
-        <tr><td colspan="5" style="padding:0"><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened? (no answer, gatekeeper, callback Tue…)">${esc(NOTES[l.co]||"")}</textarea></td></tr>`).join("")}</tbody></table></div></div>`;}).join("");},
- sales:()=>`<div class="sec"><div class="s-lbl">When they push back, say this</div>${PUSH.map(c=>`<div class="push"><div class="q">${c[0]}</div><div class="a">${c[1]}</div></div>`).join("")}</div><div class="sec"><div class="s-lbl">What to open with</div>${OPENERS.map(o=>`<div class="script"><div class="sh"><div><div class="sw">${o[1]} · ${o[2]}</div><div class="sc">${tel(o[3])}</div></div><a class="tel" href="tel:+1${o[3]}">Call</a></div>${o[4]?`<div class="flag"> ${o[4]}</div>`:""}<div class="op">“${o[5]}”</div><div class="vm"><b>if voicemail</b>${o[6]}</div></div>`).join("")}</div>`,
- notes:()=>{const ks=Object.keys(NOTES).filter(k=>NOTES[k]);return `<div class="sec"><div class="s-lbl">Call notes <span>${ks.length} logged</span></div>${ks.length?ks.map(k=>`<div class="note-item"><div class="nc">${k}</div><div class="nt">${(NOTES[k]||"").replace(/</g,"&lt;")}</div></div>`).join(""):'<div class="say">No notes yet. Open <b>Leads</b>, tap  on a company, and jot what happened. Saves on your device and rides along in the CSV.</div>'}</div><div class="sec"><button class="btn" id="notesCsv"> Export leads + notes CSV</button></div>`;},
- engine:()=>`<div class="sec"><div class="s-lbl">Your 5am robot</div><div class="say">Every morning at <b>5:00am</b> it finds ~150 new companies, checks the numbers, writes what to say (with your demo line), and adds them to your list — while you sleep.</div></div><div class="sec"><div class="s-lbl">Latest</div><div class="say">Grew your list to <b>${DATA.kpis.leads} leads</b>. <a class="link" href="https://claude.ai/code/routines/trig_018YYUgA7ZBB2uueWFLEQRgg" target="_blank" rel="noopener">See its runs →</a></div></div>`,
- tk_mgr:()=>`<div class="sec"><div class="s-lbl">TikTok video system · the plan</div><div class="say"><b>Flow:</b> Idea → Script → Assets → Voice → Video → Quality Check → Post → Feedback.<br><br><b>Content Manager:</b> picks the topic, assigns work, approves the final video.</div></div><div class="sec"><div class="s-lbl">Start with 4, not 9</div><div class="say">Content Manager · Story Writer · Video Creator · Analytics. The Video Creator can do visuals, voice, captions, and editing at first. <b>Start with ~6 combined agents, not 19.</b></div></div>`,
- tk_writer:()=>`<div class="sec"><div class="s-lbl">Story Writer</div><div class="say"><b>Job:</b> short TikTok stories — hook, escalation, payoff, call to action.<br><b>Output:</b> a 30–90 second script.</div></div>`,
- tk_video:()=>`<div class="sec"><div class="s-lbl">Video Creator</div><div class="say"><b>Job:</b> turns the script into a finished vertical video — visuals, voice, music, captions, cuts.<br><b>Output:</b> a ready-to-post video.</div></div>`,
- tk_analytics:()=>`<div class="sec"><div class="s-lbl">Analytics</div><div class="say"><b>Job:</b> reviews retention, watch time, shares, and which stories win.<br><b>Output:</b> feedback for the next videos.</div></div>`,
- ec_mgr:()=>`<div class="sec"><div class="s-lbl">E-commerce store · the plan</div><div class="say"><b>Flow:</b> Product → Offer → Store Page → Marketing → Orders → Support → Retention → Profit.<br><br><b>Store Manager:</b> coordinates the store, tracks revenue goals.</div></div><div class="sec"><div class="s-lbl">Start with 5, not 10</div><div class="say">Store Manager · Product/Offer · Storefront · Creative/Traffic · Support/Fulfillment. Add retention + finance after sales begin.</div></div>`,
- ec_product:()=>`<div class="sec"><div class="s-lbl">Product & Offer</div><div class="say"><b>Job:</b> evaluates products, then builds the offer — pricing, bundles, guarantees, copy, upsells.<br><b>Output:</b> a scorecard + a complete sales offer.</div></div>`,
- ec_store:()=>`<div class="sec"><div class="s-lbl">Storefront</div><div class="say"><b>Job:</b> builds product pages, collections, FAQs, checkout.<br><b>Output:</b> conversion-ready store pages.</div></div>`,
- ec_creative:()=>`<div class="sec"><div class="s-lbl">Creative & Traffic</div><div class="say"><b>Job:</b> makes the ads and organic videos, then runs campaigns, audiences, budgets, testing.<br><b>Output:</b> content + visitors.</div></div>`,
- ec_ops:()=>`<div class="sec"><div class="s-lbl">Support & Operations</div><div class="say"><b>Job:</b> answers customer questions; monitors inventory, suppliers, tracking.<br><b>Output:</b> resolved customers + accurate orders.</div></div>`,
- life:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Your personal assistant</b> — calendar, reminders, errands, travel.</div></div>`,
- money:()=>`<div class="sec"><div class="s-lbl">Just an idea</div><div class="say"><b>Watches your money</b> — spending, bills, savings goals.</div></div>`,
- manager:()=>`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ceo)">The numbers</div><div class="say"><b style="font-size:26px;color:var(--ceo)">${DATA.kpis.mrr}</b> of $10,000/mo · <b>${DATA.kpis.clients}</b> clients · <b>${DATA.kpis.leads}</b> leads · <b>${DATA.kpis.dials.split("/")[0]}</b> called today</div></div>
-  <div class="sec"><div class="s-lbl">Pipeline</div><div class="bars">${STAGES.map(([k,label])=>{const v=DATA.pipeline[k]||0,mx=Math.max(1,...STAGES.map(x=>DATA.pipeline[x[0]]||0));return`<div class="bar"><span class="bn">${label}</span><span class="bt"><i style="width:${v/mx*100}%"></i></span><span class="bv">${v}</span></div>`;}).join("")}</div></div>
-  <div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--agency)">Every lead</div></div>`+WORK.lead()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--hot)">Every script</div></div>`+WORK.sales()+`<div class="sec"><div class="s-lbl" style="font-size:17px;color:var(--ecom)">Your notes</div></div>`+WORK.notes(),
-};
-const SUB={receptionist:"Your flagship offer — 24/7 AI call answering.",website:"Second offer — AI chat + booking on their site.",b2b:"The channels you use to sell the automation.",lead:"Companies to call, hottest first. Tap  to log a call.",sales:"What to say — and what to say back when they push.",notes:"Your call log — what's happening with each lead.",engine:"Runs the 5am list: sources ~150 new leads, then has Notes push everything that happened since the last update into Notion.",tk_mgr:"Runs the TikTok video system.",tk_writer:"Writes the hook-to-payoff scripts.",tk_video:"Turns scripts into finished videos.",tk_analytics:"Finds what's working, feeds the next videos.",ec_mgr:"Runs the online store, tracks revenue.",ec_product:"Picks products, builds the offer.",ec_store:"Builds the store pages and checkout.",ec_creative:"Makes the ads and runs the traffic.",ec_ops:"Handles orders and customer support.",life:"Runs your personal life admin.",money:"Watches your finances.",manager:"Your whole business in one scroll."};
-const scrim=document.getElementById("scrim"),modal=document.getElementById("modal"),mey=document.getElementById("mey"),mname=document.getElementById("mname"),msub=document.getElementById("msub"),mbody=document.getElementById("mbody"),morb=document.getElementById("morb");
-function openModal(id){const n=byId[id];const live=(n.live!==0);mey.textContent=live?"Working now":(id.startsWith("ec_")||id==="life"||id==="money"?"Planned":"Coming soon");mey.style.color=n.col;mname.textContent=n.name;msub.textContent=SUB[id]||"";morb.innerHTML='<span style="display:block;width:16px;height:16px;border-radius:50%;background:'+n.col+';box-shadow:0 0 16px '+n.col+'"></span>';morb.style.background=`rgba(${hx(n.col).join(",")},.12)`;mbody.innerHTML=(WORK[id]||(()=>""))();modal.scrollTop=0;scrim.classList.add("open");modal.classList.add("open");wireModal();}
-function closeAll(){scrim.classList.remove("open");modal.classList.remove("open");document.getElementById("chat").classList.remove("open");}
-function wireModal(){mbody.querySelectorAll(".ntbtn").forEach(b=>b.addEventListener("click",()=>{const ta=mbody.querySelector(`textarea[data-co="${b.dataset.co}"]`);if(ta){ta.classList.toggle("hide");if(!ta.classList.contains("hide"))ta.focus();}}));mbody.querySelectorAll("textarea[data-co]").forEach(ta=>ta.addEventListener("input",()=>{saveNote(ta.dataset.co,ta.value);const b=mbody.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(b)b.classList.toggle("has",!!ta.value.trim());}));const nc=document.getElementById("notesCsv");if(nc)nc.addEventListener("click",exportCSV);
-  mbody.querySelectorAll("th[data-sort]").forEach(h=>h.addEventListener("click",()=>{const k=h.dataset.sort;
-    if(LEADSORT.key===k)LEADSORT.dir*=-1;else{LEADSORT.key=k;LEADSORT.dir=1;}
-    mbody.innerHTML=WORK.lead();wireModal();}));}
-document.getElementById("mx").addEventListener("click",closeAll);scrim.addEventListener("click",closeAll);document.getElementById("chatX").addEventListener("click",closeAll);
-addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
-document.getElementById("mgrBtn").addEventListener("click",()=>openModal("manager"));
-document.getElementById("resetBtn").addEventListener("click",()=>{pan.x=0;pan.y=0;zoom=.62;});
-
-function exportCSV(){const rows=[["Company","Contact / Owner","Phone","Note"]];DATA.leadList.forEach(l=>rows.push([l.co,(l.c||"").replace(/·/g," - "),l.p||"",NOTES[l.co]||""]));const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="mdp-leads.csv";a.click();URL.revokeObjectURL(url);}
-document.getElementById("exportBtn").addEventListener("click",exportCSV);
-
-// ===== CEO CHAT =====
-const log=document.getElementById("log"),cinp=document.getElementById("cinp");let chatSeeded=false;
-function openChat(){const c=document.getElementById("chat");scrim.classList.add("open");c.classList.add("open");if(!chatSeeded){add("ai","<b>CEO:</b> I run the whole operation. Ask me about the money, your leads, what to say on a call, or how we sell. Ask me, or hit a button below.");chatSeeded=true;}setTimeout(()=>cinp.focus(),200);}
-function add(cls,html){const m=document.createElement("div");m.className="msg "+cls;m.innerHTML=html;log.appendChild(m);log.scrollTop=log.scrollHeight;}
-function reply(q){const s=q.toLowerCase();const ph=DATA.leadList.filter(l=>l.p).length;
-  if(/hi|hey|hello|yo|sup/.test(s)&&s.length<12)return "<b>CEO:</b> Talk to me. Money, leads, scripts, or how we sell — what do you need?";
-  if(/how many|lead|compan|call list/.test(s))return `<b>CEO:</b> <b>${DATA.kpis.leads}</b> companies in the pipeline, <b>${ph}</b> ready to dial. Hottest: ${DATA.leadList.slice(0,3).map(l=>l.co).join(", ")}. Open AI Agency → Leads.`;
-  if(/sell|offer|service|receptionist|website|automation|b2b|pitch/.test(s))return "<b>CEO:</b> We sell three ways: <b>AI Receptionist</b> (24/7 answering — our restoration play), <b>Website AI</b> (chat + booking), and <b>B2B Outbound</b> (cold call now, email/DM/referrals next). Same offer, many doors. Open AI Agency to drill in.";
-  if(/csv|export|dialer|download/.test(s))return "<b>CEO:</b> Hit <b> CSV</b> top-right — every company, phone, and note, ready for the dialer.";
-  if(/note|log|track/.test(s))return "<b>CEO:</b> Open AI Agency → Notes, or tap  on any lead. It saves on your device and rides along in the CSV.";
-  if(/next|what.*do|priority|today/.test(s))return "<b>CEO:</b> One thing first — <b>call (314) 887-9824</b>, confirm the demo line works. Then dial the leads and log each call. That's the whole game today.";
-  if(/say|script|opener|objection|push/.test(s))return "<b>CEO:</b> Open with — “Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it, 90 seconds.” Full scripts in AI Agency → Scripts.";
-  if(/money|revenue|mrr|close|client/.test(s))return `<b>CEO:</b> <b>${DATA.kpis.mrr}</b> toward $10k, <b>${DATA.kpis.clients}</b> clients. Waive setup for the first 3, get them live in a week, turn them into case studies. Tap  Everything for the full picture.`;
-  if(/engine|5am|auto|find more/.test(s))return "<b>CEO:</b> The 5am engine adds ~150 phone-checked companies every morning. You're at "+DATA.kpis.leads+" now.";
-  if(/tiktok|video|content/.test(s))return "<b>CEO:</b> Content world is mapped — Content Mgr → Story Writer → Video Creator → Analytics. Start with those 4.";
-  if(/ecom|store|shopify|product/.test(s))return "<b>CEO:</b> Ecom is mapped — Store Mgr → Product → Storefront → Creative → Support. It's the next business after the agency's paying.";
-  return "<b>CEO:</b> I can talk money, leads, scripts, how we sell, notes, CSV, or the 5am engine. Hit a button or ask again.";}
-function send(q){if(!q.trim())return;add("me",q);cinp.value="";
-  const m=q.match(/^\s*(?:log|note)\s+(.+)$/i);
-  if(m){setTimeout(()=>logCall(m[1]),200);return;}
-  askCEO(q);}
-/* Everything that isn't a log goes to Claude Code running in ~/agency — it has
-   CLAUDE.md, the subagents and Notion, so it routes the question itself. If the
-   bridge is down we fall back to the old canned replies rather than nothing. */
-let CEO_SESSION=localStorage.getItem("mdp-ceo-session")||null;
-const fmt=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`(.+?)`/g,"<code>$1</code>").replace(/\n/g,"<br>");
-async function askCEO(q){
-  const t=document.createElement("div");t.className="msg ai";t.innerHTML="<b>CEO:</b> <i>thinking…</i>";
-  log.appendChild(t);log.scrollTop=log.scrollHeight;
-  try{
-    const r=await fetch(BRIDGE+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({message:q,session:CEO_SESSION})});
-    const j=await r.json();
-    if(j.error)throw new Error(j.error);
-    if(j.session){CEO_SESSION=j.session;localStorage.setItem("mdp-ceo-session",CEO_SESSION);}
-    t.innerHTML="<b>CEO:</b> "+fmt(j.text||"(no reply)");
-  }catch(_){t.innerHTML=reply(q)+"<br><i style='opacity:.55;font-size:11px'>bridge offline — canned reply</i>";}
-  log.scrollTop=log.scrollHeight;}
 async function logCall(rest){
   const parts=rest.split(/\s+[—–-]{1,2}\s+|\s*:\s+/);
   const who=parts.shift().trim(),what=parts.join(" — ").trim();
   const lead=matchCo(who);
-  if(!lead)return add("ai",`<b>Notes:</b> Nothing in your leads matches “${esc(who)}”. Use the company name as it reads in Leads.`);
-  if(!what)return add("ai",`<b>Notes:</b> Matched <b>${esc(lead.co)}</b> — what happened? Try <i>log ${esc(lead.co)} — gatekeeper, callback Tue</i>`);
-  appendNote(lead.co,what);queueNote(lead.co,what);
-  add("ai",`<b>Notes:</b> Logged <b>${esc(lead.co)}</b> — “${esc(what)}”. Saved on this device.`);
+  if(!lead)return add("ai",`<b>Notes:</b> Nothing matches “${esc(who)}”. Use the name as it reads in Leads.`);
+  if(!what)return add("ai",`<b>Notes:</b> Matched <b>${esc(lead.co)}</b> — what happened?`);
+  appendNote(lead.co,what);
+  OUTBOX.push({company:lead.co,note:what,contact:lead.c||"",phone:lead.p||""});saveOutbox();
+  add("ai",`<b>Notes:</b> Logged <b>${esc(lead.co)}</b> — “${esc(what)}”.`);
   const r=await flushOutbox();
-  if(r.sent)add("ai",`<b>Notes:</b> Sent to Notion${r.left?` · ${r.left} still queued`:""}.`);
-  else add("ai",`<b>Notes:</b> Bridge offline — ${r.left} note${r.left>1?"s":""} queued. Start it with <code>node notes-bridge.js</code> and they'll go up automatically.`);
+  add("ai",r.sent?`<b>Notes:</b> Sent to Notion${r.left?` · ${r.left} queued`:""}.`
+    :`<b>Notes:</b> Bridge offline — ${r.left} queued.`);
+  hydrate();
 }
-flushOutbox();
-document.getElementById("csend").addEventListener("click",()=>send(cinp.value));cinp.addEventListener("keydown",e=>{if(e.key==="Enter")send(cinp.value);});
-["What do we sell?","What's next?","How many leads?","What do I say?"].forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>send(c);document.getElementById("chips").appendChild(b);});
+async function askCEO(q){
+  const el=add("ai","<b>CEO:</b> <i>thinking…</i>");
+  try{
+    const r=await fetch(BRIDGE+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message:q,session:CEO_SESSION})});
+    const j=await r.json();if(j.error)throw new Error(j.error);
+    if(j.session){CEO_SESSION=j.session;localStorage.setItem("mdp-ceo-session",CEO_SESSION);}
+    el.innerHTML="<b>CEO:</b> "+fmt(j.text||"(no reply)");
+  }catch(e){el.innerHTML="<b>CEO:</b> bridge offline — start it with <code>node notes-bridge.js</code>";}
+  logEl.scrollTop=logEl.scrollHeight;
+}
+function send(q){if(!q.trim())return;add("me",esc(q));cinp.value="";
+  const m=q.match(/^\s*(?:log|note)\s+(.+)$/i);
+  if(m)return void setTimeout(()=>logCall(m[1]),150);
+  askCEO(q);}
+$("csend").onclick=()=>send(cinp.value);
+cinp.onkeydown=e=>{if(e.key==="Enter")send(cinp.value);};
 
-// ===== LIVE =====
-const last={};
-function flash(id){const el=document.getElementById(id);el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
-function renderKpis(){const set=(id,html,key)=>{const el=document.getElementById(id);el.innerHTML=html;if(last[key]!==undefined&&last[key]!==html)flash(id);last[key]=html;};
-  set("k-mrr",DATA.kpis.mrr+'<small>/10k</small>',"m");set("k-leads",String(DATA.kpis.leads),"l");set("k-dials",DATA.kpis.dials.split("/")[0]+'<small>/'+DATA.kpis.dials.split("/")[1]+'</small>',"d");set("k-clients",String(DATA.kpis.clients),"c");
-  if(byId.lead.lel){const o=byId.lead.lel.querySelector(".one");if(o)o.textContent=DATA.kpis.leads+" companies to call";}}
-async function hydrate(){try{const pipe=await fetch("pipeline.md",{cache:"no-store"});if(!pipe.ok)throw 0;const txt=await pipe.text();
-  const counts={};STAGES.forEach(s=>counts[s[0]]=0);const list=[];let won=false;
-  txt.split("\n").forEach(line=>{if(/^##\s*Won/i.test(line))won=true;if(won||!line.startsWith("| "))return;const c=line.split("|").map(x=>x.trim());if(c.length<4||c[1]===""||c[1]==="Company")return;const st=c[3].toLowerCase();if(!STAGES.some(s=>s[0]===st))return;counts[st]++;const m=(c[2]||"").match(/\(?\d{3}\)?[ .-]?\d{3}[ .-]?\d{4}/);list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:c[4]||"",next:c[5]||""});});
-  if(list.length){DATA.pipeline=counts;DATA.kpis.leads=Object.values(counts).reduce((a,b)=>a+b,0);DATA.leadList=list;}
-  const met=await fetch("metrics.md",{cache:"no-store"});if(met.ok){const rows=(await met.text()).split("\n").filter(l=>l.startsWith("|")&&!/Week of|:---/.test(l));const lr=rows[rows.length-1];if(lr){const c=lr.split("|").map(x=>x.trim());if(c.length>=9)DATA.kpis.mrr=c[7]||DATA.kpis.mrr;}}
-  document.getElementById("liveTxt").innerHTML='LIVE · <b>'+DATA.kpis.leads+' leads</b> in your files';renderKpis();
-}catch(e){document.getElementById("liveTxt").innerHTML='<b>'+DATA.kpis.leads+' leads</b> · snapshot';renderKpis();}}
-setTimeout(()=>{const h=document.getElementById("hint");if(h)h.style.opacity="0";},7000);
-resize();renderKpis();requestAnimationFrame(frame);hydrate();setInterval(hydrate,5000);
+/* ============ boot ============ */
+setInterval(()=>{const d=new Date();
+  $("clock").textContent=d.toLocaleDateString(undefined,{weekday:"long",month:"short",day:"numeric"}).toUpperCase()
+    +"   "+d.toLocaleTimeString();},1000);
+setTimeout(()=>{const h=$("hint");if(h)h.style.opacity="0";},8000);
+resize();requestAnimationFrame(frame);hydrate();flushOutbox();
+setInterval(hydrate,15000);
 </script>
+</body>
+</html>

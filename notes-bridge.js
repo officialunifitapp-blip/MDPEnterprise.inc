@@ -267,6 +267,52 @@ http.createServer(async (req, res) => {
     return json(res, 200, { ok: !!TOKEN, db: DB || null, hasToken: !!TOKEN });
   }
 
+  // Recent real activity: rows that actually have a note on them.
+  if (req.url === "/activity") {
+    (async () => {
+      try {
+        await ensureDb();
+        const q = await notion(`/databases/${DB}/query`, "POST", {
+          page_size: 40,
+          sorts: [{ property: "Last touch", direction: "descending" }],
+        });
+        const items = q.results
+          .filter(r => (r.properties.Note?.rich_text || []).length)
+          .slice(0, 8)
+          .map(r => {
+            const note = (r.properties.Note.rich_text).map(t => t.plain_text).join("");
+            const lines = note.trim().split("\n");
+            return {
+              company: (r.properties.Company?.title || []).map(t => t.plain_text).join(""),
+              last: lines[lines.length - 1],
+              stage: r.properties.Stage?.select?.name || null,
+              outcome: r.properties.Outcome?.select?.name || null,
+              when: r.properties["Last touch"]?.date?.start || null,
+            };
+          });
+        json(res, 200, { items });
+      } catch (e) { json(res, 200, { items: [], error: e.message }); }
+    })();
+    return;
+  }
+
+  // Real health, not a green light that is always green.
+  if (req.url === "/status") {
+    const fs = require("fs"), path = require("path");
+    let manager = null;
+    try {
+      const st = fs.statSync(path.join(__dirname, "logs", "manager.log"));
+      manager = { lastRun: st.mtime.toISOString(), size: st.size };
+    } catch { /* never run yet */ }
+    return json(res, 200, {
+      bridge: true,
+      notion: !!TOKEN && !!DB,
+      db: DB || null,
+      model: MODEL,
+      manager,
+    });
+  }
+
   if (req.method === "POST" && req.url === "/chat") {
     let raw = "";
     req.on("data", c => { raw += c; if (raw.length > 1e5) req.destroy(); });
