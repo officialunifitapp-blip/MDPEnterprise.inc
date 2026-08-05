@@ -274,6 +274,10 @@ const BRIDGE=CFG.url;
 const bfetch=(path,opt={})=>{
   if(!BRIDGE)return Promise.reject(new Error("no bridge configured"));
   const h={...(opt.headers||{})};if(CFG.key)h["X-Bridge-Key"]=CFG.key;
+  // ngrok's free tier serves a click-through warning page to anything that
+  // looks like a browser, which would arrive here as HTML where JSON is
+  // expected. This header opts out of it and is inert on any other host.
+  h["ngrok-skip-browser-warning"]="1";
   return fetch(BRIDGE+path,{...opt,headers:h});
 };
 const STAGES=["new","contacted","replied","booked","call held","proposal","won","lost"];

@@ -297,7 +297,7 @@ const now = () => new Date().toISOString();
 /* ---- http ---- */
 const CORS = {
   "Access-Control-Allow-Origin":  "*",
-  "Access-Control-Allow-Headers": "Content-Type, X-Bridge-Key",
+  "Access-Control-Allow-Headers": "Content-Type, X-Bridge-Key, ngrok-skip-browser-warning",
   "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
 };
 const json = (res, code, obj) => {

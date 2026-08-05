@@ -30,6 +30,13 @@ echo
 echo "Bridge:  http://localhost:8787"
 echo "Tunnel:  $URL"
 echo
-echo "Pair the phone — open this once in the phone's browser:"
-echo "https://officialunifitapp-blip.github.io/MDPEnterprise.inc/?bridge=$URL&key=$BRIDGE_KEY"
+PAIR="https://officialunifitapp-blip.github.io/MDPEnterprise.inc/?bridge=$URL&key=$BRIDGE_KEY"
+echo "Pair the phone — scan the QR, or open this once in the phone's browser:"
+echo "$PAIR"
 echo
+# The key is 48 hex characters. Nobody is retyping that off a screen.
+if command -v qrencode > /dev/null; then
+  qrencode -t ANSIUTF8 -l M "$PAIR"
+else
+  echo "(brew install qrencode for a scannable code)"
+fi
