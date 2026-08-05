@@ -1,0 +1,17 @@
+{
+  "brands": [
+    "Carhartt",
+    "Nike",
+    "Patagonia"
+  ],
+  "categories": [],
+  "sizes": [],
+  "maxPrice": 60,
+  "minProfit": 20,
+  "minRoi": 0.6,
+  "platforms": [
+    "ebay"
+  ],
+  "notify": "dashboard",
+  "currency": "USD"
+}

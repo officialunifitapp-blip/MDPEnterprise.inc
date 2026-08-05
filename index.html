@@ -133,6 +133,38 @@ textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);bord
   color:var(--txt);padding:7px 8px;font:12px/1.45 inherit;resize:vertical;min-height:52px;margin:4px 0 6px}
 .hide{display:none}
 
+/* ---------- scout ---------- */
+.opp{display:flex;gap:11px;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:9px;
+  background:rgba(255,255,255,.015)}
+.opp img{width:74px;height:74px;object-fit:cover;border-radius:8px;flex:none;background:rgba(255,255,255,.05)}
+.opp .ob{flex:1;min-width:0}
+.opp .oh{display:flex;align-items:flex-start;gap:8px}
+.opp .on{font-size:13px;color:#eaf6ff;font-weight:600;flex:1}
+.opp .obr{font-size:11px;color:var(--dim)}
+.badge{font-size:9.5px;letter-spacing:.09em;font-weight:700;padding:3px 8px;border-radius:5px;flex:none}
+.badge.BUY{background:rgba(79,211,154,.18);color:var(--ok);border:1px solid var(--ok)}
+.badge.REVIEW{background:rgba(224,180,92,.16);color:var(--warn);border:1px solid var(--warn)}
+.badge.PASS{background:rgba(229,105,122,.13);color:var(--bad);border:1px solid rgba(229,105,122,.5)}
+.og{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 6px}
+.og div{border:1px solid var(--line);border-radius:6px;padding:5px 7px}
+.og .k{font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.og .v{font:600 12.5px var(--mono);color:#dff0ff;margin-top:1px}
+.orisk{font-size:11px;color:var(--warn);margin-top:3px}
+.ometa{font-size:10.5px;color:var(--dim);margin-top:3px}
+.obtn{display:inline-block;margin-top:7px;background:rgba(79,195,247,.1);border:1px solid var(--line2);
+  color:var(--acc2);border-radius:7px;padding:5px 11px;font-size:11.5px;text-decoration:none}
+.obtn:hover{background:rgba(79,195,247,.2)}
+.fld{display:grid;grid-template-columns:130px 1fr;gap:7px;align-items:center;margin-bottom:7px}
+.fld label{font-size:11px;color:var(--dim)}
+.fld input,.fld select{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:6px;
+  color:var(--txt);padding:6px 8px;font:12px inherit;width:100%}
+.warnbox{border:1px solid rgba(224,180,92,.4);background:rgba(224,180,92,.07);border-radius:8px;
+  padding:9px 11px;font-size:11.5px;color:#e8d3a6;margin-bottom:12px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.filters select,.filters input{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:6px;
+  color:var(--txt);padding:5px 7px;font:11.5px inherit}
+.spin{color:var(--dim);font-size:12px;padding:10px 0}
+
 /* chat */
 .chat{position:fixed;z-index:50;right:14px;bottom:14px;width:min(400px,94vw);height:min(560px,80vh);
   background:rgba(8,16,29,.97);border:1px solid var(--line2);border-radius:12px;display:flex;
@@ -324,6 +356,7 @@ const HUBS=[
   {id:"sales", name:"SCRIPTS", subs:["Openers","Objections","Voicemail"]},
   {id:"notes", name:"NOTES",   subs:["Call Log","Notion","CSV"]},
   {id:"mgr",   name:"MANAGER", subs:["5am job","Sourcing","Sync"]},
+  {id:"scout", name:"SCOUT",   subs:["Opportunities","Criteria","Activity"]},
 ];
 let W=0,H=0,DPR=1,t=0;
 function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(devicePixelRatio||1,2);
@@ -402,7 +435,89 @@ const SHEET={
   sales:["Scripts","What to say, and what to say back.",()=>scriptsPanel()],
   notes:["Notes","Your call log — local capture, Notion is the record.",()=>notesPanel()],
   mgr:["Manager","Runs at 5:00 daily via launchd.",()=>managerPanel()],
+  scout:["Resale Scout","Reads Depop's own saved-search emails. You buy manually.",()=>scoutPanel()],
 };
+
+/* ================= Depop Resale Scout =================
+   Analyses notification emails Depop sends you. It does not scrape Depop, run
+   searches, log in, message sellers, make offers, or buy. Buying is on you. */
+const SCOUTF={rating:"",brand:"",minNet:"",minRoi:""};
+DATA.scout={items:null,cfg:null,err:null,busy:false};
+async function loadScout(){
+  DATA.scout.busy=true;
+  try{
+    const[c,o]=await Promise.all([
+      fetch(BRIDGE+"/scout/config").then(r=>r.json()),
+      fetch(BRIDGE+"/scout/opportunities").then(r=>r.json())]);
+    DATA.scout.cfg=c;DATA.scout.items=o.items||[];DATA.scout.err=o.error||null;
+  }catch(e){DATA.scout.err="bridge offline";DATA.scout.items=[];}
+  DATA.scout.busy=false;
+}
+const num=v=>v==null?"—":(typeof v==="number"?(Math.abs(v)>=1?v.toFixed(2):String(v)):v);
+const pct=v=>v==null?"—":Math.round(v*100)+"%";
+function oppCard(o){
+  return `<div class="opp">
+    ${o.image?`<img src="${esc(o.image)}" alt="" onerror="this.style.visibility='hidden'">`:`<div style="width:74px;height:74px;border-radius:8px;background:rgba(255,255,255,.05);flex:none"></div>`}
+    <div class="ob">
+      <div class="oh"><div class="on">${esc(o.title||o.id)}<div class="obr">${esc(o.brand||"brand unknown")}${o.size?" · size "+esc(o.size):""}</div></div>
+        <span class="badge ${esc(o.rating||"REVIEW")}">${esc(o.rating||"REVIEW")}</span></div>
+      <div class="og">
+        <div><div class="k">Cost</div><div class="v">${num(o.acquisition)}</div></div>
+        <div><div class="k">Resale</div><div class="v">${o.resaleLow==null?"—":num(o.resaleLow)+"–"+num(o.resaleHigh)}</div></div>
+        <div><div class="k">Net</div><div class="v" style="color:${o.net>0?"var(--ok)":"var(--dim)"}">${num(o.net)}</div></div>
+        <div><div class="k">ROI</div><div class="v">${pct(o.roi)}</div></div>
+      </div>
+      <div class="ometa">demand ${esc(o.demand||"unknown")} · confidence ${esc(o.confidence||"low")}${o.basis?" · "+esc(o.basis):""}</div>
+      ${(o.risks||[]).length?`<div class="orisk">▲ ${o.risks.map(esc).join(" · ")}</div>`:""}
+      ${o.url?`<a class="obtn" href="${esc(o.url)}" target="_blank" rel="noopener noreferrer">Open on Depop ↗</a>`:""}
+    </div></div>`;
+}
+function scoutPanel(){
+  const S=DATA.scout;
+  if(S.busy&&!S.items)return `<div class="spin">Loading opportunities…</div>`;
+  if(S.err)return `<div class="warnbox">Scout unavailable — ${esc(S.err)}. Start the bridge: <code>node notes-bridge.js</code></div>`;
+  const c=S.cfg||{};
+  let items=(S.items||[]).slice();
+  if(SCOUTF.rating)items=items.filter(i=>i.rating===SCOUTF.rating);
+  if(SCOUTF.brand)items=items.filter(i=>(i.brand||"").toLowerCase().includes(SCOUTF.brand.toLowerCase()));
+  if(SCOUTF.minNet!=="")items=items.filter(i=>i.net!=null&&i.net>=+SCOUTF.minNet);
+  if(SCOUTF.minRoi!=="")items=items.filter(i=>i.roi!=null&&i.roi>=+SCOUTF.minRoi);
+  const n=r=>(S.items||[]).filter(i=>i.rating===r).length;
+
+  return `<div class="warnbox">You inspect and buy every item yourself. Scout never contacts sellers, makes offers, or purchases — it only reads Depop's emails and does the arithmetic.</div>
+
+  <div class="sec"><div class="slb">Pipeline <span>${(S.items||[]).length} analysed</span></div>
+    <span class="chip">BUY <b>${n("BUY")}</b></span><span class="chip">REVIEW <b>${n("REVIEW")}</b></span><span class="chip">PASS <b>${n("PASS")}</b></span>
+    <span class="chip">ALERTED <b>${(S.items||[]).filter(i=>i.alerted).length}</b></span></div>
+
+  <div class="sec"><div class="slb">Opportunities <span>${items.length} shown</span></div>
+    <div class="filters">
+      <select data-f="rating"><option value="">All ratings</option>${["BUY","REVIEW","PASS"].map(r=>`<option ${SCOUTF.rating===r?"selected":""}>${r}</option>`).join("")}</select>
+      <input data-f="brand" placeholder="brand" value="${esc(SCOUTF.brand)}">
+      <input data-f="minNet" placeholder="min net" value="${esc(SCOUTF.minNet)}" style="width:80px">
+      <input data-f="minRoi" placeholder="min ROI" value="${esc(SCOUTF.minRoi)}" style="width:80px">
+    </div>
+    ${items.length?items.map(oppCard).join(""):`<div class="say" style="color:var(--dim)">${(S.items||[]).length?"Nothing matches those filters.":"No listings analysed yet. Paste a Depop notification email below to test."}</div>`}
+  </div>
+
+  <div class="sec"><div class="slb">Buying criteria</div>
+    ${[["brands","Brands",(c.brands||[]).join(", ")],["categories","Categories",(c.categories||[]).join(", ")],
+       ["sizes","Sizes",(c.sizes||[]).join(", ")],["maxPrice","Max price",c.maxPrice],
+       ["minProfit","Min net profit",c.minProfit],["minRoi","Min ROI (0.6 = 60%)",c.minRoi]]
+      .map(([k,l,v])=>`<div class="fld"><label>${l}</label><input data-cfg="${k}" value="${esc(v??"")}"></div>`).join("")}
+    <div class="fld"><label>Resale platform</label><select data-cfg="platforms">${["ebay","grailed","depop","poshmark"].map(p=>`<option ${((c.platforms||[])[0]===p)?"selected":""}>${p}</option>`).join("")}</select></div>
+    <div class="fld"><label>Notify via</label><select data-cfg="notify">${["dashboard","macos","both"].map(p=>`<option ${c.notify===p?"selected":""}>${p}</option>`).join("")}</select></div>
+    <button class="qa" id="cfgSave">▸ Save criteria</button></div>
+
+  <div class="sec"><div class="slb">Email connection</div>
+    <div class="say"><span class="sd" style="display:inline-block;background:var(--warn);box-shadow:0 0 8px var(--warn)"></span>
+      Not connected. Gmail read-only access needs your authorization — until then, paste an email below.</div></div>
+
+  <div class="sec"><div class="slb">Paste a Depop email <span>test without Gmail</span></div>
+    <textarea id="scoutPaste" placeholder="Paste the full HTML of a Depop saved-search notification email" style="min-height:90px"></textarea>
+    <button class="qa" id="scoutRun">▸ Analyse email</button>
+    <div id="scoutOut" class="ometa"></div></div>`;
+}
 const SORT={key:"co",dir:1};
 function leadTable(){
   const rows=DATA.leads.slice().sort((a,b)=>{
@@ -455,6 +570,8 @@ function openSheet(id){
   const[nm,sub,fn]=SHEET[id];
   $("shName").textContent=nm;$("shSub").textContent=sub;$("shBody").innerHTML=fn();
   $("scrim").classList.add("on");$("sheet").classList.add("on");wireSheet();
+  if(id==="scout"&&!DATA.scout.items)
+    loadScout().then(()=>{$("shBody").innerHTML=scoutPanel();wireSheet();});
 }
 function wireSheet(){
   const b=$("shBody");
@@ -468,6 +585,38 @@ function wireSheet(){
     const k=h.dataset.sort;if(SORT.key===k)SORT.dir*=-1;else{SORT.key=k;SORT.dir=1;}
     b.innerHTML=leadTable();wireSheet();});
   b.querySelectorAll("[data-act]").forEach(x=>x.onclick=()=>act(x.dataset.act));
+  // scout: filters, criteria, manual email analysis
+  b.querySelectorAll("[data-f]").forEach(el=>{
+    const ev=el.tagName==="SELECT"?"onchange":"oninput";
+    el[ev]=()=>{SCOUTF[el.dataset.f]=el.value;b.innerHTML=scoutPanel();wireSheet();};});
+  const save=b.querySelector("#cfgSave");
+  if(save)save.onclick=async()=>{
+    const p={};
+    b.querySelectorAll("[data-cfg]").forEach(el=>{
+      const k=el.dataset.cfg,v=el.value.trim();
+      if(k==="platforms")p[k]=[v];
+      else if(["brands","categories","sizes"].includes(k))p[k]=v?v.split(",").map(s=>s.trim()).filter(Boolean):[];
+      else if(["maxPrice","minProfit","minRoi"].includes(k))p[k]=v===""?null:+v;
+      else p[k]=v;});
+    save.textContent="Saving…";
+    try{DATA.scout.cfg=await (await fetch(BRIDGE+"/scout/config",{method:"POST",
+      headers:{"Content-Type":"application/json"},body:JSON.stringify(p)})).json();
+      save.textContent="▸ Saved";}
+    catch(e){save.textContent="▸ Save failed — bridge offline";}
+    setTimeout(()=>{save.textContent="▸ Save criteria";},1800);};
+  const run=b.querySelector("#scoutRun");
+  if(run)run.onclick=async()=>{
+    const ta=b.querySelector("#scoutPaste"),out=b.querySelector("#scoutOut");
+    if(!ta.value.trim()){out.textContent="Paste an email first.";return;}
+    run.textContent="Analysing…";out.textContent="";
+    try{
+      const r=await (await fetch(BRIDGE+"/scout/analyze",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({html:ta.value,from:"no-reply@depop.com"})})).json();
+      if(r.rejected){out.textContent="Rejected: "+r.rejected;}
+      else{out.textContent=`parsed ${r.parsed} · new ${r.created} · duplicates ${r.duplicates} · BUY ${r.buys}`;
+        await loadScout();b.innerHTML=scoutPanel();wireSheet();}
+    }catch(e){out.textContent="Bridge offline — start it with: node notes-bridge.js";}
+    run.textContent="▸ Analyse email";};
 }
 function closeAll(){["scrim","sheet","chat"].forEach(i=>$(i).classList.remove("on"));}
 $("scrim").onclick=closeAll;$("shX").onclick=closeAll;$("chX").onclick=closeAll;
