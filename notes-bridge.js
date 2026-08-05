@@ -250,10 +250,54 @@ async function upsert(entry) {
   return { action: "appended", company, outcome, stage: newStage || null };
 }
 
+/* ---- shared state ----
+   Notes and CEO thoughts used to live in each browser's localStorage, which
+   meant the phone and the laptop each kept a private copy that never met.
+   They live here now — one file, one truth, both devices read it.
+
+   Merge is last-write-wins per entry, not per document: two devices editing
+   different companies both keep their work. Whole-document overwrite would
+   silently drop whichever device posted first. */
+const fsp   = require("fs");
+const STATE = require("path").join(__dirname, "state.json");
+
+function loadState() {
+  try { return JSON.parse(fsp.readFileSync(STATE, "utf8")); }
+  catch { return { notes: {}, thoughts: [] }; }
+}
+function saveState(s) {
+  fsp.writeFileSync(STATE, JSON.stringify(s, null, 2));
+  return s;
+}
+function mergeState(incoming) {
+  const cur = loadState();
+
+  // Notes: {company: {text, at}} — newest timestamp wins per company.
+  for (const [co, n] of Object.entries(incoming.notes || {})) {
+    if (!n || typeof n.text !== "string") continue;
+    const mine = cur.notes[co];
+    if (!mine || String(n.at || "") > String(mine.at || "")) cur.notes[co] = { text: n.text, at: n.at || now() };
+  }
+
+  // Thoughts: union by id so a device that has been offline re-adds its own
+  // without resurrecting ones that were deleted elsewhere in the meantime.
+  const byId = new Map((cur.thoughts || []).map(t => [t.id, t]));
+  for (const t of incoming.thoughts || []) {
+    if (t && t.id && typeof t.text === "string" && !byId.has(t.id)) byId.set(t.id, { id: t.id, text: t.text, at: t.at || now() });
+  }
+  cur.thoughts = [...byId.values()].sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 8);
+
+  for (const id of incoming.deleted || []) {
+    cur.thoughts = cur.thoughts.filter(t => t.id !== id);
+  }
+  return saveState(cur);
+}
+const now = () => new Date().toISOString();
+
 /* ---- http ---- */
 const CORS = {
   "Access-Control-Allow-Origin":  "*",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type, X-Bridge-Key",
   "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
 };
 const json = (res, code, obj) => {
@@ -261,11 +305,40 @@ const json = (res, code, obj) => {
   res.end(JSON.stringify(obj));
 };
 
+/* Once a tunnel points at this port it is on the public internet, where it
+   would otherwise be an unauthenticated write endpoint into Notion and a
+   shell into Claude Code. BRIDGE_KEY is the whole fence — refuse to serve
+   anything but /health without it. */
+const KEY = process.env.BRIDGE_KEY || "";
+function authed(req) {
+  if (!KEY) return true;                       // localhost-only, no tunnel
+  const hdr = req.headers["x-bridge-key"];
+  if (hdr) return hdr === KEY;
+  return (req.url.match(/[?&]k=([^&]+)/) || [])[1] === KEY;
+}
+
 http.createServer(async (req, res) => {
   if (req.method === "OPTIONS") { res.writeHead(204, CORS); return res.end(); }
 
-  if (req.url === "/health") {
-    return json(res, 200, { ok: !!TOKEN, db: DB || null, hasToken: !!TOKEN });
+  if (req.url.startsWith("/health")) {
+    return json(res, 200, { ok: !!TOKEN, db: DB || null, hasToken: !!TOKEN, locked: !!KEY });
+  }
+
+  if (!authed(req)) return json(res, 401, { error: "bad or missing bridge key" });
+
+  /* Shared notes + thoughts. GET is the phone catching up, POST is the phone
+     pushing what it wrote while it was the only one holding it. */
+  if (req.url.startsWith("/state")) {
+    if (req.method === "GET") return json(res, 200, loadState());
+    if (req.method === "POST") {
+      let raw = "";
+      req.on("data", c => { raw += c; if (raw.length > 2e6) req.destroy(); });
+      req.on("end", () => {
+        try { json(res, 200, mergeState(JSON.parse(raw || "{}"))); }
+        catch (e) { json(res, 400, { error: e.message }); }
+      });
+      return;
+    }
   }
 
   // Recent real activity: rows that actually have a note on them.

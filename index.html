@@ -255,18 +255,86 @@ textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);bord
 </div>
 
 <script>
-const BRIDGE="http://localhost:8787";
+/* The bridge runs on the Mac. On the Mac that is localhost; on the phone it
+   has to be the tunnel URL, which the page cannot guess. Pair a device once by
+   opening ...?bridge=https://xyz.trycloudflare.com&key=SECRET — it is stored
+   and the query string is stripped so the key never sits in history or in a
+   shared link. The key is never in this file: this file is public on Pages. */
+const CFG=(()=>{
+  const q=new URLSearchParams(location.search);
+  const b=q.get("bridge"),k=q.get("key");
+  if(b)localStorage.setItem("mdp-bridge",b.replace(/\/$/,""));
+  if(k)localStorage.setItem("mdp-key",k);
+  if(b||k)history.replaceState(null,"",location.pathname);
+  const host=location.hostname;
+  const dflt=(host==="localhost"||host==="127.0.0.1"||host==="")?"http://localhost:8787":"";
+  return{url:localStorage.getItem("mdp-bridge")||dflt,key:localStorage.getItem("mdp-key")||""};
+})();
+const BRIDGE=CFG.url;
+const bfetch=(path,opt={})=>{
+  if(!BRIDGE)return Promise.reject(new Error("no bridge configured"));
+  const h={...(opt.headers||{})};if(CFG.key)h["X-Bridge-Key"]=CFG.key;
+  return fetch(BRIDGE+path,{...opt,headers:h});
+};
 const STAGES=["new","contacted","replied","booked","call held","proposal","won","lost"];
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const dialn=p=>String(p||"").replace(/\D/g,"");
 const $=id=>document.getElementById(id);
 
 const DATA={leads:[],counts:{},metrics:{},status:null,feed:[]};
+/* localStorage is now a cache, not the store. The bridge holds the truth; this
+   copy is what the device shows while the bridge is unreachable, and what it
+   replays once it is back. */
 const NOTES=JSON.parse(localStorage.getItem("mdp-notes")||"{}");
+const NOTE_AT=JSON.parse(localStorage.getItem("mdp-notes-at")||"{}");
+let THOUGHTS=(()=>{
+  const raw=JSON.parse(localStorage.getItem("mdp-thoughts")||"null");
+  if(!raw)return null;
+  // Migration: thoughts used to be bare strings with no id and no timestamp,
+  // neither of which survives a merge between two devices.
+  return raw.map(t=>typeof t==="string"?{id:uid(),text:t,at:"2000-01-01T00:00:00.000Z"}:t);
+})();
 let OUTBOX=JSON.parse(localStorage.getItem("mdp-outbox")||"[]");
+function uid(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36);}
+const iso=()=>new Date().toISOString();
 const saveOutbox=()=>localStorage.setItem("mdp-outbox",JSON.stringify(OUTBOX));
-function saveNote(co,v){if(v.trim())NOTES[co]=v;else delete NOTES[co];localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
-function appendNote(co,t){const l=new Date().toISOString().slice(0,10)+" — "+t;NOTES[co]=NOTES[co]?NOTES[co]+"\n"+l:l;localStorage.setItem("mdp-notes",JSON.stringify(NOTES));}
+function cacheState(){
+  localStorage.setItem("mdp-notes",JSON.stringify(NOTES));
+  localStorage.setItem("mdp-notes-at",JSON.stringify(NOTE_AT));
+  if(THOUGHTS)localStorage.setItem("mdp-thoughts",JSON.stringify(THOUGHTS));
+}
+function saveNote(co,v){
+  if(v.trim())NOTES[co]=v;else delete NOTES[co];
+  NOTE_AT[co]=iso();cacheState();pushState();
+}
+function appendNote(co,t){
+  const l=iso().slice(0,10)+" — "+t;
+  NOTES[co]=NOTES[co]?NOTES[co]+"\n"+l:l;
+  NOTE_AT[co]=iso();cacheState();pushState();
+}
+
+/* ---- cross-device sync ---- */
+async function pullState(){
+  try{
+    const s=await (await bfetch("/state")).json();
+    for(const [co,n] of Object.entries(s.notes||{})){
+      // Server wins only when it is actually newer — otherwise a slow pull
+      // would clobber something typed on this device a second ago.
+      if(!NOTE_AT[co]||String(n.at||"")>NOTE_AT[co]){NOTES[co]=n.text;NOTE_AT[co]=n.at;}
+    }
+    if(s.thoughts&&s.thoughts.length)THOUGHTS=s.thoughts;
+    cacheState();return true;
+  }catch(e){return false;}
+}
+async function pushState(){
+  const notes={};for(const co of Object.keys(NOTES))notes[co]={text:NOTES[co],at:NOTE_AT[co]||iso()};
+  try{
+    const r=await bfetch("/state",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({notes,thoughts:THOUGHTS||[]})});
+    if(r.ok){const s=await r.json();if(s.thoughts)THOUGHTS=s.thoughts;cacheState();}
+    return r.ok;
+  }catch(e){return false;}
+}
 
 /* ============ data ============ */
 async function hydrate(){
@@ -298,8 +366,10 @@ async function hydrate(){
       if(c.length>=9)DATA.metrics={week:c[1],out:c[2],rep:c[3],mtg:c[4],calls:c[5],closes:c[6],mrr:c[7],constraint:c[8]};
     }
   }catch(e){}
-  try{DATA.status=await (await fetch(BRIDGE+"/status")).json();}catch(e){DATA.status=null;}
-  try{DATA.feed=(await (await fetch(BRIDGE+"/activity")).json()).items||[];}catch(e){DATA.feed=[];}
+  try{DATA.status=await (await bfetch("/status")).json();}catch(e){DATA.status=null;}
+  try{DATA.feed=(await (await bfetch("/activity")).json()).items||[];}catch(e){DATA.feed=[];}
+  await pullState();
+  flushOutbox();
   paint();
 }
 
@@ -345,10 +415,10 @@ function paint(){
     <span class="nm">${nm}<div style="font-size:10.5px;color:var(--dim)">${d}</div></span>
     <span class="vl">${on?"Ready":"Idle"}</span></div>`).join("");
 
-  const th=JSON.parse(localStorage.getItem("mdp-thoughts")||"null")||
+  const th=(THOUGHTS&&THOUGHTS.length?THOUGHTS.map(t=>t.text):null)||
     [M.constraint||"Dial volume is the constraint.","Confirm the demo line answers: (314) 887-9824.","Waive setup for the first 3 — case studies close the next 10."];
   $("thoughts").innerHTML=th.map(t=>`<div class="th"><b>▸</b><span>${esc(t)}</span></div>`).join("");
-  $("sysTxt").textContent=S?"System online":"Bridge offline";
+  $("sysTxt").textContent=S?"System online":(BRIDGE?"Bridge offline":"Not paired");
   $("sysPill").querySelector(".dot").style.background=S?"var(--ok)":"var(--warn)";
 }
 
@@ -506,8 +576,8 @@ async function loadScout(){
   DATA.scout.busy=true;
   try{
     const[c,o]=await Promise.all([
-      fetch(BRIDGE+"/scout/config").then(r=>r.json()),
-      fetch(BRIDGE+"/scout/opportunities").then(r=>r.json())]);
+      bfetch("/scout/config").then(r=>r.json()),
+      bfetch("/scout/opportunities").then(r=>r.json())]);
     DATA.scout.cfg=c;DATA.scout.items=o.items||[];DATA.scout.err=o.error||null;
   }catch(e){DATA.scout.err="bridge offline";DATA.scout.items=[];}
   DATA.scout.busy=false;
@@ -667,7 +737,7 @@ function wireSheet(){
       else if(["maxPrice","minProfit","minRoi"].includes(k))p[k]=v===""?null:+v;
       else p[k]=v;});
     save.textContent="Saving…";
-    try{DATA.scout.cfg=await (await fetch(BRIDGE+"/scout/config",{method:"POST",
+    try{DATA.scout.cfg=await (await bfetch("/scout/config",{method:"POST",
       headers:{"Content-Type":"application/json"},body:JSON.stringify(p)})).json();
       save.textContent="▸ Saved";}
     catch(e){save.textContent="▸ Save failed — bridge offline";}
@@ -678,7 +748,7 @@ function wireSheet(){
     if(!ta.value.trim()){out.textContent="Paste an email first.";return;}
     run.textContent="Analysing…";out.textContent="";
     try{
-      const r=await (await fetch(BRIDGE+"/scout/analyze",{method:"POST",headers:{"Content-Type":"application/json"},
+      const r=await (await bfetch("/scout/analyze",{method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({html:ta.value,from:"no-reply@depop.com"})})).json();
       if(r.rejected){out.textContent="Rejected: "+r.rejected;}
       else{out.textContent=`parsed ${r.parsed} · new ${r.created} · duplicates ${r.duplicates} · BUY ${r.buys}`;
@@ -705,10 +775,11 @@ function act(a){
   if(a==="log"){openChat();$("cinp").value="log ";$("cinp").focus();}
 }
 document.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>act(b.dataset.act));
-$("addThought").onclick=()=>{
+$("addThought").onclick=async()=>{
   const t=prompt("New CEO thought:");if(!t)return;
-  const cur=JSON.parse(localStorage.getItem("mdp-thoughts")||"null")||[];
-  cur.unshift(t);localStorage.setItem("mdp-thoughts",JSON.stringify(cur.slice(0,8)));paint();
+  THOUGHTS=[{id:uid(),text:t,at:iso()},...(THOUGHTS||[])].slice(0,8);
+  cacheState();paint();
+  await pushState();paint();
 };
 
 /* ============ chat ============ */
@@ -725,7 +796,7 @@ function matchCo(q){const k=normCo(q);if(!k)return null;const L=DATA.leads;
   return L.find(l=>normCo(l.co)===k)||L.find(l=>normCo(l.co).startsWith(k))||L.find(l=>normCo(l.co).includes(k))||null;}
 async function flushOutbox(){let sent=0;
   while(OUTBOX.length){
-    try{const r=await fetch(BRIDGE+"/note",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(OUTBOX[0])});
+    try{const r=await bfetch("/note",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(OUTBOX[0])});
       if(!r.ok)break;const j=await r.json();
       if(j.results&&j.results[0]&&j.results[0].action==="error")break;
       OUTBOX.shift();sent++;}catch(e){break;}}
@@ -747,7 +818,7 @@ async function logCall(rest){
 async function askCEO(q){
   const el=add("ai","<b>CEO:</b> <i>thinking…</i>");
   try{
-    const r=await fetch(BRIDGE+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+    const r=await bfetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({message:q,session:CEO_SESSION})});
     const j=await r.json();if(j.error)throw new Error(j.error);
     if(j.session){CEO_SESSION=j.session;localStorage.setItem("mdp-ceo-session",CEO_SESSION);}
