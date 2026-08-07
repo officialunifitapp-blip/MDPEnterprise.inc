@@ -39,11 +39,11 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Peerless Cleaning & Restoration | Wike family · (217) 423-7704 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | J.J. Swartz Co | Owner TBD · (217) 877-2611 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | CLEAN Restoration | Jeff Butler (Owner) · (217) 440-1292 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
-| American Hometown Services | Owner TBD · (217) 228-7563 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| American Hometown Services | Owner TBD · (217) 228-7563 | new | 2026-08-05 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | 911 Restoration of Southern Illinois | John Fowler (CEO) · (618) 679-4021 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Restoration Connection Inc | John Fowler (Owner) · (618) 925-0085 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Leading Edge Restoration | Eric Speakman (Founder) · (618) 694-4568 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
-| American Patriot Restoration | Curt (Owner) · (217) 342-3206 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| American Patriot Restoration | Curt (Owner) · (217) 342-3206 | new | 2026-08-05 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | All Clean Restoration Services Inc | Mike Nagy (President/Owner) · (618) 235-3202 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Innovative Cleaning & Restoration LLC | Nick (Owner) · (314) 300-9610 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Atlas Restoration Specialists | Brian Mullins (President) · (314) 822-0090 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
@@ -122,7 +122,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Blumer Restoration | Davenport, IA · (309) 235-2992 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
 | Blaze Restoration Inc | Bettendorf, IA · (563) 324-4741 unverified | new | 2026-08-01 sourced | Verify phone + headcount fit | 2026-08-01 | Restoration |  |
 | Brown's Floor Care & Restoration | Swisher, IA · (319) 337-7721 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
-| Americlean of Iowa | Iowa City, IA · (319) 354-4577 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
+| Americlean of Iowa | Iowa City, IA · (319) 354-4577 unverified | new | 2026-08-05 gatekeeper | Verify phone first | 2026-08-01 | Restoration |  |
 | Hambly & Sons Cleaning & Restoration | Waterloo, IA · (319) 266-1629 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
 | True North Restoration of Iowa (Cedar Valley) | Waterloo/Cedar Falls, IA · (319) 220-3228 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
 | Siouxland Restoration Inc | Sioux City, IA · (712) 481-4325 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
@@ -140,7 +140,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Mustang Disaster CleanUp | Story City/Ames, IA · (515) 620-3772 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
 | Burlington Restoration Solutions | Burlington, IA · (319) 671-6640 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
 | Allen's Restoration | Hannibal, MO · (573) 221-0107 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
-| Ameristeam Restoration | Ottumwa, IA · (641) 632-9945 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
+| Ameristeam Restoration | Ottumwa, IA · (641) 632-9945 unverified | lost | 2026-08-05 not interested | Verify phone first | 2026-08-02 | Restoration |  |
 | Clinton Water Damage Pro | Clinton, IA · (563) 503-6066 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
 | ProSteam Branson | Branson, MO · (417) 598-2080 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
 | Performance Restoration LLC | North Liberty/Iowa City, IA · (319) 626-2292 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
@@ -150,7 +150,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | 24/7 Disaster Group | Owner TBD · (918) 779-4900 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
 | All Care Restoration | Steve & Carol Busboom · (402) 421-3779 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
 | DryHero Water & Mold | Ritch Paprocki (Founder) · (402) 438-2379 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
-| 13:12 Restoration | Owner TBD · (479) 977-1312 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
+| 13:12 Restoration | Owner TBD · (479) 977-1312 | contacted | 2026-08-05 callback set | Cold call → demo # | 2026-08-03 | Restoration |  |
 | Wall 2 Wall Restoration | Kevin · (479) 252-6650 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
 | ARS Restoration (Ark-La-Tex) | Owner TBD · (903) 832-3389 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
 | Courtesy Care Restoration | Jason Birk (Owner) · (918) 233-6477 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
@@ -186,7 +186,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | CleanWay Restoration & Construction | Nate & Shawn Easley · 2 conflicting #s | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
 | Arkansas Restoration Services, Inc. | 2nd-gen family owned · (479) 967-2018 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
 | Titan Restoration & Cleaning | Robert & Leslie Gamez (Owners) · (940) 782-9211 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
-| Alpha One Restore | Owner TBD · (972) 363-9577 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
+| Alpha One Restore | Owner TBD · (972) 363-9577 unverified | new | 2026-08-05 no answer | Verify phone first | 2026-08-05 | Restoration |  |
 | Flood Out Restoration | "Wes" (Owner) · (903) 235-2969 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
 | LMS Restoration | Don Preston (Founder/CEO) · (903) 784-3559 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
 | Phoenix Restoration Services, Inc. | Dave Salas (Owner) · (620) 276-6994 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
@@ -207,7 +207,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Allure Health And Med Spa | (402) 881-3638 · allurehealthmed.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Ambiance MD Medical Spa | (920) 857-2220 · ambiancemd.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Ambrose Marketing | (917) 513-7221 · ambrosemarketing.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| American Eyecare | (319) 754-2020 · americaneyecare.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| American Eyecare | (319) 754-2020 · americaneyecare.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Apex Urology & Aesthetics | (614) 456-7822 · apexuro.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Aqua Beauty Lounge & Med Spa | (262) 691-1814 · aqua-beautylounge.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Arabella Boutique Med Spa | (630) 207-9125 · arabellaboutiquemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
@@ -317,7 +317,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Mint Aesthetics | (913) 338-2553 · mintaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Mk Aesthetics | (612) 500-6367 · mkaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Morem & Waller, CPAs | (612) 703-7370 · moremwaller.cpa | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Natural Beauty Med Spa | (312) 981-1291 · naturalbeautymedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Natural Beauty Med Spa | (312) 981-1291 · naturalbeautymedspa.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Neoconcepts | (800) 504-0910 · neoconceptsinc.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
 | New Horizons Center For Cosmetic Surgery | (847) 674-4646 · drturowski.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Nexa Med Spa | (317) 669-9896 · nexamedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
@@ -384,7 +384,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Teddie Kossof Salon Spa | (847) 999-9500 · teddiekossof.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Temple Collective Medspa | (248) 605-0509 · templemilford.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Aesthetics Lounge And Spa St. Joseph | (844) 527-7772 · tal-spa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| The AláMar Integrative Medical Spa | (269) 455-5695 · alamarmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| The Alámar Integrative Medical Spa | (269) 455-5695 · alamarmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Boulevard Hair Co | (314) 733-5488 · salonblvd.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Confidence Bar | (312) 624-9971 · theconfidencebar.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Face & The Body Spa & Salon | (314) 725-8975 · faceandbodyspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
@@ -394,14 +394,14 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Touch Companies Wellness Center And Day Spa | (847) 318-9474 · touchcompanies.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Transform Medspa | (214) 748-3647 · transformmdspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Transforming Techniques Salon And Medical Spa | (937) 435-3223 · transformingtechniques.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| TréS J Medspa | (310) 999-8007 · tresjmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Trés J Medspa | (310) 999-8007 · tresjmedspa.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Tricho Salon & Spa | (248) 305-9111 · trichosalonandspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Trouvaille Med Spa Bourbonnais | (815) 680-5757 · trouvaillebourbonnais.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Truhealth Medical | (317) 616-0190 · truhealthintegration.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Turkle & Associates Plastic Surgery | (317) 848-0001 · turklemd.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Vina Laser Med Spa | (989) 791-2020 · vinamedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Visions Spa Salon | (248) 344-9944 · visionsspasalon.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Wayzata Medical Spa | (952) 473-1111 · wayzatamedicalspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Wayzata Medical Spa | (952) 473-1111 · wayzatamedicalspa.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Wellness Edge | (877) 937-6868 · yourwellnessedge.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | West Michigan Plastic Surgery | (269) 222-1611 · wmips.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | White Pearl Med Spa | (847) 238-8861 · whitepearlmedicalspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
