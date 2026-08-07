@@ -193,6 +193,15 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Stover's Restoration, Inc. | Owner TBD · (316) 722-5005 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
 | Teddy's Cleaning & Restoration LLC | Father-son team · no # yet | new | 2026-08-05 sourced | Find number first | 2026-08-05 | Restoration |  |
 | Arsicdry Water Damage Restoration | Owner TBD · no # yet | new | 2026-08-05 sourced | Find number first | 2026-08-05 | Restoration |  |
+| Absolute Clean & Restoration Inc | Scott & Stacy Ross (Owners) · (618) 402-8225 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
+| MCC Cleaning & Restoration | Jessica Vieu (Owner) · (314) 443-5044 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
+| Bales Cleaning & Restoration | Larry Martin (Owner) · (636) 498-1000 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
+| Grethey Rose Construction & Restoration | Victor Grethey & Sue Rose (Owners) · (309) 208-0798 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
+| Pro Clean Restoration & Floor Care | Jesse Callison (President/Owner) · (636) 233-6826 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
+| Environmental Resources, Inc. | David & Sherri Henson (Owners) · (618) 471-9119 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
+| Schultz Restoration LLC | Owner TBD · (573) 253-8030 | new | 2026-08-06 sourced | Cold call (confirm headcount fits ICP) | 2026-08-06 | Restoration |  |
+| Neville & Sons | Kevin & Tony Neville (Owners) · (573) 442-8280 | new | 2026-08-06 sourced | Verify 24/7 emergency line fit, then call | 2026-08-06 | Restoration |  |
+| Steam Power Carpet Cleaning | Owner TBD · (217) 585-8620 | new | 2026-08-06 sourced | Verify restoration is a real revenue line, then call | 2026-08-06 | Restoration |  |
 | A Total Body Medi Spa | (330) 382-6020 · atotalbodymedispa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | A Younger You Aesthetics | (614) 553-7216 · ayoungeryouohio.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | A Younger You Medical Spa | (262) 686-2978 · ayoungeryou.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
