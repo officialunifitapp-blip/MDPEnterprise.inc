@@ -17,7 +17,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Kwik Dry LLC | Family-run · (417) 725-6978 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | St. Louis Cleaning & Restoration | Family since '91 · (314) 439-1665 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Smoke Services Restoration | Metro East · (618) 234-9696 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
-| Arkansas Restoration | (501) 753-3600 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| Arkansas Restoration | (501) 753-3600 | new | 2026-08-08 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Burggraf Disaster | (918) 584-3737 | new | 2026-07-31 sourced | Cold call (check size) | 2026-08-01 | Restoration |  |
 | Best Option Restoration KC | Kansas City · no # yet | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | ABC Environmental | Owner TBD · (573) 928-2668 | new | 2026-08-08 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration |  |
@@ -202,220 +202,220 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Schultz Restoration LLC | Owner TBD · (573) 253-8030 | new | 2026-08-06 sourced | Cold call (confirm headcount fits ICP) | 2026-08-06 | Restoration |  |
 | Neville & Sons | Kevin & Tony Neville (Owners) · (573) 442-8280 | new | 2026-08-06 sourced | Verify 24/7 emergency line fit, then call | 2026-08-06 | Restoration |  |
 | Steam Power Carpet Cleaning | Owner TBD · (217) 585-8620 | new | 2026-08-06 sourced | Verify restoration is a real revenue line, then call | 2026-08-06 | Restoration |  |
-| A Total Body Medi Spa | (330) 382-6020 · atotalbodymedispa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| A Younger You Aesthetics | (614) 553-7216 · ayoungeryouohio.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| A Total Body Medi Spa | (330) 382-6020 · atotalbodymedispa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| A Younger You Aesthetics | (614) 553-7216 · ayoungeryouohio.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | A Younger You Medical Spa | (262) 686-2978 · ayoungeryou.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| A·Dore Aesthetics & Medspa | (402) 960-9886 · adoremedspaomaha.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Adela Medical Spa | (234) 347-0170 · adelamedicalspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Advanced Aesthetics | (216) 990-9407 · aaestheticscle.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| A·Dore Aesthetics & Medspa | (402) 960-9886 · adoremedspaomaha.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Adela Medical Spa | (234) 347-0170 · adelamedicalspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Advanced Aesthetics | (216) 990-9407 · aaestheticscle.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Advanced Practice Wellness Clinic | (417) 781-2046 · apclinic.net | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Aesthetic Theory Medspa | (313) 492-3787 · theorymedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Aeterna Aesthetics | (513) 644-9164 · aeterna-aesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Ageless Esthetics Medspa | (507) 206-6217 · agelessestheticsmedspamn.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Alc Medspa | (847) 263-4343 · alcmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Allure Health And Med Spa | (402) 881-3638 · allurehealthmed.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Ageless Esthetics Medspa | (507) 206-6217 · agelessestheticsmedspamn.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Alc Medspa | (847) 263-4343 · alcmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Allure Health And Med Spa | (402) 881-3638 · allurehealthmed.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Ambiance MD Medical Spa | (920) 857-2220 · ambiancemd.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Ambrose Marketing | (917) 513-7221 · ambrosemarketing.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
 | American Eyecare | (319) 754-2020 · americaneyecare.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Apex Urology & Aesthetics | (614) 456-7822 · apexuro.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Aqua Beauty Lounge & Med Spa | (262) 691-1814 · aqua-beautylounge.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Arabella Boutique Med Spa | (630) 207-9125 · arabellaboutiquemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Arrowhead Plastic Surgeons | (419) 887-7000 · arrowheadsurgeons.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Aspen Medical Aesthetics & Laser Clinic | (262) 241-2273 · aspenmedispa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Apex Urology & Aesthetics | (614) 456-7822 · apexuro.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Aqua Beauty Lounge & Med Spa | (262) 691-1814 · aqua-beautylounge.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Arabella Boutique Med Spa | (630) 207-9125 · arabellaboutiquemedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Arrowhead Plastic Surgeons | (419) 887-7000 · arrowheadsurgeons.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Aspen Medical Aesthetics & Laser Clinic | (262) 241-2273 · aspenmedispa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Aurora Medical Spa | (517) 913-3296 · auroramedispa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Avanta Medical | (833) 282-6823 · avanta3.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Avaya Aesthetics | (651) 300-7577 · avayaaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Avanta Medical | (833) 282-6823 · avanta3.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Avaya Aesthetics | (651) 300-7577 · avayaaesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Avissa Skin | (734) 838-0938 · avissaskin.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Aviva Aesthetics | (971) 261-6996 · avivaaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Aviva Aesthetics | (971) 261-6996 · avivaaesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Bare Beauty Medspa & Skincare | (414) 763-6307 · barebeautyskin.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Bask On Main | (317) 575-2275 · baskonmain.net | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Beachwood Dental | (216) 831-5661 · beachwooddental.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Beautox Bar LLC | (763) 205-6952 · beautoxbar.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Beauty Bar Aesthetics Medical Spa | (641) 420-8271 · beautybaraestheticsmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Beauty With Bubbly Med Spa | (847) 777-3807 · beautywithbubbly.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Begin With Your Skin Medspa | (651) 905-1234 · beginwithyourskinmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Bella Body Med Spa | (708) 522-5262 · bellabodymedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Belle Sante Medical Spa | (586) 222-8284 · belle-sante-spa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Bello Medical Spa | (636) 204-4301 · bellomedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Beyond Zen Studio | (574) 387-3691 · beyondzenstudio.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Blu Ice Med Spa | (651) 330-8642 · bluicemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Blush Aesthetics | (419) 520-7546 · blushnwo.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Body Lyft System | (317) 569-0767 · bodylyftsystem.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Bask On Main | (317) 575-2275 · baskonmain.net | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Beachwood Dental | (216) 831-5661 · beachwooddental.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Beautox Bar LLC | (763) 205-6952 · beautoxbar.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Beauty Bar Aesthetics Medical Spa | (641) 420-8271 · beautybaraestheticsmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Beauty With Bubbly Med Spa | (847) 777-3807 · beautywithbubbly.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Begin With Your Skin Medspa | (651) 905-1234 · beginwithyourskinmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Bella Body Med Spa | (708) 522-5262 · bellabodymedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Belle Sante Medical Spa | (586) 222-8284 · belle-sante-spa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Bello Medical Spa | (636) 204-4301 · bellomedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Beyond Zen Studio | (574) 387-3691 · beyondzenstudio.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Blu Ice Med Spa | (651) 330-8642 · bluicemedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Blush Aesthetics | (419) 520-7546 · blushnwo.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Body Lyft System | (317) 569-0767 · bodylyftsystem.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Bodybrite USA | (612) 353-6013 · bodybriteusa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Boss Gal Beauty Bar | (614) 820-5178 · bossgalbeautybar.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Cajah Salon | (651) 200-3450 · cajahsalon.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Caps Plastic Surgery, Dermatology, Medspa, & Wellness Center | (614) 246-6900 · experiencecaps.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Boss Gal Beauty Bar | (614) 820-5178 · bossgalbeautybar.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Cajah Salon | (651) 200-3450 · cajahsalon.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Caps Plastic Surgery, Dermatology, Medspa, & Wellness Center | (614) 246-6900 · experiencecaps.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Carbon World Health | (608) 709-8089 · carbonworldhealth.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Cass Health | (712) 243-3250 · casshealth.org | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Cass Health | (712) 243-3250 · casshealth.org | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Chapter Aesthetic Studio | (701) 581-7099 · mychapter.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Circle Of Wellness | (779) 423-1700 · circleofwellnessrockford.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Cleo Skin + Laser | (952) 666-1105 · cleoskinandlaser.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Circle Of Wellness | (779) 423-1700 · circleofwellnessrockford.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Cleo Skin + Laser | (952) 666-1105 · cleoskinandlaser.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Cleveland Plastic Surgery Institute | (440) 461-6100 · clevelandplasticsurgeryinstitute.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Columbus Institute Of Plastic Surgery | (614) 322-2500 · instituteplasticsurgery.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Concierge Medical Spa | (630) 715-2853 · conciergemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Confidence Med Spa | (216) 633-8280 · confidencemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Core Elite Wellness Fit Cryo, LLC | (440) 600-2655 · cryotherapyhealthcare.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Columbus Institute Of Plastic Surgery | (614) 322-2500 · instituteplasticsurgery.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Concierge Medical Spa | (630) 715-2853 · conciergemedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Confidence Med Spa | (216) 633-8280 · confidencemedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Core Elite Wellness Fit Cryo, LLC | (440) 600-2655 · cryotherapyhealthcare.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Crown Med Spa | (219) 946-6521 · crownmedspas.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Cru Clinic | (419) 775-5457 · cruclinic.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Crystal Body Revision Massage And Ozone Therapy | (402) 506-6638 · crystalbodyrevision.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Cwc Med Spa | (586) 307-2109 · cwcmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Cru Clinic | (419) 775-5457 · cruclinic.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Crystal Body Revision Massage And Ozone Therapy | (402) 506-6638 · crystalbodyrevision.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Cwc Med Spa | (586) 307-2109 · cwcmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Dapper Market Solutions LLC | (248) 494-8450 · dapperms.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
 | Digitally Enhanced Marketing | (561) 866-5057 · digitallyenhanced.co | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
 | Divine, A Boutique Medspa | (314) 504-1787 · divineboutiquemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Docere Medical Spa & Laser Center | (440) 238-3331 · doceremedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Elite Chicago Spa | (312) 841-9750 · elitechicagospa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Docere Medical Spa & Laser Center | (440) 238-3331 · doceremedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Elite Chicago Spa | (312) 841-9750 · elitechicagospa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Enhanced Form Plastic Surgery | (847) 297-8001 · enhancedform.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Essential Escape Spa + Yoga | (216) 815-5711 · essentialescape.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Ethos Medspa | (314) 875-9499 · ethosmedicalspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Evolvmd Medical Spa & Wellness | (414) 479-0113 · evolvmd.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Essential Escape Spa + Yoga | (216) 815-5711 · essentialescape.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Ethos Medspa | (314) 875-9499 · ethosmedicalspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Evolvmd Medical Spa & Wellness | (414) 479-0113 · evolvmd.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Facials & More Med Spa | (517) 655-4884 · facialsnmore.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Fix Studios | (513) 928-3499 · thefixstudios.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
 | Foreveryoung Medspa Health & Wellness | (224) 415-3628 · myfyms.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Forge Digital Marketing | (630) 200-0886 · forgedigitalmarketing.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Fusion Med Spa | (630) 451-8509 · fusionmedicalspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Fusion Med Spa | (630) 451-8509 · fusionmedicalspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Georgous Aesthetic Bar | (816) 207-3580 · georgouskc.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Glam Jail Med Spa | (248) 839-5130 · glamjail.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Glo Medical Spa | (989) 465-7721 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Glam Jail Med Spa | (248) 839-5130 · glamjail.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Glo Medical Spa | (989) 465-7721 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Golden Aesthetics Medspa | (937) 818-1094 · goldenaestheticsmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Grace Breast Imaging & Medical Spa, Pllc | (515) 505-3224 · graceimagingandspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Haled | (913) 633-9958 · haled.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Halo Laser & Aesthetic Medicine | (847) 260-7300 · halomedicine.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Healing Medical & Aesthetics | (630) 400-4194 · drsaadaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Halo Laser & Aesthetic Medicine | (847) 260-7300 · halomedicine.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Healing Medical & Aesthetics | (630) 400-4194 · drsaadaesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Healing Waters | (316) 262-2995 · healingwaterslife.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Healthylooks Medspa | (816) 795-5262 · healthylooks.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Healthylooks Medspa | (816) 795-5262 · healthylooks.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Honest - A Digital Agency | (317) 345-1878 · honest-digital.co | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Hydrate Me Medspa | (614) 297-7565 · hydratememedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Imagelab | (872) 285-6769 · imagelabmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Hydrate Me Medspa | (614) 297-7565 · hydratememedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Imagelab | (872) 285-6769 · imagelabmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Indiglo Med Spa | (920) 491-9080 · indiglomedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Indigo Medspa | (816) 295-5162 · myindigoclinic.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Infinite Youth Medical Spa | (952) 500-0350 · infiniteyouthmedical.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Innovations Salon | (417) 881-1881 · innovationsofspringfield.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Inspirations Med Spa | (269) 459-6010 · inspirationsmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| International Skin Beauty Academy | (847) 995-1932 · itaskinbeauty.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Ivme Wellness + Aesthetics | (312) 350-1822 · ivmenow.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Jackson LLP Healthcare Lawyers | (312) 985-6484 · jacksonllp.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Jmisko Surgical Design MD | (402) 484-5144 · jmisko.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Innovations Salon | (417) 881-1881 · innovationsofspringfield.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Inspirations Med Spa | (269) 459-6010 · inspirationsmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| International Skin Beauty Academy | (847) 995-1932 · itaskinbeauty.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Ivme Wellness + Aesthetics | (312) 350-1822 · ivmenow.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Jackson LLP Healthcare Lawyers | (312) 985-6484 · jacksonllp.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | Other |  |
+| Jmisko Surgical Design MD | (402) 484-5144 · jmisko.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Juvly Aesthetics | (614) 500-7000 · juvly.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | KC Injectables Med Spa | (816) 301-4226 · kcinjectablesmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Kobienia Plastic Surgery | (316) 411-9819 · drkobienia.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Koch & Carlisle Plastic Surgery And Spa | (515) 277-5555 · kochandcarlisle.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Koch & Carlisle Plastic Surgery And Spa | (515) 277-5555 · kochandcarlisle.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Kurr Aesthetics And Med Spa | (317) 706-1222 · kurrmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| La Boussole Medical Spa & Wellness Center | (417) 434-4449 · laboussolejoplin.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Lak Medspa | (952) 800-9335 · lakmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Lavender Life Company | (616) 855-2111 · lavender-life.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Lavita Laser Medical Spa | (262) 784-8888 · lavitalaser.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| La Boussole Medical Spa & Wellness Center | (417) 434-4449 · laboussolejoplin.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Lak Medspa | (952) 800-9335 · lakmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Lavender Life Company | (616) 855-2111 · lavender-life.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Lavita Laser Medical Spa | (262) 784-8888 · lavitalaser.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Lead To Conversion | (855) 473-6582 · leadtoconversion.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
 | Linear Creative | (216) 741-1533 · linearcreative.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Lisa J. Peters Plastic Surgery And Medical Spa | (708) 524-1400 · plasticsurgeryofchicago.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Liv Skin Medspa | (952) 236-1112 · livskinmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Lisa J. Peters Plastic Surgery And Medical Spa | (708) 524-1400 · plasticsurgeryofchicago.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Liv Skin Medspa | (952) 236-1112 · livskinmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Luxe Laser & Beauty Spa | (224) 585-8016 · luxelaserbeautyspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Luxlife Medspa | (419) 566-3678 · luxlifemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| M Browz | (419) 277-9925 · mbrowz.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Magdalena European Med Spa | (847) 432-4111 · magdalenamedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Luxlife Medspa | (419) 566-3678 · luxlifemedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| M Browz | (419) 277-9925 · mbrowz.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Magdalena European Med Spa | (847) 432-4111 · magdalenamedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Magnolia Mobile Medspa | (218) 839-8662 · magnoliamobilemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Marie Tyler Aesthetics, LLC | (574) 870-0241 · marietyleraesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Massage & Wellness Store, Med Spa And Center | (517) 203-1113 · massageandwellnessonline.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Marie Tyler Aesthetics, LLC | (574) 870-0241 · marietyleraesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Massage & Wellness Store, Med Spa And Center | (517) 203-1113 · massageandwellnessonline.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Med Spa Marketing Portal | (312) 654-4611 · medspamarketingportal.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Medical Cosmetic Center | (812) 476-6161 · medicalcosmeticcenter.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Medical Cosmetic Center | (812) 476-6161 · medicalcosmeticcenter.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Medical Spa Np | (740) 277-7660 · medicalspanp.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Medizen | (619) 544-1886 · medizeninstitute.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Medizen | (619) 544-1886 · medizeninstitute.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Medspa Institute Of America | (952) 681-2167 · medspainstituteusa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Metropolitan Skin Clinic | (952) 288-2230 · metropolitanskinclinic.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Mia Faccia Salon And Medical Spa | (262) 248-3303 · miafaccia.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Milan Laser Hair Removal | (833) 887-0101 · milanlaser.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Mint Aesthetics | (913) 338-2553 · mintaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Mk Aesthetics | (612) 500-6367 · mkaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Metropolitan Skin Clinic | (952) 288-2230 · metropolitanskinclinic.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Mia Faccia Salon And Medical Spa | (262) 248-3303 · miafaccia.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Milan Laser Hair Removal | (833) 887-0101 · milanlaser.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Mint Aesthetics | (913) 338-2553 · mintaesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Mk Aesthetics | (612) 500-6367 · mkaesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Morem & Waller, CPAs | (612) 703-7370 · moremwaller.cpa | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
 | Natural Beauty Med Spa | (312) 981-1291 · naturalbeautymedspa.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Neoconcepts | (800) 504-0910 · neoconceptsinc.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
+| Neoconcepts | (800) 504-0910 · neoconceptsinc.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | Other |  |
 | New Horizons Center For Cosmetic Surgery | (847) 674-4646 · drturowski.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Nexa Med Spa | (317) 669-9896 · nexamedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Nova Medspa | (563) 599-7422 · novamedspa.org | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Nexa Med Spa | (317) 669-9896 · nexamedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Nova Medspa | (563) 599-7422 · novamedspa.org | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Nuimage Medspa | (248) 594-3067 · nuimage-medspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Old Town Med Spa | (312) 882-0700 · oldtownmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Ooh La La Spa, Anti-Aging & Wellness | (618) 288-9117 · kristenjacobs.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Perfect Image Med Spa | (847) 394-8400 · perfectimagemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Philip Johnson Salon/Spa | (314) 361-8003 · philipjohnsonsalon.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Pinch | (708) 787-4624 · bookpinch.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Plastic Surgery Center | (316) 688-7500 · pscwichita.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Pleij Salon + Spa | (614) 547-2566 · pleijsalon.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Plush Laser | (248) 710-8335 · plushlaser.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Old Town Med Spa | (312) 882-0700 · oldtownmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Ooh La La Spa, Anti-Aging & Wellness | (618) 288-9117 · kristenjacobs.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Perfect Image Med Spa | (847) 394-8400 · perfectimagemedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Philip Johnson Salon/Spa | (314) 361-8003 · philipjohnsonsalon.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Pinch | (708) 787-4624 · bookpinch.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | Other |  |
+| Plastic Surgery Center | (316) 688-7500 · pscwichita.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Pleij Salon + Spa | (614) 547-2566 · pleijsalon.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Plush Laser | (248) 710-8335 · plushlaser.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Prick'D Medspa | (314) 256-1290 · prickdmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Pryorhealth | (815) 977-4403 · pryorhealth.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Pure Bliss Salon And Spa | (810) 820-6377 · pureblisssalonspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Pure Health Medical | (614) 839-1044 · aestheticsandwellness.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Pryorhealth | (815) 977-4403 · pryorhealth.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Pure Bliss Salon And Spa | (810) 820-6377 · pureblisssalonspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Pure Health Medical | (614) 839-1044 · aestheticsandwellness.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Pure Lux Medspa | (952) 460-0160 · mypurelux.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Pure Med Spa | (312) 878-7573 · puremedicalspa.us | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Pure Med Spa | (312) 878-7573 · puremedicalspa.us | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Pure Regenerative Medicine | (765) 650-7873 · purelafayette.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Qnity, Inc. | (763) 258-7970 · qnity.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Quintessa | (262) 235-5832 · myquintessa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Quintessa | (262) 235-5832 · myquintessa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Radiance Med Spa | (630) 221-1883 · radiancemedspa-wheaton.com | new | 2026-08-08 gatekeeper | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Radiance Medical Spa | (785) 246-6400 · radianceks.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Radiance Medical Spa | (785) 246-6400 · radianceks.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Radiance Medspa | (651) 204-9338 · radiancewoodbury.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Radiant Beauty Med Spa | (312) 900-7300 · radiantbeautymedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Radiant Divine Medical Spa | (440) 695-0380 · radiantdivine.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Refinery Skin Clinic | (952) 479-0915 · therefineryskinclinic.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Radiant Beauty Med Spa | (312) 900-7300 · radiantbeautymedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Radiant Divine Medical Spa | (440) 695-0380 · radiantdivine.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Refinery Skin Clinic | (952) 479-0915 · therefineryskinclinic.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Reflection Medical Spa | (513) 671-2411 · ajmartinezauthor.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Refresh Aesthetics Medical Spa | (435) 722-2000 · refreshut.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Refresh Medical Spa LLC | (913) 681-6200 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Rejuvenate Skin And Laser Clinic | (715) 377-1777 · rejuvenatelaserclinic.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Rejuviwell Suites | (630) 457-1466 · rejuviwellsuites.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Renaissance Med Spa | (847) 485-2650 · renaissance-medspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Renew Image Advanced Aesthetics & Training Center | (513) 561-7546 · renewimage.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Refresh Aesthetics Medical Spa | (435) 722-2000 · refreshut.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Refresh Medical Spa LLC | (913) 681-6200 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Rejuvenate Skin And Laser Clinic | (715) 377-1777 · rejuvenatelaserclinic.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Rejuviwell Suites | (630) 457-1466 · rejuviwellsuites.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Renaissance Med Spa | (847) 485-2650 · renaissance-medspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Renew Image Advanced Aesthetics & Training Center | (513) 561-7546 · renewimage.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Renew You | (440) 250-0696 · renewyou.health | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Renew You Medical Spa | (763) 515-6492 · renewyoumedical.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Renewed Wellness | (866) 832-7733 · renewed-wellness.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Renuyou Aesthetics And Medspa | (515) 330-8900 · renuyouaestheticsandbotox.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Reset Lounge LLC | (440) 600-2659 · resetlounge.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Retuvamedicalspa | (573) 496-1991 · retuva.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Revival Infusion Madison | (608) 405-6824 · revivalinfusion.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Renuyou Aesthetics And Medspa | (515) 330-8900 · renuyouaestheticsandbotox.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Reset Lounge LLC | (440) 600-2659 · resetlounge.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Retuvamedicalspa | (573) 496-1991 · retuva.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Revival Infusion Madison | (608) 405-6824 · revivalinfusion.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Revival Rn | (248) 826-7636 · revivalrn.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Ridge Med Spa Suites | (913) 213-9545 · ridgemedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| S.Thetics Medspa + Wellbeing | (785) 727-7228 · greatskinlawrence.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Schenden'S Medical Day Spa | (248) 693-2999 · revitalizeplasticsmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Serenity Health Care Center | (262) 522-8640 · serenityhealthcarecenter.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Shape Of You | (314) 717-0575 · shapeofyoustl.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Simply Sculpt Ohio | (740) 407-6331 · simplysculptohio.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Simplyskin Medspa | (317) 576-1114 · simplyskinmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Skin Deep Esthetics, LLC | (630) 863-6153 · skindeepil.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Ridge Med Spa Suites | (913) 213-9545 · ridgemedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| S.Thetics Medspa + Wellbeing | (785) 727-7228 · greatskinlawrence.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Schenden'S Medical Day Spa | (248) 693-2999 · revitalizeplasticsmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Serenity Health Care Center | (262) 522-8640 · serenityhealthcarecenter.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Shape Of You | (314) 717-0575 · shapeofyoustl.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Simply Sculpt Ohio | (740) 407-6331 · simplysculptohio.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Simplyskin Medspa | (317) 576-1114 · simplyskinmedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Skin Deep Esthetics, LLC | (630) 863-6153 · skindeepil.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Skin Renew Day Spa & Laser Center | (317) 848-7546 · skinrenewdayspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Skinperfected | (630) 633-2394 · skinperfected.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Skinperfected | (630) 633-2394 · skinperfected.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Slimming Solutions Med Spa | (816) 524-3438 · slimmingsolutionsspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Smiles On Randolph | (219) 356-8000 · smilesonrandolph.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Smith & Crawford Company | (616) 634-3075 · smithandcrawford.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Other |  |
-| Sncroniz Salon & Med Spa | (810) 225-9640 · sncroniz-salon-med-spa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Smith & Crawford Company | (616) 634-3075 · smithandcrawford.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | Other |  |
+| Sncroniz Salon & Med Spa | (810) 225-9640 · sncroniz-salon-med-spa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Spa Catawba | (419) 341-4540 · spacatawba.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Spargo Salon, Spa & Medical Spa | (262) 695-7400 · spargospa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Spargo Salon, Spa & Medical Spa | (262) 695-7400 · spargospa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Springfield Clinic | (217) 522-2403 · springfieldclinic.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Sunbear Spa And Salon | (651) 426-5884 · sunbearspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Sunbear Spa And Salon | (651) 426-5884 · sunbearspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Sweet Tox | (414) 882-0082 · sweettox.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Synergy | (866) 862-1211 · synergyaesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Synergy | (866) 862-1211 · synergyaesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Teddie Kossof Salon Spa | (847) 999-9500 · teddiekossof.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Temple Collective Medspa | (248) 605-0509 · templemilford.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Temple Collective Medspa | (248) 605-0509 · templemilford.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Aesthetics Lounge And Spa St. Joseph | (844) 527-7772 · tal-spa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Alámar Integrative Medical Spa | (269) 455-5695 · alamarmedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| The Boulevard Hair Co | (314) 733-5488 · salonblvd.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| The Confidence Bar | (312) 624-9971 · theconfidencebar.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| The Boulevard Hair Co | (314) 733-5488 · salonblvd.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| The Confidence Bar | (312) 624-9971 · theconfidencebar.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Face & The Body Spa & Salon | (314) 725-8975 · faceandbodyspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| The Facebar Migraine Clinic & Medspa | (614) 321-2065 · theface.bar | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| The Look Loft | (847) 893-9227 · thelookloft.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| The Facebar Migraine Clinic & Medspa | (614) 321-2065 · theface.bar | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| The Look Loft | (847) 893-9227 · thelookloft.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | The Pavilion, Sacry Medical Spa | (417) 359-8646 · sacryfm.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Touch Companies Wellness Center And Day Spa | (847) 318-9474 · touchcompanies.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Transform Medspa | (214) 748-3647 · transformmdspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Transforming Techniques Salon And Medical Spa | (937) 435-3223 · transformingtechniques.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Transforming Techniques Salon And Medical Spa | (937) 435-3223 · transformingtechniques.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Trés J Medspa | (310) 999-8007 · tresjmedspa.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Tricho Salon & Spa | (248) 305-9111 · trichosalonandspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Trouvaille Med Spa Bourbonnais | (815) 680-5757 · trouvaillebourbonnais.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Truhealth Medical | (317) 616-0190 · truhealthintegration.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Turkle & Associates Plastic Surgery | (317) 848-0001 · turklemd.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Vina Laser Med Spa | (989) 791-2020 · vinamedspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Visions Spa Salon | (248) 344-9944 · visionsspasalon.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Trouvaille Med Spa Bourbonnais | (815) 680-5757 · trouvaillebourbonnais.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Truhealth Medical | (317) 616-0190 · truhealthintegration.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Turkle & Associates Plastic Surgery | (317) 848-0001 · turklemd.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Vina Laser Med Spa | (989) 791-2020 · vinamedspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Visions Spa Salon | (248) 344-9944 · visionsspasalon.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Wayzata Medical Spa | (952) 473-1111 · wayzatamedicalspa.com | new | 2026-08-07 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Wellness Edge | (877) 937-6868 · yourwellnessedge.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| West Michigan Plastic Surgery | (269) 222-1611 · wmips.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| White Pearl Med Spa | (847) 238-8861 · whitepearlmedicalspa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Wisconsin Vein Center & Medispa | (262) 236-5179 · wimedispa.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Wise Aesthetics | (317) 569-6448 · wise-aesthetics.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| West Michigan Plastic Surgery | (269) 222-1611 · wmips.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| White Pearl Med Spa | (847) 238-8861 · whitepearlmedicalspa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Wisconsin Vein Center & Medispa | (262) 236-5179 · wimedispa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
+| Wise Aesthetics | (317) 569-6448 · wise-aesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Xsculpt | (833) 972-8578 · xsculpt.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Youthful Endeavors Medspa | (920) 468-1800 · youthfulendeavors.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 
