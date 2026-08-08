@@ -15,10 +15,16 @@ echo "\n===== $STAMP =====" >> logs/manager.log
 /opt/homebrew/bin/claude -p \
   "Run the 5:00 Manager routine from CLAUDE.md, in order:
    1. Delegate to lead-research for today's new prospects. Add them to pipeline.md.
-   2. Delegate to lead-research to fill the Email column for up to 15 leads that
-      are still blank, highest-priority first (named owner + verified phone).
-      Never guess an address — leave it blank rather than invent a pattern.
-      Report how many were filled and how many remain blank.
+   2. Delegate to lead-research to enrich up to 15 leads, filling BOTH the
+      owner/manager name in Column 2 and the Email column in the same visit —
+      they come off the same about/contact page, so do not make two trips.
+      Prioritise leads that have already been dialled and hit a gatekeeper:
+      those are the ones a name unblocks. Then the rest, missing-both first.
+      Never guess an address and never guess a person. Blank beats wrong: a
+      fabricated name burns the call, a fabricated address burns the domain.
+      Skip any lead whose Niche is Other.
+      Report how many names and how many emails were filled, and how many of
+      each remain blank.
    3. Delegate to notes: push everything that changed since the last run into the
       Notion Call Log — calls logged, stage moves, and any new leads as rows.
       Notion must not be more than a day behind pipeline.md.

@@ -69,9 +69,11 @@ Specifically: no Proposal Agent, Onboarding Agent, or Analytics Agent before
 ## Routines
 **5:00 daily (Manager)** — In order:
 1. `lead-research` sources the day's new prospects.
-2. `lead-research` fills the `Email` column for up to 15 blank leads, best
-   first. Never guess an address — a bounced invention damages the sending
-   domain for every other lead on it. Blank beats wrong.
+2. `lead-research` enriches up to 15 leads, filling both the owner/manager
+   name and the `Email` column from the same page visit. Gatekeepered leads
+   first — a name is what gets past a front desk. Never guess either one: a
+   bounced invention damages the sending domain for every other lead on it,
+   and a wrong name announces the cold call. Blank beats wrong.
 3. `notes` pushes everything that changed since the last run into Notion —
    every call logged, every stage move, every new lead as a row. Notion should
    never be more than a day behind `pipeline.md`.
