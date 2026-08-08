@@ -217,7 +217,7 @@ const OUTCOME_STAGE = {
   "booked":         "booked",
 };
 
-function markLead(company, outcome) {
+function markLead(company, outcome, due) {
   const fs = require("fs"), path = require("path");
   const file = path.join(__dirname, "pipeline.md");
   const lines = fs.readFileSync(file, "utf8").split("\n");
@@ -239,15 +239,22 @@ function markLead(company, outcome) {
   // "2026-08-05 sourced" becomes "2026-08-05 no answer" — the column already
   // carries what happened, so the outcome needs no new column to live in.
   c[4] = `${today()} ${outcome}`;
+
+  // A callback with no date is a callback that gets missed. Due and Next
+  // action are existing columns; this is what they were for.
+  if (outcome === "callback set") {
+    c[5] = "Callback";
+    c[6] = due || c[6];
+  }
   lines[hit] = "| " + c.slice(1, 9).join(" | ") + " |";
 
   fs.writeFileSync(file, lines.join("\n"));
-  return { company: c[1], stage: c[3], last: c[4] };
+  return { company: c[1], stage: c[3], last: c[4], next: c[5], due: c[6] };
 }
 
 async function upsert(entry) {
   await ensureDb();
-  const { company, note = "", contact = "", phone = "", stage, seed } = entry;
+  const { company, note = "", contact = "", phone = "", stage, seed, due, next } = entry;
   if (!company) throw new Error("company is required");
 
   const outcome  = entry.outcome || (note ? detectOutcome(note) : null);
@@ -279,21 +286,25 @@ async function upsert(entry) {
   if (seed) return { action: "skipped", company, reason: "already present" };
 
   const existing = text(row.properties.Note);
-  if (note && existing.includes(note)) {
-    return { action: "skipped", company, reason: "note already logged" };
-  }
+  // A repeated note must not be written twice, but the rest of the update is
+  // not a duplicate: rescheduling a callback resends the same word "callback
+  // set" with a new date, and returning here would drop the date on the floor.
+  const dupNote = !!note && existing.includes(note);
 
   const props = {};
-  if (dated) {
+  if (dated && !dupNote) {
     props["Note"]       = { rich_text: rt(existing ? existing + "\n" + dated : dated) };
     props["Last touch"] = { date: { start: today() } };
   }
   if (outcome)  props["Outcome"] = { select: { name: outcome } };
   if (newStage) props["Stage"]   = { select: { name: newStage } };
   if (phone && !row.properties.Phone?.phone_number) props["Phone"] = { phone_number: phone };
+  if (next) props["Next action"] = { rich_text: rt(next) };
+  if (due && /^\d{4}-\d{2}-\d{2}$/.test(due)) props["Due"] = { date: { start: due } };
 
+  if (!Object.keys(props).length) return { action: "skipped", company, reason: "nothing to change" };
   await notion(`/pages/${row.id}`, "PATCH", { properties: props });
-  return { action: "appended", company, outcome, stage: newStage || null };
+  return { action: dupNote ? "updated" : "appended", company, outcome, stage: newStage || null };
 }
 
 /* ---- shared state ----
@@ -525,15 +536,16 @@ http.createServer(async (req, res) => {
     req.on("data", c => { raw += c; if (raw.length > 1e5) req.destroy(); });
     req.on("end", async () => {
       try {
-        const { company, outcome, note = "" } = JSON.parse(raw || "{}");
+        const { company, outcome, note = "", due } = JSON.parse(raw || "{}");
         if (!company) return json(res, 400, { error: "company is required" });
         if (!(outcome in OUTCOME_STAGE)) return json(res, 400, { error: `unknown outcome "${outcome}"` });
+        if (due && !/^\d{4}-\d{2}-\d{2}$/.test(due)) return json(res, 400, { error: "due must be YYYY-MM-DD" });
 
-        const local = markLead(company, outcome);
-        console.log("lead:", company, "->", outcome);
+        const local = markLead(company, outcome, due);
+        console.log("lead:", company, "->", outcome, due ? `(due ${due})` : "");
 
         let notion = null;
-        try { notion = await upsert({ company, outcome, note: note || outcome, stage: local.stage }); }
+        try { notion = await upsert({ company, outcome, note: note || outcome, stage: local.stage, due: local.due, next: local.next }); }
         catch (e) { notion = { error: e.message }; }
 
         json(res, 200, { ...local, notion });

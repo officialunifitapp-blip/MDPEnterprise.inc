@@ -134,6 +134,9 @@ select.oc{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:
   color:var(--dim);font:11.5px inherit;padding:5px 6px;min-height:30px;max-width:150px}
 select.oc.set{color:var(--ok);border-color:rgba(79,211,154,.45);background:rgba(79,211,154,.08)}
 select.oc:disabled{opacity:.5}
+input.due{margin-top:3px;background:rgba(0,0,0,.35);border:1px solid var(--line);
+  border-radius:6px;color:var(--txt);font:11px var(--mono);padding:4px 5px;min-height:28px}
+input.due.now{color:var(--warn);border-color:var(--warn);background:rgba(224,180,92,.10)}
 textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:7px;
   color:var(--txt);padding:7px 8px;font:12px/1.45 inherit;resize:vertical;min-height:52px;margin:4px 0 6px}
 .hide{display:none}
@@ -385,7 +388,7 @@ async function hydrate(){
         // "2026-08-05 sourced" vs "2026-08-05 no answer" — the trailing text is
         // the outcome, and "sourced" means the phone has never been picked up.
         const lt=c[4]||"",tail=lt.slice(10).trim();
-        list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:lt,next:c[5]||"",niche,
+        list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
           out:(tail&&tail!=="sourced")?tail:""});
       });
       DATA.counts=counts;DATA.leads=list;
@@ -419,8 +422,8 @@ function paint(){
     ["Leads in pipeline",total,`${total-called} not yet called`],
     ["Dials made",called||n(M.calls||M.out),called?"logged outcomes":"this week"],
     ["MRR",n(M.mrr),"toward $10k"],
+    ["Callbacks due",DATA.leads.filter(isDue).length,"today or overdue"],
     ["Meetings booked",n(M.mtg),"this week"],
-    ["Replies",n(M.rep),"this week"],
     ["Worked",dialed,"past stage new"],
   ].map(([l,v,d])=>`<div class="mt"><div class="ml">${l}</div><div class="mv">${esc(String(v))}</div><div class="md">${esc(d)}</div></div>`).join("");
 
@@ -686,13 +689,16 @@ function scoutPanel(){
 }
 const SORT={key:"co",dir:1};
 let LEAD_NICHE="";   // "", "Restoration", "MedSpa" — set by walking into a branch
-let CALLED="all";    // "all" | "no" | "yes" — working a dial list means "no"
+let CALLED="all";    // "all" | "no" | "yes" | "due" — working a dial list means "no"
+const todayISO=()=>new Date().toISOString().slice(0,10);
+// A callback is owed once its date arrives, and stays owed until it is made.
+const isDue=l=>l.out==="callback set"&&l.due&&l.due<=todayISO();
 // Mirrors the list the bridge accepts; anything else it rejects outright.
 const OUTCOMES=["no answer","voicemail","gatekeeper","spoke to owner",
                 "callback set","demo sent","not interested","booked"];
 function leadTable(){
   const rows=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE)
-    .filter(l=>CALLED==="all"||(CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
+    .filter(l=>CALLED==="all"||(CALLED==="due"?isDue(l):CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
     let x,y;
     if(SORT.key==="st"){x=STAGES.indexOf(a.st||"new");y=STAGES.indexOf(b.st||"new");}
     else{x=(a[SORT.key]||"").toLowerCase();y=(b[SORT.key]||"").toLowerCase();}
@@ -708,7 +714,7 @@ function leadTable(){
   return `<div class="sec"><div class="slb">Branch</div>
     ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
   <div class="sec"><div class="slb">Calls</div>
-    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}</div>
+    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Callbacks due",pool.filter(isDue).length)}</div>
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
   <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}<th>Outcome</th><th></th></tr></thead>
   <tbody>${rows.map(l=>`<tr${l.out?' style="background:rgba(79,211,154,.05)"':""}>
@@ -719,7 +725,9 @@ function leadTable(){
       <option value="">—</option>
       ${OUTCOMES.map(o=>`<option value="${o}"${l.out===o?" selected":""}>${o}</option>`).join("")}
     </select>
-    <div style="font:10px var(--mono);color:var(--dim);margin-top:2px">${esc((l.last||"—").slice(0,10))}</div></td>
+    ${l.out==="callback set"
+      ?`<input type="date" class="due${isDue(l)?" now":""}" data-co="${esc(l.co)}" value="${esc(l.due||"")}">`
+      :`<div style="font:10px var(--mono);color:var(--dim);margin-top:2px">${esc((l.last||"—").slice(0,10))}</div>`}</td>
     <td style="text-align:right"><button class="ntbtn ${NOTES[l.co]?"has":""}" data-co="${esc(l.co)}">✎</button></td></tr>
     <tr><td colspan="5" style="border:0;padding:0"><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened?">${esc(NOTES[l.co]||"")}</textarea></td></tr>`).join("")}
   </tbody></table></div>`;
@@ -727,20 +735,26 @@ function leadTable(){
 
 /* One tap has to survive a dropped connection — the phone is used on the move
    and a silently lost outcome means the lead gets called twice. */
-async function markLead(co,outcome,sel){
+async function markLead(co,outcome,sel,due){
   const lead=DATA.leads.find(l=>l.co===co);
-  const prev=lead?lead.out:"";
-  if(lead)lead.out=outcome;
+  const prev=lead?lead.out:"",prevDue=lead?lead.due:"";
+  // Recording a callback with no date would drop it back into the 400-row
+  // pile. Tomorrow is a guess, but a wrong date is visible and fixable in the
+  // picker that appears; a missing one is not.
+  if(outcome==="callback set"&&!due&&!prevDue){
+    const d=new Date();d.setDate(d.getDate()+1);due=d.toISOString().slice(0,10);
+  }
+  if(lead){lead.out=outcome;if(due)lead.due=due;}
   if(sel){sel.disabled=true;sel.classList.toggle("set",!!outcome);}
   try{
     const r=await bfetch("/lead",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({company:co,outcome})});
+      body:JSON.stringify({company:co,outcome,due})});
     const j=await r.json();
     if(!r.ok||j.error)throw new Error(j.error||"bridge refused it");
-    if(lead)lead.st=j.stage||lead.st;
+    if(lead){lead.st=j.stage||lead.st;if(j.due)lead.due=j.due;}
     hydrate();
   }catch(e){
-    if(lead)lead.out=prev;
+    if(lead){lead.out=prev;lead.due=prevDue;}
     if(sel){sel.value=prev;sel.classList.toggle("set",!!prev);}
     alert("Could not save: "+e.message+"\nThe bridge may be offline.");
   }finally{ if(sel)sel.disabled=false; }
@@ -793,6 +807,7 @@ function wireSheet(){
   b.querySelectorAll("[data-called]").forEach(x=>x.onclick=()=>{
     CALLED=x.dataset.called;b.innerHTML=leadTable();wireSheet();});
   b.querySelectorAll("select.oc").forEach(s=>s.onchange=()=>markLead(s.dataset.co,s.value,s));
+  b.querySelectorAll("input.due").forEach(d=>d.onchange=()=>markLead(d.dataset.co,"callback set",null,d.value));
   b.querySelectorAll("th[data-sort]").forEach(h=>h.onclick=()=>{
     const k=h.dataset.sort;if(SORT.key===k)SORT.dir*=-1;else{SORT.key=k;SORT.dir=1;}
     b.innerHTML=leadTable();wireSheet();});
