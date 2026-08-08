@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Applicants</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#05080f; --panel:rgba(9,18,32,.72); --line:rgba(90,175,255,.16);
+  --line2:rgba(90,175,255,.30); --txt:#cfe3f4; --dim:#7d94aa; --acc:#4fc3f7;
+  --acc2:#7fe6ff; --ok:#4fd39a; --warn:#e0b45c; --bad:#e5697a;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:ui-sans-serif,-apple-system,"SF Pro Text",system-ui,sans-serif;
+}
+body{background:
+    radial-gradient(900px 600px at 50% 0%,rgba(20,70,130,.26),transparent 60%),var(--bg);
+  color:var(--txt);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased;
+  min-height:100vh;padding:14px 12px calc(28px + env(safe-area-inset-bottom))}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+
+.top{display:flex;align-items:center;gap:10px;padding:4px 2px 0}
+.mark{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--acc);flex:none;
+  display:grid;place-items:center;box-shadow:0 0 12px rgba(79,195,247,.4)}
+.mark i{width:6px;height:6px;border-radius:50%;background:var(--acc);display:block}
+h1{font:650 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#8fb4d4}
+.count{margin-left:auto;font:11px var(--mono);color:var(--dim)}
+
+.tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:1px solid var(--line);background:transparent;color:var(--dim);border-radius:20px;
+  padding:7px 14px;font:12px var(--sans);white-space:nowrap;cursor:pointer;flex:none}
+.tab[aria-pressed="true"]{border-color:var(--acc);background:rgba(79,195,247,.16);color:var(--acc2)}
+.tab:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:14px 15px;display:flex;flex-direction:column;gap:11px}
+.card.fresh{border-color:rgba(79,211,154,.34);background:rgba(79,211,154,.045)}
+.hd{display:flex;align-items:flex-start;gap:10px}
+.nm{font:600 17px var(--sans);color:#eaf6ff;letter-spacing:-.01em;line-height:1.2}
+.mt{font-size:12.5px;color:var(--dim);margin-top:3px}
+.ago{margin-left:auto;font:10.5px var(--mono);color:var(--dim);white-space:nowrap;padding-top:3px}
+.ago.hot{color:var(--warn)}
+.stat{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line2);border-radius:20px;padding:2px 9px;color:var(--dim);margin-top:6px}
+.stat.booked,.stat.hired{border-color:rgba(79,211,154,.45);color:var(--ok)}
+.stat.passed{border-color:rgba(229,105,122,.4);color:var(--bad)}
+.stat.texted,.stat.replied,.stat.screened{border-color:var(--line2);color:var(--acc2)}
+
+.big{display:block;width:100%;text-align:center;background:rgba(79,211,154,.13);
+  border:1px solid rgba(79,211,154,.42);color:var(--ok);border-radius:10px;
+  padding:14px;font:600 15px var(--sans);text-decoration:none;cursor:pointer}
+.big:active{background:rgba(79,211,154,.24)}
+.big.muted{background:rgba(79,195,247,.08);border-color:var(--line2);color:var(--acc2)}
+.big:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.row{display:flex;gap:7px;flex-wrap:wrap}
+.sm{flex:1;min-width:78px;background:transparent;border:1px solid var(--line);
+  color:var(--dim);border-radius:9px;padding:10px 8px;font:12.5px var(--sans);cursor:pointer}
+.sm:active{background:rgba(90,175,255,.10)}
+.sm:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.tel{color:var(--acc2);text-decoration:none;font:13px var(--mono)}
+.miss{color:var(--warn);font-size:12.5px}
+
+details.add{background:var(--panel);border:1px solid var(--line);border-radius:12px}
+details.add summary{padding:13px 15px;cursor:pointer;font-size:13px;color:var(--dim);
+  list-style:none;display:flex;align-items:center;gap:8px}
+details.add summary::-webkit-details-marker{display:none}
+details.add summary::before{content:"+";color:var(--acc);font-size:15px;line-height:1}
+.addbody{padding:0 15px 15px;display:flex;flex-direction:column;gap:9px}
+textarea,input[type=text]{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);
+  border-radius:9px;color:var(--txt);padding:11px;font:14px var(--sans)}
+textarea{min-height:96px;resize:vertical;font:13px/1.45 var(--mono)}
+textarea:focus,input:focus{outline:none;border-color:var(--acc)}
+.hint{font-size:11.5px;color:var(--dim);line-height:1.45}
+.empty{text-align:center;color:var(--dim);font-size:13.5px;padding:44px 20px;line-height:1.7}
+.err{background:rgba(229,105,122,.10);border:1px solid rgba(229,105,122,.4);color:#ffc9d1;
+  border-radius:9px;padding:11px 13px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <span class="mark"><i></i></span>
+    <h1>Applicants</h1>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="err"></div>
+  <div id="list"></div>
+
+  <details class="add">
+    <summary>Add an application</summary>
+    <div class="addbody">
+      <p class="hint">Paste the whole notification email from Indeed, ZipRecruiter or Facebook.
+        Whatever it can read, it fills in — anything it can't, you type.</p>
+      <textarea id="paste" placeholder="Paste the email here"></textarea>
+      <button class="big muted" id="parseBtn">Read it</button>
+      <input type="text" id="fName" placeholder="Name">
+      <input type="text" id="fPhone" placeholder="Phone">
+      <input type="text" id="fRole" placeholder="Applying for">
+      <button class="big" id="addBtn">Add applicant</button>
+    </div>
+  </details>
+
+</div>
+
+<script>
+/* Same pairing scheme as the dashboard: open once with ?bridge=…&key=… and the
+   device remembers, so the link is never shared with credentials in it. */
+const CFG=(()=>{
+  const q=new URLSearchParams(location.search);
+  const b=q.get("bridge"),k=q.get("key");
+  if(b)localStorage.setItem("mdp-bridge",b.replace(/\/$/,""));
+  if(k)localStorage.setItem("mdp-key",k);
+  if(b||k)history.replaceState(null,"",location.pathname);
+  const h=location.hostname,dflt=(h==="localhost"||h==="127.0.0.1"||h==="")?"http://localhost:8787":"";
+  return{url:localStorage.getItem("mdp-bridge")||dflt,key:localStorage.getItem("mdp-key")||""};
+})();
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function bfetch(p,o={}){
+  if(!CFG.url)return Promise.reject(new Error("Not paired. Open the setup link once on this phone."));
+  const h={...(o.headers||{}),"ngrok-skip-browser-warning":"1"};
+  if(CFG.key)h["X-Bridge-Key"]=CFG.key;
+  return fetch(CFG.url+p,{...o,headers:h});
+}
+async function api(p,o){
+  const r=await bfetch(p,o);const j=await r.json().catch(()=>({}));
+  if(!r.ok||j.error)throw new Error(j.error||("request failed ("+r.status+")"));
+  return j;
+}
+const showErr=m=>$("err").innerHTML=m?`<div class="err">${esc(m)}</div>`:"";
+
+const TABS=[["open","To contact"],["all","Everyone"],["booked","Booked"],["passed","Passed"]];
+let TAB="open",ITEMS=[];
+
+function ago(iso){
+  const m=Math.floor((Date.now()-new Date(iso))/60000);
+  if(m<1)return"just now"; if(m<60)return m+" min ago";
+  const h=Math.floor(m/60); if(h<24)return h+"h ago";
+  return Math.floor(h/24)+"d ago";
+}
+const isOpen=a=>["new","texted","replied"].includes(a.status);
+
+// The message he sends. Short, human, and already written — the whole point is
+// that answering costs him one tap instead of a phone call he never makes.
+function draft(a){
+  const first=(a.name||"there").split(" ")[0];
+  const role=a.role?` for ${a.role}`:"";
+  return `Hi ${first} — thanks for applying${role}. Are you still looking? Happy to set up a quick chat.`;
+}
+
+function render(){
+  const rows=ITEMS.filter(a=>TAB==="all"?true:TAB==="open"?isOpen(a):a.status===TAB);
+  $("count").textContent=`${ITEMS.filter(isOpen).length} to contact`;
+  $("tabs").innerHTML=TABS.map(([k,l])=>{
+    const n=k==="all"?ITEMS.length:k==="open"?ITEMS.filter(isOpen).length:ITEMS.filter(a=>a.status===k).length;
+    return `<button class="tab" data-tab="${k}" aria-pressed="${TAB===k}">${l} ${n}</button>`;
+  }).join("");
+
+  if(!rows.length){
+    $("list").innerHTML=`<div class="empty">${TAB==="open"
+      ?"Nobody waiting. New applications show up here."
+      :"Nothing in this list yet."}</div>`;
+  }else{
+    $("list").innerHTML=rows.map(a=>{
+      const mins=(Date.now()-new Date(a.at))/60000;
+      const hot=a.status==="new"&&mins>30;
+      return `<div class="card${a.status==="new"?" fresh":""}">
+        <div class="hd">
+          <div>
+            <div class="nm">${esc(a.name||"Name not given")}</div>
+            <div class="mt">${esc(a.role||"role not stated")}${a.source?" · "+esc(a.source):""}</div>
+            ${a.phone?`<a class="tel" href="tel:+1${esc(a.phone.replace(/\D/g,""))}">${esc(a.phone)}</a>`
+                     :`<span class="miss">No phone in the email — open it on the job board</span>`}
+            ${a.status!=="new"?`<div><span class="stat ${a.status}">${a.status}</span></div>`:""}
+          </div>
+          <span class="ago${hot?" hot":""}">${ago(a.at)}</span>
+        </div>
+        ${a.phone?`<a class="big" href="sms:+1${esc(a.phone.replace(/\D/g,""))}${
+            /iPhone|iPad|Mac/.test(navigator.userAgent)?"&":"?"}body=${encodeURIComponent(draft(a))}"
+            data-sent="${a.id}">Text ${esc((a.name||"them").split(" ")[0])}</a>`:""}
+        <div class="row">
+          <button class="sm" data-set="replied" data-id="${a.id}">Replied</button>
+          <button class="sm" data-set="booked"  data-id="${a.id}">Booked</button>
+          <button class="sm" data-set="passed"  data-id="${a.id}">Pass</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;render();});
+  document.querySelectorAll("[data-set]").forEach(b=>b.onclick=()=>set(b.dataset.id,b.dataset.set));
+  // Opening the SMS app is the closest thing to proof he sent it.
+  document.querySelectorAll("[data-sent]").forEach(a=>a.addEventListener("click",()=>{
+    const x=ITEMS.find(i=>i.id===a.dataset.sent);
+    if(x&&x.status==="new")set(a.dataset.sent,"texted");
+  }));
+}
+
+async function set(id,status){
+  const a=ITEMS.find(x=>x.id===id);const prev=a&&a.status;
+  if(a)a.status=status; render();
+  try{await api("/applicant/status",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({id,status})});showErr("");}
+  catch(e){if(a)a.status=prev;render();showErr("Couldn't save that: "+e.message);}
+}
+async function load(){
+  try{ITEMS=(await api("/applicants")).items||[];showErr("");}
+  catch(e){showErr(e.message);}
+  render();
+}
+
+$("parseBtn").onclick=async()=>{
+  const text=$("paste").value.trim();
+  if(!text)return showErr("Paste the email first.");
+  try{
+    const p=await api("/applicant/parse",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({text})});
+    $("fName").value=p.name||"";$("fPhone").value=p.phone||"";$("fRole").value=p.role||"";
+    showErr(p.name||p.phone?"":"Couldn't find a name or phone in that — type them in.");
+  }catch(e){showErr(e.message);}
+};
+$("addBtn").onclick=async()=>{
+  const b={name:$("fName").value.trim(),phone:$("fPhone").value.trim(),
+           role:$("fRole").value.trim(),text:$("paste").value.trim()||undefined};
+  if(!b.name&&!b.phone)return showErr("Needs at least a name or a phone number.");
+  try{
+    const r=await api("/applicant/ingest",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(b)});
+    ["paste","fName","fPhone","fRole"].forEach(k=>$(k).value="");
+    document.querySelector("details.add").open=false;
+    showErr(r.action==="duplicate"?"Already had that number — showing the existing one.":"");
+    TAB="open";load();
+  }catch(e){showErr(e.message);}
+};
+
+load();
+setInterval(load,20000);
+</script>
+</body>
+</html>

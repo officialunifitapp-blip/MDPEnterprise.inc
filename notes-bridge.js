@@ -528,6 +528,45 @@ http.createServer(async (req, res) => {
     return;
   }
 
+  /* ---- hiring engine ---- the client's own applicant intake. Separate from
+     the pipeline: those are companies being sold to, these are people being
+     hired by one of them. */
+  if (req.url.startsWith("/applicant")) {
+    const applicants = require("./applicants.js");
+    const body = () => new Promise((ok, no) => {
+      let raw = ""; req.on("data", c => { raw += c; if (raw.length > 4e6) req.destroy(); });
+      req.on("end", () => { try { ok(JSON.parse(raw || "{}")); } catch (e) { no(e); } });
+    });
+    (async () => {
+      try {
+        if (req.url === "/applicants" || (req.url === "/applicant" && req.method === "GET"))
+          return json(res, 200, { items: applicants.list() });
+
+        if (req.url === "/applicant/parse" && req.method === "POST") {
+          const b = await body();
+          if (!b.text) return json(res, 400, { error: "text is required" });
+          return json(res, 200, applicants.parseApplication(b.text, b));
+        }
+
+        // Parse and store in one call, so a forwarded email is one request.
+        if (req.url === "/applicant/ingest" && req.method === "POST") {
+          const b = await body();
+          const parsed = b.text ? applicants.parseApplication(b.text, b) : {};
+          const entry = { ...parsed, ...Object.fromEntries(
+            Object.entries(b).filter(([k, v]) => k !== "text" && v)) };
+          return json(res, 200, applicants.add(entry));
+        }
+
+        if (req.url === "/applicant/status" && req.method === "POST") {
+          const b = await body();
+          return json(res, 200, applicants.setStatus(b.id, b.status, b.note));
+        }
+        return json(res, 404, { error: "unknown applicant route" });
+      } catch (e) { json(res, 400, { error: e.message }); }
+    })();
+    return;
+  }
+
   /* One tap on a lead: record the outcome in pipeline.md, then mirror it to
      Notion. Notion failing must not lose the tap — pipeline.md is canonical
      and the 5am sync will carry it over. */
