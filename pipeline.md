@@ -173,7 +173,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Restore It Restoration LLC | Lonnie A. Beauchamp · 4 conflicting #s | new | 2026-08-04 sourced | Verify phone first | 2026-08-04 | Restoration |  |
 | Red River Water Restoration | Andrew Jones & Les Moore (co-founders) · (405) 565-9833 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
 | Absolute Clean & Restore | Family/veteran-owned · (580) 722-3035 | lost | 2026-08-08 not interested | Cold call → demo # | 2026-08-05 | Restoration |  |
-| Dri Right | Clayton Hutson (Owner) · (580) 574-2383 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
+| Dri Right | Clayton Hutson (Owner) / Micah · (580) 574-2383 | replied | 2026-08-09 texted back, probing after-hours handling | Call re: after-hours call handling → demo # | 2026-08-10 | Restoration |  |
 | FloodSERV, Inc. | Damon & Kristi Thompson (Owners) · (918) 429-1911 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
 | Disaster Masters, LLC | Jake Yancey (Owner) · (501) 441-4087 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
 | SteamPro Restoration | Family-owned since 1994 · (870) 793-4834 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
