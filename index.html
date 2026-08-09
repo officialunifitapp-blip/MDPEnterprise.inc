@@ -137,6 +137,9 @@ select.oc:disabled{opacity:.5}
 input.due{margin-top:3px;background:rgba(0,0,0,.35);border:1px solid var(--line);
   border-radius:6px;color:var(--txt);font:11px var(--mono);padding:4px 5px;min-height:28px}
 input.due.now{color:var(--warn);border-color:var(--warn);background:rgba(224,180,92,.10)}
+/* Who to ask for. The front desk is the most common reason a dial dies. */
+.who{font-size:11.5px;color:var(--acc2);margin-top:2px;line-height:1.3}
+.who.none{color:#4d6478;font-style:italic}
 textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:7px;
   color:var(--txt);padding:7px 8px;font:12px/1.45 inherit;resize:vertical;min-height:52px;margin:4px 0 6px}
 .hide{display:none}
@@ -388,7 +391,13 @@ async function hydrate(){
         // "2026-08-05 sourced" vs "2026-08-05 no answer" — the trailing text is
         // the outcome, and "sourced" means the phone has never been picked up.
         const lt=c[4]||"",tail=lt.slice(10).trim();
-        list.push({co:c[1],c:c[2],p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
+        // Contact reads "Name · phone · website". The leading part is whoever
+        // to ask for — the single most useful thing to have in hand when a
+        // front desk picks up. Drop it when it is only a number or a domain.
+        const lead0=(c[2]||"").split("·")[0].trim();
+        const who=(/[A-Za-z]{2}/.test(lead0)&&!/^\(?\d/.test(lead0)
+                   &&!/\.(com|net|org|co|us|in|health|bar)\b/i.test(lead0))?lead0:"";
+        list.push({co:c[1],c:c[2],who,p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
           out:(tail&&tail!=="sourced")?tail:""});
       });
       DATA.counts=counts;DATA.leads=list;
@@ -718,7 +727,9 @@ function leadTable(){
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
   <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}<th>Outcome</th><th></th></tr></thead>
   <tbody>${rows.map(l=>`<tr${l.out?' style="background:rgba(79,211,154,.05)"':""}>
-    <td>${esc(l.co)}</td>
+    <td>${esc(l.co)}
+      ${l.who?`<div class="who">${esc(l.who)}</div>`
+             :`<div class="who none">no name yet</div>`}</td>
     <td style="white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${esc(l.p)}</a>`:'<span class="noph">—</span>'}</td>
     <td style="opacity:.8;white-space:nowrap">${esc(l.st||"new")}</td>
     <td><select class="oc${l.out?" set":""}" data-co="${esc(l.co)}">
