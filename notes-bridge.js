@@ -44,7 +44,6 @@ const PARENT = (process.env.NOTION_PARENT_PAGE || "").replace(/-/g, "");
 const PORT   = Number(process.env.PORT || 8787);
 const NV     = "2022-06-28";
 let   DB     = process.env.NOTION_DB || "";
-let   SCOUT_DB = process.env.SCOUT_DB || "";
 
 const STAGES   = ["new","contacted","replied","booked","call held","proposal","won","lost"];
 const OUTCOMES = ["no answer","voicemail","gatekeeper","spoke to owner","callback set","demo sent","not interested"];
@@ -442,76 +441,6 @@ http.createServer(async (req, res) => {
       model: MODEL,
       manager,
     });
-  }
-
-  /* ---- Depop Resale Scout ---- analyses Depop's own notification emails.
-     Never scrapes Depop, never buys anything. Purchases are manual. */
-  if (req.url.startsWith("/scout")) {
-    const scout = require("./scout.js");
-    const body = () => new Promise((ok, no) => {
-      let raw = ""; req.on("data", c => { raw += c; if (raw.length > 4e6) req.destroy(); });
-      req.on("end", () => { try { ok(JSON.parse(raw || "{}")); } catch (e) { no(e); } });
-    });
-    (async () => {
-      try {
-        if (req.url === "/scout/config" && req.method === "GET")  return json(res, 200, scout.loadConfig());
-        if (req.url === "/scout/config" && req.method === "POST") return json(res, 200, scout.saveConfig(await body()));
-
-        const db = SCOUT_DB || (SCOUT_DB = await scout.ensureScoutDb(notion, PARENT, process.env.SCOUT_DB));
-
-        if (req.url.startsWith("/scout/opportunities")) {
-          const rating = (req.url.match(/[?&]rating=(BUY|REVIEW|PASS)/) || [])[1];
-          return json(res, 200, { items: await scout.listOpportunities(notion, db, { rating }) });
-        }
-
-        /* Structured listings from a browser session (scout-watch.sh). Same
-           scoring, same store, same dedupe as the email path. */
-        if (req.url === "/scout/ingest" && req.method === "POST") {
-          const b = await body();
-          const raw = Array.isArray(b) ? b : (b.listings || []);
-          const cfg = scout.loadConfig();
-          const norm = raw.map(scout.normalizeListing).filter(Boolean);
-          const stored = [], alerted = [];
-          for (const l of norm) {
-            const o = await scout.analyse(l, cfg, {});
-            const r = await scout.upsertOpportunity(notion, db, o);
-            stored.push({ ...o, ...r });
-            // Only alert on genuinely new BUYs — never re-alert a duplicate.
-            if (r.action === "created" && o.rating === "BUY") {
-              const sent = await scout.notify(o, cfg);
-              alerted.push({ id: o.id, via: sent });
-            }
-          }
-          const fresh = stored.filter(s => s.action === "created");
-          return json(res, 200, {
-            received: raw.length, valid: norm.length,
-            created: fresh.length, duplicates: stored.length - fresh.length,
-            buys: fresh.filter(s => s.rating === "BUY").length,
-            alerted, results: stored,
-          });
-        }
-
-        if (req.url === "/scout/analyze" && req.method === "POST") {
-          const b = await body();
-          if (!b.html) return json(res, 400, { error: "html is required" });
-          const cfg = scout.loadConfig();
-          const out = await scout.ingestEmail(b, cfg, {});
-          if (out.rejected) return json(res, 200, out);
-          const stored = [];
-          for (const o of out.results) stored.push({ ...o, ...(await scout.upsertOpportunity(notion, db, o)) });
-          const fresh = stored.filter(s => s.action === "created");
-          return json(res, 200, {
-            parsed: out.parsed,
-            created: fresh.length,
-            duplicates: stored.length - fresh.length,
-            buys: fresh.filter(s => s.rating === "BUY").length,
-            results: stored,
-          });
-        }
-        return json(res, 404, { error: "unknown scout route" });
-      } catch (e) { json(res, 500, { error: e.message }); }
-    })();
-    return;
   }
 
   if (req.method === "POST" && req.url === "/chat") {
