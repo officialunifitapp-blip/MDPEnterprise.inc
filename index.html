@@ -395,8 +395,11 @@ async function hydrate(){
         // to ask for — the single most useful thing to have in hand when a
         // front desk picks up. Drop it when it is only a number or a domain.
         const lead0=(c[2]||"").split("·")[0].trim();
+        // Not a phone, not a domain, not "Owner TBD", and not a "City, ST" —
+        // those all sat in this column and none of them is a person to ask for.
         const who=(/[A-Za-z]{2}/.test(lead0)&&!/^\(?\d/.test(lead0)
-                   &&!/\.(com|net|org|co|us|in|health|bar)\b/i.test(lead0))?lead0:"";
+                   &&!/\.(com|net|org|co|us|in|health|bar)\b/i.test(lead0)
+                   &&!/^owner tbd$/i.test(lead0)&&!/,\s*[A-Z]{2}$/.test(lead0))?lead0:"";
         list.push({co:c[1],c:c[2],who,p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
           out:(tail&&tail!=="sourced")?tail:""});
       });
