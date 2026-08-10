@@ -484,6 +484,54 @@ http.createServer(async (req, res) => {
     return;
   }
 
+  /* ---- call prep ---- the briefs, readable from the phone.
+     They are files on the Mac, and the ten minutes before a call are never
+     spent at the Mac. */
+  if (req.url.startsWith("/prep")) {
+    const fs = require("fs"), path = require("path");
+    const dir = path.join(__dirname, "prep");
+
+    if (req.url === "/prep" && req.method === "GET") {
+      let items = [];
+      try {
+        items = fs.readdirSync(dir).filter(f => f.endsWith(".md")).map(f => {
+          const st = fs.statSync(path.join(dir, f));
+          const m = f.match(/^(\d{4}-\d{2}-\d{2}|undated)-(.+)\.md$/);
+          return {
+            file: f,
+            date: m ? m[1] : "",
+            // Filenames are slugs; the brief's own H1 carries the real name.
+            company: (fs.readFileSync(path.join(dir, f), "utf8")
+                        .match(/^#\s*(.+?)\s*(?:—|$)/m) || [, m ? m[2] : f])[1],
+            written: st.mtime.toISOString(),
+          };
+        }).sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+      } catch { /* no prep dir yet */ }
+      return json(res, 200, { items });
+    }
+
+    if (req.method === "GET" && /^\/prep\/[^/]+$/.test(req.url)) {
+      const name = decodeURIComponent(req.url.slice(6));
+      // Never let a path out of the prep directory.
+      if (name.includes("/") || name.includes("..") || !name.endsWith(".md"))
+        return json(res, 400, { error: "bad brief name" });
+      try { return json(res, 200, { name, text: fs.readFileSync(path.join(dir, name), "utf8") }); }
+      catch { return json(res, 404, { error: "no such brief" }); }
+    }
+
+    // Writing one takes minutes, so this starts it and returns. The panel
+    // finds the result by re-listing.
+    if (req.url === "/prep/run" && req.method === "POST") {
+      const { spawn } = require("child_process");
+      const child = spawn("./prep-appointments.sh", [], {
+        cwd: __dirname, detached: true, stdio: "ignore",
+      });
+      child.unref();
+      return json(res, 200, { started: true });
+    }
+    return json(res, 404, { error: "unknown prep route" });
+  }
+
   /* ---- hiring engine ---- the client's own applicant intake. Separate from
      the pipeline: those are companies being sold to, these are people being
      hired by one of them. */

@@ -74,7 +74,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | 4-D Home Solutions | Anthony Decker (Owner) · (417) 531-0635 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Chief Restoration Services | Christy & Matthew Brown · (417) 337-3770 | new | 2026-08-08 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Brilliant Cleaning and Restoration | Justin (Owner) · (620) 210-0424 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
-| MRC Restoration of Southeast Missouri | Mark Curfman (Founder) · (573) 200-7272 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| MRC Restoration of Southeast Missouri | Mark Curfman (Founder) · (573) 200-7272 | contacted | 2026-08-10 spoke to owner | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Ben Davis Restoration | Shad Friend (Founder) · (417) 860-9767 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Fine Restoration | Jason Erps (Owner) · (816) 307-3972 | lost | 2026-08-10 not interested | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Renew Restoration | Owner TBD · (816) 701-6628 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |

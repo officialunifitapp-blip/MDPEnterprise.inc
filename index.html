@@ -132,6 +132,19 @@ td{padding:6px;border-top:1px solid rgba(90,175,255,.09);vertical-align:middle}
 /* Outcome picker. Tall enough to hit with a thumb — this gets used mid-call. */
 /* Outcome toggles. Several can be true at once, and they get tapped mid-call
    with a thumb, so they are buttons rather than a dropdown. */
+/* A brief is read once, quickly, standing up. Wide measure, calm type. */
+.brief{font-size:13.5px;line-height:1.6;color:#cfe3f4}
+.brief h2{font-size:15px;color:#eaf6ff;margin:16px 0 6px;letter-spacing:-.01em}
+.brief h3{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--acc);margin:16px 0 6px}
+.brief h4{font-size:12.5px;color:#e2f1ff;margin:12px 0 4px}
+.brief p{margin:0 0 9px}
+.brief ul{margin:0 0 10px 18px}
+.brief li{margin-bottom:5px}
+.brief b{color:#eaf6ff}
+.brief code{font:11.5px var(--mono);background:rgba(79,195,247,.10);padding:1px 5px;border-radius:4px}
+.brief a{color:var(--acc2)}
+.unver{color:var(--warn);font-size:10px;letter-spacing:.08em;border:1px solid rgba(224,180,92,.4);
+  border-radius:4px;padding:0 4px}
 .ocg{display:flex;flex-wrap:wrap;gap:4px;max-width:230px}
 .ocx{background:rgba(0,0,0,.30);border:1px solid var(--line);border-radius:20px;
   color:var(--dim);font:11px inherit;padding:5px 9px;cursor:pointer;min-height:28px;
@@ -417,7 +430,8 @@ function paint(){
   const ag=[["Notes","logs calls to Notion",!!(S&&S.notion)],
             ["Manager","5am list + Notion sync",mgrOk],
             ["Lead Research","sources prospects",true],
-            ["Sales Assistant","scripts + objections",true]];
+            ["Sales Assistant","scripts + objections",true],
+            ["Call Prep","briefs booked appointments",true]];
   $("agents").innerHTML=ag.map(([nm,d,on])=>`<div class="sr">
     <span class="sd" style="background:${on?"var(--ok)":"var(--warn)"};box-shadow:0 0 8px ${on?"var(--ok)":"var(--warn)"}"></span>
     <span class="nm">${nm}<div style="font-size:10.5px;color:var(--dim)">${d}</div></span>
@@ -437,6 +451,7 @@ const HUBS=[
   {id:"sales", name:"SCRIPTS", subs:["Openers","Objections","Voicemail"]},
   {id:"notes", name:"NOTES",   subs:["Call Log","Notion","CSV"]},
   {id:"mgr",   name:"MANAGER", subs:["5am job","Sourcing","Sync"]},
+  {id:"prep",  name:"PREP",    subs:["Briefs","Appointments","Run now"]},
 ];
 let W=0,H=0,DPR=1,t=0;
 function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(devicePixelRatio||1,2);
@@ -457,6 +472,8 @@ const SUBACT={
   "Openers":()=>openSheet("sales"),"Objections":()=>openSheet("sales"),"Voicemail":()=>openSheet("sales"),
   "Call Log":()=>openSheet("notes"),"Notion":()=>act("notion"),"CSV":()=>exportCSV(),
   "5am job":()=>openSheet("mgr"),"Sourcing":()=>openSheet("mgr"),"Sync":()=>openSheet("mgr"),
+  "Briefs":()=>openSheet("prep"),"Appointments":()=>openSheet("prep"),
+  "Run now":()=>{openSheet("prep");runPrep();},
 };
 function frame(){
   t+=.006;
@@ -570,6 +587,7 @@ const SHEET={
   sales:["Scripts","What to say, and what to say back.",()=>scriptsPanel()],
   notes:["Notes","Your call log — local capture, Notion is the record.",()=>notesPanel()],
   mgr:["Manager","Runs at 5:00 daily via launchd.",()=>managerPanel()],
+  prep:["Call Prep","Every booked appointment, researched and checked.",()=>prepPanel()],
 };
 
 const SORT={key:"co",dir:1};
@@ -656,6 +674,96 @@ async function markLead(co,outcomes,el,due){
     alert("Could not save: "+e.message+"\nThe bridge may be offline.");
   }finally{ if(el)el.disabled=false; }
 }
+/* ============ call prep ============
+   Briefs are files on the Mac and the ten minutes before a call are never
+   spent at the Mac, so they are read here. */
+DATA.prep={items:null,open:null,text:"",busy:false,err:null};
+
+async function loadPrep(){
+  DATA.prep.busy=true;
+  try{ DATA.prep.items=(await (await bfetch("/prep")).json()).items||[]; DATA.prep.err=null; }
+  catch(e){ DATA.prep.items=[]; DATA.prep.err="bridge offline"; }
+  DATA.prep.busy=false;
+}
+async function openBrief(file){
+  DATA.prep.open=file; DATA.prep.text="Loading…"; repaintPrep();
+  try{ DATA.prep.text=(await (await bfetch("/prep/"+encodeURIComponent(file))).json()).text||""; }
+  catch(e){ DATA.prep.text="Could not load that brief."; }
+  repaintPrep();
+}
+async function runPrep(){
+  DATA.prep.busy=true; repaintPrep();
+  try{
+    await bfetch("/prep/run",{method:"POST"});
+    // Writing one runs three agents and takes minutes; poll rather than block.
+    let tries=0;
+    const tick=setInterval(async()=>{
+      tries++; const had=(DATA.prep.items||[]).length;
+      await loadPrep();
+      if((DATA.prep.items||[]).length>had||tries>30){clearInterval(tick);DATA.prep.busy=false;repaintPrep();}
+      else repaintPrep();
+    },10000);
+  }catch(e){ DATA.prep.busy=false; DATA.prep.err="bridge offline"; repaintPrep(); }
+}
+function repaintPrep(){
+  if($("sheet").classList.contains("on")&&$("shName").textContent==="Call Prep"){
+    $("shBody").innerHTML=prepPanel(); wireSheet();
+  }
+}
+
+/* Enough markdown for what call-prep writes: headings, bold, code, bullets. */
+function md(s){
+  const lines=esc(s).split("\n");let out="",inList=false;
+  for(let ln of lines){
+    const bullet=/^\s*[-*]\s+(.*)$/.exec(ln);
+    if(bullet){ if(!inList){out+="<ul>";inList=true;} out+="<li>"+inline(bullet[1])+"</li>"; continue; }
+    if(inList){out+="</ul>";inList=false;}
+    const hd=/^(#{1,4})\s+(.*)$/.exec(ln);
+    if(hd){ const n=Math.min(hd[1].length+1,4); out+="<h"+n+">"+inline(hd[2])+"</h"+n+">"; continue; }
+    if(!ln.trim()){continue;}
+    out+="<p>"+inline(ln)+"</p>";
+  }
+  if(inList)out+="</ul>";
+  return out;
+  function inline(t){return t
+    .replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")
+    .replace(/`(.+?)`/g,"<code>$1</code>")
+    .replace(/\[(.+?)\]\((https?:[^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\bUNVERIFIED\b/g,'<span class="unver">UNVERIFIED</span>');}
+}
+
+function prepPanel(){
+  const P=DATA.prep;
+  if(P.items===null){loadPrep().then(repaintPrep);return '<div class="say" style="color:var(--dim)">Loading briefs…</div>';}
+
+  if(P.open){
+    return `<div class="sec"><button class="qa" data-back="1" style="width:auto;display:inline-flex">◂ All briefs</button></div>
+      <div class="brief">${md(P.text)}</div>`;
+  }
+
+  const booked=DATA.leads.filter(isBooked);
+  const has=c=>(P.items||[]).some(i=>i.company.toLowerCase().includes(c.toLowerCase().slice(0,14)));
+  const appts=booked.length?booked.map(l=>`<div class="sr">
+      <span class="sd" style="background:${has(l.co)?"var(--ok)":"var(--warn)"};box-shadow:0 0 8px ${has(l.co)?"var(--ok)":"var(--warn)"}"></span>
+      <span class="nm">${esc(l.co)}<div style="font-size:10.5px;color:var(--dim)">${esc(l.due||"no date set")}${l.who?" · ask for "+esc(l.who):""}</div></span>
+      <span class="vl">${has(l.co)?"briefed":"queued"}</span></div>`).join("")
+    :'<div class="say" style="color:var(--dim)">Nothing booked. Tap <b>Appt booked</b> on a lead and a brief gets written for it.</div>';
+
+  const list=(P.items||[]).length?P.items.map(i=>`<div class="sr" data-brief="${esc(i.file)}" style="cursor:pointer">
+      <span class="sd" style="background:var(--acc);box-shadow:0 0 8px var(--acc)"></span>
+      <span class="nm">${esc(i.company)}<div style="font-size:10.5px;color:var(--dim)">${esc(i.date||"undated")}</div></span>
+      <span class="vl">read ▸</span></div>`).join("")
+    :'<div class="say" style="color:var(--dim)">No briefs written yet.</div>';
+
+  return `<div class="sec"><div class="slb">Appointments <span>${booked.length}</span></div>${appts}</div>
+    <div class="sec"><div class="slb">Briefs <span>${(P.items||[]).length}</span></div>${list}</div>
+    <div class="sec">
+      <button class="qa" id="prepRun"${P.busy?" disabled":""}>${P.busy?"Writing… this takes a few minutes":"▸ Write any missing briefs"}</button>
+      ${P.err?`<div class="say" style="color:var(--warn);margin-top:8px">${esc(P.err)}</div>`:""}
+      <div class="say" style="color:var(--dim);margin-top:8px">Runs itself at 5:00 daily. Research, then a review agent that sends it back until it passes.</div>
+    </div>`;
+}
+
 function scriptsPanel(){
   const P=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],
   ["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],
@@ -699,6 +807,9 @@ function wireSheet(){
     const x=b.querySelector(`.ntbtn[data-co="${ta.dataset.co}"]`);if(x)x.classList.toggle("has",!!ta.value.trim());});
   b.querySelectorAll("[data-niche]").forEach(x=>x.onclick=()=>{
     LEAD_NICHE=x.dataset.niche;b.innerHTML=leadTable();wireSheet();});
+  b.querySelectorAll("[data-brief]").forEach(x=>x.onclick=()=>openBrief(x.dataset.brief));
+  b.querySelectorAll("[data-back]").forEach(x=>x.onclick=()=>{DATA.prep.open=null;repaintPrep();});
+  { const r=b.querySelector("#prepRun"); if(r)r.onclick=()=>runPrep(); }
   b.querySelectorAll("[data-called]").forEach(x=>x.onclick=()=>{
     CALLED=x.dataset.called;b.innerHTML=leadTable();wireSheet();});
   b.querySelectorAll("button.ocx").forEach(x=>x.onclick=()=>{
