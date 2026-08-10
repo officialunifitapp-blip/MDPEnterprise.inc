@@ -46,7 +46,11 @@ const NV     = "2022-06-28";
 let   DB     = process.env.NOTION_DB || "";
 
 const STAGES   = ["new","contacted","replied","booked","call held","proposal","won","lost"];
-const OUTCOMES = ["no answer","voicemail","gatekeeper","spoke to owner","callback set","demo sent","not interested"];
+// Notion's Outcome column is a single-select, so it carries the furthest one.
+// pipeline.md keeps the full list. Retired values stay so old rows still parse.
+const OUTCOMES = ["no answer","phone disconnected","gatekeeper","spoke to owner",
+                  "not interested","already has a system","appointment booked",
+                  "voicemail","callback set","demo sent"];
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -205,18 +209,40 @@ async function findRow(company) {
 // Only advance on evidence, same rule the note parser follows: nobody picking
 // up is not a conversation, so it records the attempt without moving anyone
 // down the funnel. `null` means "leave the stage alone".
+//
+// "already has a system" is deliberately not a loss. The best lead in the
+// pipeline came from exactly that answer — they had one, it misrouted their
+// calls, and they were already shopping for a replacement.
 const OUTCOME_STAGE = {
-  "no answer":      null,
-  "voicemail":      null,
-  "gatekeeper":     null,
-  "spoke to owner": "contacted",
-  "callback set":   "contacted",
-  "demo sent":      "contacted",
-  "not interested": "lost",
-  "booked":         "booked",
+  "no answer":          null,
+  "phone disconnected": "lost",
+  "gatekeeper":         null,
+  "spoke to owner":     "contacted",
+  "not interested":     "lost",
+  "already has a system": null,
+  "appointment booked": "booked",
+
+  // Retired, still on rows logged before the list changed. Accepted so old
+  // outcomes keep parsing; never offered as a choice again.
+  "voicemail":    null,
+  "callback set": "contacted",
+  "demo sent":    "contacted",
+  "booked":       "booked",
 };
 
-function markLead(company, outcome, due) {
+// One call can be several things at once — a gatekeeper who also tells you
+// they already have a system. The stage is whichever outcome went furthest.
+const STAGE_RANK = { booked: 4, contacted: 3, lost: 2 };
+function stageFor(outcomes) {
+  let best = null, rank = 0;
+  for (const o of outcomes) {
+    const s = OUTCOME_STAGE[o];
+    if (s && (STAGE_RANK[s] || 0) > rank) { best = s; rank = STAGE_RANK[s]; }
+  }
+  return best;
+}
+
+function markLead(company, outcomes, due, next) {
   const fs = require("fs"), path = require("path");
   const file = path.join(__dirname, "pipeline.md");
   const lines = fs.readFileSync(file, "utf8").split("\n");
@@ -233,16 +259,17 @@ function markLead(company, outcome, due) {
   if (hit < 0) throw new Error(`"${company}" is not in pipeline.md`);
 
   const c = lines[hit].split("|").map(x => x.trim());
-  const stage = OUTCOME_STAGE[outcome];
+  const stage = stageFor(outcomes);
   if (stage) c[3] = stage;
-  // "2026-08-05 sourced" becomes "2026-08-05 no answer" — the column already
-  // carries what happened, so the outcome needs no new column to live in.
-  c[4] = `${today()} ${outcome}`;
+  // "2026-08-05 sourced" becomes "2026-08-05 gatekeeper, already has a system"
+  // — the column already carries what happened, so outcomes need no new column
+  // to live in. Comma-separated because a call can be several things at once.
+  c[4] = `${today()} ${outcomes.join(", ")}`;
 
-  // A callback with no date is a callback that gets missed. Due and Next
-  // action are existing columns; this is what they were for.
-  if (outcome === "callback set") {
-    c[5] = "Callback";
+  // An appointment with no date is an appointment that gets missed. Due and
+  // Next action are existing columns; this is what they were for.
+  if (outcomes.includes("appointment booked")) {
+    c[5] = next || (/appointment/i.test(c[5]) ? c[5] : "Appointment booked");
     c[6] = due || c[6];
   }
   lines[hit] = "| " + c.slice(1, 9).join(" | ") + " |";
@@ -504,16 +531,22 @@ http.createServer(async (req, res) => {
     req.on("data", c => { raw += c; if (raw.length > 1e5) req.destroy(); });
     req.on("end", async () => {
       try {
-        const { company, outcome, note = "", due } = JSON.parse(raw || "{}");
+        const body = JSON.parse(raw || "{}");
+        const { company, note = "", due, next } = body;
+        // One or many. A single string still works so nothing older breaks.
+        const outcomes = (Array.isArray(body.outcome) ? body.outcome
+                        : body.outcome ? [body.outcome] : []).filter(Boolean);
         if (!company) return json(res, 400, { error: "company is required" });
-        if (!(outcome in OUTCOME_STAGE)) return json(res, 400, { error: `unknown outcome "${outcome}"` });
+        if (!outcomes.length) return json(res, 400, { error: "at least one outcome is required" });
+        const bad = outcomes.find(o => !(o in OUTCOME_STAGE));
+        if (bad) return json(res, 400, { error: `unknown outcome "${bad}"` });
         if (due && !/^\d{4}-\d{2}-\d{2}$/.test(due)) return json(res, 400, { error: "due must be YYYY-MM-DD" });
 
-        const local = markLead(company, outcome, due);
-        console.log("lead:", company, "->", outcome, due ? `(due ${due})` : "");
+        const local = markLead(company, outcomes, due, next);
+        console.log("lead:", company, "->", outcomes.join(", "), due ? `(due ${due})` : "");
 
         let notion = null;
-        try { notion = await upsert({ company, outcome, note: note || outcome, stage: local.stage, due: local.due, next: local.next }); }
+        try { notion = await upsert({ company, outcome: outcomes[0], note: note || outcomes.join(", "), stage: local.stage, due: local.due, next: local.next }); }
         catch (e) { notion = { error: e.message }; }
 
         json(res, 200, { ...local, notion });
