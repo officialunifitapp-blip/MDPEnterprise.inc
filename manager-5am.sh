@@ -22,11 +22,11 @@ log "\n===== $(date '+%Y-%m-%d %H:%M') ====="
 # Wait up to 5 minutes for the network. A wake-from-sleep run that starts
 # before Wi-Fi associates fails every time.
 for i in $(seq 1 30); do
-  if curl -sf --max-time 5 https://api.anthropic.com/ > /dev/null 2>&1; then break; fi
+  if curl -s --max-time 5 -o /dev/null https://api.anthropic.com/ 2>/dev/null; then break; fi
   [ "$i" = "1" ] && log "waiting for network…"
   sleep 10
 done
-if ! curl -sf --max-time 5 https://api.anthropic.com/ > /dev/null 2>&1; then
+if ! curl -s --max-time 5 -o /dev/null https://api.anthropic.com/ 2>/dev/null; then
   log "NETWORK: never came up after 5 minutes — skipping enrichment"
 else
   log "network up after $(( (i-1) * 10 ))s"
@@ -53,7 +53,7 @@ run_agent() {
 }
 
 STATUS=fail
-if curl -sf --max-time 5 https://api.anthropic.com/ > /dev/null 2>&1; then
+if curl -s --max-time 5 -o /dev/null https://api.anthropic.com/ 2>/dev/null; then
   if run_agent; then
     STATUS=ok
   else
@@ -67,6 +67,9 @@ fi
 # reasons the agent fails.
 /opt/homebrew/bin/node dial-list.js >> logs/manager.log 2>&1 \
   && LIST=ok || LIST=fail
+
+# Briefs for anything booked in the next 3 days. Also safe to run by hand.
+./prep-appointments.sh >> logs/manager.log 2>&1
 
 # One line that says whether the morning worked, so the log does not have to
 # be read to find out.
