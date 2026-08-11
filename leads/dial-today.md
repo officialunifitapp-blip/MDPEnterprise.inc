@@ -1,6 +1,6 @@
 # Dial list — 2026-08-11
 
-419 leads · 259 with a logged outcome · 160 never called
+419 leads · 263 with a logged outcome · 156 never called
 
 ## Callbacks owed (3)
 *They asked you to call. Overdue ones first.*
@@ -32,7 +32,7 @@
 - **Grethey Rose Construction & Restoration** (309) 208-0798 — ask for Victor Grethey & Sue Rose (Owners)  
   last: spoke to owner 2026-08-10
 
-## Beat the gatekeeper (33)
+## Beat the gatekeeper (34)
 *Call after 6pm — the owner answers his own line.*
 
 - **Omaha Damage Repair** (402) 704-4921 — ask for Current owner TBD  
@@ -101,6 +101,8 @@
   last: gatekeeper 2026-08-10
 - **Radiance Med Spa** (630) 221-1883  
   last: gatekeeper 2026-08-08
+- **Certi-Dry** (608) 223-1600  
+  last: gatekeeper 2026-08-11
 
 ## No answer last time (196)
 *Different time of day than you tried before.*

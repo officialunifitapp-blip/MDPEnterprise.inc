@@ -27,14 +27,14 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Water Damage 24 | Little Rock, AR · no # yet | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Patriot Water Damage | Tulsa, OK · no # yet | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Elite Restoration | W. Des Moines, IA · (515) 216-4293 (unverified, 3rd-party) | lost | 2026-08-10 not interested | Verify phone, then call | 2026-08-01 | Restoration |  |
-| Mr. Restore | Clint Junell · (877) 631-7576 | new | 2026-07-31 sourced | Cold call (low fit) | 2026-08-01 | Restoration |  |
+| Mr. Restore | Clint Junell · (877) 631-7576 | contacted | 2026-08-11 spoke to owner, already has a system | Cold call (low fit) | 2026-08-01 | Restoration |  |
 | Vital Restoration | Timothy Brown (Owner) · (217) 679-0254 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Menold Construction & Restoration | Tom Menold / Steve Driscoll · (309) 263-8728 | contacted | 2026-08-10 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Tri County Cleaning Systems | Owner TBD · (309) 266-5755 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Kelley Construction Contractors | Michael Kelley (President) · (309) 346-6604 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | 911 Restoration of Central Illinois | Alex & Aaron Peters · (309) 244-4178 | lost | 2026-08-08 not interested | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Healthy Homes LLC | Caleb Wilson (Owner) · (309) 418-9511 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
-| Newton's Cleaning & Restoration | Michelle Newton (Owner) · (217) 442-1288 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| Newton's Cleaning & Restoration | Michelle Newton (Owner) · (217) 442-1288 | lost | 2026-08-11 phone disconnected, no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Freeman General Contracting | Jacob & James Freeman · (217) 442-2281 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Peerless Cleaning & Restoration | Wike family · (217) 423-7704 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | J.J. Swartz Co | Owner TBD · (217) 877-2611 | new | 2026-08-10 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration |  |
@@ -68,7 +68,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Lake Regional Restoration | Mark VanRonzelen (Founder) · (573) 302-8739 | contacted | 2026-08-10 spoke to owner | Cold call → demo # | 2026-08-01 | Restoration |  |
 | U.S. Disaster Restoration | Owner TBD · (573) 552-1972 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | A-Z Home Services and Restoration | Kristin & Jeff Reed · (573) 317-0155 | lost | 2026-08-08 not interested | Cold call → demo # | 2026-08-01 | Restoration |  |
-| Ozarks Fire and Water Restoration | Owner TBD · (417) 233-4833 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| Ozarks Fire and Water Restoration | Owner TBD · (417) 233-4833 | contacted | 2026-08-11 spoke to owner, not interested | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Clean Green Restoration | Miles & Tarah McNeill · (417) 300-5062 | new | 2026-08-09 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Tri Cat Restoration | Owner TBD · (417) 200-2018 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | 4-D Home Solutions | Anthony Decker (Owner) · (417) 531-0635 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
@@ -105,7 +105,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Greene Planet | Springfield, MO · no # yet | new | 2026-08-01 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Beadles Property Maintenance | Springfield, MO · no # yet | new | 2026-08-01 sourced | Find number first | 2026-08-01 | Restoration |  |
 | McDowell Roofing & Restoration | Joplin, MO · no # yet | new | 2026-08-01 sourced | Find number first | 2026-08-01 | Restoration |  |
-| Advanced Restorations | Joplin, MO · no # yet | new | 2026-08-01 sourced | Find number first | 2026-08-01 | Restoration |  |
+| Advanced Restorations | Joplin, MO · no # yet | new | 2026-08-11 no answer | Find number first | 2026-08-01 | Restoration |  |
 | True North Exteriors | Joplin, MO · no # yet | new | 2026-08-01 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Missouri Restoration Contractor | Ste. Genevieve, MO · no # yet | new | 2026-08-01 sourced | Find number first | 2026-08-01 | Restoration |  |
 | KennCo Construction | Ozark/Nixa/Springfield, MO · no # yet | new | 2026-08-01 sourced | Find number first | 2026-08-01 | Restoration |  |
@@ -127,7 +127,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | True North Restoration of Iowa (Cedar Valley) | Waterloo/Cedar Falls, IA · (319) 220-3228 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
 | Siouxland Restoration Inc | Sioux City, IA · (712) 481-4325 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
 | Allied Restoration Service | Sioux City, IA · (712) 204-0868 unverified | new | 2026-08-08 no answer | Verify phone first | 2026-08-01 | Restoration |  |
-| On Call Restoration (CIFAL USA) | Owner TBD · (573) 240-8283 | new | 2026-08-02 sourced | Cold call → demo # | 2026-08-02 | Restoration |  |
+| On Call Restoration (CIFAL USA) | Owner TBD · (573) 240-8283 | new | 2026-08-11 no answer | Cold call → demo # | 2026-08-02 | Restoration |  |
 | McMahill & Sons Construction | Owner TBD · (309) 676-2597 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-02 | Restoration |  |
 | ABC Carpet Cleaning | Owner TBD · (815) 282-1222 | new | 2026-08-08 gatekeeper | Verify current ownership first — site notes acquisition by "All Seasons" | 2026-08-02 | Restoration |  |
 | Columbia Water Restoration | Columbia, MO · no # yet | new | 2026-08-02 sourced | Find number first | 2026-08-02 | Restoration |  |
@@ -137,7 +137,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Illinois Home Solutions | East Peoria, IL · (309) 300-2112 unverified | new | 2026-08-10 no answer | Verify phone first | 2026-08-02 | Restoration |  |
 | Power Restoration of Rockford | Rockford, IL · (815) 721-3493 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
 | Advantage Kwik-Dry (Flood Pros division) | Rockford/Machesney Park, IL · (815) 332-3299 unverified | new | 2026-08-08 gatekeeper | Verify phone first | 2026-08-02 | Restoration |  |
-| Mustang Disaster CleanUp | Story City/Ames, IA · (515) 620-3772 unverified | new | 2026-08-02 sourced | Verify phone first | 2026-08-02 | Restoration |  |
+| Mustang Disaster CleanUp | Story City/Ames, IA · (515) 620-3772 unverified | new | 2026-08-11 no answer | Verify phone first | 2026-08-02 | Restoration |  |
 | Burlington Restoration Solutions | Burlington, IA · (319) 671-6640 unverified | contacted | 2026-08-08 spoke to owner | Verify phone first | 2026-08-02 | Restoration |  |
 | Allen's Restoration | Hannibal, MO · (573) 221-0107 unverified | lost | 2026-08-08 not interested | Verify phone first | 2026-08-02 | Restoration |  |
 | Ameristeam Restoration | Ottumwa, IA · (641) 632-9945 unverified | lost | 2026-08-05 not interested | Verify phone first | 2026-08-02 | Restoration |  |
@@ -154,13 +154,13 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Wall 2 Wall Restoration | Kevin · (479) 252-6650 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
 | ARS Restoration (Ark-La-Tex) | Owner TBD · (903) 832-3389 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-03 | Restoration |  |
 | Courtesy Care Restoration | Jason Birk (Owner) · (918) 233-6477 | lost | 2026-08-09 not interested | Cold call → demo # | 2026-08-03 | Restoration |  |
-| Murphree Restoration Inc | Owner TBD · (785) 357-5335 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
+| Murphree Restoration Inc | Owner TBD · (785) 357-5335 | new | 2026-08-11 no answer | Cold call → demo # | 2026-08-03 | Restoration |  |
 | Safe Home Restoration of NW Arkansas | Rob Stover & Mike Alley · (479) 257-5960 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
 | 777 Restoration LLC | Claremore, OK · (918) 777-3211 unverified | lost | 2026-08-08 not interested | Verify phone first | 2026-08-03 | Restoration |  |
 | Extremely Clean | Lincoln/Omaha, NE · (402) 932-3257 unverified | new | 2026-08-10 no answer | Verify phone + which city first | 2026-08-03 | Restoration |  |
 | RK Janitorial Inc | Junction City/Manhattan, KS · 3 conflicting #s | new | 2026-08-03 sourced | Verify phone first | 2026-08-03 | Restoration |  |
 | EnteX Cleaning & Restoration Inc. | Owner TBD · (816) 233-5557 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-04 | Restoration |  |
-| ONIT Cleaning and Restoration | Jacob · (515) 408-2800 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 | Restoration |  |
+| ONIT Cleaning and Restoration | Jacob · (515) 408-2800 | contacted | 2026-08-11 spoke to owner, not interested | Cold call → demo # | 2026-08-04 | Restoration |  |
 | PacePro Carpet Cleaners and Restoration | Casondra Pashos (President) · (217) 417-2255 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 | Restoration |  |
 | Hoerr Carpet Cleaning and Water Restoration Inc. | Bill Hoerr (Founder/CEO) · (309) 696-1170 | new | 2026-08-10 gatekeeper | Cold call → demo # | 2026-08-04 | Restoration |  |
 | X-Treme Carpet Cleaning | Owner TBD · (618) 451-8044 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-04 | Restoration |  |
@@ -193,14 +193,14 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Stover's Restoration, Inc. | Owner TBD · (316) 722-5005 unverified | new | 2026-08-05 sourced | Verify phone first | 2026-08-05 | Restoration |  |
 | Teddy's Cleaning & Restoration LLC | Father-son team · no # yet | new | 2026-08-05 sourced | Find number first | 2026-08-05 | Restoration |  |
 | Arsicdry Water Damage Restoration | Owner TBD · no # yet | new | 2026-08-05 sourced | Find number first | 2026-08-05 | Restoration |  |
-| Absolute Clean & Restoration Inc | Scott & Stacy Ross (Owners) · (618) 402-8225 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
+| Absolute Clean & Restoration Inc | Scott & Stacy Ross (Owners) · (618) 402-8225 | contacted | 2026-08-11 already has a system, send an email | Email Friday times — HE ASKED | 2026-08-14 | Restoration | absolutecleanpres@gmail.com |
 | MCC Cleaning & Restoration | Jessica Vieu (Owner) · (314) 443-5044 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-06 | Restoration |  |
 | Bales Cleaning & Restoration | Larry Martin (Owner) · (636) 498-1000 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-06 | Restoration |  |
 | Grethey Rose Construction & Restoration | Victor Grethey & Sue Rose (Owners) · (309) 208-0798 | contacted | 2026-08-10 spoke to owner | Cold call → demo # | 2026-08-06 | Restoration |  |
 | Pro Clean Restoration & Floor Care | Jesse Callison (President/Owner) · (636) 233-6826 | new | 2026-08-06 sourced | Cold call → demo # | 2026-08-06 | Restoration |  |
 | Environmental Resources, Inc. | David & Sherri Henson (Owners) · (618) 471-9119 | new | 2026-08-10 gatekeeper | Cold call → demo # | 2026-08-06 | Restoration |  |
 | Schultz Restoration LLC | Owner TBD · (573) 253-8030 | new | 2026-08-06 sourced | Cold call (confirm headcount fits ICP) | 2026-08-06 | Restoration |  |
-| Neville & Sons | Kevin & Tony Neville (Owners) · (573) 442-8280 | new | 2026-08-06 sourced | Verify 24/7 emergency line fit, then call | 2026-08-06 | Restoration |  |
+| Neville & Sons | Kevin & Tony Neville (Owners) · (573) 442-8280 | new | 2026-08-11 gatekeeper | Verify 24/7 emergency line fit, then call | 2026-08-06 | Restoration |  |
 | Steam Power Carpet Cleaning | Owner TBD · (217) 585-8620 | new | 2026-08-06 sourced | Verify restoration is a real revenue line, then call | 2026-08-06 | Restoration |  |
 | A Total Body Medi Spa | (330) 382-6020 · atotalbodymedispa.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | A Younger You Aesthetics | (614) 553-7216 · ayoungeryouohio.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
@@ -418,11 +418,11 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Wise Aesthetics | (317) 569-6448 · wise-aesthetics.com | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Xsculpt | (833) 972-8578 · xsculpt.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
 | Youthful Endeavors Medspa | (920) 468-1800 · youthfulendeavors.com | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | MedSpa |  |
-| Certi-Dry | Owner TBD · (608) 223-1600 | new | 2026-08-10 sourced | Cold call → demo # | 2026-08-10 | Restoration | info@certidry.com |
-| Madison Property Restoration | Randy Schmidt (President) · (608) 467-3360 | new | 2026-08-10 sourced | Cold call → demo # | 2026-08-10 | Restoration |  |
+| Certi-Dry | Owner TBD · (608) 223-1600 | lost | 2026-08-11 gatekeeper, not interested, already has a system | Cold call → demo # | 2026-08-10 | Restoration | info@certidry.com |
+| Madison Property Restoration | Randy Schmidt (President) · (608) 467-3360 | new | 2026-08-11 gatekeeper | Cold call → demo # | 2026-08-10 | Restoration |  |
 | Sullivan's Cleaning & Restoration | Patrick Sullivan (Owner) · (920) 337-1986 | new | 2026-08-10 sourced | Cold call → demo # | 2026-08-10 | Restoration |  |
-| Lakeshore Restoration LLC | Owner TBD · (920) 221-1440 | new | 2026-08-10 sourced | Cold call → demo # | 2026-08-10 | Restoration |  |
-| Brownies Carpet & Upholstery Cleaning & Water Restoration | Tom & Lisa Brown (Owners) · (920) 788-6852 | new | 2026-08-10 sourced | Cold call → demo # | 2026-08-10 | Restoration | tom@browniescarpetcleaning.com |
+| Lakeshore Restoration LLC | Owner TBD · (920) 221-1440 | contacted | 2026-08-11 spoke to owner | Cold call → demo # | 2026-08-10 | Restoration |  |
+| Brownies Carpet & Upholstery Cleaning & Water Restoration | Tom & Lisa Brown (Owners) · (920) 788-6852 | new | 2026-08-11 no answer | Cold call → demo # | 2026-08-10 | Restoration | tom@browniescarpetcleaning.com |
 
 ## Won
 | Company | MRR | Start date |

@@ -48,7 +48,7 @@ let   DB     = process.env.NOTION_DB || "";
 const STAGES   = ["new","contacted","replied","booked","call held","proposal","won","lost"];
 // Notion's Outcome column is a single-select, so it carries the furthest one.
 // pipeline.md keeps the full list. Retired values stay so old rows still parse.
-const OUTCOMES = ["no answer","phone disconnected","gatekeeper","spoke to owner",
+const OUTCOMES = ["no answer","phone disconnected","gatekeeper","send an email","spoke to owner",
                   "not interested","already has a system","appointment booked",
                   "voicemail","callback set","demo sent"];
 
@@ -217,6 +217,9 @@ const OUTCOME_STAGE = {
   "no answer":          null,
   "phone disconnected": "lost",
   "gatekeeper":         null,
+  // Deciding to email is not a conversation, same rule as a voicemail. It sets
+  // the Next action instead, which is what actually gets the email written.
+  "send an email":      null,
   "spoke to owner":     "contacted",
   "not interested":     "lost",
   "already has a system": null,
@@ -271,6 +274,13 @@ function markLead(company, outcomes, due, next) {
   if (outcomes.includes("appointment booked")) {
     c[5] = next || (/appointment/i.test(c[5]) ? c[5] : "Appointment booked");
     c[6] = due || c[6];
+  }
+  // An email nobody writes is not a next action. Which of the two it becomes
+  // depends on whether the Email column has anything in it — the drafter can
+  // only work from a real address, and a missing one is research, not writing.
+  else if (outcomes.includes("send an email")) {
+    c[5] = next || (c[8] && c[8].includes("@") ? "Send email — draft it"
+                                               : "Find email address");
   }
   lines[hit] = "| " + c.slice(1, 9).join(" | ") + " |";
 
@@ -530,6 +540,52 @@ http.createServer(async (req, res) => {
       return json(res, 200, { started: true });
     }
     return json(res, 404, { error: "unknown prep route" });
+  }
+
+  /* ---- email drafts ---- same shape as call prep, same reason: the draft is
+     a file on the Mac and the moment it gets sent is not spent at the Mac. */
+  if (req.url.startsWith("/drafts")) {
+    const fs = require("fs"), path = require("path");
+    const dir = path.join(__dirname, "drafts");
+
+    if (req.url === "/drafts" && req.method === "GET") {
+      let items = [];
+      try {
+        items = fs.readdirSync(dir).filter(f => f.endsWith(".md")).map(f => {
+          const raw = fs.readFileSync(path.join(dir, f), "utf8");
+          const grab = re => (raw.match(re) || [, ""])[1].trim();
+          return {
+            file: f,
+            company: grab(/^#\s*(.+)$/m) || f.replace(/\.md$/, ""),
+            to:      grab(/^To:\s*(.+)$/m),
+            subject: grab(/^Subject:\s*(.+)$/m),
+            // A draft with a NEEDS line is not sendable. The panel says so
+            // rather than letting it look ready.
+            needs:   grab(/^NEEDS:\s*(.+)$/m),
+            written: fs.statSync(path.join(dir, f)).mtime.toISOString(),
+          };
+        }).sort((a, b) => a.company.localeCompare(b.company));
+      } catch { /* no drafts dir yet */ }
+      return json(res, 200, { items });
+    }
+
+    if (req.method === "GET" && /^\/drafts\/[^/]+$/.test(req.url)) {
+      const name = decodeURIComponent(req.url.slice(8));
+      if (name.includes("/") || name.includes("..") || !name.endsWith(".md"))
+        return json(res, 400, { error: "bad draft name" });
+      try { return json(res, 200, { name, text: fs.readFileSync(path.join(dir, name), "utf8") }); }
+      catch { return json(res, 404, { error: "no such draft" }); }
+    }
+
+    if (req.url === "/drafts/run" && req.method === "POST") {
+      const { spawn } = require("child_process");
+      const child = spawn("./draft-emails.sh", [], {
+        cwd: __dirname, detached: true, stdio: "ignore",
+      });
+      child.unref();
+      return json(res, 200, { started: true });
+    }
+    return json(res, 404, { error: "unknown drafts route" });
   }
 
   /* ---- hiring engine ---- the client's own applicant intake. Separate from

@@ -145,6 +145,10 @@ td{padding:6px;border-top:1px solid rgba(90,175,255,.09);vertical-align:middle}
 .brief a{color:var(--acc2)}
 .unver{color:var(--warn);font-size:10px;letter-spacing:.08em;border:1px solid rgba(224,180,92,.4);
   border-radius:4px;padding:0 4px}
+/* Drafts are shown raw, not rendered. This text gets pasted into a mail app,
+   so what is on screen has to be exactly what gets sent. */
+.draft{width:100%;min-height:340px;background:rgba(0,0,0,.30);border:1px solid var(--line);
+  border-radius:8px;color:#cfe3f4;font:12.5px/1.65 var(--mono);padding:12px;resize:vertical}
 .ocg{display:flex;flex-wrap:wrap;gap:4px;max-width:230px}
 .ocx{background:rgba(0,0,0,.30);border:1px solid var(--line);border-radius:20px;
   color:var(--dim);font:11px inherit;padding:5px 9px;cursor:pointer;min-height:28px;
@@ -164,6 +168,10 @@ input.due.now{color:var(--warn);border-color:var(--warn);background:rgba(224,180
 /* Who to ask for. The front desk is the most common reason a dial dies. */
 .who{font-size:11.5px;color:var(--acc2);margin-top:2px;line-height:1.3}
 .who.none{color:#4d6478;font-style:italic}
+/* Whether "Email them" can produce anything is decided here. Shown on the row
+   so the answer is visible before the toggle is tapped, not after. */
+.em{font:10px var(--mono);color:var(--ok);margin-top:2px;word-break:break-all}
+.em.none{color:#4d6478}
 textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:7px;
   color:var(--txt);padding:7px 8px;font:12px/1.45 inherit;resize:vertical;min-height:52px;margin:4px 0 6px}
 .hide{display:none}
@@ -265,7 +273,7 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const dialn=p=>String(p||"").replace(/\D/g,"");
 const $=id=>document.getElementById(id);
 
-const DATA={leads:[],counts:{},metrics:{},status:null,feed:[]};
+const DATA={leads:[],counts:{},metrics:{},status:null,feed:[],unreachable:0};
 /* localStorage is now a cache, not the store. The bridge holds the truth; this
    copy is what the device shows while the bridge is unreachable, and what it
    replays once it is back. */
@@ -346,7 +354,18 @@ async function hydrate(){
     const r=await fetch("pipeline.md",{cache:"no-store"});
     if(r.ok){
       const counts={};STAGES.forEach(s=>counts[s]=0);const list=[];let won=false;
+      // Rows under "## Unreachable" are quarantined by check-phones.sh — no
+      // number could be verified. They are out of the pipeline on purpose, but
+      // a silent quarantine is exactly how leads get lost, so they get counted
+      // and shown on the Manager panel rather than just vanishing.
+      let unreach=0,inUn=false;
       (await r.text()).split("\n").forEach(line=>{
+        if(/^##\s*Unreachable/i.test(line)){inUn=true;return;}
+        if(inUn){
+          if(line.startsWith("| ")){const c=line.split("|").map(x=>x.trim());
+            if(c[1]&&c[1]!=="Company")unreach++;}
+          return;
+        }
         if(/^##\s*Won/i.test(line))won=true;
         if(won||!line.startsWith("| "))return;
         const c=line.split("|").map(x=>x.trim());
@@ -369,10 +388,14 @@ async function hydrate(){
         const who=(/[A-Za-z]{2}/.test(lead0)&&!/^\(?\d/.test(lead0)
                    &&!/\.(com|net|org|co|us|in|health|bar)\b/i.test(lead0)
                    &&!/^owner tbd$/i.test(lead0)&&!/,\s*[A-Z]{2}$/.test(lead0))?lead0:"";
+        // Column 8 is the Email the 5am enrichment fills. It is what decides
+        // whether "Email them" can produce anything, so it comes through.
+        const em=(c[8]||"").trim();
         list.push({co:c[1],c:c[2],who,p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
+          em:/@/.test(em)?em:"",
           out:(tail&&tail!=="sourced")?tail:""});
       });
-      DATA.counts=counts;DATA.leads=list;
+      DATA.counts=counts;DATA.leads=list;DATA.unreachable=unreach;
     }
   }catch(e){}
   try{
@@ -450,8 +473,9 @@ const HUBS=[
   {id:"lead",  name:"LEADS",   subs:["Restoration","MedSpa","By stage"]},
   {id:"sales", name:"SCRIPTS", subs:["Openers","Objections","Voicemail"]},
   {id:"notes", name:"NOTES",   subs:["Call Log","Notion","CSV"]},
-  {id:"mgr",   name:"MANAGER", subs:["5am job","Sourcing","Sync"]},
+  {id:"mgr",   name:"MANAGER", subs:["5am job","Agents","Data gaps"]},
   {id:"prep",  name:"PREP",    subs:["Briefs","Appointments","Run now"]},
+  {id:"email", name:"EMAIL",   subs:["Drafts","No address","Write now"]},
 ];
 let W=0,H=0,DPR=1,t=0;
 function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(devicePixelRatio||1,2);
@@ -471,9 +495,11 @@ const SUBACT={
   "By stage":()=>{LEAD_NICHE="";SORT.key="st";SORT.dir=1;openSheet("lead");},
   "Openers":()=>openSheet("sales"),"Objections":()=>openSheet("sales"),"Voicemail":()=>openSheet("sales"),
   "Call Log":()=>openSheet("notes"),"Notion":()=>act("notion"),"CSV":()=>exportCSV(),
-  "5am job":()=>openSheet("mgr"),"Sourcing":()=>openSheet("mgr"),"Sync":()=>openSheet("mgr"),
+  "5am job":()=>openSheet("mgr"),"Agents":()=>openSheet("mgr"),"Data gaps":()=>openSheet("mgr"),
   "Briefs":()=>openSheet("prep"),"Appointments":()=>openSheet("prep"),
   "Run now":()=>{openSheet("prep");runPrep();},
+  "Drafts":()=>openSheet("email"),"No address":()=>openSheet("email"),
+  "Write now":()=>{openSheet("email");runDrafts();},
 };
 function frame(){
   t+=.006;
@@ -588,6 +614,7 @@ const SHEET={
   notes:["Notes","Your call log — local capture, Notion is the record.",()=>notesPanel()],
   mgr:["Manager","Runs at 5:00 daily via launchd.",()=>managerPanel()],
   prep:["Call Prep","Every booked appointment, researched and checked.",()=>prepPanel()],
+  email:["Emails","One draft per lead with a real address. Copy and send.",()=>emailPanel()],
 };
 
 const SORT={key:"co",dir:1};
@@ -597,10 +624,11 @@ let CALLED="all";    // "all" | "no" | "yes" | "due" — working a dial list mea
 // Mirrors the list the bridge accepts. One call is often several of these —
 // a gatekeeper who also mentions they already have a system — so they are
 // toggles rather than a dropdown.
-const OUTCOMES=["no answer","phone disconnected","gatekeeper","spoke to owner",
+const OUTCOMES=["no answer","phone disconnected","gatekeeper","send an email","spoke to owner",
                 "not interested","already has a system","appointment booked"];
 const SHORT={"no answer":"No answer","phone disconnected":"Disconnected",
-  "gatekeeper":"Gatekeeper","spoke to owner":"Spoke to owner","not interested":"Not interested",
+  "gatekeeper":"Gatekeeper","send an email":"Email them","spoke to owner":"Spoke to owner",
+  "not interested":"Not interested",
   "already has a system":"Has a system","appointment booked":"Appt booked"};
 
 // Retired values still sit on rows logged before the list changed. They show,
@@ -613,7 +641,9 @@ const isBooked=l=>hasOut(l,"appointment booked");
 
 function leadTable(){
   const rows=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE)
-    .filter(l=>CALLED==="all"||(CALLED==="due"?isBooked(l):CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
+    .filter(l=>CALLED==="all"||(CALLED==="due"?isBooked(l)
+                              :CALLED==="em"?!!l.em
+                              :CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
     let x,y;
     if(SORT.key==="st"){x=STAGES.indexOf(a.st||"new");y=STAGES.indexOf(b.st||"new");}
     else{x=(a[SORT.key]||"").toLowerCase();y=(b[SORT.key]||"").toLowerCase();}
@@ -629,13 +659,15 @@ function leadTable(){
   return `<div class="sec"><div class="slb">Branch</div>
     ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
   <div class="sec"><div class="slb">Calls</div>
-    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}</div>
+    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
   <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}<th>Outcome</th><th></th></tr></thead>
   <tbody>${rows.map(l=>`<tr${l.out?' style="background:rgba(79,211,154,.05)"':""}>
     <td>${esc(l.co)}
       ${l.who?`<div class="who">${esc(l.who)}</div>`
-             :`<div class="who none">no name yet</div>`}</td>
+             :`<div class="who none">no name yet</div>`}
+      ${l.em?`<div class="em">${esc(l.em)}</div>`
+            :(wantsEmail(l)?`<div class="em none">no address — needs research</div>`:"")}</td>
     <td style="white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${esc(l.p)}</a>`:'<span class="noph">—</span>'}</td>
     <td style="opacity:.8;white-space:nowrap">${esc(l.st||"new")}</td>
     <td><div class="ocg">${OUTCOMES.map(o=>{const on=hasOut(l,o);
@@ -764,6 +796,81 @@ function prepPanel(){
     </div>`;
 }
 
+/* ============ email drafts ============
+   Same shape as call prep, for the same reason: the draft is a file on the
+   Mac and the minute it gets sent is not spent at the Mac. */
+DATA.drafts={items:null,open:null,text:"",busy:false,err:null};
+
+async function loadDrafts(){
+  DATA.drafts.busy=true;
+  try{ DATA.drafts.items=(await (await bfetch("/drafts")).json()).items||[]; DATA.drafts.err=null; }
+  catch(e){ DATA.drafts.items=[]; DATA.drafts.err="bridge offline"; }
+  DATA.drafts.busy=false;
+}
+async function openDraft(file){
+  DATA.drafts.open=file; DATA.drafts.text="Loading…"; repaintDrafts();
+  try{ DATA.drafts.text=(await (await bfetch("/drafts/"+encodeURIComponent(file))).json()).text||""; }
+  catch(e){ DATA.drafts.text="Could not load that draft."; }
+  repaintDrafts();
+}
+async function runDrafts(){
+  DATA.drafts.busy=true; repaintDrafts();
+  try{
+    await bfetch("/drafts/run",{method:"POST"});
+    let tries=0;
+    const tick=setInterval(async()=>{
+      tries++; const had=(DATA.drafts.items||[]).length;
+      await loadDrafts();
+      if((DATA.drafts.items||[]).length>had||tries>30){clearInterval(tick);DATA.drafts.busy=false;repaintDrafts();}
+      else repaintDrafts();
+    },10000);
+  }catch(e){ DATA.drafts.busy=false; DATA.drafts.err="bridge offline"; repaintDrafts(); }
+}
+function repaintDrafts(){
+  if($("sheet").classList.contains("on")&&$("shName").textContent==="Emails"){
+    $("shBody").innerHTML=emailPanel(); wireSheet();
+  }
+}
+// Marked "Email them" on a call but the Email column is empty. This is the
+// queue that needs research, not writing — and it is the real constraint.
+const wantsEmail=l=>hasOut(l,"send an email");
+
+function emailPanel(){
+  const P=DATA.drafts;
+  if(P.items===null){loadDrafts().then(repaintDrafts);return '<div class="say" style="color:var(--dim)">Loading drafts…</div>';}
+
+  if(P.open){
+    // Monospace and unrendered: this text gets pasted into a mail app, so it
+    // has to be seen exactly as it will be sent.
+    return `<div class="sec"><button class="qa" data-back="drafts" style="width:auto;display:inline-flex">◂ All drafts</button></div>
+      <div class="sec"><textarea class="draft" readonly onclick="this.select()">${esc(P.text)}</textarea>
+      <div class="say" style="color:var(--dim);margin-top:6px">Tap the text to select all, then copy.</div></div>`;
+  }
+
+  const withEmail=DATA.leads.filter(l=>l.em);
+  const blocked=DATA.leads.filter(l=>wantsEmail(l)&&!l.em);
+
+  const list=(P.items||[]).length?P.items.map(i=>`<div class="sr" data-draft="${esc(i.file)}" style="cursor:pointer">
+      <span class="sd" style="background:${i.needs?"var(--warn)":"var(--ok)"};box-shadow:0 0 8px ${i.needs?"var(--warn)":"var(--ok)"}"></span>
+      <span class="nm">${esc(i.company)}<div style="font-size:10.5px;color:var(--dim)">${esc(i.to||"no address")}${i.subject?" · "+esc(i.subject):""}</div></span>
+      <span class="vl">${i.needs?"blocked":"read ▸"}</span></div>`).join("")
+    :'<div class="say" style="color:var(--dim)">No drafts written yet.</div>';
+
+  const need=blocked.length?blocked.map(l=>`<div class="sr">
+      <span class="sd" style="background:var(--warn);box-shadow:0 0 8px var(--warn)"></span>
+      <span class="nm">${esc(l.co)}<div style="font-size:10.5px;color:var(--dim)">${l.p?esc(l.p):"no phone either"}</div></span>
+      <span class="vl">find address</span></div>`).join("")
+    :'<div class="say" style="color:var(--dim)">Nothing waiting on an address.</div>';
+
+  return `<div class="sec"><div class="slb">Ready to send <span>${(P.items||[]).length}</span></div>${list}</div>
+    <div class="sec"><div class="slb">Needs an address <span>${blocked.length}</span></div>${need}</div>
+    <div class="sec">
+      <button class="qa" id="draftRun"${P.busy?" disabled":""}>${P.busy?"Writing… this takes a few minutes":"▸ Draft any missing emails"}</button>
+      ${P.err?`<div class="say" style="color:var(--warn);margin-top:8px">${esc(P.err)}</div>`:""}
+      <div class="say" style="color:var(--dim);margin-top:8px">${withEmail.length} of ${DATA.leads.length} leads have an address. That ratio, not the writing, is what caps this channel — the 5am run is what moves it.</div>
+    </div>`;
+}
+
 function scriptsPanel(){
   const P=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],
   ["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],
@@ -780,16 +887,55 @@ function notesPanel(){
   <div class="sec"><div class="slb">Queue</div><div class="say">${OUTBOX.length?OUTBOX.length+" note(s) waiting for the bridge.":"Nothing queued — everything synced."}</div></div>
   <div class="sec"><button class="qa" data-act="csv">▸ Export leads + notes CSV</button></div>`;
 }
+/* Every agent that exists, and the one line that says when it fires. If an
+   agent is not on this list it is not running — that is the point of the
+   list. Kept in the order they run at 5:00. */
+const AGENTS=[
+  ["lead-research","Sources new prospects, then fills the owner name and Email column from the same page visit.","5:00, steps 1–2"],
+  ["check-phones","Not an agent — plain code wrapping lead-research. Finds missing numbers, quarantines what it cannot verify.","5:00, step 3"],
+  ["notes","Pushes every change since the last run into the Notion Call Log.","5:00, step 4"],
+  ["call-prep","Researches a booked prospect and writes the pre-call brief.","On a booking"],
+  ["prep-review","Gates every brief. Kills anything undeliverable or unverified, sends it back until it passes.","After call-prep"],
+  ["email-drafter","One ready-to-send email per lead with a real address. Never invents one.","5:00, step 5"],
+  ["sales-assistant","Interactive: scripts, objections, call and demo review. Not part of the 5:00 run.","On request"],
+];
+
 function managerPanel(){
   const S=DATA.status,m=S&&S.manager;
+  const noEmail=DATA.leads.filter(l=>!l.em).length;
+  const noPhone=DATA.leads.filter(l=>!l.p).length;
+  const agents=AGENTS.map(([n,what,when])=>`<div class="sr">
+      <span class="sd" style="background:var(--acc);box-shadow:0 0 8px var(--acc)"></span>
+      <span class="nm"><b>${esc(n)}</b><div style="font-size:10.5px;color:var(--dim)">${esc(what)}</div></span>
+      <span class="vl" style="white-space:nowrap">${esc(when)}</span></div>`).join("");
+
   return `<div class="sec"><div class="slb">The 5:00 run</div><div class="say">
     1. <b>lead-research</b> sources the day's new prospects into pipeline.md.<br>
-    2. <b>notes</b> pushes everything changed since the last run into the Notion Call Log.<br>
-    3. Prints the dial list, hottest first.</div></div>
+    2. <b>lead-research</b> enriches up to 15 — owner name and email, same visit.<br>
+    3. <b>check-phones</b> finds missing numbers, quarantines the unfindable.<br>
+    4. <b>notes</b> pushes every change into the Notion Call Log.<br>
+    5. <b>email-drafter</b> writes an email for every new address.<br>
+    Then the dial list and any missing call briefs, hottest first.</div></div>
+
+  <div class="sec"><div class="slb">Agents <span>${AGENTS.length}</span></div>${agents}</div>
+
+  <div class="sec"><div class="slb">Data gaps</div><div class="say">
+    No phone: <b style="color:${noPhone?"var(--warn)":"var(--ok)"}">${noPhone}</b> of ${DATA.leads.length} — step 3 works these.<br>
+    No email: <b style="color:${noEmail?"var(--warn)":"var(--ok)"}">${noEmail}</b> of ${DATA.leads.length} — this is what caps the email channel.<br>
+    Quarantined: <b>${DATA.unreachable}</b> under <span style="font:11px var(--mono)">## Unreachable</span>, no number found.</div>
+    ${DATA.unreachable?'<div class="say" style="color:var(--dim);margin-top:6px">Nothing was deleted. Move a row back above <span style="font:11px var(--mono)">## Won</span> if a number turns up.</div>':""}</div>
+
   <div class="sec"><div class="slb">Status</div><div class="say">
     Job: <b>com.mdp.agency.manager</b> (launchd)<br>
     Last run: ${m?esc(new Date(m.lastRun).toLocaleString()):"never"}<br>
     Log: logs/manager.log${m?` · ${m.size} bytes`:""}</div></div>
+
+  <div class="sec"><div class="slb">Guardrail</div><div class="say" style="color:var(--dim)">
+    A permission gate reviews every command run from a Claude session and asks
+    before anything that could hurt the Mac or the business. It does not cover
+    the 5:00 scripts — those run outside it, which is why they only ever move
+    rows and never delete one.</div></div>
+
   <div class="sec"><div class="slb">Caveat</div><div class="say" style="color:var(--dim)">launchd cannot run on a sleeping Mac. If it's asleep at 5:00 the job runs on next wake.</div></div>`;
 }
 function openSheet(id){
@@ -808,8 +954,12 @@ function wireSheet(){
   b.querySelectorAll("[data-niche]").forEach(x=>x.onclick=()=>{
     LEAD_NICHE=x.dataset.niche;b.innerHTML=leadTable();wireSheet();});
   b.querySelectorAll("[data-brief]").forEach(x=>x.onclick=()=>openBrief(x.dataset.brief));
-  b.querySelectorAll("[data-back]").forEach(x=>x.onclick=()=>{DATA.prep.open=null;repaintPrep();});
-  { const r=b.querySelector("#prepRun"); if(r)r.onclick=()=>runPrep(); }
+  b.querySelectorAll("[data-draft]").forEach(x=>x.onclick=()=>openDraft(x.dataset.draft));
+  b.querySelectorAll("[data-back]").forEach(x=>x.onclick=()=>{
+    if(x.dataset.back==="drafts"){DATA.drafts.open=null;repaintDrafts();}
+    else{DATA.prep.open=null;repaintPrep();}});
+  { const r=b.querySelector("#prepRun");  if(r)r.onclick=()=>runPrep(); }
+  { const r=b.querySelector("#draftRun"); if(r)r.onclick=()=>runDrafts(); }
   b.querySelectorAll("[data-called]").forEach(x=>x.onclick=()=>{
     CALLED=x.dataset.called;b.innerHTML=leadTable();wireSheet();});
   b.querySelectorAll("button.ocx").forEach(x=>x.onclick=()=>{

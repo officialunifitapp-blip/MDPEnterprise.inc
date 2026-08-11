@@ -74,6 +74,14 @@ fi
 # Briefs for anything booked in the next 3 days. Also safe to run by hand.
 ./prep-appointments.sh >> logs/manager.log 2>&1
 
+# No lead should reach the dial list without a number on it. Researches the
+# gaps, then moves anything still unreachable below the Won heading.
+./check-phones.sh >> logs/manager.log 2>&1
+
+# One draft per lead the enrichment just gave an address to. Runs after
+# enrichment on purpose — yesterday's new addresses are drafted this morning.
+./draft-emails.sh >> logs/manager.log 2>&1
+
 # One line that says whether the morning worked, so the log does not have to
 # be read to find out.
 NAMED=$(/opt/homebrew/bin/node -e '

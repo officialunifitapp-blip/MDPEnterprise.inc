@@ -1,11 +1,34 @@
 {
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "WebSearch",
+      "WebFetch",
+      "Task",
+      "TodoWrite",
       "Bash(curl -s http://localhost:*)",
       "Bash(curl -s https://officialunifitapp-blip.github.io/*)",
       "Bash(node --check *)",
       "Bash(zsh -n *)",
       "Bash(launchctl list*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit|NotebookEdit|mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /Users/mariodelpietro/agency/.claude/hooks/manager.mjs",
+            "timeout": 10,
+            "statusMessage": "Manager reviewing…"
+          }
+        ]
+      }
     ]
   }
 }
