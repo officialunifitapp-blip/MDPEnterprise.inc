@@ -1,18 +1,16 @@
 # Dial list — 2026-08-11
 
-419 leads · 263 with a logged outcome · 156 never called
+419 leads · 277 with a logged outcome · 142 never called
 
-## Callbacks owed (3)
+## Callbacks owed (2)
 *They asked you to call. Overdue ones first.*
 
-- **Premier Restoration** (316) 391-4400 — ask for Justin (Owner)  
-  due 2026-08-01 · last: callback set 2026-08-08
 - **13:12 Restoration** (479) 977-1312  
   due 2026-08-03 · last: callback set 2026-08-05
 - **Innovative Cleaning & Restoration LLC** (314) 300-9610 — ask for Nick (Owner)  
   due 2026-08-12 · last: callback set 2026-08-10
 
-## Already spoke to the owner (8)
+## Already spoke to the owner (9)
 *Warm. Pick up where the last call ended.*
 
 - **CLEAN Restoration** (217) 440-1292 — ask for Jeff Butler (Owner)  
@@ -22,7 +20,7 @@
 - **MRC Restoration of Southeast Missouri** (573) 200-7272 — ask for Mark Curfman (Founder)  
   last: spoke to owner 2026-08-10
 - **Heartland Flood, Mold & Restoration** (913) 213-3686 — ask for Marcus (Owner)  
-  last: spoke to owner 2026-08-10
+  last: spoke to owner 2026-08-11
 - **Burlington Restoration Solutions** (319) 671-6640  
   last: spoke to owner 2026-08-08
 - **McKee Construction & Abatement, LLC** (641) 226-4412 — ask for Weston McKee (Owner)  
@@ -31,6 +29,8 @@
   last: spoke to owner 2026-08-10
 - **Grethey Rose Construction & Restoration** (309) 208-0798 — ask for Victor Grethey & Sue Rose (Owners)  
   last: spoke to owner 2026-08-10
+- **Lakeshore Restoration LLC** (920) 221-1440  
+  last: spoke to owner 2026-08-11
 
 ## Beat the gatekeeper (34)
 *Call after 6pm — the owner answers his own line.*
@@ -91,17 +91,17 @@
   last: gatekeeper 2026-08-10
 - **FloodSERV, Inc.** (918) 429-1911 — ask for Damon & Kristi Thompson (Owners)  
   last: gatekeeper 2026-08-10
-- **Magna-Dry Central Kansas** (620) 282-2267 — ask for Clark family (Owners)  
-  last: gatekeeper 2026-08-10
 - **Butler Plumbing & Restoration** (316) 542-2818  
   last: gatekeeper 2026-08-08
 - **All-Clean USA** (870) 972-1922 — ask for Brett Overman (Owner)  
   last: gatekeeper 2026-08-08
 - **Environmental Resources, Inc.** (618) 471-9119 — ask for David & Sherri Henson (Owners)  
   last: gatekeeper 2026-08-10
+- **Neville & Sons** (573) 442-8280 — ask for Kevin & Tony Neville (Owners)  
+  last: gatekeeper 2026-08-11
 - **Radiance Med Spa** (630) 221-1883  
   last: gatekeeper 2026-08-08
-- **Certi-Dry** (608) 223-1600  
+- **Madison Property Restoration** (608) 467-3360 — ask for Randy Schmidt (President)  
   last: gatekeeper 2026-08-11
 
 ## No answer last time (196)
@@ -506,20 +506,16 @@
 - **Pride Cleaning & Restoration** (314) 668-1223
 - **St. Louis Cleaning & Restoration** (314) 439-1665 — ask for Family since '91
 - **Smoke Services Restoration** (618) 234-9696 — ask for Metro East
-- **Mr. Restore** (877) 631-7576 — ask for Clint Junell
 - **Vital Restoration** (217) 679-0254 — ask for Timothy Brown (Owner)
 - **Tri County Cleaning Systems** (309) 266-5755
-- **Newton's Cleaning & Restoration** (217) 442-1288 — ask for Michelle Newton (Owner)
 - **Peerless Cleaning & Restoration** (217) 423-7704 — ask for Wike family
 - **Restoration Connection Inc** (618) 925-0085 — ask for John Fowler (Owner)
-- **Water Mold Fire Restoration** (314) 282-4140 — ask for Eric Rajchel (Owner)
 - **Shadco Restoration & Reconstruction** (314) 600-3001 — ask for Shadi Khair (Founder)
 - **Sansara 24/7 Restoration & Remodeling** (636) 812-3838
 - **RCC Restoration** (618) 406-5121
 - **STL Mold Removal** (314) 936-4445
 - **Water Damage Restoration Eldon** (573) 226-0622
 - **U.S. Disaster Restoration** (573) 552-1972
-- **Ozarks Fire and Water Restoration** (417) 233-4833
 - **Tri Cat Restoration** (417) 200-2018
 - **Renew Restoration** (816) 701-6628
 - **Phoenix Renovation & Restoration** (913) 599-0055 — ask for Brad Heise (CEO)
@@ -528,3 +524,7 @@
 - **Restore & More** (913) 247-4379 — ask for Mike (Owner)
 - **Water Damage Pro of Edwardsville** (618) 800-3633
 - **RC Restoration LLC** (563) 543-3121
+- **Service Pro Restoration** (515) 517-1283
+- **Service Pros (Service Restore Pro)** (319) 299-2080
+- **True North Restoration of Iowa (Cedar Valley)** (319) 220-3228
+- **Siouxland Restoration Inc** (712) 481-4325

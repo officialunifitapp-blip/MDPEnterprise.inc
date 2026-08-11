@@ -710,6 +710,10 @@ function leadTable(){
   const rows=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE)
     .filter(l=>CALLED==="all"||(CALLED==="due"?isBooked(l)
                               :CALLED==="em"?!!l.em
+                              // "dial" is exactly the CSV: never called, and a
+                              // number to actually ring. Anything without one is
+                              // research, not a dial.
+                              :CALLED==="dial"?(!l.out&&!!l.p)
                               :CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
     let x,y;
     if(SORT.key==="st"){x=STAGES.indexOf(a.st||"new");y=STAGES.indexOf(b.st||"new");}
@@ -726,7 +730,7 @@ function leadTable(){
   return offerBar()+`<div class="sec"><div class="slb">Branch</div>
     ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
   <div class="sec"><div class="slb">Calls</div>
-    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
+    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("dial","Dial list",pool.filter(l=>!l.out&&l.p).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
   <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}<th>Outcome</th><th></th></tr></thead>
   <tbody>${rows.map(l=>`<tr${l.out?' style="background:rgba(79,211,154,.05)"':""}>

@@ -95,7 +95,7 @@ console.log("\n--- email filters ---");
 ["all","ready","todo","noaddr"].forEach(f => { mod.setEMF(f); run("EMF=" + f, mod.emailPanel); });
 
 console.log("\n--- lead filters ---");
-["all","no","yes","due","em"].forEach(f => { mod.setCALLED(f); run("CALLED=" + f, mod.leadTable); });
+["all","no","yes","due","em","dial"].forEach(f => { mod.setCALLED(f); run("CALLED=" + f, mod.leadTable); });
 
 console.log("\n--- scripts tabs ---");
 ["offer","openers","objections"].forEach(f => { mod.setSCF(f); run("SCF=" + f, mod.scriptsPanel); });
