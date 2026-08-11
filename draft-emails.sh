@@ -73,7 +73,12 @@ echo "$DRAFTS" | while IFS=$'\t' read -r _ CO EMAIL FILE; do
   Report one line: company, address used, touch number, signal." \
     --model claude-sonnet-5 \
     --permission-mode bypassPermissions \
+    < /dev/null \
     >> logs/manager.log 2>&1
+  # < /dev/null is load-bearing. claude reads stdin, and inside a `while read`
+  # loop fed by a pipe it will eat the rest of the list — the loop then exits
+  # after one lead, having reported success. Silent, and it looks like there
+  # was only ever one thing to do.
 
   if [ -f "$FILE" ]; then
     log "drafts: filed $FILE"

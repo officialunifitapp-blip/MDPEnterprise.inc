@@ -57,7 +57,12 @@ echo "$BOOKED" | while IFS='|' read -r CO DUE FILE; do
   system being recommended. Nothing else." \
     --model claude-sonnet-5 \
     --permission-mode bypassPermissions \
+    < /dev/null \
     >> logs/manager.log 2>&1
+  # < /dev/null is load-bearing. claude reads stdin, and inside a `while read`
+  # loop fed by a pipe it eats the rest of the list, so the loop exits after
+  # one appointment and reports success. Two booked on the same day meant only
+  # the first ever got a brief.
 
   if [ -f "$FILE" ]; then
     log "prep: filed $FILE"
