@@ -161,7 +161,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | RK Janitorial Inc | Junction City/Manhattan, KS · 3 conflicting #s | new | 2026-08-03 sourced | Verify phone first | 2026-08-03 | Restoration |  |
 | EnteX Cleaning & Restoration Inc. | Owner TBD · (816) 233-5557 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-04 | Restoration |  |
 | ONIT Cleaning and Restoration | Jacob · (515) 408-2800 | contacted | 2026-08-11 spoke to owner, not interested | Cold call → demo # | 2026-08-04 | Restoration |  |
-| PacePro Carpet Cleaners and Restoration | Casondra Pashos (President) · (217) 417-2255 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 | Restoration |  |
+| PacePro Carpet Cleaners and Restoration | Casondra Pashos (President) · (217) 417-2255 | lost | 2026-08-11 phone disconnected | Cold call → demo # | 2026-08-04 | Restoration |  |
 | Hoerr Carpet Cleaning and Water Restoration Inc. | Bill Hoerr (Founder/CEO) · (309) 696-1170 | new | 2026-08-10 gatekeeper | Cold call → demo # | 2026-08-04 | Restoration |  |
 | X-Treme Carpet Cleaning | Owner TBD · (618) 451-8044 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-04 | Restoration |  |
 | RESTORx (Northern Illinois) | Owner TBD · (815) 235-9606 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 | Restoration |  |
