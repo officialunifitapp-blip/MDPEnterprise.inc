@@ -521,7 +521,7 @@ function paint(){
 const cv=$("net"),cx=cv.getContext("2d");
 const HUBS=[
   {id:"lead",  name:"LEADS",   subs:["Restoration","MedSpa","By stage"]},
-  {id:"sales", name:"SCRIPTS", subs:["Openers","Objections","Voicemail"]},
+  {id:"sales", name:"SCRIPTS", subs:["What I sell","Openers","Comebacks"]},
   {id:"notes", name:"NOTES",   subs:["Call Log","Notion","CSV"]},
   {id:"mgr",   name:"MANAGER", subs:["5am job","Agents","Data gaps"]},
   {id:"prep",  name:"PREP",    subs:["Briefs","Appointments","Run now"]},
@@ -543,7 +543,9 @@ const SUBACT={
   "Restoration":()=>{LEAD_NICHE="Restoration";openSheet("lead");},
   "MedSpa":()=>{LEAD_NICHE="MedSpa";openSheet("lead");},
   "By stage":()=>{LEAD_NICHE="";SORT.key="st";SORT.dir=1;openSheet("lead");},
-  "Openers":()=>openSheet("sales"),"Objections":()=>openSheet("sales"),"Voicemail":()=>openSheet("sales"),
+  "What I sell":()=>{SCF="offer";openSheet("sales");},
+  "Openers":()=>{SCF="openers";openSheet("sales");},
+  "Comebacks":()=>{SCF="objections";openSheet("sales");},
   "Call Log":()=>openSheet("notes"),"Notion":()=>act("notion"),"CSV":()=>exportCSV(),
   "5am job":()=>openSheet("mgr"),"Agents":()=>openSheet("mgr"),"Data gaps":()=>openSheet("mgr"),
   "Briefs":()=>openSheet("prep"),"Appointments":()=>openSheet("prep"),
@@ -663,7 +665,7 @@ cv.addEventListener("click",e=>{
 /* ============ sheets ============ */
 const SHEET={
   lead:["Leads","Every company, by stage. Tap a column to sort.",()=>leadTable()],
-  sales:["Scripts","What to say, and what to say back.",()=>scriptsPanel()],
+  sales:["Scripts","What you sell, what to open with, what to say back.",()=>scriptsPanel()],
   notes:["Notes","Your call log — local capture, Notion is the record.",()=>notesPanel()],
   mgr:["Manager","Runs at 5:00 daily via launchd.",()=>managerPanel()],
   prep:["Call Prep","Every booked appointment, researched and checked.",()=>prepPanel()],
@@ -968,14 +970,63 @@ function emailPanel(){
     </div>`;
 }
 
+/* The six systems, in the order they get led with — not the order they were
+   written. Mirrors business-context.md; that file stays the source of truth.
+   The trigger is the point: on a call you pick ONE, and you pick it from what
+   he just said. Reading the list aloud makes him deliberate instead of
+   decide. */
+const OFFER=[
+  ["Missed Call Recovery","Texts and calls back every missed caller, automatically.",
+   "“We answer our own phones.”",
+   "Agrees with him — it only fires when a call gets away. Nothing to argue with. ~90% of refusals are this."],
+  ["Lead Reactivation","Turns old and dead leads back into opportunities.",
+   "“Not interested” · “No budget right now.”",
+   "No new leads, no new spend. It is money he already paid for. Easiest yes on a cold call."],
+  ["Lead Conversion","Instant response, persistent follow-up, booking.",
+   "“We get leads but they go nowhere.”",
+   "For anyone already buying leads — he knows exactly what a dropped one costs."],
+  ["Estimate & Quote Follow-up","Chases every quote until they buy, decline, or reply.",
+   "“We send estimates and never hear back.”",
+   "Restoration quotes are 4–5 figures. One recovered job pays for a year."],
+  ["AI Receptionist","Answers, qualifies, books and routes calls.",
+   "“Nobody picks up after hours.” · gatekeeper says the owner is unreachable.",
+   "The demo line IS this. Get him to dial it — the demo is the sale."],
+  ["Reviews & Referrals","Generates review and referral opportunities automatically.",
+   "“We get our work by word of mouth.”",
+   "Needs access to THEIR Google profile. Say that up front. Sell it last."],
+];
+let SCF="offer";   // offer | openers | objections
+
 function scriptsPanel(){
-  const P=[["“Not interested”","“Most guys say that till they hear it handle a real 2am water call. Two minutes — call the number and decide for yourself.”"],
+  const P=[["“We answer our own phones”","“Good — then this never fires. It only picks up the ones that get away from you. If you catch every single call it sits there doing nothing.”"],
+  ["“Not interested”","“Fair enough. Different question — what happens to the leads from six months ago that never booked? That's the one that costs nothing to fix.”"],
   ["“Just send me info”","“The demo IS the info — nothing to read. Call it, throw a fake emergency at it, 90 seconds.”"],
-  ["“We already have someone”","“Does a real person pick up at 2am, or does it go to voicemail? This never sleeps and books the job.”"],
+  ["“We already have someone”","“Does that person answer at 2am on a Sunday, or does it roll to voicemail? Not a knock — nobody's up at 2am. That's the gap.”"],
+  ["“We have a system already”","“What's it doing wrong? Most guys who tell me that are already annoyed with it — if yours is perfect I'll leave you alone.”"],
   ["“How much is it?”","“$500 a month, and I'm waiving setup for the first three shops — but hear it first, then price is easy.”"]];
-  return `<div class="sec"><div class="slb">The opener</div><div class="say">“Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.”</div></div>
-  <div class="sec"><div class="slb">Demo line</div><div class="say"><a class="tel" href="tel:+13148879824" style="font-size:15px">(314) 887-9824</a> — the demo is the sale.</div></div>
-  <div class="sec"><div class="slb">When they push back</div>${P.map(([a,b])=>`<div style="margin-bottom:10px"><div class="say" style="color:var(--acc2)">${esc(a)}</div><div class="say">${esc(b)}</div></div>`).join("")}</div>`;
+
+  const chip=(k,l)=>`<span class="chip" data-scf="${k}" style="cursor:pointer;${SCF===k?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${l}</span>`;
+  const chips=`<div class="sec">${chip("offer","What I sell")}${chip("openers","Openers")}${chip("objections","Comebacks")}</div>`;
+
+  if(SCF==="offer"){
+    return chips+`<div class="sec"><div class="slb">Six systems · one price <span>$500/mo</span></div>
+      <div class="say" style="color:var(--dim);margin-bottom:10px">Never read this list on a call. Pick the ONE that answers what he just said.</div>
+      ${OFFER.map(([n,what,trigger,why],i)=>`<div style="margin-bottom:14px;padding-left:10px;border-left:2px solid ${i===0?"var(--ok)":"var(--line2)"}">
+        <div class="say" style="color:var(--acc2);font-weight:600">${i+1}. ${esc(n)}${i===0?' <span style="color:var(--ok);font-size:10px;letter-spacing:.08em"> ← LEAD WITH THIS</span>':""}</div>
+        <div class="say">${esc(what)}</div>
+        <div class="say" style="color:var(--warn);font-size:12px;margin-top:3px">Say it when: ${esc(trigger)}</div>
+        <div class="say" style="color:var(--dim);font-size:11.5px;margin-top:2px">${esc(why)}</div>
+      </div>`).join("")}
+      <div class="say" style="color:var(--dim);margin-top:4px">Setup $500, waived for the first 3 in exchange for case-study rights — they must go live that same week.</div></div>`;
+  }
+  if(SCF==="objections"){
+    return chips+`<div class="sec"><div class="slb">When they push back</div>
+      ${P.map(([a,b])=>`<div style="margin-bottom:10px"><div class="say" style="color:var(--acc2)">${esc(a)}</div><div class="say">${esc(b)}</div></div>`).join("")}</div>`;
+  }
+  return chips+`<div class="sec"><div class="slb">The opener</div><div class="say">“Not a pitch, quick: when a water call hits at 2am and drops to voicemail, that job's gone. I built a line that answers those. Call it — 90 seconds.”</div></div>
+  <div class="sec"><div class="slb">If he says he answers his own phones</div><div class="say">“Good — then this never fires. It only picks up the ones that get away from you.”</div></div>
+  <div class="sec"><div class="slb">Reactivation open (no new spend)</div><div class="say">“What happens to the leads from six months ago that never booked? You already paid for those. That's the one that costs nothing to try.”</div></div>
+  <div class="sec"><div class="slb">Demo line</div><div class="say"><a class="tel" href="tel:+13148879824" style="font-size:15px">(314) 887-9824</a> — the demo is the sale.</div></div>`;
 }
 function notesPanel(){
   const ks=Object.keys(NOTES).filter(k=>NOTES[k]);
@@ -1064,6 +1115,8 @@ function wireSheet(){
   { const r=b.querySelector("#draftRun"); if(r)r.onclick=()=>runDrafts(); }
   b.querySelectorAll("[data-emf]").forEach(x=>x.onclick=()=>{
     EMF=x.dataset.emf;b.innerHTML=emailPanel();wireSheet();});
+  b.querySelectorAll("[data-scf]").forEach(x=>x.onclick=()=>{
+    SCF=x.dataset.scf;b.innerHTML=scriptsPanel();wireSheet();});
   { const q=b.querySelector("#flushQ"); if(q)q.onclick=async()=>{
       q.disabled=true;q.textContent="Sending…";
       const r=await flushLeads();await flushOutbox();

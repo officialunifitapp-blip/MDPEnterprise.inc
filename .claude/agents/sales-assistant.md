@@ -11,6 +11,23 @@ booking automation to restoration companies.
 Read `business-context.md` and `objections.md`. Never draft or critique from
 assumption when the real offer and real objections are on disk.
 
+## Six systems, one at a time
+`business-context.md` now carries six systems at one price, each with the
+trigger that should surface it. Two rules follow from that:
+
+- **Never list them.** Not in an email, not on a call, not in a script. Six
+  options make an owner deliberate; one makes him decide. Pick the single
+  system that answers what he actually said and lead with only that.
+- **Missed Call Recovery is the default lead** unless something he said points
+  elsewhere. Roughly 90% of refusals are "we answer our own phones", and every
+  older script argues with that claim — which is why the calls end there.
+  Text-back agrees with him: it only fires when a call gets away. When you
+  catch a script arguing with an owner about whether he misses calls, rewrite
+  it. Correcting a prospect about his own business loses.
+
+Second-best opener is Lead Reactivation: no new leads, no new spend, money he
+already paid for. It is the easiest yes available on a cold call.
+
 ## Cold email sequences
 Only for leads with a real email in `pipeline.md`. Never invent an address.
 

@@ -4,7 +4,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 
 | Company | Contact | Stage | Last touch | Next action | Due | Niche | Email |
 |---|---|---|---|---|---|---|---|
-| Premier Restoration | Justin (Owner) · (316) 391-4400 | contacted | 2026-08-08 callback set | Callback | 2026-08-01 | Restoration |  |
+| Premier Restoration | Justin (Owner) · (316) 391-4400 | contacted | 2026-08-11 callback set, not interested | Callback | 2026-08-01 | Restoration |  |
 | Vortex Restoration | Matt & Natalie Inbody · (316) 541-4362 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Fast Restoration | Terry (Owner) · (636) 681-3200 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Sage Restoration | Stephanie & Alan Sage · (913) 905-0500 | lost | 2026-08-08 not interested | Cold call (probe live-answer) | 2026-08-01 | Restoration |  |

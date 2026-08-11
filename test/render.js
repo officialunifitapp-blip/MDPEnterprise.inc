@@ -71,7 +71,7 @@ try {
     DATA.drafts={items:arguments[2],open:null,text:"",busy:false,err:null};
     DATA.prep={items:[],open:null,text:"",busy:false,err:null};
     return {leadTable,emailPanel,managerPanel,notesPanel,scriptsPanel,prepPanel,
-            setEMF:v=>{EMF=v},setCALLED:v=>{CALLED=v}};
+            setEMF:v=>{EMF=v},setCALLED:v=>{CALLED=v},setSCF:v=>{SCF=v},OFFER};
   `)(leads, unreach, drafts);
 } catch (e) { console.log("SETUP FAILED:", e.message); process.exit(1); }
 
@@ -96,6 +96,25 @@ console.log("\n--- email filters ---");
 
 console.log("\n--- lead filters ---");
 ["all","no","yes","due","em"].forEach(f => { mod.setCALLED(f); run("CALLED=" + f, mod.leadTable); });
+
+console.log("\n--- scripts tabs ---");
+["offer","openers","objections"].forEach(f => { mod.setSCF(f); run("SCF=" + f, mod.scriptsPanel); });
+
+// The offer panel has to carry all six systems, or a call is being made from
+// a shorter list than the one that was agreed.
+mod.setSCF("offer");
+const offerPanel = mod.scriptsPanel();
+// Names are HTML-escaped in the panel ("&" -> "&amp;"), so compare escaped.
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const missing = mod.OFFER.filter(o => !offerPanel.includes(esc(o[0])));
+console.log(`  six systems rendered: ${mod.OFFER.length - missing.length}/6`);
+if (missing.length || mod.OFFER.length !== 6) { console.log("  MISSING:", missing.map(o => o[0]).join(", ")); bad++; }
+
+// The dashboard must not drift from business-context.md.
+const bc = fs.readFileSync(ROOT + "/business-context.md", "utf8");
+const drift = mod.OFFER.filter(o => !bc.includes(o[0]));
+console.log(`  matching business-context.md: ${mod.OFFER.length - drift.length}/6`);
+if (drift.length) { console.log("  NOT IN business-context.md:", drift.map(o => o[0]).join(", ")); bad++; }
 
 // The join that makes "tap a lead, see its draft" work at all.
 mod.setEMF("all");

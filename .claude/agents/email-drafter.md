@@ -39,6 +39,13 @@ announces the whole thing as a blast.
 Touch 1 of the sequence in sales-assistant.md, unless the Last touch column
 shows they have already had one — then write the next touch in order.
 
+**One system per email, never the list.** `business-context.md` carries six;
+naming more than one turns the email into a brochure and it gets deleted as
+one. Choose from what the row and the notes actually say — the trigger column
+in that file maps their words to the right system. Absent any signal, lead
+with Missed Call Recovery: it is the only one that agrees with "we answer our
+own phones" instead of arguing, and that is what most of them say.
+
 - Under 90 words. They read it on a phone between jobs.
 - Open on THEIR specific signal, taken from the lead research: a review that
   says nobody answered, a storm in their county, a 24/7 claim on a site that
