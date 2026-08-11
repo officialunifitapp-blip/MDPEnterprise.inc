@@ -475,7 +475,7 @@ const HUBS=[
   {id:"notes", name:"NOTES",   subs:["Call Log","Notion","CSV"]},
   {id:"mgr",   name:"MANAGER", subs:["5am job","Agents","Data gaps"]},
   {id:"prep",  name:"PREP",    subs:["Briefs","Appointments","Run now"]},
-  {id:"email", name:"EMAIL",   subs:["Drafts","No address","Write now"]},
+  {id:"email", name:"EMAIL",   subs:["Ready","No address","Write now"]},
 ];
 let W=0,H=0,DPR=1,t=0;
 function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(devicePixelRatio||1,2);
@@ -498,8 +498,11 @@ const SUBACT={
   "5am job":()=>openSheet("mgr"),"Agents":()=>openSheet("mgr"),"Data gaps":()=>openSheet("mgr"),
   "Briefs":()=>openSheet("prep"),"Appointments":()=>openSheet("prep"),
   "Run now":()=>{openSheet("prep");runPrep();},
-  "Drafts":()=>openSheet("email"),"No address":()=>openSheet("email"),
-  "Write now":()=>{openSheet("email");runDrafts();},
+  // Three nodes that opened the same view was decoration. Each now lands on a
+  // different slice of the one list.
+  "Ready":()=>{EMF="ready";openSheet("email");},
+  "No address":()=>{EMF="noaddr";openSheet("email");},
+  "Write now":()=>{EMF="todo";openSheet("email");runDrafts();},
 };
 function frame(){
   t+=.006;
@@ -835,6 +838,10 @@ function repaintDrafts(){
 // queue that needs research, not writing — and it is the real constraint.
 const wantsEmail=l=>hasOut(l,"send an email");
 
+// Must match the slug in draft-emails.sh, or a lead never finds its own draft.
+const slugco=s=>s.toLowerCase().replace(/&/g," ").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+let EMF="all";   // all | ready | todo | noaddr — which slice of the one list
+
 function emailPanel(){
   const P=DATA.drafts;
   if(P.items===null){loadDrafts().then(repaintDrafts);return '<div class="say" style="color:var(--dim)">Loading drafts…</div>';}
@@ -842,32 +849,50 @@ function emailPanel(){
   if(P.open){
     // Monospace and unrendered: this text gets pasted into a mail app, so it
     // has to be seen exactly as it will be sent.
-    return `<div class="sec"><button class="qa" data-back="drafts" style="width:auto;display:inline-flex">◂ All drafts</button></div>
+    return `<div class="sec"><button class="qa" data-back="drafts" style="width:auto;display:inline-flex">◂ Back</button></div>
       <div class="sec"><textarea class="draft" readonly onclick="this.select()">${esc(P.text)}</textarea>
       <div class="say" style="color:var(--dim);margin-top:6px">Tap the text to select all, then copy.</div></div>`;
   }
 
-  const withEmail=DATA.leads.filter(l=>l.em);
-  const blocked=DATA.leads.filter(l=>wantsEmail(l)&&!l.em);
+  // One list: every lead that has an address, each joined to its draft file.
+  const byFile={};(P.items||[]).forEach(i=>byFile[i.file]=i);
+  const rows=DATA.leads.filter(l=>l.em)
+    .map(l=>{const f=slugco(l.co)+".md";return{l,f,d:byFile[f]||null};})
+    .sort((a,b)=>(b.d?1:0)-(a.d?1:0)||a.l.co.localeCompare(b.l.co));
+  const ready =rows.filter(x=>x.d&&!x.d.needs);
+  const todo  =rows.filter(x=>!x.d||x.d.needs);
+  const noaddr=DATA.leads.filter(l=>!l.em&&wantsEmail(l));
 
-  const list=(P.items||[]).length?P.items.map(i=>`<div class="sr" data-draft="${esc(i.file)}" style="cursor:pointer">
-      <span class="sd" style="background:${i.needs?"var(--warn)":"var(--ok)"};box-shadow:0 0 8px ${i.needs?"var(--warn)":"var(--ok)"}"></span>
-      <span class="nm">${esc(i.company)}<div style="font-size:10.5px;color:var(--dim)">${esc(i.to||"no address")}${i.subject?" · "+esc(i.subject):""}</div></span>
-      <span class="vl">${i.needs?"blocked":"read ▸"}</span></div>`).join("")
-    :'<div class="say" style="color:var(--dim)">No drafts written yet.</div>';
+  const chip=(k,label,n)=>`<span class="chip" data-emf="${k}" style="cursor:pointer;${EMF===k?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${label} <b>${n}</b></span>`;
+  const chips=chip("all","With an address",rows.length)+chip("ready","Ready to send",ready.length)
+             +chip("todo","Not written yet",todo.length)+chip("noaddr","No address",noaddr.length);
 
-  const need=blocked.length?blocked.map(l=>`<div class="sr">
-      <span class="sd" style="background:var(--warn);box-shadow:0 0 8px var(--warn)"></span>
-      <span class="nm">${esc(l.co)}<div style="font-size:10.5px;color:var(--dim)">${l.p?esc(l.p):"no phone either"}</div></span>
-      <span class="vl">find address</span></div>`).join("")
-    :'<div class="say" style="color:var(--dim)">Nothing waiting on an address.</div>';
+  let body;
+  if(EMF==="noaddr"){
+    body=noaddr.length?noaddr.map(l=>`<div class="sr">
+        <span class="sd" style="background:var(--warn);box-shadow:0 0 8px var(--warn)"></span>
+        <span class="nm">${esc(l.co)}<div style="font-size:10.5px;color:var(--dim)">${l.p?esc(l.p):"no phone either"}</div></span>
+        <span class="vl">find address</span></div>`).join("")
+      :'<div class="say" style="color:var(--dim)">Nothing waiting on an address.</div>';
+  }else{
+    const set=EMF==="ready"?ready:EMF==="todo"?todo:rows;
+    body=set.length?set.map(({l,f,d})=>{
+      const col=d?(d.needs?"var(--warn)":"var(--ok)"):"var(--dim)";
+      return `<div class="sr"${d?` data-draft="${esc(f)}" style="cursor:pointer"`:""}>
+        <span class="sd" style="background:${col};box-shadow:0 0 8px ${col}"></span>
+        <span class="nm">${esc(l.co)}<div class="em">${esc(l.em)}</div>
+          ${d&&d.subject?`<div style="font-size:10.5px;color:var(--dim)">${esc(d.subject)}</div>`:""}</span>
+        <span class="vl">${d?(d.needs?"blocked ▸":"read ▸"):(P.busy?"writing…":"not written")}</span></div>`;
+    }).join("")
+      :'<div class="say" style="color:var(--dim)">Nothing here.</div>';
+  }
 
-  return `<div class="sec"><div class="slb">Ready to send <span>${(P.items||[]).length}</span></div>${list}</div>
-    <div class="sec"><div class="slb">Needs an address <span>${blocked.length}</span></div>${need}</div>
+  return `<div class="sec">${chips}</div>
+    <div class="sec">${body}</div>
     <div class="sec">
-      <button class="qa" id="draftRun"${P.busy?" disabled":""}>${P.busy?"Writing… this takes a few minutes":"▸ Draft any missing emails"}</button>
+      <button class="qa" id="draftRun"${P.busy?" disabled":""}>${P.busy?"Writing… a few minutes":"▸ Write the missing ones"}</button>
       ${P.err?`<div class="say" style="color:var(--warn);margin-top:8px">${esc(P.err)}</div>`:""}
-      <div class="say" style="color:var(--dim);margin-top:8px">${withEmail.length} of ${DATA.leads.length} leads have an address. That ratio, not the writing, is what caps this channel — the 5am run is what moves it.</div>
+      <div class="say" style="color:var(--dim);margin-top:8px">${rows.length} of ${DATA.leads.length} leads have an address. That ratio, not the writing, is what caps this channel — the 5am enrichment is what moves it.</div>
     </div>`;
 }
 
@@ -960,6 +985,8 @@ function wireSheet(){
     else{DATA.prep.open=null;repaintPrep();}});
   { const r=b.querySelector("#prepRun");  if(r)r.onclick=()=>runPrep(); }
   { const r=b.querySelector("#draftRun"); if(r)r.onclick=()=>runDrafts(); }
+  b.querySelectorAll("[data-emf]").forEach(x=>x.onclick=()=>{
+    EMF=x.dataset.emf;b.innerHTML=emailPanel();wireSheet();});
   b.querySelectorAll("[data-called]").forEach(x=>x.onclick=()=>{
     CALLED=x.dataset.called;b.innerHTML=leadTable();wireSheet();});
   b.querySelectorAll("button.ocx").forEach(x=>x.onclick=()=>{
