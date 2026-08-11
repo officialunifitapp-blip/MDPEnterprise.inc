@@ -684,6 +684,12 @@ const SHEET={
   email:["Emails","One draft per lead with a real address. Copy and send.",()=>emailPanel()],
 };
 
+/* The dial order is whatever the dialer imported, and nothing derivable from
+   pipeline.md reproduces it — so it is pinned here, keyed on the bare digits.
+   A lead not on the list sorts after the ones that are. Regenerate alongside
+   the CSV whenever a new dial list is exported. */
+const DIALORDER=["3146681223","3144391665","6182349696","3147721788","4179885314","4178818989","5014084062","9188003372","3092665755","2176790254","2174237704","3146003001","5732260622","3149364445","5735521972","9135990055","6368123838","8162865835","4172002018","9132626937","9132474379","3098291500","2174427594","6188003633","4177595117","5733666351","4174154357","4178403330","4175403947","4174372707","4178818147","4178874357","5635433121","5155171283","3192992080","3192203228","7124814325","8157213493","4175982080","3196262292","4799002639","4792526650","4792575960","8152359606","3097977740","5154200411","5736329283","8707934834","4695219511","9032781120","8005702320","4799672018","9407829211","6202766994","3167225005","4052022401","6362336826","5732538030","2175858620","9203371986"];
+const dialRank=l=>{const i=DIALORDER.indexOf(String(l.p||"").replace(/\D/g,""));return i<0?9e9:i;};
 const SORT={key:"co",dir:1};
 let LEAD_NICHE="";   // "", "Restoration", "MedSpa" — set by walking into a branch
 let CALLED="all";    // "all" | "no" | "yes" | "due" — working a dial list means "no"
