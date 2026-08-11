@@ -258,7 +258,28 @@ const CFG=(()=>{
   const dflt=(host==="localhost"||host==="127.0.0.1"||host==="")?"http://localhost:8787":"";
   return{url:localStorage.getItem("mdp-bridge")||dflt,key:localStorage.getItem("mdp-key")||""};
 })();
-const BRIDGE=CFG.url;
+let BRIDGE=CFG.url;
+/* The free tunnel gets a new random URL every restart, which used to mean
+   re-pairing every device by hand — and until someone did, the dashboard just
+   said "bridge offline" with no way to tell that from the Mac being asleep.
+   start-bridge.sh now publishes the live URL to bridge.json beside this page,
+   and a device that cannot reach its stored URL picks the new one up itself.
+   Only the URL is published. The key stays in localStorage, and the key is
+   the fence — the bridge refuses everything without it. */
+let REDISCOVERING=false;
+async function rediscover(){
+  if(REDISCOVERING||!CFG.key)return false;
+  REDISCOVERING=true;
+  try{
+    const r=await fetch("bridge.json?t="+Date.now(),{cache:"no-store"});
+    if(!r.ok)return false;
+    const u=String((await r.json()).url||"").replace(/\/$/,"");
+    if(!u||u===BRIDGE)return false;
+    BRIDGE=u;localStorage.setItem("mdp-bridge",u);
+    return true;
+  }catch(e){return false;}
+  finally{REDISCOVERING=false;}
+}
 const bfetch=(path,opt={})=>{
   if(!BRIDGE)return Promise.reject(new Error("no bridge configured"));
   const h={...(opt.headers||{})};if(CFG.key)h["X-Bridge-Key"]=CFG.key;
@@ -287,9 +308,17 @@ let THOUGHTS=(()=>{
   return raw.map(t=>typeof t==="string"?{id:uid(),text:t,at:"2000-01-01T00:00:00.000Z"}:t);
 })();
 let OUTBOX=JSON.parse(localStorage.getItem("mdp-outbox")||"[]");
+/* Outcomes used to be the one thing that did NOT survive the bridge being
+   down: markLead reverted the tap and showed an alert, so a call logged
+   during an outage was simply gone. Notes queued; outcomes did not. They
+   queue here now, keyed by company so re-tapping the same lead replaces its
+   pending entry rather than sending the same row twice. */
+let LEADQ=JSON.parse(localStorage.getItem("mdp-leadq")||"[]");
 function uid(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36);}
 const iso=()=>new Date().toISOString();
 const saveOutbox=()=>localStorage.setItem("mdp-outbox",JSON.stringify(OUTBOX));
+const saveLeadq=()=>localStorage.setItem("mdp-leadq",JSON.stringify(LEADQ));
+const queueLead=e=>{LEADQ=LEADQ.filter(x=>x.company!==e.company);LEADQ.push(e);saveLeadq();};
 function cacheState(){
   localStorage.setItem("mdp-notes",JSON.stringify(NOTES));
   localStorage.setItem("mdp-notes-at",JSON.stringify(NOTE_AT));
@@ -396,6 +425,16 @@ async function hydrate(){
           out:(tail&&tail!=="sourced")?tail:""});
       });
       DATA.counts=counts;DATA.leads=list;DATA.unreachable=unreach;
+      // pipeline.md does not know about taps that never reached the bridge.
+      // Re-apply them so a reload during an outage does not look like the
+      // morning's calls were never logged.
+      LEADQ.forEach(q=>{
+        const l=DATA.leads.find(x=>x.co===q.company);
+        if(!l)return;
+        l.out=(q.outcome||[]).join(", ");
+        if(q.due)l.due=q.due;
+        l.pending=true;
+      });
     }
   }catch(e){}
   try{
@@ -406,10 +445,21 @@ async function hydrate(){
       if(c.length>=9)DATA.metrics={week:c[1],out:c[2],rep:c[3],mtg:c[4],calls:c[5],closes:c[6],mrr:c[7],constraint:c[8]};
     }
   }catch(e){}
-  try{DATA.status=await (await bfetch("/status")).json();}catch(e){DATA.status=null;}
+  try{DATA.status=await (await bfetch("/status")).json();}
+  catch(e){
+    DATA.status=null;
+    // One retry, but only after the URL actually changed — otherwise a Mac
+    // that is simply asleep would be hammered twice on every hydrate.
+    if(await rediscover()){
+      try{DATA.status=await (await bfetch("/status")).json();}catch(_){}
+    }
+  }
   try{DATA.feed=(await (await bfetch("/activity")).json()).items||[];}catch(e){DATA.feed=[];}
   await pullState();
   flushOutbox();
+  // Queued outcomes go first on the next successful hydrate. If any land,
+  // re-read pipeline.md so the stages the bridge computed come back.
+  if(LEADQ.length)flushLeads().then(r=>{if(r.sent)hydrate();});
   paint();
 }
 
@@ -677,7 +727,8 @@ function leadTable(){
       return `<button class="ocx${on?" on":""}${o==="appointment booked"?" appt":""}" data-co="${esc(l.co)}" data-o="${o}" aria-pressed="${on}">${SHORT[o]}</button>`;}).join("")}</div>
     ${isBooked(l)
       ?`<input type="date" class="due" data-co="${esc(l.co)}" value="${esc(l.due||"")}" aria-label="Appointment date">`
-      :`<div style="font:10px var(--mono);color:var(--dim);margin-top:3px">${esc((l.last||"—").slice(0,10))}</div>`}</td>
+      :`<div style="font:10px var(--mono);color:var(--dim);margin-top:3px">${esc((l.last||"—").slice(0,10))}</div>`}
+    ${l.pending?'<div style="font:10px var(--mono);color:var(--warn);margin-top:3px">⏳ queued — not saved yet</div>':""}</td>
     <td style="text-align:right"><button class="ntbtn ${NOTES[l.co]?"has":""}" data-co="${esc(l.co)}">✎</button></td></tr>
     <tr><td colspan="5" style="border:0;padding:0"><textarea class="hide" data-co="${esc(l.co)}" placeholder="What happened?">${esc(NOTES[l.co]||"")}</textarea></td></tr>`).join("")}
   </tbody></table></div>`;
@@ -705,9 +756,30 @@ async function markLead(co,outcomes,el,due){
     if(lead){lead.st=j.stage||lead.st;if(j.due)lead.due=j.due;}
     hydrate();
   }catch(e){
-    if(lead){lead.out=prev;lead.due=prevDue;}
-    alert("Could not save: "+e.message+"\nThe bridge may be offline.");
+    // Do NOT revert. The tap is the record of a call that happened, and
+    // throwing it away because a tunnel dropped is how a morning of dialling
+    // disappears. Keep it on screen, queue it, send it when the bridge is back.
+    queueLead({company:co,outcome:outcomes,due:due||prevDue||"",at:iso()});
+    if(lead)lead.pending=true;
+    paint();
+    const b=$("shBody");if(b&&b.querySelector("button.ocx")){b.innerHTML=leadTable();wireSheet();}
   }finally{ if(el)el.disabled=false; }
+}
+
+/* Drains queued outcomes. Same shape as flushOutbox: stop on the first
+   failure so ordering holds, and keep whatever did not go. */
+async function flushLeads(){let sent=0;
+  while(LEADQ.length){
+    try{
+      const r=await bfetch("/lead",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(LEADQ[0])});
+      if(!r.ok)break;
+      const j=await r.json();
+      if(j.error)break;
+      LEADQ.shift();sent++;
+    }catch(e){break;}
+  }
+  saveLeadq();return{sent,left:LEADQ.length};
 }
 /* ============ call prep ============
    Briefs are files on the Mac and the ten minutes before a call are never
@@ -909,7 +981,12 @@ function notesPanel(){
   const ks=Object.keys(NOTES).filter(k=>NOTES[k]);
   return `<div class="sec"><div class="slb">Local capture <span>${ks.length} companies</span></div>
     ${ks.length?ks.map(k=>`<div style="margin-bottom:9px"><div class="say" style="color:var(--acc2)">${esc(k)}</div><div class="say" style="white-space:pre-wrap">${esc(NOTES[k])}</div></div>`).join(""):'<div class="say" style="color:var(--dim)">Nothing captured on this device yet.</div>'}</div>
-  <div class="sec"><div class="slb">Queue</div><div class="say">${OUTBOX.length?OUTBOX.length+" note(s) waiting for the bridge.":"Nothing queued — everything synced."}</div></div>
+  <div class="sec"><div class="slb">Queue</div><div class="say">
+    ${OUTBOX.length||LEADQ.length
+      ?`${OUTBOX.length?OUTBOX.length+" note(s)":""}${OUTBOX.length&&LEADQ.length?" and ":""}${LEADQ.length?`<b style="color:var(--warn)">${LEADQ.length} outcome(s)</b>`:""} waiting for the bridge. Nothing is lost — they send themselves when it reconnects.`
+      :"Nothing queued — everything synced."}</div>
+    ${LEADQ.length?`<div class="say" style="color:var(--dim);margin-top:6px">${LEADQ.map(q=>esc(q.company)+" — "+esc((q.outcome||[]).join(", "))).join("<br>")}</div>
+    <button class="qa" id="flushQ" style="margin-top:8px">▸ Try sending now</button>`:""}</div>
   <div class="sec"><button class="qa" data-act="csv">▸ Export leads + notes CSV</button></div>`;
 }
 /* Every agent that exists, and the one line that says when it fires. If an
@@ -987,6 +1064,12 @@ function wireSheet(){
   { const r=b.querySelector("#draftRun"); if(r)r.onclick=()=>runDrafts(); }
   b.querySelectorAll("[data-emf]").forEach(x=>x.onclick=()=>{
     EMF=x.dataset.emf;b.innerHTML=emailPanel();wireSheet();});
+  { const q=b.querySelector("#flushQ"); if(q)q.onclick=async()=>{
+      q.disabled=true;q.textContent="Sending…";
+      const r=await flushLeads();await flushOutbox();
+      await hydrate();
+      b.innerHTML=notesPanel();wireSheet();
+      if(r.left)alert(`${r.left} still queued — the bridge is not reachable yet.`);}; }
   b.querySelectorAll("[data-called]").forEach(x=>x.onclick=()=>{
     CALLED=x.dataset.called;b.innerHTML=leadTable();wireSheet();});
   b.querySelectorAll("button.ocx").forEach(x=>x.onclick=()=>{
