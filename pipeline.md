@@ -54,7 +54,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Franklin Fire Restoration | Owner TBD · (573) 969-3774 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Jefferson Water Restoration | Owner TBD · (636) 263-9322 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Mold Solutions (St. Louis) | Owner TBD · (314) 993-6653 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
-| Water Mold Fire Restoration | Eric Rajchel (Owner) · (314) 282-4140 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| Water Mold Fire Restoration | Eric Rajchel (Owner) · (314) 282-4140 | lost | 2026-08-11 phone disconnected | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Shadco Restoration & Reconstruction | Shadi Khair (Founder) · (314) 600-3001 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Century Restoration & Construction | Owner TBD · (314) 487-5000 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | H2O Cleaning & Restoration | Owner TBD · (618) 219-2038 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
@@ -85,7 +85,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | First Call Restoration | Owner TBD · (816) 804-0154 | lost | 2026-08-10 not interested | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Restoration Services (RestorationServicesKC) | Owner TBD · (816) 286-5835 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Frontier Restoration | Doug Day & Greg Marsden (Owners) · (913) 800-4980 | new | 2026-08-10 gatekeeper | Cold call, ask for Doug or Greg by name | 2026-08-01 | Restoration |  |
-| Heartland Flood, Mold & Restoration | Marcus (Owner) · (913) 213-3686 | contacted | 2026-08-10 spoke to owner | Send API + analytics detail | 2026-08-01 | Restoration | marcus@heartlandflood.com |
+| Heartland Flood, Mold & Restoration | Marcus (Owner) · (913) 213-3686 | contacted | 2026-08-11 spoke to owner | HIS move — he said he'd message back. Do not chase before 2026-08-14 | 2026-08-14 | Restoration | marcus@heartlandflood.com |
 | Repairs Unlimited (RUI Restoration) | Chris Santiago (CEO) · (913) 262-6937 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Emergency Mitigation Services | Owner TBD · (913) 773-6777 | new | 2026-08-10 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration | servicerequest@emscleanup.com |
 | Restore & More | Mike (Owner) · (913) 247-4379 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
@@ -118,7 +118,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Service Pros (Service Restore Pro) | Cedar Rapids, IA · (319) 299-2080 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
 | 380 Companies | Cedar Rapids, IA · (319) 777-7380 unverified | new | 2026-08-08 gatekeeper | Verify phone first | 2026-08-01 | Restoration |  |
 | Home Pro Services | Cedar Rapids/Iowa City, IA · (319) 382-0217 unverified | new | 2026-08-10 no answer | Verify phone first | 2026-08-01 | Restoration |  |
-| Werner Restoration Services Inc | Davenport, IA · (563) 322-0535 unverified | new | 2026-08-01 sourced | Verify phone first | 2026-08-01 | Restoration |  |
+| Werner Restoration Services Inc | Davenport, IA · (563) 322-0535 unverified | new | 2026-08-11 no answer | Verify phone first | 2026-08-01 | Restoration |  |
 | Blumer Restoration | Davenport, IA · (309) 235-2992 unverified | new | 2026-08-08 gatekeeper | Verify phone first | 2026-08-01 | Restoration |  |
 | Blaze Restoration Inc | Bettendorf, IA · (563) 324-4741 unverified | new | 2026-08-08 gatekeeper | Verify phone + headcount fit | 2026-08-01 | Restoration |  |
 | Brown's Floor Care & Restoration | Swisher, IA · (319) 337-7721 unverified | new | 2026-08-08 no answer | Verify phone first | 2026-08-01 | Restoration |  |
@@ -179,7 +179,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | SteamPro Restoration | Family-owned since 1994 · (870) 793-4834 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
 | Veteran Restoration | Steven Gern (President) · (469) 521-9511 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
 | Restoration Warriors | Jordan Plunk (Owner) · (903) 278-1120 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
-| Magna-Dry Central Kansas | Clark family (Owners) · (620) 282-2267 | new | 2026-08-10 gatekeeper | Call Marsha first thing AM — callback | 2026-08-11 | Restoration |  |
+| Magna-Dry Central Kansas | Clark family (Owners) · (620) 282-2267 | contacted | 2026-08-11 gatekeeper, spoke to owner | Call Marsha first thing AM — callback | 2026-08-11 | Restoration |  |
 | Butler Plumbing & Restoration | Owner TBD · (316) 542-2818 | new | 2026-08-08 gatekeeper | Cold call → demo # | 2026-08-05 | Restoration |  |
 | Armada Disaster Solutions | Owner TBD · (855) 527-6232 unverified | new | 2026-08-08 no answer | Verify phone + headcount fit | 2026-08-05 | Restoration |  |
 | All-Clean USA | Brett Overman (Owner) · (870) 972-1922 unverified | new | 2026-08-08 gatekeeper | Verify phone first | 2026-08-05 | Restoration | contact@allcleanusa.com |

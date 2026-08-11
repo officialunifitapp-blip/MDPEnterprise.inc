@@ -172,6 +172,18 @@ input.due.now{color:var(--warn);border-color:var(--warn);background:rgba(224,180
    so the answer is visible before the toggle is tapped, not after. */
 .em{font:10px var(--mono);color:var(--ok);margin-top:2px;word-break:break-all}
 .em.none{color:#4d6478}
+/* The six, pinned above the leads list. Small on purpose — it has to coexist
+   with the row being dialled, not compete with it. */
+.obar{position:sticky;top:0;z-index:5;background:rgba(8,16,26,.97);backdrop-filter:blur(6px);
+  border:1px solid var(--line);border-radius:8px;padding:7px 9px;margin-bottom:10px}
+.obh{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  cursor:pointer;display:flex;justify-content:space-between;gap:8px;user-select:none}
+.obh span{color:var(--acc)}
+.obg{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:4px 12px;margin-top:7px}
+.obi{font-size:11.5px;line-height:1.35;padding-left:7px;border-left:2px solid var(--line2)}
+.obi.lead{border-left-color:var(--ok)}
+.obi b{color:var(--acc2);display:block;font-weight:600}
+.obi span{color:var(--dim);font-size:10.5px}
 textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:7px;
   color:var(--txt);padding:7px 8px;font:12px/1.45 inherit;resize:vertical;min-height:52px;margin:4px 0 6px}
 .hide{display:none}
@@ -711,7 +723,7 @@ function leadTable(){
   const pool=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE);
   const done=pool.filter(l=>l.out).length;
   const cf=(k,label,n)=>`<span class="chip" data-called="${k}" style="cursor:pointer;${CALLED===k?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${label} <b>${n}</b></span>`;
-  return `<div class="sec"><div class="slb">Branch</div>
+  return offerBar()+`<div class="sec"><div class="slb">Branch</div>
     ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
   <div class="sec"><div class="slb">Calls</div>
     ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
@@ -978,23 +990,41 @@ function emailPanel(){
 const OFFER=[
   ["Missed Call Recovery","Texts and calls back every missed caller, automatically.",
    "“We answer our own phones.”",
-   "Agrees with him — it only fires when a call gets away. Nothing to argue with. ~90% of refusals are this."],
+   "Agrees with him — it only fires when a call gets away. Nothing to argue with. ~90% of refusals are this.",
+   "“we answer our own phones”"],
   ["Lead Reactivation","Turns old and dead leads back into opportunities.",
    "“Not interested” · “No budget right now.”",
-   "No new leads, no new spend. It is money he already paid for. Easiest yes on a cold call."],
+   "No new leads, no new spend. It is money he already paid for. Easiest yes on a cold call.",
+   "“not interested” · “no budget”"],
   ["Lead Conversion","Instant response, persistent follow-up, booking.",
    "“We get leads but they go nowhere.”",
-   "For anyone already buying leads — he knows exactly what a dropped one costs."],
+   "For anyone already buying leads — he knows exactly what a dropped one costs.",
+   "“leads go nowhere” · buys leads"],
   ["Estimate & Quote Follow-up","Chases every quote until they buy, decline, or reply.",
    "“We send estimates and never hear back.”",
-   "Restoration quotes are 4–5 figures. One recovered job pays for a year."],
+   "Restoration quotes are 4–5 figures. One recovered job pays for a year.",
+   "“we never hear back” · owner bids"],
   ["AI Receptionist","Answers, qualifies, books and routes calls.",
    "“Nobody picks up after hours.” · gatekeeper says the owner is unreachable.",
-   "The demo line IS this. Get him to dial it — the demo is the sale."],
+   "The demo line IS this. Get him to dial it — the demo is the sale.",
+   "“nobody picks up after hours”"],
   ["Reviews & Referrals","Generates review and referral opportunities automatically.",
    "“We get our work by word of mouth.”",
-   "Needs access to THEIR Google profile. Say that up front. Sell it last."],
+   "Needs access to THEIR Google profile. Say that up front. Sell it last.",
+   "“all word of mouth”"],
 ];
+/* The six have to be readable WHILE the leads list is open — that is the
+   moment they get used, and a separate panel means switching away from the
+   row being dialled. Sticks to the top of the Leads sheet, collapsed state
+   remembered so it is not re-opened on every repaint. */
+let OFFERBAR=localStorage.getItem("mdp-offerbar")!=="0";
+function offerBar(){
+  return `<div class="obar">
+    <div class="obh" data-obt="1">WHAT I SELL — pick ONE, from what he just said <span>${OFFERBAR?"▾":"▸"}</span></div>
+    ${OFFERBAR?`<div class="obg">${OFFER.map(([n,,,,cue],i)=>
+      `<div class="obi${i===0?" lead":""}"><b>${esc(n)}</b><span>${esc(cue)}</span></div>`).join("")}</div>`:""}
+  </div>`;
+}
 let SCF="offer";   // offer | openers | objections
 
 function scriptsPanel(){
@@ -1117,6 +1147,9 @@ function wireSheet(){
     EMF=x.dataset.emf;b.innerHTML=emailPanel();wireSheet();});
   b.querySelectorAll("[data-scf]").forEach(x=>x.onclick=()=>{
     SCF=x.dataset.scf;b.innerHTML=scriptsPanel();wireSheet();});
+  b.querySelectorAll("[data-obt]").forEach(x=>x.onclick=()=>{
+    OFFERBAR=!OFFERBAR;localStorage.setItem("mdp-offerbar",OFFERBAR?"1":"0");
+    b.innerHTML=leadTable();wireSheet();});
   { const q=b.querySelector("#flushQ"); if(q)q.onclick=async()=>{
       q.disabled=true;q.textContent="Sending…";
       const r=await flushLeads();await flushOutbox();
