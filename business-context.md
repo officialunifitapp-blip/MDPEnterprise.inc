@@ -2,16 +2,38 @@
 <!-- CEO Agent: if a FILL IN remains, ask for it before giving advice. -->
 
 ## Offer
-- AI receptionist / 24-7 call answering
-- Missed call text-back
-- Appointment booking
-- Lead qualification
+Six systems, one price, one platform. They are entry points into the same
+Vapi + follow-up infrastructure, not six products with six builds.
+
+Never read this list on a call. Six options make an owner deliberate; one
+makes him decide. Lead with the single system that answers what he just
+told you — the trigger column is what to listen for.
+
+| System | What it does | Sell it when he says |
+|---|---|---|
+| Missed Call Recovery | Texts and calls back every missed caller automatically | **"We answer our own phones."** It only fires when they don't — so it agrees with him instead of challenging him. Highest-value opener; ~90% of refusals are this objection |
+| Lead Reactivation | Works old and dead leads back into opportunities | "Not interested" / "no budget." Needs no new leads and no new spend — it is money already paid for. Best door-opener on a cold call |
+| Lead Conversion | Instant lead response, persistent follow-up, booking | "We get leads but they go nowhere" / he buys leads already |
+| Estimate & Quote Follow-up | Chases every quote until they buy, decline, or reply | "We send estimates and never hear back." Restoration quotes are 4–5 figures — one recovered job pays a year |
+| AI Receptionist | Answers, qualifies, books, routes | "Nobody picks up after hours" / gatekeeper says the owner is unreachable |
+| Reviews & Referrals | Generates review and referral opportunities automatically | "We get work by word of mouth." Only system needing access to THEIR accounts — highest onboarding cost, sell it last |
 
 ## Pricing
 - Setup fee: $500 (WAIVED for first 3 clients in exchange for case-study rights — MUST go live/set up within that same week)
 - Monthly retainer: $500/mo
 - Contract length: month-to-month (default — reduce friction pre-revenue)
-- What is explicitly NOT included: FILL IN (define: does $500 cover call minutes/usage overages? CRM integration? multiple locations?)
+- All six systems are included at the one price. Do NOT price them separately.
+  Per-system pricing turns every call into a negotiation about which ones he
+  wants, and pre-revenue you need a yes or a no, not a shopping list. The
+  breadth is a reason to buy, not a set of line items.
+- What is explicitly NOT included — PROPOSED, needs Mario's numbers to confirm:
+  - Call minutes above a fair-use cap. Vapi bills per minute, so an unlimited
+    promise on a busy storm week is a loss. Cap it, state it, charge at cost.
+  - More than one location or phone number.
+  - Their own third-party fees (Google Business, CRM seats, SMS carrier).
+  - Reviews & Referrals requires access to their Google Business Profile. If
+    they will not grant it, that system is not deliverable — say so up front
+    rather than discovering it in onboarding.
 
 ## ICP
 - Niche: restoration (water / fire / mold / storm)
