@@ -432,7 +432,7 @@ async function hydrate(){
         // Column 8 is the Email the 5am enrichment fills. It is what decides
         // whether "Email them" can produce anything, so it comes through.
         const em=(c[8]||"").trim();
-        list.push({co:c[1],c:c[2],who,p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
+        list.push({ix:list.length,co:c[1],c:c[2],who,p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
           em:/@/.test(em)?em:"",
           out:(tail&&tail!=="sourced")?tail:""});
       });
