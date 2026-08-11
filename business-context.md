@@ -17,10 +17,20 @@ told you — the trigger column is what to listen for.
 | Estimate & Quote Follow-up | Chases every quote until they buy, decline, or reply | "We send estimates and never hear back." Restoration quotes are 4–5 figures — one recovered job pays a year |
 | AI Receptionist | Answers, qualifies, books, routes | "Nobody picks up after hours" / gatekeeper says the owner is unreachable |
 | Reviews & Referrals | Generates review and referral opportunities automatically | "We get work by word of mouth." Only system needing access to THEIR accounts — highest onboarding cost, sell it last |
+| Website / Landing Page | A page of his own, built once and hosted. **+$100/mo** | He has no site, or his only "site" is a lead-gen directory listing. The only system that CREATES calls — the others convert calls he already gets |
+
+Zero-touch after setup: Missed Call Recovery, AI Receptionist, Website, and
+Lead Reactivation once they hand over a list. Estimate Follow-up needs to be
+told a quote went out and Reviews & Referrals needs a job-done signal plus
+their Google login — do not promise those two run themselves.
+
+Google Business Profile is always the CLIENT'S job. Verification sits in
+Google's queue on Google's timeline and a profile can be suspended later.
+Never put it inside a go-live-this-week promise.
 
 ## Pricing
 - Setup fee: $500 (WAIVED for first 3 clients in exchange for case-study rights — MUST go live/set up within that same week)
-- Monthly retainer: $500/mo
+- Monthly retainer: $500/mo · +$100/mo if a website is included ($600/mo)
 - Contract length: month-to-month (default — reduce friction pre-revenue)
 - All six systems are included at the one price. Do NOT price them separately.
   Per-system pricing turns every call into a negotiation about which ones he

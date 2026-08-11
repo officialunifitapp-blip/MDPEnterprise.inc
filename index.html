@@ -1012,6 +1012,10 @@ const OFFER=[
    "“We get our work by word of mouth.”",
    "Needs access to THEIR Google profile. Say that up front. Sell it last.",
    "“all word of mouth”"],
+  ["Website / Landing Page","A page of his own, built once and hosted. +$100/mo.",
+   "No site, or his “site” is a lead-gen directory listing.",
+   "The only one that CREATES calls — the rest convert calls he already gets. One page, one round of changes.",
+   "no site of his own"],
 ];
 /* The six have to be readable WHILE the leads list is open — that is the
    moment they get used, and a separate panel means switching away from the
@@ -1039,7 +1043,7 @@ function scriptsPanel(){
   const chips=`<div class="sec">${chip("offer","What I sell")}${chip("openers","Openers")}${chip("objections","Comebacks")}</div>`;
 
   if(SCF==="offer"){
-    return chips+`<div class="sec"><div class="slb">Six systems · one price <span>$500/mo</span></div>
+    return chips+`<div class="sec"><div class="slb">What I sell <span>$500/mo · $600 with a site</span></div>
       <div class="say" style="color:var(--dim);margin-bottom:10px">Never read this list on a call. Pick the ONE that answers what he just said.</div>
       ${OFFER.map(([n,what,trigger,why],i)=>`<div style="margin-bottom:14px;padding-left:10px;border-left:2px solid ${i===0?"var(--ok)":"var(--line2)"}">
         <div class="say" style="color:var(--acc2);font-weight:600">${i+1}. ${esc(n)}${i===0?' <span style="color:var(--ok);font-size:10px;letter-spacing:.08em"> ← LEAD WITH THIS</span>':""}</div>

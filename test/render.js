@@ -107,13 +107,13 @@ const offerPanel = mod.scriptsPanel();
 // Names are HTML-escaped in the panel ("&" -> "&amp;"), so compare escaped.
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const missing = mod.OFFER.filter(o => !offerPanel.includes(esc(o[0])));
-console.log(`  six systems rendered: ${mod.OFFER.length - missing.length}/6`);
-if (missing.length || mod.OFFER.length !== 6) { console.log("  MISSING:", missing.map(o => o[0]).join(", ")); bad++; }
+console.log(`  systems rendered: ${mod.OFFER.length - missing.length}/${mod.OFFER.length}`);
+if (missing.length || mod.OFFER.length < 6) { console.log("  MISSING:", missing.map(o => o[0]).join(", ")); bad++; }
 
 // The dashboard must not drift from business-context.md.
 const bc = fs.readFileSync(ROOT + "/business-context.md", "utf8");
 const drift = mod.OFFER.filter(o => !bc.includes(o[0]));
-console.log(`  matching business-context.md: ${mod.OFFER.length - drift.length}/6`);
+console.log(`  matching business-context.md: ${mod.OFFER.length - drift.length}/${mod.OFFER.length}`);
 if (drift.length) { console.log("  NOT IN business-context.md:", drift.map(o => o[0]).join(", ")); bad++; }
 
 // The join that makes "tap a lead, see its draft" work at all.
