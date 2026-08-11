@@ -19,7 +19,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Smoke Services Restoration | Metro East · (618) 234-9696 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Arkansas Restoration | (501) 753-3600 | new | 2026-08-08 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration | info@arkrestoration.com |
 | Burggraf Disaster | (918) 584-3737 | new | 2026-08-08 no answer | Cold call (check size) | 2026-08-01 | Restoration |  |
-| Best Option Restoration KC | Kansas City · no # yet | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
+| Best Option Restoration KC | Kansas City · no # yet | lost | 2026-08-11 franchise — excluded (flagged in 08-01 sourcing notes as a national franchise brand) | n/a | 2026-08-01 | Restoration |  |
 | ABC Environmental | Daniel Benton (Restoration Manager) UNVERIFIED · (573) 928-2668 | new | 2026-08-08 gatekeeper | Cold call, ask for Daniel by name | 2026-08-01 | Restoration |  |
 | Midwest Flood | St. Louis, MO · no # yet | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Restoration Solutions | Springfield, MO · no # yet | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
