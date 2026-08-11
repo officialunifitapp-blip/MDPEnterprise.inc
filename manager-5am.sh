@@ -46,7 +46,10 @@ PROMPT="Run the 5:00 Manager routine from CLAUDE.md, in order:
    Be brief. This runs unattended and the output goes to a log file."
 
 run_agent() {
-  /opt/homebrew/bin/claude -p "$PROMPT" \
+  # The run takes the better part of an hour and the Mac falls asleep
+  # mid-response. caffeinate holds it awake for exactly as long as the agent
+  # is running and lets it sleep again the moment it finishes.
+  caffeinate -ims /opt/homebrew/bin/claude -p "$PROMPT" \
     --model claude-sonnet-5 \
     --permission-mode bypassPermissions \
     >> logs/manager.log 2>&1

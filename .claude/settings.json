@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:*)",
+      "Bash(curl -s https://officialunifitapp-blip.github.io/*)",
+      "Bash(node --check *)",
+      "Bash(zsh -n *)",
+      "Bash(launchctl list*)"
+    ]
+  }
+}
