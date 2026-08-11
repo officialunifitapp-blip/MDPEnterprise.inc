@@ -123,5 +123,26 @@ const linked = drafts.filter(d => panel.includes(`data-draft="${d.file}"`)).leng
 console.log(`\n--- draft links wired into the panel: ${linked}/${drafts.length} ---`);
 if (linked !== drafts.length) { console.log("  MISSING:", drafts.filter(d => !panel.includes(d.file)).map(d => d.file).join(", ")); bad++; }
 
+
+// Dial list must come out in the pinned order. Assert against the REAL
+// leadTable output, not a reimplementation of its sort — that mistake shipped
+// an alphabetical dial list twice.
+mod.setCALLED("dial");
+const dialHtml = mod.leadTable();
+const unesc = s => String(s).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"');
+const order = [...dialHtml.matchAll(/data-co="([^"]+)"\s+data-o="no answer"/g)].map(m => unesc(m[1]));
+const csvOrder = fs.readFileSync(ROOT + "/leads/uncalled-restoration-2026-08-11.csv", "utf8")
+  .split("\n").slice(1).filter(Boolean).map(l => (l.match(/^"([^"]*)"/) || [, ""])[1]);
+const inCsv = order.filter(c => csvOrder.includes(c));
+let pos = 0;
+for (let i = 0; i < Math.min(inCsv.length, csvOrder.length); i++) if (inCsv[i] === csvOrder[i]) pos++;
+console.log(`\n--- dial list order vs CSV: ${pos}/${csvOrder.length} ---`);
+if (pos !== csvOrder.length) {
+  console.log("  first 3 rendered:", inCsv.slice(0, 3).join(" | "));
+  console.log("  first 3 in CSV:  ", csvOrder.slice(0, 3).join(" | "));
+  bad++;
+}
+process.exit(bad ? 1 : 0);
+
 console.log(bad ? `\n${bad} FAILURES` : "\nEVERY PANEL, FILTER AND DRAFT LINK RENDERS CLEAN");
 process.exit(bad ? 1 : 0);

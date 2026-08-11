@@ -721,6 +721,10 @@ function leadTable(){
                               // research, not a dial.
                               :CALLED==="dial"?(!l.out&&!!l.p)
                               :CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
+    // The Dial list is imported into the dialer in a fixed order, and a call
+    // sheet that disagrees with the dialer means hunting for the row on every
+    // call. Pinned order wins here unless a column header is clicked.
+    if(CALLED==="dial"&&SORT.key==="co")return (dialRank(a)-dialRank(b))*SORT.dir;
     let x,y;
     if(SORT.key==="st"){x=STAGES.indexOf(a.st||"new");y=STAGES.indexOf(b.st||"new");}
     else{x=(a[SORT.key]||"").toLowerCase();y=(b[SORT.key]||"").toLowerCase();}
