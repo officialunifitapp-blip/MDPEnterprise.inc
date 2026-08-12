@@ -9,20 +9,20 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Fast Restoration | Terry (Owner) · (636) 681-3200 | new | 2026-08-08 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Sage Restoration | Stephanie & Alan Sage · (913) 905-0500 | lost | 2026-08-08 not interested | Cold call (probe live-answer) | 2026-08-01 | Restoration |  |
 | Power Dry | Greg Petropoulos & Ed Bledsoe · (913) 586-1545 | lost | 2026-08-08 not interested | Cold call → demo # | 2026-08-01 | Restoration |  |
-| Pride Cleaning & Restoration | Jim Seubert (Owner) · (314) 668-1223 | new | 2026-07-31 sourced | Cold call, ask for Jim by name | 2026-08-01 | Restoration | jseubert@priderestoration.com |
+| Pride Cleaning & Restoration | Jim Seubert (Owner) · (314) 668-1223 | new | 2026-08-11 gatekeeper | Cold call, ask for Jim by name | 2026-08-01 | Restoration | jseubert@priderestoration.com |
 | Kelley Klean | Dennis Thrower (Founder/Owner) UNVERIFIED · (573) 214-0990 | new | 2026-08-08 no answer | Cold call, ask for Dennis by name | 2026-08-01 | Restoration |  |
 | Five One Five Restoration | Damian Baldwin (Owner) UNVERIFIED · (515) 452-1876 | new | 2026-08-08 no answer | Cold call, ask for Damian by name | 2026-08-01 | Restoration | Contact@515restoration.com |
 | Omaha Damage Repair | Current owner TBD · (402) 704-4921 | new | 2026-08-08 gatekeeper | Cold call (reach new owner) | 2026-08-01 | Restoration |  |
 | Cleaning Restoration Services | Family-run · (918) 710-0609 | new | 2026-08-09 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Kwik Dry LLC | Family-run · (417) 725-6978 | new | 2026-08-10 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
-| St. Louis Cleaning & Restoration | Family since '91 · (314) 439-1665 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
-| Smoke Services Restoration | Metro East · (618) 234-9696 | new | 2026-07-31 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
+| St. Louis Cleaning & Restoration | Family since '91 · (314) 439-1665 | contacted | 2026-08-11 spoke to owner | Cold call → demo # | 2026-08-01 | Restoration |  |
+| Smoke Services Restoration | Metro East · (618) 234-9696 | new | 2026-08-11 no answer | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Arkansas Restoration | (501) 753-3600 | new | 2026-08-08 gatekeeper | Cold call → demo # | 2026-08-01 | Restoration | info@arkrestoration.com |
 | Burggraf Disaster | (918) 584-3737 | new | 2026-08-08 no answer | Cold call (check size) | 2026-08-01 | Restoration |  |
 | Best Option Restoration KC | Kansas City · no # yet | lost | 2026-08-11 franchise — excluded (flagged in 08-01 sourcing notes as a national franchise brand) | n/a | 2026-08-01 | Restoration |  |
 | ABC Environmental | Daniel Benton (Restoration Manager) UNVERIFIED · (573) 928-2668 | new | 2026-08-08 gatekeeper | Cold call, ask for Daniel by name | 2026-08-01 | Restoration |  |
-| Midwest Flood | St. Louis, MO · (314) 772-1788 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
-| Restoration Solutions | Springfield, MO · (417) 988-5314 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
+| Midwest Flood | St. Louis, MO · (314) 772-1788 | lost | 2026-08-11 phone disconnected | Find number first | 2026-08-01 | Restoration |  |
+| Restoration Solutions | Springfield, MO · (417) 988-5314 | contacted | 2026-08-11 spoke to owner | Find number first | 2026-08-01 | Restoration |  |
 | Mr. Power Clean | Springfield, MO · (417) 881-8989 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Water Damage 24 | Little Rock, AR · (501) 408-4062 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Patriot Water Damage | Tulsa, OK · (918) 800-3372 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
