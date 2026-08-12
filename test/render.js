@@ -124,25 +124,21 @@ console.log(`\n--- draft links wired into the panel: ${linked}/${drafts.length} 
 if (linked !== drafts.length) { console.log("  MISSING:", drafts.filter(d => !panel.includes(d.file)).map(d => d.file).join(", ")); bad++; }
 
 
-// Dial list must come out in the pinned order. Assert against the REAL
-// leadTable output, not a reimplementation of its sort — that mistake shipped
-// an alphabetical dial list twice.
+// Dial list must come out in the pinned DIALORDER. Asserted against the REAL
+// leadTable output — reimplementing its sort shipped an alphabetical dial list
+// twice. Monotonic rank, not equality with a frozen CSV: leads leave this list
+// the moment they are called, which is correct and must not fail the build.
 mod.setCALLED("dial");
-const dialHtml = mod.leadTable();
 const unesc = s => String(s).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"');
-const order = [...dialHtml.matchAll(/data-co="([^"]+)"\s+data-o="no answer"/g)].map(m => unesc(m[1]));
-const csvOrder = fs.readFileSync(ROOT + "/leads/uncalled-restoration-2026-08-11.csv", "utf8")
-  .split("\n").slice(1).filter(Boolean).map(l => (l.match(/^"([^"]*)"/) || [, ""])[1]);
-const inCsv = order.filter(c => csvOrder.includes(c));
-let pos = 0;
-for (let i = 0; i < Math.min(inCsv.length, csvOrder.length); i++) if (inCsv[i] === csvOrder[i]) pos++;
-console.log(`\n--- dial list order vs CSV: ${pos}/${csvOrder.length} ---`);
-if (pos !== csvOrder.length) {
-  console.log("  first 3 rendered:", inCsv.slice(0, 3).join(" | "));
-  console.log("  first 3 in CSV:  ", csvOrder.slice(0, 3).join(" | "));
-  bad++;
-}
-process.exit(bad ? 1 : 0);
+const dialRows = [...mod.leadTable().matchAll(/data-co="([^"]+)"\s+data-o="no answer"/g)].map(m => unesc(m[1]));
+const phoneOf = {};
+for (const l of leads) phoneOf[l.co] = String(l.p || "").replace(/\D/g, "");
+const ORDER = new Function(js.match(/const DIALORDER=\[[^\]]*\];/)[0] + ";return DIALORDER;")();
+const ranks = dialRows.map(co => { const i = ORDER.indexOf(phoneOf[co]); return i < 0 ? 9e9 : i; });
+const sorted = ranks.every((r, i) => i === 0 || ranks[i - 1] <= r);
+console.log(`\n--- dial list: ${dialRows.length} rows, pinned order held: ${sorted} ---`);
+if (dialRows.length) console.log("  first 3:", dialRows.slice(0, 3).join(" | "));
+if (!sorted) { console.log("  OUT OF ORDER — ranks:", ranks.slice(0, 12).join(",")); bad++; }
 
 console.log(bad ? `\n${bad} FAILURES` : "\nEVERY PANEL, FILTER AND DRAFT LINK RENDERS CLEAN");
 process.exit(bad ? 1 : 0);
