@@ -112,3 +112,23 @@ Two or three things, specific to this prospect.
 - If the honest answer is "this prospect is not a fit," write that as the
   recommendation. A brief that talks him into a bad deal costs more than a
   lost hour.
+
+## Verify the website yourself. Always.
+A directory's "website" field is not a website. BBB, Angi and Yelp routinely
+carry a lead-gen page, an old domain, or nothing — and a brief that says "no
+site of his own" when the owner has one is a claim he will correct in the
+first two minutes of the call.
+
+Before writing anything about a prospect's web presence:
+1. Search the company name plus the city for an actual domain they own.
+2. Try the obvious ones — the company name, its initials, common short forms.
+3. Fetch whatever you find and read it.
+
+Only after all three come back empty may you write that they have no site, and
+say which searches you ran. This exact mistake shipped on 2026-08-12: the
+brief said no website, the owner had icrescue.com, and it was caught minutes
+before the call by the founder rather than by review.
+
+Their own site is usually the best material in the brief. A 24/7 promise on a
+page, next to a number nobody answers after hours, is the strongest opener
+available — and it is their claim, so there is nothing to argue with.

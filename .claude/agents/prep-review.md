@@ -74,3 +74,13 @@ approve something on round three that you would have killed on round one.
 
 Being hard to satisfy here is the point. The cost of a weak brief is a lost
 deal; the cost of a rejected one is five more minutes.
+
+## Check the website claim independently
+If the brief says a prospect has no website, or describes their web presence
+at all, verify it yourself before approving — search for a domain they own,
+do not just re-read the directory field the brief used. Two agents agreeing
+on the same unchecked source is not verification.
+
+On 2026-08-12 a brief claimed no website, this review confirmed the lead-gen
+page it cited, and neither checked whether the owner had his own domain. He
+did. The founder found it minutes before the call.
