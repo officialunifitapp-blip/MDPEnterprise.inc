@@ -1,4 +1,4 @@
-# Dial list — 2026-08-12
+# Dial list — 2026-08-13
 
 413 leads · 287 with a logged outcome · 126 never called
 
@@ -10,7 +10,7 @@
 - **Innovative Cleaning & Restoration LLC** (314) 300-9610 — ask for Nick (Owner)  
   due 2026-08-12 · last: callback set 2026-08-10
 
-## Already spoke to the owner (11)
+## Already spoke to the owner (10)
 *Warm. Pick up where the last call ended.*
 
 - **St. Louis Cleaning & Restoration** (314) 439-1665 — ask for Family since '91  
@@ -23,8 +23,6 @@
   last: spoke to owner 2026-08-10
 - **MRC Restoration of Southeast Missouri** (573) 200-7272 — ask for Mark Curfman (Founder)  
   last: spoke to owner 2026-08-10
-- **Heartland Flood, Mold & Restoration** (913) 213-3686 — ask for Marcus (Owner)  
-  last: spoke to owner 2026-08-11
 - **Burlington Restoration Solutions** (319) 671-6640  
   last: spoke to owner 2026-08-08
 - **McKee Construction & Abatement, LLC** (641) 226-4412 — ask for Weston McKee (Owner)  
@@ -39,7 +37,7 @@
 ## Beat the gatekeeper (36)
 *Call after 6pm — the owner answers his own line.*
 
-- **Pride Cleaning & Restoration** (314) 668-1223  
+- **Pride Cleaning & Restoration** (314) 668-1223 — ask for Jim Seubert (Owner)  
   last: gatekeeper 2026-08-11
 - **Omaha Damage Repair** (402) 704-4921 — ask for Current owner TBD  
   last: gatekeeper 2026-08-08
@@ -49,7 +47,7 @@
   last: gatekeeper 2026-08-08
 - **Menold Construction & Restoration** (309) 263-8728 — ask for Tom Menold / Steve Driscoll  
   last: gatekeeper 2026-08-10
-- **J.J. Swartz Co** (217) 877-2611  
+- **J.J. Swartz Co** (217) 877-2611 — ask for Brad Swartz (President)  
   last: gatekeeper 2026-08-10
 - **Leading Edge Restoration** (618) 694-4568 — ask for Eric Speakman (Founder)  
   last: gatekeeper 2026-08-10
@@ -59,11 +57,11 @@
   last: gatekeeper 2026-08-10
 - **Chief Restoration Services** (417) 337-3770 — ask for Christy & Matthew Brown  
   last: gatekeeper 2026-08-08
-- **Certified Water & Mold Restoration** (816) 835-4959  
+- **Certified Water & Mold Restoration** (816) 835-4959 — ask for Mike Martin (Owner)  
   last: gatekeeper 2026-08-08
 - **Frontier Restoration** (913) 800-4980 — ask for Doug Day & Greg Marsden (Owners)  
   last: gatekeeper 2026-08-10
-- **Emergency Mitigation Services** (913) 773-6777  
+- **Emergency Mitigation Services** (913) 773-6777 — ask for Fred Dohogne (Owner & GM)  
   last: gatekeeper 2026-08-10
 - **Mold Remediation Kansas City Solutions** (816) 300-9272  
   last: gatekeeper 2026-08-10
@@ -85,7 +83,7 @@
   last: gatekeeper 2026-08-05
 - **Hambly & Sons Cleaning & Restoration** (319) 266-1629  
   last: gatekeeper 2026-08-10
-- **ABC Carpet Cleaning** (815) 282-1222  
+- **ABC Carpet Cleaning** (815) 282-1222 — ask for Kevin Hanneman (Owner) UNVERIFIED  
   last: gatekeeper 2026-08-08
 - **A & D Fire/Water Restoration LLC** (573) 979-0958  
   last: voicemail 2026-08-08
@@ -119,9 +117,9 @@
   last: no answer 2026-08-08
 - **Fast Restoration** (636) 681-3200 — ask for Terry (Owner)  
   last: no answer 2026-08-08
-- **Kelley Klean** (573) 214-0990  
+- **Kelley Klean** (573) 214-0990 — ask for Dennis Thrower (Founder/Owner) UNVERIFIED  
   last: no answer 2026-08-08
-- **Five One Five Restoration** (515) 452-1876  
+- **Five One Five Restoration** (515) 452-1876 — ask for Damian Baldwin (Owner) UNVERIFIED  
   last: no answer 2026-08-08
 - **Cleaning Restoration Services** (918) 710-0609 — ask for Family-run  
   last: no answer 2026-08-09
@@ -537,14 +535,14 @@
 - **Water Damage 24** (501) 408-4062
 - **Patriot Water Damage** (918) 800-3372
 - **Vital Restoration** (217) 679-0254 — ask for Timothy Brown (Owner)
-- **Tri County Cleaning Systems** (309) 266-5755
+- **Tri County Cleaning Systems** (309) 266-5755 — ask for Rob Fountain (Owner)
 - **Peerless Cleaning & Restoration** (217) 423-7704 — ask for Wike family
 - **Shadco Restoration & Reconstruction** (314) 600-3001 — ask for Shadi Khair (Founder)
-- **Sansara 24/7 Restoration & Remodeling** (636) 812-3838
+- **Sansara 24/7 Restoration & Remodeling** (636) 812-3838 — ask for David Kosanke (Owner) UNVERIFIED
 - **STL Mold Removal** (314) 936-4445
 - **Water Damage Restoration Eldon** (573) 226-0622
-- **U.S. Disaster Restoration** (573) 552-1972
-- **Tri Cat Restoration** (417) 200-2018
+- **U.S. Disaster Restoration** (573) 552-1972 — ask for Samuel Hubbs (Owner) UNVERIFIED
+- **Tri Cat Restoration** (417) 200-2018 — ask for Jeff Glass (Owner) UNVERIFIED
 - **Phoenix Renovation & Restoration** (913) 599-0055 — ask for Brad Heise (CEO)
 - **Restoration Services (RestorationServicesKC)** (816) 286-5835
 - **Repairs Unlimited (RUI Restoration)** (913) 262-6937 — ask for Chris Santiago (CEO)
