@@ -85,7 +85,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | First Call Restoration | Owner TBD · (816) 804-0154 | lost | 2026-08-10 not interested | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Restoration Services (RestorationServicesKC) | Owner TBD · (816) 286-5835 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration | joe@restorationserviceskc.com |
 | Frontier Restoration | Doug Day & Greg Marsden (Owners) · (913) 800-4980 | new | 2026-08-10 gatekeeper | Cold call, ask for Doug or Greg by name | 2026-08-01 | Restoration |  |
-| Heartland Flood, Mold & Restoration | Marcus Barnes (Project Manager) · (913) 353-2493 · alt (913) 213-3686 | booked | 2026-08-12 appointment booked | Zoom Thu 1:00pm — API + analytics answer | 2026-08-13 | Restoration | marcus@heartlandflood.com |
+| Heartland Flood, Mold & Restoration | Marcus Barnes (PM, not the buyer) · (913) 353-2493 · alt (913) 213-3686 | contacted | 2026-08-14 spoke to owner | Marcus pitches the OWNER today — send the one-pager now. He calls back Mon PM/Tue AM | 2026-08-17 | Restoration | marcus@heartlandflood.com |
 | Repairs Unlimited (RUI Restoration) | Chris Santiago (CEO) · (913) 262-6937 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
 | Emergency Mitigation Services | Fred Dohogne (Owner & GM) · (913) 773-6777 | new | 2026-08-10 gatekeeper | Cold call, ask for Fred by name | 2026-08-01 | Restoration | servicerequest@emscleanup.com |
 | Restore & More | Mike (Owner) · (913) 247-4379 | new | 2026-08-01 sourced | Cold call → demo # | 2026-08-01 | Restoration |  |
