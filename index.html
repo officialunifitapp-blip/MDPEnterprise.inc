@@ -1132,7 +1132,9 @@ function notesPanel(){
       ?`${OUTBOX.length?OUTBOX.length+" note(s)":""}${OUTBOX.length&&LEADQ.length?" and ":""}${LEADQ.length?`<b style="color:var(--warn)">${LEADQ.length} outcome(s)</b>`:""} waiting for the bridge. Nothing is lost — they send themselves when it reconnects.`
       :"Nothing queued — everything synced."}</div>
     ${LEADQ.length?`<div class="say" style="color:var(--dim);margin-top:6px">${LEADQ.map(q=>esc(q.company)+" — "+esc((q.outcome||[]).join(", "))).join("<br>")}</div>
-    <button class="qa" id="flushQ" style="margin-top:8px">▸ Try sending now</button>`:""}</div>
+    <button class="qa" id="flushQ" style="margin-top:8px">▸ Try sending now</button>
+    <button class="qa" id="copyQ" style="margin-top:6px">▸ Copy it all out (works with the bridge down)</button>
+    <textarea class="draft" id="qOut" style="display:none;min-height:200px;margin-top:8px" readonly onclick="this.select()"></textarea>`:""}</div>
   <div class="sec"><button class="qa" data-act="csv">▸ Export leads + notes CSV</button></div>`;
 }
 /* Every agent that exists, and the one line that says when it fires. If an
@@ -1215,6 +1217,13 @@ function wireSheet(){
   b.querySelectorAll("[data-obt]").forEach(x=>x.onclick=()=>{
     OFFERBAR=!OFFERBAR;localStorage.setItem("mdp-offerbar",OFFERBAR?"1":"0");
     b.innerHTML=leadTable();wireSheet();});
+  { const cq=b.querySelector("#copyQ"); if(cq)cq.onclick=()=>{
+      const ta=b.querySelector("#qOut");
+      ta.value=LEADQ.map(q=>`${q.company}\t${(q.outcome||[]).join(", ")}${q.due?"\tdue "+q.due:""}`).join("\n");
+      ta.style.display="block"; ta.select();
+      try{document.execCommand("copy");cq.textContent="▸ Copied — paste it to Claude";}
+      catch(e){cq.textContent="▸ Select the text below and copy it";}
+    }; }
   { const q=b.querySelector("#flushQ"); if(q)q.onclick=async()=>{
       q.disabled=true;q.textContent="Sending…";
       const r=await flushLeads();await flushOutbox();
