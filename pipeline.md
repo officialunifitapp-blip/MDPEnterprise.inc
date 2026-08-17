@@ -22,7 +22,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Best Option Restoration KC | Kansas City · no # yet | lost | 2026-08-11 franchise — excluded (flagged in 08-01 sourcing notes as a national franchise brand) | n/a | 2026-08-01 | Restoration |  |
 | ABC Environmental | Dan Benton (Co-Owner) · (573) 928-2668 | new | 2026-08-13 enriched, confirmed on company's own site | Cold call, ask for Dan by name | 2026-08-01 | Restoration |  |
 | Midwest Flood | St. Louis, MO · (314) 772-1788 | lost | 2026-08-11 phone disconnected | Find number first | 2026-08-01 | Restoration |  |
-| Restoration Solutions | Springfield, MO · (417) 988-5314 | contacted | 2026-08-11 spoke to owner | Find number first | 2026-08-01 | Restoration |  |
+| Restoration Solutions | Springfield, MO · (417) 988-5314 | lost | 2026-08-11 not interested | Said voicemail isn't a concern, hung up | 2026-08-01 | Restoration |  |
 | Mr. Power Clean | Springfield, MO · (417) 881-8989 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Water Damage 24 | Little Rock, AR · (501) 408-4062 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
 | Patriot Water Damage | Tulsa, OK · (918) 800-3372 | new | 2026-07-31 sourced | Find number first | 2026-08-01 | Restoration |  |
@@ -163,7 +163,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | In-Tech Carpet Cleaning & Disaster Restoration | Owner TBD · (417) 257-2493 | new | 2026-08-15 enriched — PHONE MISMATCH: company's own site now lists (417) 293-8817 as primary, not the number on file | Verify phone first (417-293-8817 vs 257-2493), do not dial as-is | 2026-08-04 | Restoration |  |
 | Simply Clean of the QC | Matt Hamilton (Owner) · (309) 797-7740 | new | 2026-08-04 sourced | Cold call → demo # | 2026-08-04 | Restoration |  |
 | Water Damage Restore | Owner TBD · (515) 420-0411 | new | 2026-08-15 enriched, phone confirmed (609 NE Lowell Dr, Ankeny, IA) — FLAG: brand name also surfaces as a listed location under network site re-building.com, independence not yet confirmed | Verify independence first, then cold call | 2026-08-04 | Restoration |  |
-| McKee Construction & Abatement, LLC | Weston McKee (Owner) · (641) 226-4412 | contacted | 2026-08-10 spoke to owner | Cold call → demo # | 2026-08-04 | Restoration |  |
+| McKee Construction & Abatement, LLC | Weston McKee (Owner) · (641) 226-4412 | lost | 2026-08-11 not interested | Said no — lead-gen calls cost him $600, not risking it | 2026-08-04 | Restoration |  |
 | Chem-Care Carpet and Upholstery Cleaning | Owner TBD · (217) 525-2233 | new | 2026-08-15 enriched, no owner name found, phone confirmed (in business since 2006; address listed inconsistently — likely stale directory, not a different company) | Cold call → demo # | 2026-08-04 | Restoration |  |
 | Restore It Restoration LLC | Lonnie A. Beauchamp · (573) 632-9283 | new | 2026-08-04 sourced | Verify phone first | 2026-08-04 | Restoration |  |
 | Red River Water Restoration | Andrew Jones & Les Moore (co-founders) · (405) 565-9833 | new | 2026-08-11 no answer | Cold call → demo # | 2026-08-05 | Restoration |  |
@@ -174,7 +174,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | SteamPro Restoration | Family-owned since 1994 · (870) 793-4834 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
 | Veteran Restoration | Steven Gern (President) · (469) 521-9511 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
 | Restoration Warriors | Jordan Plunk (Owner) · (903) 278-1120 | new | 2026-08-05 sourced | Cold call → demo # | 2026-08-05 | Restoration |  |
-| Magna-Dry Central Kansas | Clark family (Owners) · (620) 282-2267 | contacted | 2026-08-11 gatekeeper, spoke to owner | Call Marsha first thing AM — callback | 2026-08-11 | Restoration |  |
+| Magna-Dry Central Kansas | Clark family (Owners) · (620) 282-2267 | lost | 2026-08-11 not interested | Marsha: they have an answering service, they're good | 2026-08-11 | Restoration |  |
 | Butler Plumbing & Restoration | Adam McCollough (President/CEO) UNVERIFIED, directory only · (316) 682-4034 | new | 2026-08-16 enriched, name from ZoomInfo/BBB only, not company's own site — co-owner Maury Cunningham also named in reviews, either name usable as a soft ask | Cold call, ask for Adam or Maury by name (confirm on answer) | 2026-08-05 | Restoration | info@butlerrestoration.com |
 | Armada Disaster Solutions | Bolin family (Leigha/Bill/Mike Bolin, via parent Bolin Enterprises) UNVERIFIED, directory only · (855) 527-6232, alt local line (580) 332-8384 | new | 2026-08-16 enriched, headcount estimates conflict (3 vs ~10) but both fit ICP; family holding co. also runs PowerLift Foundation Repair at same address — not a franchise | Cold call, ask for a Bolin by name (confirm on answer) — try alt local line if toll-free doesn't connect | 2026-08-05 | Restoration |  |
 | All-Clean USA | Brett Overman (Owner) · (870) 972-1922 unverified | new | 2026-08-08 gatekeeper | Verify phone first | 2026-08-05 | Restoration | contact@allcleanusa.com |
