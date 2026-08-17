@@ -1,6 +1,6 @@
-# Dial list — 2026-08-14
+# Dial list — 2026-08-16
 
-413 leads · 287 with a logged outcome · 126 never called
+413 leads · 289 with a logged outcome · 124 never called
 
 ## Callbacks owed (2)
 *They asked you to call. Overdue ones first.*
@@ -10,7 +10,7 @@
 - **Innovative Cleaning & Restoration LLC** (314) 300-9610 — ask for Nick (Owner)  
   due 2026-08-12 · last: callback set 2026-08-10
 
-## Already spoke to the owner (10)
+## Already spoke to the owner (11)
 *Warm. Pick up where the last call ended.*
 
 - **St. Louis Cleaning & Restoration** (314) 439-1665 — ask for Family since '91  
@@ -23,6 +23,8 @@
   last: spoke to owner 2026-08-10
 - **MRC Restoration of Southeast Missouri** (573) 200-7272 — ask for Mark Curfman (Founder)  
   last: spoke to owner 2026-08-10
+- **Heartland Flood, Mold & Restoration** (913) 353-2493 — ask for Marcus Barnes (PM, not the buyer)  
+  last: spoke to owner 2026-08-14
 - **Burlington Restoration Solutions** (319) 671-6640  
   last: spoke to owner 2026-08-08
 - **McKee Construction & Abatement, LLC** (641) 226-4412 — ask for Weston McKee (Owner)  
@@ -34,17 +36,11 @@
 - **Lakeshore Restoration LLC** (920) 221-1440  
   last: spoke to owner 2026-08-11
 
-## Beat the gatekeeper (36)
+## Beat the gatekeeper (22)
 *Call after 6pm — the owner answers his own line.*
 
 - **Pride Cleaning & Restoration** (314) 668-1223 — ask for Jim Seubert (Owner)  
   last: gatekeeper 2026-08-11
-- **Omaha Damage Repair** (402) 704-4921 — ask for Current owner TBD  
-  last: gatekeeper 2026-08-08
-- **Arkansas Restoration** (501) 753-3600  
-  last: gatekeeper 2026-08-08
-- **ABC Environmental** (573) 928-2668 — ask for Daniel Benton (Restoration Manager) UNVERIFIED  
-  last: gatekeeper 2026-08-08
 - **Menold Construction & Restoration** (309) 263-8728 — ask for Tom Menold / Steve Driscoll  
   last: gatekeeper 2026-08-10
 - **J.J. Swartz Co** (217) 877-2611 — ask for Brad Swartz (President)  
@@ -53,8 +49,6 @@
   last: gatekeeper 2026-08-10
 - **All Clean Restoration Services Inc** (618) 235-3202 — ask for Mike Nagy (President/Owner)  
   last: gatekeeper 2026-08-08
-- **Independent Restoration Services (STL)** (314) 455-8996 — ask for Josh (Team Lead)  
-  last: gatekeeper 2026-08-10
 - **Chief Restoration Services** (417) 337-3770 — ask for Christy & Matthew Brown  
   last: gatekeeper 2026-08-08
 - **Certified Water & Mold Restoration** (816) 835-4959 — ask for Mike Martin (Owner)  
@@ -67,38 +61,18 @@
   last: gatekeeper 2026-08-10
 - **First Response Restoration** (913) 839-2051 — ask for David Shoemaker (Owner)  
   last: gatekeeper 2026-08-10
-- **AAS Restoration & Roofing** (816) 861-1550 — ask for Stephen Storts (Owner) UNVERIFIED  
-  last: gatekeeper 2026-08-08
 - **Dubuque Area Steamatic** (563) 556-5821 — ask for Jim Denman (Owner)  
-  last: gatekeeper 2026-08-10
-- **FirstCall Restoration** (515) 986-9300  
-  last: gatekeeper 2026-08-10
-- **380 Companies** (319) 777-7380  
-  last: gatekeeper 2026-08-08
-- **Blumer Restoration** (309) 235-2992  
-  last: gatekeeper 2026-08-08
-- **Blaze Restoration Inc** (563) 324-4741  
-  last: gatekeeper 2026-08-08
-- **Americlean of Iowa** (319) 354-4577  
-  last: gatekeeper 2026-08-05
-- **Hambly & Sons Cleaning & Restoration** (319) 266-1629  
   last: gatekeeper 2026-08-10
 - **ABC Carpet Cleaning** (815) 282-1222 — ask for Kevin Hanneman (Owner) UNVERIFIED  
   last: gatekeeper 2026-08-08
 - **A & D Fire/Water Restoration LLC** (573) 979-0958  
   last: voicemail 2026-08-08
-- **Midwest Restoration Pros LLC** (314) 221-9640  
-  last: gatekeeper 2026-08-10
-- **Advantage Kwik-Dry (Flood Pros division)** (815) 332-3299  
-  last: gatekeeper 2026-08-08
 - **Red Carpet Flood Restoration of NE Kansas** (785) 766-0439 — ask for Keaton  
   last: gatekeeper 2026-08-11
 - **Hoerr Carpet Cleaning and Water Restoration Inc.** (309) 696-1170 — ask for Bill Hoerr (Founder/CEO)  
   last: gatekeeper 2026-08-10
 - **FloodSERV, Inc.** (918) 429-1911 — ask for Damon & Kristi Thompson (Owners)  
   last: gatekeeper 2026-08-10
-- **Butler Plumbing & Restoration** (316) 542-2818  
-  last: gatekeeper 2026-08-08
 - **All-Clean USA** (870) 972-1922 — ask for Brett Overman (Owner)  
   last: gatekeeper 2026-08-08
 - **Environmental Resources, Inc.** (618) 471-9119 — ask for David & Sherri Henson (Owners)  
@@ -110,7 +84,7 @@
 - **Madison Property Restoration** (608) 467-3360 — ask for Randy Schmidt (President)  
   last: gatekeeper 2026-08-11
 
-## No answer last time (207)
+## No answer last time (194)
 *Different time of day than you tried before.*
 
 - **Vortex Restoration** (316) 541-4362 — ask for Matt & Natalie Inbody  
@@ -135,38 +109,14 @@
   last: no answer 2026-08-10
 - **Freeman General Contracting** (217) 442-2281 — ask for Jacob & James Freeman  
   last: no answer 2026-08-10
-- **American Hometown Services** (217) 228-7563  
-  last: no answer 2026-08-05
 - **Restoration Connection Inc** (618) 925-0085 — ask for John Fowler (Owner)  
   last: no answer 2026-08-11
 - **American Patriot Restoration** (217) 342-3206 — ask for Curt (Owner)  
   last: no answer 2026-08-05
 - **Atlas Restoration Specialists** (314) 822-0090 — ask for Brian Mullins (President)  
   last: no answer 2026-08-08
-- **Eversafe Restoration LLC** (636) 219-9302  
-  last: no answer 2026-08-10
-- **Crown Restoration** (636) 544-1330  
-  last: no answer 2026-08-09
-- **Dalmation Cleaning and Restoration** (314) 423-0101  
-  last: no answer 2026-08-09
-- **Fast Help (Suntide Companies)** (314) 558-5599  
-  last: no answer 2026-08-10
-- **Franklin Fire Restoration** (573) 969-3774  
-  last: no answer 2026-08-10
-- **Jefferson Water Restoration** (636) 263-9322  
-  last: no answer 2026-08-10
-- **Mold Solutions (St. Louis)** (314) 993-6653  
-  last: no answer 2026-08-10
-- **Century Restoration & Construction** (314) 487-5000  
-  last: no answer 2026-08-08
-- **H2O Cleaning & Restoration** (618) 219-2038  
-  last: no answer 2026-08-10
-- **RCC Restoration** (618) 406-5121  
-  last: no answer 2026-08-11
 - **B&B Restoration** (573) 443-3507 — ask for Travis Derrell Burks (Owner)  
   last: no answer 2026-08-08
-- **Missouri Restoration & Construction LLC** (573) 474-1788  
-  last: no answer 2026-08-10
 - **Clean Green Restoration** (417) 300-5062 — ask for Miles & Tarah McNeill  
   last: no answer 2026-08-09
 - **4-D Home Solutions** (417) 531-0635 — ask for Anthony Decker (Owner)  
@@ -175,8 +125,6 @@
   last: no answer 2026-08-08
 - **Ben Davis Restoration** (417) 860-9767 — ask for Shad Friend (Founder)  
   last: no answer 2026-08-08
-- **Renew Restoration** (816) 701-6628  
-  last: no answer 2026-08-11
 - **Dalton Brothers Restoration** (816) 616-7667 — ask for Mike Dalton (Owner)  
   last: no answer 2026-08-09
 - **Certified Restoration** (816) 589-6300  
@@ -539,8 +487,6 @@
 - **Peerless Cleaning & Restoration** (217) 423-7704 — ask for Wike family
 - **Shadco Restoration & Reconstruction** (314) 600-3001 — ask for Shadi Khair (Founder)
 - **Sansara 24/7 Restoration & Remodeling** (636) 812-3838 — ask for David Kosanke (Owner) UNVERIFIED
-- **STL Mold Removal** (314) 936-4445
-- **Water Damage Restoration Eldon** (573) 226-0622
 - **U.S. Disaster Restoration** (573) 552-1972 — ask for Samuel Hubbs (Owner) UNVERIFIED
 - **Tri Cat Restoration** (417) 200-2018 — ask for Jeff Glass (Owner) UNVERIFIED
 - **Phoenix Renovation & Restoration** (913) 599-0055 — ask for Brad Heise (CEO)
@@ -556,3 +502,5 @@
 - **Beadles Property Maintenance** (417) 840-3330
 - **McDowell Roofing & Restoration** (417) 540-3947
 - **True North Exteriors** (417) 437-2707
+- **KennCo Construction** (417) 881-8147
+- **Compass Restoration LLC** (417) 887-4357

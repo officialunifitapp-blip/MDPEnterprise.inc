@@ -32,8 +32,26 @@ else
   log "network up after $(( (i-1) * 10 ))s"
 fi
 
-PROMPT="Run the 5:00 Manager routine from CLAUDE.md, in order:
-   1. Delegate to lead-research for today's new prospects. Add them to pipeline.md.
+PROMPT="NOBODY IS READING THIS. You are running unattended at 5am and your
+   output goes to a log file. There is no one to answer a question. Do not ask
+   one, do not offer options, do not pause for confirmation, do not stop before
+   a step to check. Every judgement call is yours to make and act on. If
+   something is ambiguous, pick the option that produces leads and say in one
+   line what you picked.
+
+   This instruction exists because ten consecutive runs produced zero new leads
+   while the agent asked whether it should source them.
+
+   Run the 5:00 Manager routine from CLAUDE.md, in order:
+   1. Delegate to lead-research for today's new prospects. Add them to
+      pipeline.md. TARGET: at least 150 new restoration companies with a real
+      phone number, every day, until pipeline.md holds 1000+ never-called leads.
+      This is the number the whole business runs on — 150 dials a day eats 150
+      leads a day, so anything less than 150 sourced is the pipeline shrinking.
+      Do not stop at 5 or 10 because a city looks covered. Widen the map
+      instead: MO, KS, IL, IA, AR, OK, NE, WI, MN, TN, TX. Work outward from
+      St. Louis. If one metro is exhausted, move to the next and say which.
+      Never invent a phone number — a lead without one is not a lead.
    2. Delegate to lead-research to enrich up to 15 leads, filling BOTH the
       owner/manager name in Column 2 and the Email column in the same visit —
       they come off the same about/contact page, so do not make two trips.
