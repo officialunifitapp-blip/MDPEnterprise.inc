@@ -148,7 +148,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | DryHero Water & Mold | Ritch Paprocki (Founder) · (402) 438-2379 | new | 2026-08-09 no answer | Cold call → demo # | 2026-08-03 | Restoration |  |
 | 13:12 Restoration | Owner TBD · (479) 977-1312 | contacted | 2026-08-05 callback set; 2026-08-16 enriched, name not found — own site refers to owner only as "The Old Guy" | Cold call → demo # | 2026-08-03 | Restoration |  |
 | Wall 2 Wall Restoration | Kevin · (479) 252-6650 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
-| ARS Restoration (Ark-La-Tex) | Owner TBD, name conflicts across sources (Steve Morse vs. Daniel Morse VP) — left blank | new | 2026-08-15 enriched, phone confirmed (alt toll-free 800-229-0122); own site lists no name | Cold call → demo # | 2026-08-03 | Restoration |  |
+| ARS Restoration (Ark-La-Tex) | Owner TBD, name conflicts across sources (Steve Morse vs. Daniel Morse VP) — left blank · (903) 832-3389 | new | 2026-08-15 enriched, phone confirmed (alt toll-free 800-229-0122); own site lists no name | Cold call → demo # | 2026-08-03 | Restoration |  |
 | Courtesy Care Restoration | Jason Birk (Owner) · (918) 233-6477 | lost | 2026-08-09 not interested | Cold call → demo # | 2026-08-03 | Restoration |  |
 | Murphree Restoration Inc | Jerry D. Murphree Jr. (President) · (785) 357-5335 | new | 2026-08-15 enriched, confirmed via BBB filing (dba Murphree Enterprises, Inc.) matching murphreeent.com | Cold call, ask for Jerry by name | 2026-08-03 | Restoration |  |
 | Safe Home Restoration of NW Arkansas | Rob Stover & Mike Alley · (479) 257-5960 | new | 2026-08-03 sourced | Cold call → demo # | 2026-08-03 | Restoration |  |
