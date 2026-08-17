@@ -172,6 +172,10 @@ input.due.now{color:var(--warn);border-color:var(--warn);background:rgba(224,180
    so the answer is visible before the toggle is tapped, not after. */
 .em{font:10px var(--mono);color:var(--ok);margin-top:2px;word-break:break-all}
 .em.none{color:#4d6478}
+/* What you are walking into on this call — the only thing worth reading in
+   the two seconds before it connects. */
+.ckind{font:10.5px var(--mono);margin-top:4px;line-height:1.35}
+.ckind b{color:var(--faint);margin-right:3px}
 /* The six, pinned above the leads list. Small on purpose — it has to coexist
    with the row being dialled, not compete with it. */
 .tbar{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px}
@@ -725,7 +729,7 @@ function leadTable(){
                               // "dial" is exactly the CSV: never called, and a
                               // number to actually ring. Anything without one is
                               // research, not a dial.
-                              :CALLED==="dial"?(!l.out&&!!l.p)
+                              :CALLED==="dial"?dialRank(l)<9e9
                               :CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
     // The Dial list is imported into the dialer in a fixed order, and a call
     // sheet that disagrees with the dialer means hunting for the row on every
@@ -746,7 +750,7 @@ function leadTable(){
   return targetBar()+offerBar()+`<div class="sec"><div class="slb">Branch</div>
     ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
   <div class="sec"><div class="slb">Calls</div>
-    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("dial","Dial list",pool.filter(l=>!l.out&&l.p).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
+    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("dial","Dial list",pool.filter(l=>dialRank(l)<9e9).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
   <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}<th>Outcome</th><th></th></tr></thead>
   <tbody>${rows.map(l=>`<tr${l.out?' style="background:rgba(79,211,154,.05)"':""}>
@@ -754,7 +758,9 @@ function leadTable(){
       ${l.who?`<div class="who">${esc(l.who)}</div>`
              :`<div class="who none">no name yet</div>`}
       ${l.em?`<div class="em">${esc(l.em)}</div>`
-            :(wantsEmail(l)?`<div class="em none">no address — needs research</div>`:"")}</td>
+            :(wantsEmail(l)?`<div class="em none">no address — needs research</div>`:"")}
+      ${CALLED==="dial"?(()=>{const[k,c]=callKind(l);
+        return `<div class="ckind" style="color:${c}"><b>${dialRank(l)+1}.</b> ${esc(k)}</div>`;})():""}</td>
     <td style="white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${esc(l.p)}</a>`:'<span class="noph">—</span>'}</td>
     <td style="opacity:.8;white-space:nowrap">${esc(l.st||"new")}</td>
     <td><div class="ocg">${OUTCOMES.map(o=>{const on=hasOut(l,o);
@@ -943,6 +949,22 @@ function repaintDrafts(){
 // Marked "Email them" on a call but the Email column is empty. This is the
 // queue that needs research, not writing — and it is the real constraint.
 const wantsEmail=l=>hasOut(l,"send an email");
+/* On the dial sheet the useful thing is not the stage, it's what you are
+   walking into when they pick up. Read off the last touch. */
+function callKind(l){
+  const t=(l.out||"").toLowerCase();
+  if(!t) return ["fresh — never called","var(--dim)"];
+  if(/phone disconnected/.test(t))      return ["SKIP — disconnected","var(--warn)"];
+  if(/not interested/.test(t))          return ["SKIP — already a no","var(--warn)"];
+  if(/already has a system/.test(t))    return ["they have a system — ask what it does wrong","var(--acc2)"];
+  if(/appointment booked/.test(t))      return ["BOOKED — do not cold call","var(--ok)"];
+  if(/callback set/.test(t))            return ["CALLBACK OWED","var(--ok)"];
+  if(/spoke to owner/.test(t))          return ["2nd call — you already spoke to the owner","var(--acc2)"];
+  if(/gatekeeper/.test(t))              return ["2nd call — got a gatekeeper"+(l.who?", ask for "+l.who:""),"var(--acc2)"];
+  if(/send an email/.test(t))           return ["emailed — do not re-pitch cold","var(--acc2)"];
+  if(/no answer/.test(t))               return ["redial — no answer last time","var(--dim)"];
+  return [t,"var(--dim)"];
+}
 
 // Must match the slug in draft-emails.sh, or a lead never finds its own draft.
 const slugco=s=>s.toLowerCase().replace(/&/g," ").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
