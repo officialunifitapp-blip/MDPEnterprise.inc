@@ -418,6 +418,202 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Lakeshore Restoration LLC | Owner TBD · (920) 221-1440 | contacted | 2026-08-11 spoke to owner | Cold call → demo # | 2026-08-10 | Restoration |  |
 | Brownies Carpet & Upholstery Cleaning & Water Restoration | Tom & Lisa Brown (Owners) · (920) 788-6852 | new | 2026-08-11 no answer | Cold call → demo # | 2026-08-10 | Restoration | tom@browniescarpetcleaning.com |
 
+| Zipco Restoration | Kansas City, MO · (877) 799-4726 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| ATP Restoration LLC | Kansas City, KS · (913) 257-5825 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Rapid Dry Kansas City | Kansas City, MO · (816) 799-1234 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Pure Air LLC | Kansas City, MO · (816) 946-1410 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Dog Gone Mold | Kansas City, MO · (816) 547-6816 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Catastrophe Control Restoration Services LLC | Kansas City, MO · (800) 937-0982 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Genesis Home Restorations LLC | Overland Park, KS · (913) 909-3582 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Roberts Complete Restoration | Lee's Summit, MO · (816) 337-7926 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Trusted Restorer | Lenexa, KS · (913) 469-9464 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| American Water Damage | Olathe, KS · (913) 227-0516 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Lee Safety & Environmental Services | Springfield, MO · (417) 830-0393 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Dawson Restorations Services LLC | Springfield, MO · (417) 860-0821 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Newman's Restoration LLC | Joplin, MO · (417) 437-6985 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Springfield Quality Services | Carthage, MO · (417) 833-5926 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Joplin Mold Inspection and Remediation | Neosho, MO · (417) 825-6313 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Midwest Mold Specialist LLC | Joplin, MO · (417) 499-1732 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| MMCT Contracting | Hillsboro, MO · (636) 797-4440 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Bio-Clean 911 | Saint Louis, MO · (800) 530-1541 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| DryMasters | Saint Louis, MO · (314) 498-1070 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| 911 Water Damage Experts LLC | Sulphur Springs, MO · (314) 960-1790 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Anchor Restoration of St. Louis | Chesterfield, MO · (636) 579-1072 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Advanced Environmental Services Inc | Saint Louis, MO · (314) 865-2662 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| LDR Cleaning & Restoration Inc | Rockford, IL · (815) 874-7066 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Specialty Cleaning & Restoration Services Inc | Kirkland, IL · (815) 522-2290 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Valor Restoration | Rockford, IL · (224) 701-3930 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Alpha Restoration | Rockford, IL · (779) 600-2573 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| HelpPro1 | Peoria, IL · (844) 435-7776 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| D.R. Meyer Mold | East Peoria, IL · (309) 303-4370 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Taylor'd Restorations Inc | Champaign, IL · (217) 372-6482 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Pure Maintenance of Central Illinois-USA Mold Service | Saint Joseph, IL · (217) 903-5373 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| AC Environmental Inc | Wilsonville, IL · (217) 710-5186 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Advance Catastrophe Technologies, Inc. | Wichita, KS · (316) 262-9992 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Kansas Water and Fire Restoration | Moundridge, KS · (316) 416-1897 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| S&A Restoration (S&A Construction, Inc.) | Wichita, KS · (316) 558-8422 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Givens Restoration | Ed Givens (CEO) · (316) 265-1315 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Klein Construction | Arnie Klein (Founder) · (316) 262-3313 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Romani Restoration | Adib Michael (President/Owner) · (316) 252-7972 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Voorhies Cleaning & Restoration | Jeff Voorhies (Owner) · (913) 710-3644 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Preferred Contracting Systems | Leawood, KS · (913) 341-0111 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Value Clean Industries, Inc. | Jerry Braklow (President) · (913) 302-9639 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| GrayBeard Construction & Maintenance | Daina (Owner) · (785) 329-5269 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Lamunyon Dry Out & Foundation Repair | Topeka, KS · (785) 228-1400 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Kansas Carpet Care, Inc. | Lawrence, KS · (785) 842-3311 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| BALBOA Restoration & Renovation, LLC | Olathe, KS · (913) 687-8110 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Flood Fighters Restoration | Jennifer Bogie (Owner/Founder) · (563) 200-1276 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| C&M Quality (Painting, Remodeling & Restoration) | Chris (Owner) · (712) 899-7790 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Mr. Carpet Cleaning Company | Brad Smith (Owner) · (319) 291-8665 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Carpet Steamer | Iowa City, IA · (319) 354-0665 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Total Care Cleaning & Restoration | Tyler Ward (Owner) · (319) 382-9815 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Des Moines Damage Mitigation Pros | Des Moines, IA · (515) 575-2930 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Superior Carpet & Upholstery Care Inc | Des Moines, IA · (515) 971-6220 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Quality Care Construction LLC | Des Moines, IA · (515) 868-6886 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| The Restoration Company, LLC | West Des Moines, IA · (515) 444-8413 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| ABS Restoration Services, Inc. | North Little Rock, AR · (501) 367-7300 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Service Restoration of Arkansas | Little Rock, AR · (501) 200-4968 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Crain Bros Inc | Jonesboro, AR · (870) 935-6019 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Arkansas Mold & Water | North Little Rock, AR · (501) 940-6653 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Assurance Restoration | Tulsa, OK · (918) 295-8400 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Disaster Restoration Services, Inc. | Coweta, OK · (918) 520-2547 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| OKC Restorations | Oklahoma City, OK · (405) 695-6951 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | "info@okcrestorations.com" |
+| 4D Restoration | Phil Sheridan (Owner) · (405) 896-9088 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Statewide Restoration | Oklahoma City, OK · (405) 669-4484 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Statewide Restoration, Inc. | North Little Rock, AR · (501) 955-5557 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Amazing Grace Restoration | Conway, AR · (501) 205-1212 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Metro Disaster Specialists | North Little Rock, AR · (501) 758-2845 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | "office@metrodisaster.com" |
+| RePhorm Property Restoration | Conway, AR · (501) 764-8302 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Chenal Restoration | Little Rock, AR · (501) 509-8855 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Forerunner Restoration and Remodel | North Little Rock, AR · (501) 213-8407 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Advanced Restoration & Contracting LLC | Oklahoma City, OK · (405) 706-8294 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| First Restoration LLC | Nickolas Sloan (Owner) · (405) 246-8559 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| TriForce Restoration | Oklahoma City, OK · (405) 242-3121 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Flood Rescue | Meaad Muse (Owner) · (405) 600-8342 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Accent Restoration LLC | Tulsa, OK · (918) 286-8510 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| All American Restoration | Steve Cummings (Owner) · (918) 628-1403 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Oklahoma Disaster Restoration | Jay Stokes (Owner) · (918) 622-7641 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Reset Restoration Services LLC | Tulsa, OK · (918) 582-7373 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Northwest Restoration, Inc. | Springdale, AR · (479) 750-7821 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Steamatic of Hot Springs | Hot Springs, AR · (501) 321-1191 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Elam Enterprises, Inc. | Jonesboro, AR · (870) 935-4452 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Dason Fire & Water Restoration, Inc. | Kevin Hefley (Owner) · (918) 379-0390 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Total Restoration Contractors, Inc. | Hot Springs, AR · (501) 767-0014 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| NWA Restore It, Inc. | Centerton, AR · (479) 644-4246 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Bear Construction And Home Services, LLC | Cave Springs, AR · (479) 321-1313 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Connley Construction Corporation | Bentonville, AR · (479) 212-4253 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Environmental Solutions Specialists, LLC | Piedmont, OK · (405) 283-9187 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration |  |
+| Christenson Cleaning & Restoration | Charlie Christenson (Owner) · (402) 834-5315 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | sales@christensoncleaning.com |
+| Neb Dri Restoration | Lincoln, NE · (402) 413-1229 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | nebdrirestoration@gmail.com |
+| Murray Restoration | Lincoln, NE · (402) 861-5841 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Lincoln Restoration Services | Lincoln, NE · (402) 617-6184 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Platinum Restoration Services | Jeremy Roth (Founder) · (262) 228-6166 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Restore More | Milwaukee, WI · (262) 747-2680 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| A&J Property Restoration | Waukesha, WI · (800) 727-8990 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Emergency Restoration Specialists | Cudahy, WI · (414) 571-9977 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | ers@removewater.com |
+| Dry Source Property Restoration | Deerfield, WI · (608) 975-5324 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | office@drysource.net |
+| Jensen's Carpet Care & Restoration | Joel Jensen (President) · (920) 393-4062 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Freedom Restoration & Remodeling | Appleton, WI · (920) 504-2202 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| TRAC Solutions | Eau Claire, WI · (715) 834-4652 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Chem Master Restoration | Eau Claire, WI · (715) 200-4648 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| JG Restoration | Joshua J. Greil (Owner) · (715) 600-3883 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| NorthStar Restoration Services | Wausau, WI · (715) 302-0529 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Resolve Restoration LLC | Stevens Point, WI · (715) 921-3042 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| K-tech Kleening | Clarance & Sue Kersemeier (Owners) UNVERIFIED · (800) 215-8324 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Big Red's Guaranteed Clean | Rex Anderson (Owner) · (402) 510-5385 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | rexco@cox.net |
+| Midwest Restoration | Appleton, WI · (920) 460-3900 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Maxim Cleaning & Restoration | Steve & Laura Ousley (Founders) · (402) 241-8643 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Flood Doctors | Waukesha, WI · (414) 771-7775 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Emergency Disaster Recovery, Inc. | Andy Fallon (Owner) · (262) 361-4300 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Sid Grinker Restoration | Mike Grinker (Owner) · (608) 665-3340 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Kelmann Restoration | Tom Kelly (Owner) · (414) 774-3799 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Cornerstone Restoration Services, Inc. | Omaha, NE · (402) 504-1310 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| EvoXtract | Jamie Burns (Co-owner) · (402) 982-3688 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Wisco Restoration LLC | Mukwonago, WI · (262) 527-0491 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | info@wiscorestoration.com |
+| MW Fire & Water Restoration | Milwaukee, WI · (414) 788-6177 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | contact@mwrestores.com |
+| Aquire Restoration, Inc. | Jeffrey W. Edmunds (President) · (920) 688-2000 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| A-1 Mold Testing & Remediation Services | Dave Bayne UNVERIFIED · (402) 964-2080 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| RestorU, LLC | Scott A. Radies (Owner) · (920) 722-4357 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| CPR+ Water Damage Restoration & Clean up | Neenah, WI · (920) 882-9287 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Positive Restoration | Minneapolis, MN · (612) 770-4536 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Done Right Carpet & Restoration | Spring Lake Park, MN · (612) 331-4454 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Minneapolis Damage Restoration Pros | Minneapolis, MN · (612) 688-3131 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Dry Air Restoration | Brooklyn Park, MN · (952) 217-7906 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Just Us Construction & Restoration | St. Paul, MN · (612) 268-1141 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| St. Paul Water Damage Restoration Services | St. Paul, MN · (651) 316-2584 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Expert Water Damage Professionals | Rochester, MN · (507) 353-6810 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Service Restoration of Rochester | Rochester, MN · (507) 260-0615 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Dryco Restoration Services | Duluth, MN · (218) 628-6101 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Loyear Disaster Restoration | Duluth, MN · (800) 478-5801 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| North Shore Restore | Esko/Duluth, MN · (218) 514-4777 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| ICC Restoration | St. Cloud, MN · (888) 739-4289 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Royal Renovations | St. Cloud, MN · (320) 743-3440 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Minnesota Cleaning & Restoration | Minneapolis, MN · (763) 228-6173 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Bedrock Restoration | St. Louis Park, MN · (612) 834-1501 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| SIMESOTA Restoration | Blaine, MN · (612) 919-6555 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Numark Restoration | Eden Prairie, MN · (952) 206-8611 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Insight Restoration | Plymouth/St. Cloud, MN · (877) 569-4945 | new | 2026-08-16 sourced | Cold call → demo # (main line, no direct St. Cloud number found) | 2026-08-16 | Restoration | |
+| SB Restoration Services | Waite Park, MN · (320) 255-0076 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| TrustPoint Restoration | Nashville, TN · (615) 880-8060 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Titan Restoration Services | Nashville, TN · (615) 934-7736 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Tennessee Water and Fire | Nashville, TN · (615) 455-5001 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Blue Chip Restoration | Nashville, TN · (615) 832-5300 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Water Damage Pros TN LLC | Nashville, TN · (629) 250-3594 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Mr. Restoration | Manchester/Nashville, TN · (615) 257-8063 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| WFM Restoration LLC | Murfreesboro, TN · (615) 728-7299 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Hometown Restoration Group | Knoxville, TN · (865) 771-5880 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Patriot Restoration | Knoxville, TN · (865) 346-5934 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| GRS Restoration | Chattanooga, TN · (423) 664-2176 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Privett Builders | Hixson/Chattanooga, TN · (423) 290-6356 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Flood & Fire Pros | Hixson/Chattanooga, TN · (423) 414-4108 | new | 2026-08-16 sourced | Cold call → demo # (owner Jordan Rose answers calls personally per site) | 2026-08-16 | Restoration | |
+| Knott's Property Restoration | Clarksville, TN · (931) 552-1400 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Thomas Restoration | Clarksville, TN · (931) 552-7847 | new | 2026-08-16 sourced | Cold call → demo # (owner Thomas Brennan per site) | 2026-08-16 | Restoration | |
+| Serclean | Clarksville, TN · (770) 692-1878 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| AccuWorks | Clarksville, TN · (615) 292-2009 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Resto Experts | Memphis, TN · (901) 519-2580 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Bluff City Water Damage Pros | Memphis, TN · (901) 612-3883 | new | 2026-08-16 sourced | Cold call → demo # (founders Michael Weeden & Jonathan Dostie per site) | 2026-08-16 | Restoration | |
+| Homeway Construction & Restoration | Bartlett/Memphis, TN · (901) 664-1669 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| 414 Restoration, LLC | Memphis, TN · (901) 506-3381 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Water Damage Restoration of Dallas | Dallas, TX · (972) 433-5309 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Dalworth Restoration | Shane Hobbs (Founder) · (817) 203-2944 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Restored Rite | Fort Worth, TX · (817) 737-8673 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Regent Restoration | Dallas-Fort Worth, TX · (214) 731-4624 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| JDR Restoration & Remodeling | Jana & CJ Reed (Owners) · (972) 441-2803 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Intensa Dry Mold & Water Restoration | Plano, TX · (972) 992-7331 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Zeus Restoration | Royse City, TX · (972) 587-6960 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Olympic Restoration Systems | Haltom City, TX · (940) 304-0944 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Classic Construction & Restoration Inc | Garland, TX · (972) 437-0909 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Water Damage McKinney | McKinney, TX · (469) 564-0094 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Rapid Response Remediation | Hussam · (713) 955-7140 | new | 2026-08-16 sourced | Cold call → demo #; email found on company site | 2026-08-16 | Restoration | hussam@rapidresponse-remediation.com |
+| CORE 24/7 Restoration | Houston, TX · (281) 356-6333 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Hallmark Mitigation & Construction | Houston, TX · (832) 777-1525 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Fire Reconstruction Inc | Houston, TX · (346) 552-7577 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Champion Restoration | Brookshire, TX · (281) 395-9000 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Texas Total Mold | Houston, TX · (281) 940-4299 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Lone Star Pro Services | Houston, TX · (832) 990-9499 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Elite Emergency Solutions | Houston, TX · (713) 999-9400 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Disaster Services | Baytown, TX · (713) 800-9031 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Total Restoration | Brandon Bowles (Founder) · (936) 321-7205 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| R&L Global Inc | Houston, TX · (713) 686-8899 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Precision Restoration of Texas LLC | Spring, TX · (346) 209-2992 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Property Damage Restoration Services | Cypress, TX · (281) 500-8890 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| The Steam Team | Austin, TX · (512) 451-8326 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Texas Certified Restoration | Tracy (Owner) · (512) 883-6760 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Water Damage Austin Restoration | Austin, TX · (512) 450-7133 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Affordable Restoration Austin | Austin, TX · (737) 205-9105 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| K&M Steam Cleaning | Ken (Owner) · (512) 866-5599 | new | 2026-08-16 sourced | Cold call → demo #; email found on company site | 2026-08-16 | Restoration | ken@kmaustin.com |
+| Texas Dry Out & Restoration | Round Rock, TX · (737) 365-5642 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Big Guys Restoration | Cedar Park, TX · (512) 674-5353 | new | 2026-08-16 sourced | Cold call → demo #; office email found via directory | 2026-08-16 | Restoration | Charlotte@bigguysrestoration.com |
+| Texas Restoration Group | Austin, TX · (512) 215-8001 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| All Nation Restoration | Ben (Owner) · (512) 934-8180 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Cleaning & Restoration Specialist Inc (CRS San Antonio) | Tom & Yolanda (Owners) · (210) 656-2112 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| H2O Solutions | San Antonio, TX · (281) 419-9943 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| San Antonio Water Damage & Restoration | San Antonio, TX · (210) 646-4379 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Complete Flood Restoration | Eric (Owner) · (210) 559-4790 | new | 2026-08-16 sourced | Cold call → demo #; email found on company site | 2026-08-16 | Restoration | eric@completerestoration.net |
+| DrySmart | San Antonio, TX · (210) 275-9738 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| Water and Fire Restoration Team | San Antonio, TX · (726) 238-4306 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+| C & A Construction Services LLC | San Antonio, TX · (210) 913-7324 | new | 2026-08-16 sourced | Cold call → demo # | 2026-08-16 | Restoration | |
+
 ## Won
 | Company | MRR | Start date |
 |---|---|---|
