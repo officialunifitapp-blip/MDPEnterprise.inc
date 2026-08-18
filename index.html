@@ -722,6 +722,26 @@ const hasOut=(l,o)=>outList(l).includes(o);
 // agent to go and write the brief.
 const isBooked=l=>hasOut(l,"appointment booked");
 
+/* Follow-up buckets. These deliberately read the last-touch text with a regex
+   instead of hasOut(): an outcome tapped on the phone is one of the eight
+   values above, but an outcome typed into pipeline.md by hand is a sentence
+   ("gatekeeper (Delores) — she says Mike is reachable after 9am"). Exact
+   matching drops every hand-written row, which is most of the warm ones.
+   Same five buckets dial-list.js builds, so the phone and the CSV agree. */
+const live=l=>!["won","lost"].includes(l.st||"new");
+const txt=l=>((l.out||"")+" "+(l.next||"")).toLowerCase();
+const isCallback=l=>live(l)&&/callback|call back|he asked|she asked|they asked|promised/.test(txt(l));
+const isGate    =l=>live(l)&&/gatekeeper|receptionist|voicemail|left message/.test(txt(l));
+const isNoAns   =l=>live(l)&&/no answer|didn'?t answer|no contact/.test(txt(l));
+const isOwner   =l=>live(l)&&/spoke to (the )?owner|spoke to manager|spoke to marlena|spoke to melanie/.test(txt(l));
+/* Overdue means a promise that slipped, NOT a past date. Almost every row in
+   the file carries a 2026-08-01 due date it inherited from sourcing, so a
+   plain due<today test flags 556 of 614 leads and the chip means nothing.
+   Only a lead you actually spoke to and owe a call counts. Nick sat six days
+   past due on exactly this and went dead. */
+const today=()=>new Date().toISOString().slice(0,10);
+const isOverdue=l=>live(l)&&!!l.due&&l.due<today()&&(isCallback(l)||isOwner(l));
+
 function leadTable(){
   const rows=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE)
     .filter(l=>CALLED==="all"||(CALLED==="due"?isBooked(l)
@@ -730,6 +750,11 @@ function leadTable(){
                               // number to actually ring. Anything without one is
                               // research, not a dial.
                               :CALLED==="dial"?dialRank(l)<9e9
+                              :CALLED==="late"?isOverdue(l)
+                              :CALLED==="cb"?isCallback(l)
+                              :CALLED==="owner"?isOwner(l)
+                              :CALLED==="gate"?isGate(l)
+                              :CALLED==="na"?isNoAns(l)
                               :CALLED==="yes"?!!l.out:!l.out)).sort((a,b)=>{
     // The Dial list is imported into the dialer in a fixed order, and a call
     // sheet that disagrees with the dialer means hunting for the row on every
@@ -751,6 +776,8 @@ function leadTable(){
     ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
   <div class="sec"><div class="slb">Calls</div>
     ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("dial","Dial list",pool.filter(l=>dialRank(l)<9e9).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
+  <div class="sec"><div class="slb">Follow-ups <span>who is owed a call, in the order they should get one</span></div>
+    ${cf("late","⚠ Overdue",pool.filter(isOverdue).length)}${cf("cb","Callback owed",pool.filter(isCallback).length)}${cf("owner","Spoke to owner",pool.filter(isOwner).length)}${cf("gate","Gatekeeper",pool.filter(isGate).length)}${cf("na","No answer",pool.filter(isNoAns).length)}</div>
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
   <div class="sec"><table><thead><tr>${th("co","Company")}${th("p","Phone")}${th("st","Stage")}<th>Outcome</th><th></th></tr></thead>
   <tbody>${rows.map(l=>`<tr${l.out?' style="background:rgba(79,211,154,.05)"':""}>

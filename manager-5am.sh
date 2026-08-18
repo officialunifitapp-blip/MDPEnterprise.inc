@@ -111,3 +111,25 @@ const f=(a[2]||"").split("·")[0].trim();
 console.log(y+" named, "+n+" unnamed");')
 
 log "RESULT: enrichment=$STATUS · dial-list=$LIST · $NAMED · finished $(date '+%H:%M')"
+
+# Push whatever the night produced. The bridge writes outcomes straight into
+# pipeline.md the moment a lead is tapped on the phone, but nothing ever
+# pushed them — so the phone kept rendering a pipeline table as old as the
+# last time someone remembered to run git by hand. Outcomes were being saved
+# and then not shown.
+#
+# Rebase before pushing: the cloud trigger commits to this same branch, so a
+# straight push loses to it and the whole morning's work sits local until the
+# next run. --autostash so an edit in progress is never swept into the commit.
+if [ -n "$(git status --porcelain)" ]; then
+  git add -A
+  git -c user.name="Agency Manager" -c user.email="mariodel2005@icloud.com" \
+    commit -q -m "5am: outcomes, dial list and enrichment for $(date '+%Y-%m-%d')" \
+    >> logs/manager.log 2>&1 || true
+fi
+if git pull --rebase --autostash -q origin main >> logs/manager.log 2>&1 \
+   && git push -q origin main >> logs/manager.log 2>&1; then
+  log "PUSH: ok"
+else
+  log "PUSH: FAILED — outcomes are committed locally but the phone is showing stale data"
+fi
