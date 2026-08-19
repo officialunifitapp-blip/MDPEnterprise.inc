@@ -53,12 +53,44 @@ function buckets(all) {
   const live = all.filter(l => l.phone && !["lost", "won"].includes(l.stage));
   const t = today();
 
-  const callback = live.filter(l => l.outcome === "callback set")
+  /* Match the outcome text, don't compare it.
+     This used to test l.outcome === "no answer". That works for an outcome
+     tapped on the phone, which is one of eight fixed values, but every outcome
+     written into pipeline.md by hand is a sentence — "gatekeeper (Delores) —
+     she says Mike is reachable any time after 9am". Exact comparison put every
+     hand-written row in NO bucket at all: not a callback, not warm, not a
+     gatekeeper, and not "never called" either, because the outcome column was
+     not empty. They simply vanished off the list.
+     That is why Monday's calls disappeared from Tuesday's list the moment they
+     were finally written down. The richer the note, the more certain the lead
+     was to fall through. */
+  const has = (l, re) => re.test(((l.outcome || "") + " " + (l.next || "")).toLowerCase());
+
+  /* Oldest touch first, inside every bucket. The list used to come out in
+     pipeline.md's row order, which is fixed, so the same names sat at the top
+     every single morning and the same names never got reached. Sorting by how
+     long it has been means yesterday's attempts sink and the ones going stale
+     rise. */
+  const stalest = (a, b) => (a.when || "").localeCompare(b.when || "");
+
+  // Nothing touched today comes back today. One dial per lead per day.
+  const notToday = l => l.when !== t;
+
+  /* A callback is something THEY asked for. Deliberately not matched on "call
+     back" appearing in the next-action column — almost every next action says
+     "call back, ask for X", which is just the instruction for a cold dial and
+     dragged gatekeepers in here on the first pass. Past-tense "asked" is the
+     tell: it only appears where a request was actually made. */
+  const asked = l => /callback|promised/.test((l.outcome || "").toLowerCase())
+                  || /asked/.test((l.next || "").toLowerCase());
+  const callback = live.filter(l => notToday(l) && asked(l))
     .sort((a, b) => (a.due || "9999").localeCompare(b.due || "9999"));
-  const talked = live.filter(l => l.outcome === "spoke to owner" || l.stage === "replied");
-  const gate = live.filter(l => ["gatekeeper", "voicemail"].includes(l.outcome));
+  const talked = live.filter(l => notToday(l) &&
+      (has(l, /spoke to (the )?owner|spoke to manager|spoke to (marlena|melanie|tyler|victor)/) || l.stage === "replied"))
+    .sort(stalest);
+  const gate = live.filter(l => notToday(l) && has(l, /gatekeeper|receptionist|voicemail|left message/)).sort(stalest);
   // A no-answer is worth another try, but not on the same day.
-  const retry = live.filter(l => l.outcome === "no answer" && l.when < t);
+  const retry = live.filter(l => notToday(l) && has(l, /no answer|didn'?t answer|no contact/)).sort(stalest);
   const fresh = live.filter(l => !l.outcome);
 
   const seen = new Set();
