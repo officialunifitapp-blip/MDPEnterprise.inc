@@ -49,8 +49,24 @@ function leads() {
 /* Priority is the whole point. Someone who asked to be called back outranks a
    name nobody has ever dialled, and a gatekeeper you can beat by calling after
    hours outranks a cold one. */
+/* MedSpa was killed as a niche on 2026-07-31 — zero sales, owners unreachable —
+   and the pivot to restoration happened the same day. But 200 medspa rows stayed
+   in pipeline.md, and because they carry outcomes like any other lead they kept
+   surfacing in the dial buckets: Radiance, Natural Beauty, Wayzata and American
+   Eyecare were all sitting in this morning's no-answer list. Dialling a niche
+   this business decided against three weeks ago is the most expensive kind of
+   wasted dial, because it looks like work.
+
+   The rows stay in the file — they are history, and deleting a lead only means
+   sourcing re-adds it later. They just never reach a call sheet again.
+
+   The name test is a fallback for rows written before the Niche column existed;
+   the 5am job appends without it. */
+const MEDSPA = /med ?spa|aesthetic|botox|derm|skin|laser|salon|injectable|eyecare|beauty/i;
+const isDeadNiche = l => /medspa/i.test(l.niche) || (!l.niche && MEDSPA.test(l.co));
+
 function buckets(all) {
-  const live = all.filter(l => l.phone && !["lost", "won"].includes(l.stage));
+  const live = all.filter(l => l.phone && !["lost", "won"].includes(l.stage) && !isDeadNiche(l));
   const t = today();
 
   /* Match the outcome text, don't compare it.
