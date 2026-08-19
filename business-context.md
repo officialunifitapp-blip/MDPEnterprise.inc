@@ -28,6 +28,39 @@ Google Business Profile is always the CLIENT'S job. Verification sits in
 Google's queue on Google's timeline and a profile can be suspended later.
 Never put it inside a go-live-this-week promise.
 
+## How it attaches to their phone — say this EARLY
+
+**Conditional call forwarding. They keep their number and their handsets.**
+
+This is the single most important sentence in the pitch and it was missing from
+this file until 2026-08-19, while "we answer our own phones" ran at roughly 90%
+of all refusals. Owners hear "AI receptionist" and picture replacing their
+phone system. They are not refusing the product, they are refusing a migration.
+
+- Forward **on no answer / on busy / on unreachable** only. Never unconditional.
+- Their line rings first, in whatever order they already use. The AI is what
+  happens after nobody picks up — typically 20–30 seconds, their choice.
+- No porting, no new number, nothing changes on the truck, the website, or the
+  Google listing.
+- If they answer every call, it never fires. Say that out loud — it makes the
+  offer impossible to argue with, because it agrees with him.
+
+Mechanics, so the answer is confident on the call:
+- Mobile carriers: set with GSM codes (no-answer, busy, unreachable are three
+  separate settings) or in the carrier's account portal.
+- Hosted/VoIP systems (RingCentral, Dialpad, Ooma, hosted PBX): a rule in their
+  admin panel, usually called "call handling" or "after-hours routing".
+- Google Voice is the awkward one — its conditional routing is limited, and
+  Heartland's own complaint is that Google Voice drops calls as they answer.
+  For a Google Voice shop, expect to route the advertised number differently;
+  confirm before promising a same-day go-live. [Likely]
+- Multi-line and toll-free setups are configured at the PBX, not the handset.
+  Ask who administers the phone system — that person, not the owner, is the one
+  who has to click the switch.
+
+Ask on the call: **"Who can change your call forwarding settings?"** If the
+answer is "nobody knows," that is the real onboarding risk, not the technology.
+
 ## Pricing
 - Setup fee: $500 (WAIVED for first 3 clients in exchange for case-study rights — MUST go live/set up within that same week)
 - Monthly retainer: $500/mo · +$100/mo if a website is included ($600/mo)
