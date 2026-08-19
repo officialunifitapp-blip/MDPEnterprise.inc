@@ -92,21 +92,21 @@ for (const line of dial) {
   const who = (line.match(/— ask for (.+?)\s*$/) || [])[1] || "";
   const row = pipe.get(p);
   rows.push([
-    rows.length + 1,
     co,
     who,
     `(${m[1]}) ${m[2]}-${m[3]}`,
-    p,
-    row ? row.em : "",
     purpose(section, row),
-    "",
     // Your note first, in your words. The pipeline's last-touch line is the
     // fallback for the leads that have never been dialled.
     note.get(norm(co)) || (row ? (row.last || "").replace(/\s+/g, " ") : ""),
   ]);
 }
 
-const head = "#,Company,Ask for,Phone,Dial,Email,What this call is,Outcome,Notes";
+/* Five columns, nothing you don't read mid-dial. The row number, the digits-only
+   Dial column, Email and an empty Outcome column were all in here for a dialer
+   import that no longer happens — they pushed the note, the one column that
+   changes how the call opens, off the edge of the screen. */
+const head = "Company,Ask for,Phone,What this call is,Notes";
 const out = [head, ...rows.map(r => r.map(q).join(","))].join("\n") + "\n";
 fs.mkdirSync(path.join(__dirname, "dialer"), { recursive: true });
 fs.writeFileSync(path.join(__dirname, "dialer", "TODAY.csv"), out);
