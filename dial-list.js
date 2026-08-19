@@ -131,6 +131,25 @@ function buckets(all) {
   ];
 }
 
+/* The notes typed on the phone live in state.json, keyed by company name.
+   This sheet is read side-by-side with the dialer — the whole point is to see
+   who you are calling AND what happened last time without opening anything
+   else. A line that says "last: spoke to owner" does not do that. */
+function notes() {
+  const norm = x => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const map = new Map();
+  try {
+    const s = JSON.parse(fs.readFileSync(path.join(__dirname, "state.json"), "utf8")).notes || {};
+    for (const [co, v] of Object.entries(s)) {
+      const t = (v && v.text || "").replace(/\s+/g, " ").trim();
+      if (t) map.set(norm(co), t);
+    }
+  } catch (e) { /* no bridge state yet — the sheet still builds */ }
+  return map;
+}
+const NOTE = notes();
+const noteFor = co => NOTE.get(String(co || "").toLowerCase().replace(/[^a-z0-9]/g, ""));
+
 function render(groups, all) {
   const t = today();
   const called = all.filter(l => l.outcome).length;
@@ -143,9 +162,14 @@ function render(groups, all) {
     lines.push(`## ${title} (${rows.length})`, `*${hint}*`, "");
     for (const l of rows) {
       const who = l.who ? ` — ask for ${l.who}` : "";
-      const extra = [l.due && l.outcome === "callback set" ? `due ${l.due}` : "",
-                     l.outcome ? `last: ${l.outcome} ${l.when}` : ""].filter(Boolean).join(" · ");
+      const extra = [l.due ? `due ${l.due}` : "",
+                     l.next ? `→ ${l.next}` : ""].filter(Boolean).join(" · ");
       lines.push(`- **${l.co}** ${l.phone}${who}${extra ? `  \n  ${extra}` : ""}`);
+      // Your own words, indented under the lead. This is the line that decides
+      // how the call opens.
+      const n = noteFor(l.co);
+      if (n) lines.push(`  > ${n}`);
+      else if (l.outcome) lines.push(`  > last: ${l.outcome} (${l.when})`);
     }
     lines.push("");
   }
