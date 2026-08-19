@@ -112,12 +112,22 @@ function buckets(all) {
   const seen = new Set();
   const dedupe = list => list.filter(l => !seen.has(l.co) && seen.add(l.co));
 
+  // A day's dialling. Everything owed comes first and in full; never-called
+  // fills whatever is left.
+  const TARGET = 150;
+  const owed = new Set([...callback, ...talked, ...gate, ...retry].map(l => l.co)).size;
+
   return [
     ["Callbacks owed", dedupe(callback), "They asked you to call. Overdue ones first."],
     ["Already spoke to the owner", dedupe(talked), "Warm. Pick up where the last call ended."],
     ["Beat the gatekeeper", dedupe(gate), "Call after 6pm — the owner answers his own line."],
     ["No answer last time", dedupe(retry), "Different time of day than you tried before."],
-    ["Never called", dedupe(fresh).slice(0, 25), "Ask for the name where you have one."],
+    // Never-called fills the day up to TARGET rather than a fixed 25. The old
+    // cap was set when the other buckets were fat with MedSpa rows; with those
+    // gone the list came out at 100 and the fixed 25 was the thing capping it.
+    // Warm leads are never truncated — only this bucket flexes, because it is
+    // the only one where the next name is as good as the last.
+    ["Never called", dedupe(fresh).slice(0, Math.max(0, TARGET - owed)), "Ask for the name where you have one."],
   ];
 }
 

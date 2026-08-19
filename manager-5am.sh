@@ -77,7 +77,12 @@ PROMPT="NOBODY IS READING THIS. You are running unattended at 5am and your
       Prioritise leads that have already been dialled and hit a gatekeeper.
       Then the rest, missing-both first. Skip any lead whose Niche is Other.
       Never guess an address and never guess a person. Blank beats wrong.
-   3. Delegate to notes: push everything that changed since the last run into the
+   3. Delegate to leads-manager to clean pipeline.md before anything reads it:
+      stage hygiene, duplicates, franchise and network tells, contacts a call
+      proved wrong, and due dates that mean nothing. It runs LAST of the three
+      so the file it tidies is the one sourcing and enrichment just wrote. It
+      must not hand-write the dial list.
+   4. Delegate to notes: push everything that changed since the last run into the
       Notion Call Log — calls logged, stage moves, and any new leads as rows.
    Do not print a dial list; that is generated separately.
    Be brief. This runs unattended and the output goes to a log file."

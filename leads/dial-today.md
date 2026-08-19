@@ -5,8 +5,6 @@
 ## Callbacks owed (6)
 *They asked you to call. Overdue ones first.*
 
-- **13:12 Restoration** (479) 977-1312  
-  last: callback set; 2026-08-16 enriched, name not found — own site refers to owner only as "The Old Guy" 2026-08-05
 - **Absolute Clean & Restoration Inc** (618) 402-8225 — ask for Scott & Stacy Ross (Owners)  
   last: already has a system, send an email 2026-08-11
 - **CLEAN Restoration** (217) 440-1292 — ask for Jeff Butler (Owner)  
@@ -17,6 +15,8 @@
   last: callback set — call Michelle Thursday morning 2026-08-17
 - **Arkansas Restoration** (501) 753-3600  
   last: callback set — "Monday after 8" 2026-08-17
+- **13:12 Restoration** (479) 977-1312  
+  last: callback set; 2026-08-16 enriched, name not found — own site refers to owner only as "The Old Guy" 2026-08-05
 
 ## Already spoke to the owner (8)
 *Warm. Pick up where the last call ended.*
@@ -38,7 +38,7 @@
 - **Grethey Rose Construction & Restoration** (309) 648-5540 — ask for Victor Grethey (spoke to him)  
   last: spoke to Victor — routed to John Rose, the IT business partner, as the technical decision maker 2026-08-17
 
-## Beat the gatekeeper (23)
+## Beat the gatekeeper (21)
 *Call after 6pm — the owner answers his own line.*
 
 - **Chief Restoration Services** (417) 337-3770 — ask for Christy & Matthew Brown  
@@ -48,8 +48,6 @@
 - **A & D Fire/Water Restoration LLC** (573) 979-0958  
   last: voicemail 2026-08-08
 - **All-Clean USA** (870) 972-1922 — ask for Brett Overman (Owner)  
-  last: gatekeeper 2026-08-08
-- **Radiance Med Spa** (630) 221-1883  
   last: gatekeeper 2026-08-08
 - **Frontier Restoration** (913) 800-4980 — ask for Doug Day & Greg Marsden (Owners)  
   last: gatekeeper 2026-08-10
@@ -67,8 +65,6 @@
   last: gatekeeper 2026-08-11
 - **Neville & Sons** (573) 442-8280 — ask for Kevin & Tony Neville (Owners)  
   last: gatekeeper 2026-08-11
-- **Mold Remediation Kansas City Solutions** (816) 300-9272  
-  last: enriched — FLAG: generic city-keyword domain, no team/about content anywhere, copy appears cloned across directory-template sites (americanhomequotes.com, verifiedremediation.com) — classic lead-gen shell pattern, likely why it's gatekeepered 2026-08-15
 - **Menold Construction & Restoration** (309) 263-8728 — ask for Brian (Manager)  
   last: gatekeeper — this number is BlueSky Restoration Contractors, not Menold; Brian is the manager there 2026-08-17
 - **Healthy Homes LLC** (309) 418-9511 — ask for Caleb Wilson (Owner)  
@@ -88,19 +84,11 @@
 - **K-tech Kleening** (800) 215-8324 — ask for Craig (Owner) — confirmed on the call  
   last: gatekeeper — CONTACT CORRECTED: Craig is the owner, Clarence is retired; best time is around 8am 2026-08-17
 
-## No answer last time (179)
+## No answer last time (39)
 *Different time of day than you tried before.*
 
 - **American Patriot Restoration** (217) 342-3206 — ask for Curt (Owner)  
   last: no answer 2026-08-05
-- **American Eyecare** (319) 754-2020  
-  last: no answer 2026-08-07
-- **Natural Beauty Med Spa** (312) 981-1291  
-  last: no answer 2026-08-07
-- **Trés J Medspa** (310) 999-8007  
-  last: no answer 2026-08-07
-- **Wayzata Medical Spa** (952) 473-1111  
-  last: no answer 2026-08-07
 - **Vortex Restoration** (316) 541-4362 — ask for Matt & Natalie Inbody  
   last: no answer 2026-08-08
 - **Fast Restoration** (636) 681-3200 — ask for Terry (Owner)  
@@ -119,285 +107,13 @@
   last: no answer 2026-08-08
 - **Bales Cleaning & Restoration** (636) 498-1000 — ask for Larry Martin (Owner)  
   last: no answer 2026-08-08
-- **A Total Body Medi Spa** (330) 382-6020  
-  last: no answer 2026-08-08
-- **A Younger You Aesthetics** (614) 553-7216  
-  last: no answer 2026-08-08
-- **A·Dore Aesthetics & Medspa** (402) 960-9886  
-  last: no answer 2026-08-08
-- **Adela Medical Spa** (234) 347-0170  
-  last: no answer 2026-08-08
-- **Advanced Aesthetics** (216) 990-9407  
-  last: no answer 2026-08-08
-- **Ageless Esthetics Medspa** (507) 206-6217  
-  last: no answer 2026-08-08
-- **Alc Medspa** (847) 263-4343  
-  last: no answer 2026-08-08
-- **Allure Health And Med Spa** (402) 881-3638  
-  last: no answer 2026-08-08
-- **Apex Urology & Aesthetics** (614) 456-7822  
-  last: no answer 2026-08-08
-- **Aqua Beauty Lounge & Med Spa** (262) 691-1814  
-  last: no answer 2026-08-08
-- **Arabella Boutique Med Spa** (630) 207-9125  
-  last: no answer 2026-08-08
-- **Arrowhead Plastic Surgeons** (419) 887-7000  
-  last: no answer 2026-08-08
-- **Aspen Medical Aesthetics & Laser Clinic** (262) 241-2273  
-  last: no answer 2026-08-08
-- **Avanta Medical** (833) 282-6823  
-  last: no answer 2026-08-08
-- **Avaya Aesthetics** (651) 300-7577  
-  last: no answer 2026-08-08
-- **Aviva Aesthetics** (971) 261-6996  
-  last: no answer 2026-08-08
-- **Bask On Main** (317) 575-2275  
-  last: no answer 2026-08-08
-- **Beachwood Dental** (216) 831-5661  
-  last: no answer 2026-08-08
-- **Beautox Bar LLC** (763) 205-6952  
-  last: no answer 2026-08-08
-- **Beauty Bar Aesthetics Medical Spa** (641) 420-8271  
-  last: no answer 2026-08-08
-- **Beauty With Bubbly Med Spa** (847) 777-3807  
-  last: no answer 2026-08-08
-- **Begin With Your Skin Medspa** (651) 905-1234  
-  last: no answer 2026-08-08
-- **Bella Body Med Spa** (708) 522-5262  
-  last: no answer 2026-08-08
-- **Belle Sante Medical Spa** (586) 222-8284  
-  last: no answer 2026-08-08
-- **Bello Medical Spa** (636) 204-4301  
-  last: no answer 2026-08-08
-- **Beyond Zen Studio** (574) 387-3691  
-  last: no answer 2026-08-08
-- **Blu Ice Med Spa** (651) 330-8642  
-  last: no answer 2026-08-08
-- **Blush Aesthetics** (419) 520-7546  
-  last: no answer 2026-08-08
-- **Body Lyft System** (317) 569-0767  
-  last: no answer 2026-08-08
-- **Boss Gal Beauty Bar** (614) 820-5178  
-  last: no answer 2026-08-08
-- **Cajah Salon** (651) 200-3450  
-  last: no answer 2026-08-08
-- **Caps Plastic Surgery, Dermatology, Medspa, & Wellness Center** (614) 246-6900  
-  last: no answer 2026-08-08
-- **Cass Health** (712) 243-3250  
-  last: no answer 2026-08-08
-- **Circle Of Wellness** (779) 423-1700  
-  last: no answer 2026-08-08
-- **Cleo Skin + Laser** (952) 666-1105  
-  last: no answer 2026-08-08
-- **Columbus Institute Of Plastic Surgery** (614) 322-2500  
-  last: no answer 2026-08-08
-- **Concierge Medical Spa** (630) 715-2853  
-  last: no answer 2026-08-08
-- **Confidence Med Spa** (216) 633-8280  
-  last: no answer 2026-08-08
-- **Core Elite Wellness Fit Cryo, LLC** (440) 600-2655  
-  last: no answer 2026-08-08
-- **Cru Clinic** (419) 775-5457  
-  last: no answer 2026-08-08
-- **Crystal Body Revision Massage And Ozone Therapy** (402) 506-6638  
-  last: no answer 2026-08-08
-- **Cwc Med Spa** (586) 307-2109  
-  last: no answer 2026-08-08
-- **Docere Medical Spa & Laser Center** (440) 238-3331  
-  last: no answer 2026-08-08
-- **Elite Chicago Spa** (312) 841-9750  
-  last: no answer 2026-08-08
-- **Essential Escape Spa + Yoga** (216) 815-5711  
-  last: no answer 2026-08-08
-- **Ethos Medspa** (314) 875-9499  
-  last: no answer 2026-08-08
-- **Evolvmd Medical Spa & Wellness** (414) 479-0113  
-  last: no answer 2026-08-08
-- **Fusion Med Spa** (630) 451-8509  
-  last: no answer 2026-08-08
-- **Glam Jail Med Spa** (248) 839-5130  
-  last: no answer 2026-08-08
-- **Glo Medical Spa** (989) 465-7721  
-  last: no answer 2026-08-08
-- **Halo Laser & Aesthetic Medicine** (847) 260-7300  
-  last: no answer 2026-08-08
-- **Healing Medical & Aesthetics** (630) 400-4194  
-  last: no answer 2026-08-08
-- **Healthylooks Medspa** (816) 795-5262  
-  last: no answer 2026-08-08
-- **Hydrate Me Medspa** (614) 297-7565  
-  last: no answer 2026-08-08
-- **Imagelab** (872) 285-6769  
-  last: no answer 2026-08-08
-- **Indigo Medspa** (816) 295-5162  
-  last: no answer 2026-08-08
-- **Innovations Salon** (417) 881-1881  
-  last: no answer 2026-08-08
-- **Inspirations Med Spa** (269) 459-6010  
-  last: no answer 2026-08-08
-- **International Skin Beauty Academy** (847) 995-1932  
-  last: no answer 2026-08-08
-- **Ivme Wellness + Aesthetics** (312) 350-1822  
-  last: no answer 2026-08-08
 - **Jackson LLP Healthcare Lawyers** (312) 985-6484  
-  last: no answer 2026-08-08
-- **Jmisko Surgical Design MD** (402) 484-5144  
-  last: no answer 2026-08-08
-- **Koch & Carlisle Plastic Surgery And Spa** (515) 277-5555  
-  last: no answer 2026-08-08
-- **La Boussole Medical Spa & Wellness Center** (417) 434-4449  
-  last: no answer 2026-08-08
-- **Lak Medspa** (952) 800-9335  
-  last: no answer 2026-08-08
-- **Lavender Life Company** (616) 855-2111  
-  last: no answer 2026-08-08
-- **Lavita Laser Medical Spa** (262) 784-8888  
-  last: no answer 2026-08-08
-- **Lisa J. Peters Plastic Surgery And Medical Spa** (708) 524-1400  
-  last: no answer 2026-08-08
-- **Liv Skin Medspa** (952) 236-1112  
-  last: no answer 2026-08-08
-- **Luxlife Medspa** (419) 566-3678  
-  last: no answer 2026-08-08
-- **M Browz** (419) 277-9925  
-  last: no answer 2026-08-08
-- **Magdalena European Med Spa** (847) 432-4111  
-  last: no answer 2026-08-08
-- **Marie Tyler Aesthetics, LLC** (574) 870-0241  
-  last: no answer 2026-08-08
-- **Massage & Wellness Store, Med Spa And Center** (517) 203-1113  
-  last: no answer 2026-08-08
-- **Medical Cosmetic Center** (812) 476-6161  
-  last: no answer 2026-08-08
-- **Medizen** (619) 544-1886  
-  last: no answer 2026-08-08
-- **Metropolitan Skin Clinic** (952) 288-2230  
-  last: no answer 2026-08-08
-- **Mia Faccia Salon And Medical Spa** (262) 248-3303  
-  last: no answer 2026-08-08
-- **Milan Laser Hair Removal** (833) 887-0101  
-  last: no answer 2026-08-08
-- **Mint Aesthetics** (913) 338-2553  
-  last: no answer 2026-08-08
-- **Mk Aesthetics** (612) 500-6367  
   last: no answer 2026-08-08
 - **Neoconcepts** (800) 504-0910  
   last: no answer 2026-08-08
-- **Nexa Med Spa** (317) 669-9896  
-  last: no answer 2026-08-08
-- **Nova Medspa** (563) 599-7422  
-  last: no answer 2026-08-08
-- **Old Town Med Spa** (312) 882-0700  
-  last: no answer 2026-08-08
-- **Ooh La La Spa, Anti-Aging & Wellness** (618) 288-9117  
-  last: no answer 2026-08-08
-- **Perfect Image Med Spa** (847) 394-8400  
-  last: no answer 2026-08-08
-- **Philip Johnson Salon/Spa** (314) 361-8003  
-  last: no answer 2026-08-08
 - **Pinch** (708) 787-4624  
   last: no answer 2026-08-08
-- **Plastic Surgery Center** (316) 688-7500  
-  last: no answer 2026-08-08
-- **Pleij Salon + Spa** (614) 547-2566  
-  last: no answer 2026-08-08
-- **Plush Laser** (248) 710-8335  
-  last: no answer 2026-08-08
-- **Pryorhealth** (815) 977-4403  
-  last: no answer 2026-08-08
-- **Pure Bliss Salon And Spa** (810) 820-6377  
-  last: no answer 2026-08-08
-- **Pure Health Medical** (614) 839-1044  
-  last: no answer 2026-08-08
-- **Pure Med Spa** (312) 878-7573  
-  last: no answer 2026-08-08
-- **Quintessa** (262) 235-5832  
-  last: no answer 2026-08-08
-- **Radiance Medical Spa** (785) 246-6400  
-  last: no answer 2026-08-08
-- **Radiant Beauty Med Spa** (312) 900-7300  
-  last: no answer 2026-08-08
-- **Radiant Divine Medical Spa** (440) 695-0380  
-  last: no answer 2026-08-08
-- **Refinery Skin Clinic** (952) 479-0915  
-  last: no answer 2026-08-08
-- **Refresh Aesthetics Medical Spa** (435) 722-2000  
-  last: no answer 2026-08-08
-- **Refresh Medical Spa LLC** (913) 681-6200  
-  last: no answer 2026-08-08
-- **Rejuvenate Skin And Laser Clinic** (715) 377-1777  
-  last: no answer 2026-08-08
-- **Rejuviwell Suites** (630) 457-1466  
-  last: no answer 2026-08-08
-- **Renaissance Med Spa** (847) 485-2650  
-  last: no answer 2026-08-08
-- **Renew Image Advanced Aesthetics & Training Center** (513) 561-7546  
-  last: no answer 2026-08-08
-- **Renuyou Aesthetics And Medspa** (515) 330-8900  
-  last: no answer 2026-08-08
-- **Reset Lounge LLC** (440) 600-2659  
-  last: no answer 2026-08-08
-- **Retuvamedicalspa** (573) 496-1991  
-  last: no answer 2026-08-08
-- **Revival Infusion Madison** (608) 405-6824  
-  last: no answer 2026-08-08
-- **Ridge Med Spa Suites** (913) 213-9545  
-  last: no answer 2026-08-08
-- **S.Thetics Medspa + Wellbeing** (785) 727-7228  
-  last: no answer 2026-08-08
-- **Schenden'S Medical Day Spa** (248) 693-2999  
-  last: no answer 2026-08-08
-- **Serenity Health Care Center** (262) 522-8640  
-  last: no answer 2026-08-08
-- **Shape Of You** (314) 717-0575  
-  last: no answer 2026-08-08
-- **Simply Sculpt Ohio** (740) 407-6331  
-  last: no answer 2026-08-08
-- **Simplyskin Medspa** (317) 576-1114  
-  last: no answer 2026-08-08
-- **Skin Deep Esthetics, LLC** (630) 863-6153  
-  last: no answer 2026-08-08
-- **Skinperfected** (630) 633-2394  
-  last: no answer 2026-08-08
 - **Smith & Crawford Company** (616) 634-3075  
-  last: no answer 2026-08-08
-- **Sncroniz Salon & Med Spa** (810) 225-9640  
-  last: no answer 2026-08-08
-- **Spargo Salon, Spa & Medical Spa** (262) 695-7400  
-  last: no answer 2026-08-08
-- **Sunbear Spa And Salon** (651) 426-5884  
-  last: no answer 2026-08-08
-- **Synergy** (866) 862-1211  
-  last: no answer 2026-08-08
-- **Temple Collective Medspa** (248) 605-0509  
-  last: no answer 2026-08-08
-- **The Boulevard Hair Co** (314) 733-5488  
-  last: no answer 2026-08-08
-- **The Confidence Bar** (312) 624-9971  
-  last: no answer 2026-08-08
-- **The Facebar Migraine Clinic & Medspa** (614) 321-2065  
-  last: no answer 2026-08-08
-- **The Look Loft** (847) 893-9227  
-  last: no answer 2026-08-08
-- **Transforming Techniques Salon And Medical Spa** (937) 435-3223  
-  last: no answer 2026-08-08
-- **Trouvaille Med Spa Bourbonnais** (815) 680-5757  
-  last: no answer 2026-08-08
-- **Truhealth Medical** (317) 616-0190  
-  last: no answer 2026-08-08
-- **Turkle & Associates Plastic Surgery** (317) 848-0001  
-  last: no answer 2026-08-08
-- **Vina Laser Med Spa** (989) 791-2020  
-  last: no answer 2026-08-08
-- **Visions Spa Salon** (248) 344-9944  
-  last: no answer 2026-08-08
-- **West Michigan Plastic Surgery** (269) 222-1611  
-  last: no answer 2026-08-08
-- **White Pearl Med Spa** (847) 238-8861  
-  last: no answer 2026-08-08
-- **Wisconsin Vein Center & Medispa** (262) 236-5179  
-  last: no answer 2026-08-08
-- **Wise Aesthetics** (317) 569-6448  
   last: no answer 2026-08-08
 - **Cleaning Restoration Services** (918) 710-0609 — ask for Family-run  
   last: no answer 2026-08-09
@@ -450,7 +166,7 @@
 - **Restore & More** (913) 247-4379 — ask for Mike (Owner)  
   last: called ~11:30am, no contact made 2026-08-17
 
-## Never called (25)
+## Never called (76)
 *Ask for the name where you have one.*
 
 - **Mr. Power Clean** (417) 881-8989
@@ -478,3 +194,54 @@
 - **ProSteam Branson** (417) 598-2080
 - **Performance Restoration LLC** (319) 626-2292
 - **Srita & Sons Restoration** (479) 900-2639
+- **Wall 2 Wall Restoration** (479) 252-6650 — ask for Kevin
+- **Safe Home Restoration of NW Arkansas** (479) 257-5960 — ask for Rob Stover & Mike Alley
+- **Simply Clean of the QC** (309) 797-7740 — ask for Matt Hamilton (Owner)
+- **Restore It Restoration LLC** (573) 632-9283 — ask for Lonnie A. Beauchamp
+- **SteamPro Restoration** (870) 793-4834 — ask for Family-owned since 1994
+- **Veteran Restoration** (469) 521-9511 — ask for Steven Gern (President)
+- **Restoration Warriors** (903) 278-1120 — ask for Jordan Plunk (Owner)
+- **CleanWay Restoration & Construction** (800) 570-2320 — ask for Nate & Shawn Easley
+- **Arkansas Restoration Services, Inc.** (479) 967-2018
+- **Titan Restoration & Cleaning** (940) 782-9211 — ask for Robert & Leslie Gamez (Owners)
+- **Phoenix Restoration Services, Inc.** (620) 276-6994 — ask for Dave Salas (Owner)
+- **Teddy's Cleaning & Restoration LLC** (405) 202-2401 — ask for Father-son team
+- **Pro Clean Restoration & Floor Care** (636) 233-6826 — ask for Jesse Callison (President/Owner)
+- **Steam Power Carpet Cleaning** (217) 585-8620
+- **Ambrose Marketing** (917) 513-7221
+- **Dapper Market Solutions LLC** (248) 494-8450
+- **Digitally Enhanced Marketing** (561) 866-5057
+- **Fix Studios** (513) 928-3499
+- **Forge Digital Marketing** (630) 200-0886
+- **Haled** (913) 633-9958
+- **Honest - A Digital Agency** (317) 345-1878
+- **Lead To Conversion** (855) 473-6582
+- **Linear Creative** (216) 741-1533
+- **Med Spa Marketing Portal** (312) 654-4611
+- **Morem & Waller, CPAs** (612) 703-7370
+- **Qnity, Inc.** (763) 258-7970
+- **Sullivan's Cleaning & Restoration** (920) 337-1986 — ask for Patrick Sullivan (Owner)
+- **Zipco Restoration** (877) 799-4726
+- **ATP Restoration LLC** (913) 257-5825
+- **Rapid Dry Kansas City** (816) 799-1234
+- **Pure Air LLC** (816) 946-1410
+- **Dog Gone Mold** (816) 547-6816
+- **Catastrophe Control Restoration Services LLC** (800) 937-0982
+- **Genesis Home Restorations LLC** (913) 909-3582
+- **Roberts Complete Restoration** (816) 337-7926
+- **Trusted Restorer** (913) 469-9464
+- **American Water Damage** (913) 227-0516
+- **Lee Safety & Environmental Services** (417) 830-0393
+- **Dawson Restorations Services LLC** (417) 860-0821
+- **Newman's Restoration LLC** (417) 437-6985
+- **Springfield Quality Services** (417) 833-5926
+- **Joplin Mold Inspection and Remediation** (417) 825-6313
+- **Midwest Mold Specialist LLC** (417) 499-1732
+- **MMCT Contracting** (636) 797-4440
+- **Bio-Clean 911** (800) 530-1541
+- **DryMasters** (314) 498-1070
+- **911 Water Damage Experts LLC** (314) 960-1790
+- **Anchor Restoration of St. Louis** (636) 579-1072
+- **Advanced Environmental Services Inc** (314) 865-2662
+- **LDR Cleaning & Restoration Inc** (815) 874-7066
+- **Specialty Cleaning & Restoration Services Inc** (815) 522-2290

@@ -59,12 +59,22 @@ Three subagents exist. Route to them; do not do their work yourself — it burns
 context you need for strategy.
 
 - `lead-research` — sourcing and enriching prospects.
+- `leads-manager` — the state of `pipeline.md`: stage hygiene, duplicates,
+  franchises and networks, wrong contacts, what has actually been called. Owns
+  the daily dial list, which it produces by running `dial-list.js` — it does
+  not hand-write the list and does not reimplement the bucketing.
 - `sales-assistant` — outreach drafts, follow-ups, call and demo review.
 - `notes` — logging call outcomes to Notion and syncing the dashboard CSV.
 
 Do NOT propose new subagents until a responsibility is provably too large.
 Specifically: no Proposal Agent, Onboarding Agent, or Analytics Agent before
 5 paying clients. Complexity pre-revenue is procrastination.
+
+`leads-manager` was added 2026-08-19 at Mario's instruction, against this rule.
+The rule stands for everything else. It earned the exception on evidence: 19
+logged calls never reached `pipeline.md`, three contact names were wrong on the
+file while being dialled, and hand-written outcomes silently fell out of every
+dial-list bucket for two days. That is a maintenance load nobody was carrying.
 
 ## Routines
 **5:00 daily (Manager)** — In order:
@@ -74,10 +84,14 @@ Specifically: no Proposal Agent, Onboarding Agent, or Analytics Agent before
    first — a name is what gets past a front desk. Never guess either one: a
    bounced invention damages the sending domain for every other lead on it,
    and a wrong name announces the cold call. Blank beats wrong.
-3. `notes` pushes everything that changed since the last run into Notion —
+3. `leads-manager` cleans the file before anything reads it — stage hygiene,
+   duplicates, franchises, wrong contacts, dead due dates — then runs
+   `dial-list.js`. It runs after sourcing and enrichment on purpose: it is the
+   last pass, so the list is built from a file that is already true.
+4. `notes` pushes everything that changed since the last run into Notion —
    every call logged, every stage move, every new lead as a row. Notion should
    never be more than a day behind `pipeline.md`.
-4. State the day's dial list.
+5. State the day's dial list.
 
 At 15/day the 167-lead backlog is enriched in under two weeks, without anyone
 sitting there doing it.
