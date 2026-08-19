@@ -53,8 +53,30 @@ function purpose(section, row) {
   return next || "Cold call → demo #";
 }
 
+/* The notes typed on the phone live in state.json, keyed by company name, and
+   nothing has ever copied them into pipeline.md. So the Last touch column says
+   "spoke to owner" while the actual note says he wants an email because his
+   current system books fake appointments — the sentence that makes the next
+   call winnable. 84 notes were sitting in that file unread by every sheet.
+   pipeline.md stays canonical for stage and next action. This column is the
+   narrative, and the narrative is only in state.json. */
+function notes() {
+  const norm = x => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const map = new Map();
+  try {
+    const s = JSON.parse(fs.readFileSync(path.join(__dirname, "state.json"), "utf8")).notes || {};
+    for (const [co, v] of Object.entries(s)) {
+      const t = (v && v.text || "").replace(/\s+/g, " ").trim();
+      if (t) map.set(norm(co), t);
+    }
+  } catch (e) { /* no bridge state yet — the sheet still builds */ }
+  return map;
+}
+
 const dial = fs.readFileSync(path.join(__dirname, "leads", "dial-today.md"), "utf8").split("\n");
 const pipe = byPhone();
+const note = notes();
+const norm = x => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
 const rows = [];
 let section = "", seen = new Set();
@@ -78,7 +100,9 @@ for (const line of dial) {
     row ? row.em : "",
     purpose(section, row),
     "",
-    row ? (row.last || "").replace(/\s+/g, " ").slice(0, 300) : "",
+    // Your note first, in your words. The pipeline's last-touch line is the
+    // fallback for the leads that have never been dialled.
+    note.get(norm(co)) || (row ? (row.last || "").replace(/\s+/g, " ") : ""),
   ]);
 }
 
