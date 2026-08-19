@@ -15,7 +15,26 @@
 cd /Users/mariodelpietro/agency || exit 1
 mkdir -p logs
 
+# The sourcing agent dispatches lead-research as a BACKGROUND subagent and then
+# waits for it. Print mode gives background work 600 seconds and then kills the
+# session — which is what "Background tasks still running after 600s;
+# terminating" in this log means, twice a morning, on the step that is supposed
+# to produce the leads. Sourcing has returned zero for two straight days this
+# way and the RESULT line never said so, because it only reports enrichment and
+# the dial list.
+#
+# 45 minutes, not 0. The log suggests 0 (wait forever), but a daily unattended
+# job that can hang indefinitely is worse than one that gives up: nothing else
+# in the morning runs until it returns.
+export CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=2700000
+
 log() { echo "$1" >> logs/manager.log; }
+
+# Row count before the agent touches anything. The RESULT line has been
+# reporting enrichment and the dial list but never the one number the morning
+# exists to produce, so two days of zero-lead runs both ended in a log line
+# that said "ok".
+ROWS_BEFORE=$(grep -c '^| ' pipeline.md 2>/dev/null || echo 0)
 
 log "\n===== $(date '+%Y-%m-%d %H:%M') ====="
 
@@ -90,15 +109,20 @@ fi
   && LIST=ok || LIST=fail
 
 # Briefs for anything booked in the next 3 days. Also safe to run by hand.
-./prep-appointments.sh >> logs/manager.log 2>&1
+#
+# caffeinate on every step below, not just run_agent. These three each spawn
+# their own claude process, and only the main agent was being held awake — so
+# the Mac slept underneath them and both of this morning's email drafts died
+# with "Your computer went to sleep mid-response".
+caffeinate -ims ./prep-appointments.sh >> logs/manager.log 2>&1
 
 # No lead should reach the dial list without a number on it. Researches the
 # gaps, then moves anything still unreachable below the Won heading.
-./check-phones.sh >> logs/manager.log 2>&1
+caffeinate -ims ./check-phones.sh >> logs/manager.log 2>&1
 
 # One draft per lead the enrichment just gave an address to. Runs after
 # enrichment on purpose — yesterday's new addresses are drafted this morning.
-./draft-emails.sh >> logs/manager.log 2>&1
+caffeinate -ims ./draft-emails.sh >> logs/manager.log 2>&1
 
 # One line that says whether the morning worked, so the log does not have to
 # be read to find out.
@@ -110,7 +134,11 @@ const f=(a[2]||"").split("·")[0].trim();
 (/[A-Za-z]{2}/.test(f)&&!/^\(?\d/.test(f)&&!/\.(com|net|org|co|us|in|health|bar)\b/i.test(f))?y++:n++;}
 console.log(y+" named, "+n+" unnamed");')
 
-log "RESULT: enrichment=$STATUS · dial-list=$LIST · $NAMED · finished $(date '+%H:%M')"
+ROWS_AFTER=$(grep -c '^| ' pipeline.md 2>/dev/null || echo 0)
+SOURCED=$(( ROWS_AFTER - ROWS_BEFORE ))
+[ "$SOURCED" -le 0 ] && SOURCED="0 — SOURCING PRODUCED NOTHING" || SOURCED="+$SOURCED"
+
+log "RESULT: sourced=$SOURCED · enrichment=$STATUS · dial-list=$LIST · $NAMED · finished $(date '+%H:%M')"
 
 # Push whatever the night produced. The bridge writes outcomes straight into
 # pipeline.md the moment a lead is tapped on the phone, but nothing ever
