@@ -113,6 +113,12 @@ fi
 /opt/homebrew/bin/node dial-list.js >> logs/manager.log 2>&1 \
   && LIST=ok || LIST=fail
 
+# The dialer imports a CSV, and the CSV has to be the same order as the call
+# sheet or "lead 37" means two different companies on two screens. Generated
+# from dial-today.md, so it can only run after it.
+/opt/homebrew/bin/node dial-csv.js >> logs/manager.log 2>&1 \
+  && CSV=ok || CSV=fail
+
 # Briefs for anything booked in the next 3 days. Also safe to run by hand.
 #
 # caffeinate on every step below, not just run_agent. These three each spawn
@@ -143,7 +149,7 @@ ROWS_AFTER=$(grep -c '^| ' pipeline.md 2>/dev/null || echo 0)
 SOURCED=$(( ROWS_AFTER - ROWS_BEFORE ))
 [ "$SOURCED" -le 0 ] && SOURCED="0 — SOURCING PRODUCED NOTHING" || SOURCED="+$SOURCED"
 
-log "RESULT: sourced=$SOURCED · enrichment=$STATUS · dial-list=$LIST · $NAMED · finished $(date '+%H:%M')"
+log "RESULT: sourced=$SOURCED · enrichment=$STATUS · dial-list=$LIST · csv=$CSV · $NAMED · finished $(date '+%H:%M')"
 
 # Push whatever the night produced. The bridge writes outcomes straight into
 # pipeline.md the moment a lead is tapped on the phone, but nothing ever
