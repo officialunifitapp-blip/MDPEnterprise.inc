@@ -15,7 +15,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Omaha Damage Repair | Jonathan Waterman (Founder) UNVERIFIED · (402) 704-4921 | new | 2026-08-13 enriched, name UNVERIFIED | Cold call, ask for Jonathan by name (confirm on answer) |  | Restoration |  |
 | Cleaning Restoration Services | Family-run · (918) 710-0609 | new | 2026-08-09 no answer | Cold call → demo # |  | Restoration |  |
 | Kwik Dry LLC | Family-run · (417) 725-6978 | new | 2026-08-10 no answer | Cold call → demo # |  | Restoration |  |
-| St. Louis Cleaning & Restoration | Family since '91 · (314) 439-1665 | contacted | 2026-08-11 spoke to owner | Cold call → demo # |  | Restoration |  |
+| St. Louis Cleaning & Restoration | Kevin (Owner) · (314) 439-1665 | contacted | 2026-08-11 spoke to Kevin — has an answering service, busy season, "can't take many more clients"; pitched reactivation + conversion, then AI receptionist. Not a no, a not-now | DO NOT CALL until October — he named the date himself | 2026-10-01 | Restoration |  |
 | Smoke Services Restoration | Metro East · (618) 234-9696 | new | 2026-08-11 no answer | Cold call → demo # |  | Restoration |  |
 | Arkansas Restoration | (501) 753-3600 | contacted | 2026-08-17 callback set — "Monday after 8" | Call Monday after 8am | 2026-08-24 | Restoration | info@arkrestoration.com |
 | Burggraf Disaster | (918) 584-3737 | new | 2026-08-08 no answer | Cold call (check size) |  | Restoration |  |
@@ -134,7 +134,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Power Restoration of Rockford | Rockford, IL · (815) 721-3493 unverified | new | 2026-08-02 sourced | Verify phone first |  | Restoration |  |
 | Advantage Kwik-Dry (Flood Pros division) | Mickey Bennett (President) — confirmed · (815) 398-2379 | new | 2026-08-16 enriched, confirmed via company's own About page + business-magazine profile; founded 1992 | Cold call, ask for Mickey by name |  | Restoration | mickey@floodpros.net |
 | Mustang Disaster CleanUp | Story City/Ames, IA · (515) 620-3772 unverified | new | 2026-08-11 no answer | Verify phone first |  | Restoration |  |
-| Burlington Restoration Solutions | Burlington, IA · (319) 671-6640 unverified | contacted | 2026-08-08 spoke to owner | Verify phone first |  | Restoration |  |
+| Burlington Restoration Solutions | Brandon (PM) · (319) 671-6640 | contacted | 2026-08-08 spoke to Brandon (PM) — A ZOOM WAS SCHEDULED FOR 7:30 and its outcome was never logged. His stated pain is staffing, not phones: "nobody wants to work anymore" | Call Brandon — did the 7:30 Zoom happen? Angle is the AI covering the shifts he can't hire for | 2026-08-20 | Restoration |  |
 | Allen's Restoration | Hannibal, MO · (573) 221-0107 unverified | lost | 2026-08-08 not interested | Verify phone first |  | Restoration |  |
 | Ameristeam Restoration | Ottumwa, IA · (641) 632-9945 unverified | lost | 2026-08-05 not interested | Verify phone first |  | Restoration |  |
 | Clinton Water Damage Pro | Clinton, IA · (563) 503-6066 unverified | new | 2026-08-09 no answer | Verify phone first |  | Restoration |  |
@@ -146,7 +146,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | 24/7 Disaster Group | Owner TBD · (918) 779-4900 | lost | 2026-08-08 not interested | Cold call → demo # |  | Restoration |  |
 | All Care Restoration | Steve & Carol Busboom · (402) 421-3779 | lost | 2026-08-08 not interested | Cold call → demo # |  | Restoration |  |
 | DryHero Water & Mold | Ritch Paprocki (Founder) · (402) 438-2379 | new | 2026-08-09 no answer | Cold call → demo # |  | Restoration |  |
-| 13:12 Restoration | Owner TBD · (479) 977-1312 | contacted | 2026-08-05 callback set; 2026-08-16 enriched, name not found — own site refers to owner only as "The Old Guy" | Cold call → demo # |  | Restoration |  |
+| 13:12 Restoration | Matt (Owner/partner) · (479) 977-1312 | contacted | 2026-08-05 spoke to Matt — "money is too tight right now"; a demo with Shad was set for 8pm and never logged | Call Matt. Budget objection → lead with Lead Reactivation: no new spend, works money he already paid for. Also find out what happened with Shad | 2026-08-20 | Restoration |  |
 | Wall 2 Wall Restoration | Kevin · (479) 252-6650 | new | 2026-08-03 sourced | Cold call → demo # |  | Restoration |  |
 | ARS Restoration (Ark-La-Tex) | Owner TBD, name conflicts across sources (Steve Morse vs. Daniel Morse VP) — left blank · (903) 832-3389 | new | 2026-08-15 enriched, phone confirmed (alt toll-free 800-229-0122); own site lists no name | Cold call → demo # |  | Restoration |  |
 | Courtesy Care Restoration | Jason Birk (Owner) · (918) 233-6477 | lost | 2026-08-09 not interested | Cold call → demo # |  | Restoration |  |
@@ -415,7 +415,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Certi-Dry | Owner TBD · (608) 223-1600 | lost | 2026-08-11 gatekeeper, not interested, already has a system | Cold call → demo # |  | Restoration | info@certidry.com |
 | Madison Property Restoration | Randy Schmidt (President) · (608) 467-3360 | new | 2026-08-17 gatekeeper (2nd time) | Call after 6pm, ask for Randy by name |  | Restoration |  |
 | Sullivan's Cleaning & Restoration | Patrick Sullivan (Owner) · (920) 337-1986 | new | 2026-08-10 sourced | Cold call → demo # |  | Restoration |  |
-| Lakeshore Restoration LLC | Owner TBD · (920) 221-1440 | contacted | 2026-08-11 spoke to owner | Cold call → demo # |  | Restoration |  |
+| Lakeshore Restoration LLC | Regal · (920) 221-1440 | contacted | 2026-08-11 spoke to Regal — asked for information to be sent over | SEND THE INFO — he asked for it 9 days ago and it was never sent | 2026-08-20 | Restoration | office@lakeshorerestorationllc.co |
 | Brownies Carpet & Upholstery Cleaning & Water Restoration | Tom & Lisa Brown (Owners) · (920) 788-6852 | new | 2026-08-11 no answer | Cold call → demo # |  | Restoration | tom@browniescarpetcleaning.com |
 
 | Zipco Restoration | Kansas City, MO · (877) 799-4726 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration | |
