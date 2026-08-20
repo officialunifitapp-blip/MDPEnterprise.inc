@@ -274,6 +274,11 @@ function pinned(all, groups) {
     if (seen.has(p)) continue;
     seen.add(p);
     const l = byPhone.get(p);
+    // A lead past `contacted` is not a cold dial. Heartland said yes on
+    // 2026-08-20 and stayed on the sheet because the pinned order is read
+    // straight from the dialer — a closed deal getting a prospecting call is
+    // the fastest way to unclose it.
+    if (l && !["new", "contacted", "replied"].includes(l.stage)) continue;
     if (l) out.push([tagOf.get(p) || "Never called", l]);
     else out.push(["Never called", { co: `(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`,
       phone: `(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`, who: "", next: "Not in pipeline.md", due: "", outcome: "", when: "" }]);
