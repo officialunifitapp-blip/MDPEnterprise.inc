@@ -408,8 +408,10 @@ async function hydrate(){
     const d=await fetch("leads/dial-today.md",{cache:"no-store"});
     if(d.ok){
       const seen=new Set();
+      // Rows are "**12. Company** (phone) …". The older "- **Company**" shape is
+      // still accepted so a sheet generated before 2026-08-20 still loads.
       DIALORDER=(await d.text()).split("\n")
-        .filter(l=>l.startsWith("- **"))
+        .filter(l=>/^\*\*\d+\.\s/.test(l)||l.startsWith("- **"))
         .map(l=>{const m=l.match(/\(?(\d{3})\)?[ .-]?(\d{3})[ .-]?(\d{4})/);return m?m[1]+m[2]+m[3]:"";})
         .filter(p=>p&&!seen.has(p)&&seen.add(p));
     }
