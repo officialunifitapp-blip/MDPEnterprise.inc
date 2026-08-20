@@ -153,8 +153,16 @@ function notes() {
   try {
     const s = JSON.parse(fs.readFileSync(path.join(__dirname, "state.json"), "utf8")).notes || {};
     for (const [co, v] of Object.entries(s)) {
-      const t = (v && v.text || "").replace(/\s+/g, " ").trim();
-      if (t) map.set(norm(co), t);
+      if (!v) continue;
+      // Every note ever written for this company, newest first and dated, not
+      // just the latest one. On a second or third call the earlier notes are
+      // the ones that say what was already agreed.
+      const log = Array.isArray(v.log) && v.log.length ? v.log : (v.text ? [{ text: v.text, at: v.at }] : []);
+      const entries = log
+        .map(e => ({ at: String(e.at || "").slice(0, 10), text: String(e.text || "").replace(/\s+/g, " ").trim() }))
+        .filter(e => e.text)
+        .sort((a, b) => b.at.localeCompare(a.at));
+      if (entries.length) map.set(norm(co), entries);
     }
   } catch (e) { /* no bridge state yet — the sheet still builds */ }
   return map;
@@ -195,7 +203,7 @@ function render(groups, all) {
       const extra = [l.due ? `due ${l.due}` : "", l.next ? `→ ${l.next}` : ""].filter(Boolean).join(" · ");
       if (extra) lines.push(`   ${extra}`);
       const note = noteFor(l.co);
-      if (note) lines.push(`   > ${note}`);
+      if (note && note.length) note.forEach(e => lines.push(`   > **${e.at || "—"}** ${e.text}`));
       else if (l.outcome) lines.push(`   > last: ${l.outcome} (${l.when})`);
       lines.push("");
     }

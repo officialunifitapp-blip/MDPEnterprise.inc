@@ -365,11 +365,31 @@ function saveState(s) {
 function mergeState(incoming) {
   const cur = loadState();
 
-  // Notes: {company: {text, at}} — newest timestamp wins per company.
+  /* Notes: {company: {text, at, log:[{text,at}]}}.
+     `text` is the latest note, kept so every existing reader still works.
+     `log` is every note ever written for that company, oldest first.
+
+     This used to be newest-wins and nothing else: writing a second note on a
+     company silently destroyed the first. Every call after the first on the
+     same lead erased what was said on the call before it — which is the worst
+     possible place to lose data, because the second call is the one where the
+     history matters. Notes are the only record of what was actually said; they
+     are append-only from here.
+
+     Same-text writes do not append (the phone re-sends state on reconnect), and
+     an older timestamp never overwrites `text`, but it is still logged. */
   for (const [co, n] of Object.entries(incoming.notes || {})) {
     if (!n || typeof n.text !== "string") continue;
+    const txt = n.text, at = n.at || now();
     const mine = cur.notes[co];
-    if (!mine || String(n.at || "") > String(mine.at || "")) cur.notes[co] = { text: n.text, at: n.at || now() };
+    if (!mine) { cur.notes[co] = { text: txt, at, log: [{ text: txt, at }] }; continue; }
+    // Migrate a pre-log note the first time it is touched, so its original
+    // text becomes the first entry rather than being dropped.
+    if (!Array.isArray(mine.log)) mine.log = [{ text: mine.text, at: mine.at || at }];
+    const dup = mine.log.some(e => e.text === txt);
+    if (!dup) mine.log.push({ text: txt, at });
+    mine.log.sort((a, b) => String(a.at).localeCompare(String(b.at)));
+    if (String(at) >= String(mine.at || "")) { mine.text = txt; mine.at = at; }
   }
 
   // Thoughts: union by id so a device that has been offline re-adds its own
