@@ -176,6 +176,11 @@ input.due.now{color:var(--warn);border-color:var(--warn);background:rgba(224,180
    the two seconds before it connects. */
 .ckind{font:10.5px var(--mono);margin-top:4px;line-height:1.35}
 .ckind b{color:var(--faint);margin-right:3px}
+/* Your own words from the last call. Wraps, does not truncate — a note cut off
+   mid-sentence is the same as no note. */
+.cnote{font:11px/1.45 var(--mono);margin-top:5px;padding:5px 7px;
+  border-left:2px solid var(--acc2);background:rgba(79,195,247,.07);
+  color:var(--fg);opacity:.92;white-space:pre-wrap;max-width:60ch}
 /* The six, pinned above the leads list. Small on purpose — it has to coexist
    with the row being dialled, not compete with it. */
 .tbar{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px}
@@ -810,8 +815,12 @@ function leadTable(){
              :`<div class="who none">no name yet</div>`}
       ${l.em?`<div class="em">${esc(l.em)}</div>`
             :(wantsEmail(l)?`<div class="em none">no address — needs research</div>`:"")}
-      ${CALLED==="dial"?(()=>{const[k,c]=callKind(l);
-        return `<div class="ckind" style="color:${c}"><b>${dialRank(l)+1}.</b> ${esc(k)}</div>`;})():""}</td>
+      ${(()=>{const[k,c]=callKind(l);
+        return `<div class="ckind" style="color:${c}">${dialRank(l)<9e9?`<b>${dialRank(l)+1}.</b> `:""}${esc(k)}</div>`;})()}
+      ${/* The note, on the row, not behind the ✎ button. Reading what was said
+            last time is the entire reason this screen sits next to the dialer —
+            it should never take a tap to see. */""}
+      ${NOTES[l.co]?`<div class="cnote">${esc(NOTES[l.co])}</div>`:""}</td>
     <td style="white-space:nowrap">${l.p?`<a class="tel" href="tel:+1${dialn(l.p)}">${esc(l.p)}</a>`:'<span class="noph">—</span>'}</td>
     <td style="opacity:.8;white-space:nowrap">${esc(l.st||"new")}</td>
     <td><div class="ocg">${OUTCOMES.map(o=>{const on=hasOut(l,o);
@@ -1004,6 +1013,17 @@ const wantsEmail=l=>hasOut(l,"send an email");
    walking into when they pick up. Read off the last touch. */
 function callKind(l){
   const t=(l.out||"").toLowerCase();
+  /* The real next action wins over any label derived from the outcome keyword.
+     "spoke to owner" produced "2nd call — you already spoke to the owner",
+     which tells you nothing you could act on: Lakeshore's actual next action is
+     to send Regal the information he asked for nine days ago. The generic
+     labels below are only a fallback for rows whose next action is still the
+     sourcing default. */
+  const nx=(l.next||"").trim();
+  if(nx&&!/^cold call/i.test(nx)&&!/^n\/a$/i.test(nx)&&!/^find number/i.test(nx)){
+    const late=l.due&&l.due<new Date().toISOString().slice(0,10);
+    return [(late?"⚠ OVERDUE — ":"")+nx,late?"var(--warn)":"var(--ok)"];
+  }
   if(!t) return ["fresh — never called","var(--dim)"];
   if(/phone disconnected/.test(t))      return ["SKIP — disconnected","var(--warn)"];
   if(/not interested/.test(t))          return ["SKIP — already a no","var(--warn)"];
