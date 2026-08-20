@@ -162,7 +162,48 @@ function notes() {
 const NOTE = notes();
 const noteFor = co => NOTE.get(String(co || "").toLowerCase().replace(/[^a-z0-9]/g, ""));
 
+/* Flat and numbered, not grouped under headings.
+   The sheet is read beside the dialer, and the dialer holds one flat list in
+   the order TODAY.csv was imported — which is this order, because both files
+   are generated from the same pass. Grouping under five headings meant the
+   numbers on the two screens never matched and every lookup mid-call was a
+   scan. The bucket still shows, as a tag on the row, because WHY you are
+   calling changes how you open. */
+const TAG = {
+  "Callbacks owed": "CALLBACK",
+  "Already spoke to the owner": "WARM",
+  "Beat the gatekeeper": "GATEKEEPER",
+  "No answer last time": "RETRY",
+  "Never called": "COLD",
+};
+
 function render(groups, all) {
+  const t = today();
+  const called = all.filter(l => l.outcome).length;
+  const lines = [
+    `# Dial list — ${t}`, "",
+    `${all.length} leads · ${called} with a logged outcome · ${all.length - called} never called`,
+    "",
+    `Same order as dialer/TODAY.csv — row numbers match the dialer.`, "",
+  ];
+  let n = 0;
+  for (const [title, rows] of groups) {
+    for (const l of rows) {
+      n++;
+      const who = l.who ? ` — ask for ${l.who}` : "";
+      lines.push(`**${n}. ${l.co}** ${l.phone}${who} · \`${TAG[title] || title}\``);
+      const extra = [l.due ? `due ${l.due}` : "", l.next ? `→ ${l.next}` : ""].filter(Boolean).join(" · ");
+      if (extra) lines.push(`   ${extra}`);
+      const note = noteFor(l.co);
+      if (note) lines.push(`   > ${note}`);
+      else if (l.outcome) lines.push(`   > last: ${l.outcome} (${l.when})`);
+      lines.push("");
+    }
+  }
+  return lines.join("\n");
+}
+
+function renderGrouped(groups, all) {
   const t = today();
   const called = all.filter(l => l.outcome).length;
   const lines = [

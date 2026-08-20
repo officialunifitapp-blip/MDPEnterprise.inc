@@ -46,10 +46,10 @@ function byPhone() {
 function purpose(section, row) {
   const next = (row && row.next || "").replace(/\s+/g, " ").trim();
   const due = row && row.due ? ` (due ${row.due})` : "";
-  if (/Callbacks owed/.test(section))     return (next || "CALLBACK OWED") + due;
-  if (/spoke to the owner/.test(section)) return "2nd call — " + (next || "pick up where the last call ended");
-  if (/gatekeeper/.test(section))         return "After 6pm — " + (next || "ask for the owner by name");
-  if (/No answer/.test(section))          return "Retry, different time of day than last";
+  if (section === "CALLBACK")   return (next || "CALLBACK OWED") + due;
+  if (section === "WARM")       return "2nd call — " + (next || "pick up where the last call ended");
+  if (section === "GATEKEEPER") return "After 6pm — " + (next || "ask for the owner by name");
+  if (section === "RETRY")      return "Retry, different time of day than last";
   return next || "Cold call → demo #";
 }
 
@@ -81,15 +81,19 @@ const norm = x => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 const rows = [];
 let section = "", seen = new Set();
 for (const line of dial) {
-  if (line.startsWith("## ")) { section = line.replace(/^##\s*/, "").replace(/\s*\(\d+\)\s*$/, ""); continue; }
-  if (!line.startsWith("- **")) continue;
-  const co = (line.match(/^- \*\*(.+?)\*\*/) || [])[1] || "";
+  // The sheet is flat and numbered now — "**12. Company** (phone) … · `TAG`".
+  // The tag carries the bucket that used to be a heading.
+  const head = line.match(/^\*\*\d+\.\s(.+?)\*\*/);
+  if (!head) continue;
+  section = (line.match(/`([A-Z]+)`\s*$/) || [])[1] || "";
+  const co = head[1];
   const m = line.match(/\(?(\d{3})\)?[ .-]?(\d{3})[ .-]?(\d{4})/);
   if (!m) continue;
   const p = m[1] + m[2] + m[3];
   if (seen.has(p)) continue;
   seen.add(p);
-  const who = (line.match(/— ask for (.+?)\s*$/) || [])[1] || "";
+  // Stop before the trailing tag — "— ask for Scott Ross (Owners) · `CALLBACK`"
+  const who = ((line.match(/— ask for (.+?)(?:\s*·\s*`[A-Z]+`)?\s*$/) || [])[1] || "").trim();
   const row = pipe.get(p);
   rows.push([
     co,
