@@ -102,7 +102,10 @@ function buckets(all) {
   const stalest = (a, b) => (a.when || "").localeCompare(b.when || "");
 
   // Nothing touched today comes back today. One dial per lead per day.
-  const notToday = l => l.when !== t;
+  // And nothing scheduled for a future date: Kevin at St. Louis Cleaning said
+  // call back in October, so putting him on today's sheet is a dial he already
+  // told you not to make. A due date in the future is a promise to wait.
+  const notToday = l => l.when !== t && !(l.due && l.due > t);
 
   /* A callback is something THEY asked for. Deliberately not matched on "call
      back" appearing in the next-action column — almost every next action says
@@ -113,8 +116,16 @@ function buckets(all) {
                   || /asked/.test((l.next || "").toLowerCase());
   const callback = live.filter(l => notToday(l) && asked(l))
     .sort((a, b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  /* "spoke to" ANYONE, not a hardcoded list of names.
+     This matched `spoke to owner|manager|marlena|melanie|tyler|victor`, so the
+     moment a real name was written into the outcome — "spoke to Kevin",
+     "spoke to Brandon (PM)", "spoke to Matt" — the lead matched no bucket at
+     all and dropped straight off the sheet. Three warm leads vanished that way
+     within an hour of the notes being written up properly. Same failure as the
+     exact-match bug, one layer down: never enumerate values that a human types
+     freely. */
   const talked = live.filter(l => notToday(l) &&
-      (has(l, /spoke to (the )?owner|spoke to manager|spoke to (marlena|melanie|tyler|victor)/) || l.stage === "replied"))
+      ((has(l, /spoke to/) && !has(l, /gatekeeper|receptionist/)) || l.stage === "replied"))
     .sort(stalest);
   const gate = live.filter(l => notToday(l) && has(l, /gatekeeper|receptionist|voicemail|left message/)).sort(stalest);
   // A no-answer is worth another try, but not on the same day.

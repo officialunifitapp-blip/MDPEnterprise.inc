@@ -24,17 +24,17 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    due 2026-08-20 · → SEND THE INFO — he asked for it 9 days ago and it was never sent
    > **2026-08-11** office@lakeshorerestorationllc.co Regal. said to send info over. just asked for info.
 
-**6. Arkansas Restoration** (501) 753-3600 · `CALLBACK`
-   due 2026-08-24 · → Call Monday after 8am
-   > **2026-08-17** Monday after - 8,
+**6. 13:12 Restoration** (479) 977-1312 — ask for Matt (Owner/partner) · `WARM`
+   due 2026-08-20 · → Call Matt. Budget objection → lead with Lead Reactivation: no new spend, works money he already paid for. Also find out what happened with Shad
+   > **2026-08-05** Matt is owner or business partner. Called. 947 Am Aug 5. Said money is too tight rn. demo with Shad at 8 tn
 
-**7. MRC Restoration of Southeast Missouri** (573) 200-7272 — ask for Mark Curfman (Founder) · `WARM`
+**7. Burlington Restoration Solutions** (319) 671-6640 — ask for Brandon (PM) · `WARM`
+   due 2026-08-20 · → Call Brandon — did the 7:30 Zoom happen? Angle is the AI covering the shifts he can't hire for
+   > **2026-08-08** SCHEDULED ZOOM LINK AT 730! PM said his main issue is not having enough employees. noone wants to work anymore. also talked to him about phone calls. Brandon
+
+**8. MRC Restoration of Southeast Missouri** (573) 200-7272 — ask for Mark Curfman (Founder) · `WARM`
    → Cold call → demo #
    > last: spoke to owner (2026-08-10)
-
-**8. Tri Cat Restoration** (417) 200-2018 — ask for Jeff Glass (Owner) UNVERIFIED · `WARM`
-   → Call back, ask Marlena for the owner by name
-   > **2026-08-17** spoke to marlena office manager.
 
 **9. Heartland Flood, Mold & Restoration** (913) 353-2493 — ask for Marcus Barnes (PM, not the buyer) · `WARM`
    → Boss hasn't looked. Marcus forwarded link. Follow up Wed 8/19 with something new
@@ -88,37 +88,37 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    → Cold call, ask for Jim by name
    > **2026-08-11** Jim Seubert. left message with receptionist
 
-**22. St. Louis Cleaning & Restoration** (314) 439-1665 — ask for Kevin (Owner) · `GATEKEEPER`
-   due 2026-10-01 · → DO NOT CALL until October — he named the date himself
-   > **2026-08-11** Kevin, said to give him a call back in early october, said he has an answering service, so i pitched him the lead reactivation and conversion, said right now is his busy season he cant take many more clients. so i said ai receptionist and how answering services are out. he said he cant book an appt rn and said to call back start of october.
-
-**23. Red Carpet Flood Restoration of NE Kansas** (785) 766-0439 — ask for Keaton · `GATEKEEPER`
+**22. Red Carpet Flood Restoration of NE Kansas** (785) 766-0439 — ask for Keaton · `GATEKEEPER`
    → Cold call (probe live-answer on 24/7 line)
    > **2026-08-11** asked for a call back left message with receptionist
 
-**24. Neville & Sons** (573) 442-8280 — ask for Kevin & Tony Neville (Owners) · `GATEKEEPER`
+**23. Neville & Sons** (573) 442-8280 — ask for Kevin & Tony Neville (Owners) · `GATEKEEPER`
    → Verify 24/7 emergency line fit, then call
    > **2026-08-11** Kevin, Tony. First week of September
 
-**25. Menold Construction & Restoration** (309) 263-8728 — ask for Brian (Manager) · `GATEKEEPER`
+**24. Menold Construction & Restoration** (309) 263-8728 — ask for Brian (Manager) · `GATEKEEPER`
    → Verify which company this actually is before dialing again
    > **2026-08-17** Brian is the manager. this is bluesky restoration contractors.
 
-**26. Healthy Homes LLC** (309) 418-9511 — ask for Caleb Wilson (Owner) · `GATEKEEPER`
+**25. Healthy Homes LLC** (309) 418-9511 — ask for Caleb Wilson (Owner) · `GATEKEEPER`
    → Call in the morning, ask for Caleb
    > **2026-08-17** Danielle is the receptionist Caleb, Ganon mornings Danielle is the receptionist Caleb, Ganon mornings. left message for caleb the owner.
 
-**27. Peerless Cleaning & Restoration** (217) 423-7704 — ask for Wike family · `GATEKEEPER`
+**26. Peerless Cleaning & Restoration** (217) 423-7704 — ask for Wike family · `GATEKEEPER`
    → Cold call → demo #
    > last: gatekeeper (2026-08-17)
 
-**28. J.J. Swartz Co** (217) 877-2611 — ask for Brad Swartz (President) · `GATEKEEPER`
+**27. J.J. Swartz Co** (217) 877-2611 — ask for Brad Swartz (President) · `GATEKEEPER`
    → Call after 6pm — the receptionist has blocked this twice
    > **2026-08-17** got a receptionist
 
-**29. All Clean Restoration Services Inc** (618) 235-3202 — ask for Mike Nagy (President/Owner) · `GATEKEEPER`
+**28. All Clean Restoration Services Inc** (618) 235-3202 — ask for Mike Nagy (President/Owner) · `GATEKEEPER`
    → Call after 9am, ask for Mike by name
    > **2026-08-17** Got to receptionist. Mike. got to receptionist delores. usually anytime after 9am. Mike.
+
+**29. Tri Cat Restoration** (417) 200-2018 — ask for Jeff Glass (Owner) UNVERIFIED · `GATEKEEPER`
+   → Call back, ask Marlena for the owner by name
+   > **2026-08-17** spoke to marlena office manager.
 
 **30. 4-D Home Solutions** (417) 531-0635 — ask for Anthony Decker (Owner) · `GATEKEEPER`
    → Call Anthony, open with "I called at 10 and didn't get an answer"
