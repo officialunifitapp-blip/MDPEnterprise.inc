@@ -44,8 +44,8 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    due 2026-08-20 · → SEND THE INFO — he asked for it 9 days ago and it was never sent
    > **2026-08-11** office@lakeshorerestorationllc.co Regal. said to send info over. just asked for info.
 
-**11. Heartland Flood, Mold & Restoration** (913) 353-2493 — ask for Marcus Barnes (PM, not the buyer) · `WARM`
-   → Boss hasn't looked. Marcus forwarded link. Follow up Wed 8/19 with something new
+**11. Heartland Flood, Mold & Restoration** (913) 353-2493 — ask for Marcus Barnes (PM) · `COLD`
+   due 2026-08-21 · → STOP DIALLING. Price + case-study rights in writing today, intake form out, then book the go-live
    > **2026-08-17** 8/14 phone call (he asked to drop the Zoom). || MARCUS IS NOT THE DECISION MAKER - his boss, the owner (his cousin's dad), got back from vacation TODAY and Marcus pitches him TODAY. || Marcus built a SPREADSHEET a month ago ranking every company that could replace Google Voice; we are being scored against it. He said we tick all the boxes and stand a pretty good chance. He calls back Mon PM or Tue AM. || SETUP: 2 advertised numbers - website number and a paid-lead number. The website number rings all phones. 4 team members, each with a work phone. Ring order: Marcus + cousin first, then cousin's dad (the owner) + one other, then AI. || WHAT HE WANTS NOW: filter spam FIRST, then ring the humans, AI only if nobody picks up. Explicitly NOT AI-first booking - 'our customers want to talk to a person'. Open to AI-books-it later. || THE MONEY ANGLE: they run Google Ads. When a spam call gets through and is under a length threshold they contest it with Google and do not pay for that call. They need recorded CALL LENGTH to do it. Hard-dollar refund, not a soft benefit. || PAIN: Google Voice kills calls as they try to pick up - it happened on this very call. || PRICE: quoted $500 setup WAIVED + $500/mo if signed this week. He asked whether more employees/lines changes the price; Mario said no, stays $500. That is on the record now. || NOT OBTAINED: webhook/API docs, intake answers, owner's name confirmed, and Mario did not ask to be on the call with the boss. || 8/17 5:45pm: called Marcus. Boss has NOT looked at it yet. Marcus forwarded him the link. Mario said if he wants it set up, call back — can go live same day. Marcus: sounds good. NO commitment extracted, no date, no access to the boss. Ball entirely in their court.
 
 **12. Flood Out Restoration** (903) 235-2969 — ask for "Wes" (Owner) · `WARM`
@@ -547,4 +547,7 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    → Cold call → demo #
 
 **158. Lamunyon Dry Out & Foundation Repair** (785) 228-1400 · `COLD`
+   → Cold call → demo #
+
+**159. Kansas Carpet Care, Inc.** (785) 842-3311 · `COLD`
    → Cold call → demo #
