@@ -119,7 +119,7 @@
   → Call around 8am, ask for Craig
   > Craig is owner, clarence is retired. call around 8 am
 
-## No answer last time (39)
+## No answer last time (35)
 *Different time of day than you tried before.*
 
 - **American Patriot Restoration** (217) 342-3206 — ask for Curt (Owner)  
@@ -150,18 +150,6 @@
   → Cold call → demo #
   > last: no answer (2026-08-08)
 - **Bales Cleaning & Restoration** (636) 498-1000 — ask for Larry Martin (Owner)  
-  → Cold call → demo #
-  > last: no answer (2026-08-08)
-- **Jackson LLP Healthcare Lawyers** (312) 985-6484  
-  → Cold call → demo #
-  > last: no answer (2026-08-08)
-- **Neoconcepts** (800) 504-0910  
-  → Cold call → demo #
-  > last: no answer (2026-08-08)
-- **Pinch** (708) 787-4624  
-  → Cold call → demo #
-  > last: no answer (2026-08-08)
-- **Smith & Crawford Company** (616) 634-3075  
   → Cold call → demo #
   > last: no answer (2026-08-08)
 - **Cleaning Restoration Services** (918) 710-0609 — ask for Family-run  
@@ -240,7 +228,7 @@
   → Cold call, ask for Mike
   > called around 1130 monday
 
-## Never called (76)
+## Never called (80)
 *Ask for the name where you have one.*
 
 - **Mr. Power Clean** (417) 881-8989  
@@ -322,30 +310,6 @@
   → Cold call → demo #
 - **Steam Power Carpet Cleaning** (217) 585-8620  
   → Verify restoration is a real revenue line, then call
-- **Ambrose Marketing** (917) 513-7221  
-  → Cold call → demo #
-- **Dapper Market Solutions LLC** (248) 494-8450  
-  → Cold call → demo #
-- **Digitally Enhanced Marketing** (561) 866-5057  
-  → Cold call → demo #
-- **Fix Studios** (513) 928-3499  
-  → Cold call → demo #
-- **Forge Digital Marketing** (630) 200-0886  
-  → Cold call → demo #
-- **Haled** (913) 633-9958  
-  → Cold call → demo #
-- **Honest - A Digital Agency** (317) 345-1878  
-  → Cold call → demo #
-- **Lead To Conversion** (855) 473-6582  
-  → Cold call → demo #
-- **Linear Creative** (216) 741-1533  
-  → Cold call → demo #
-- **Med Spa Marketing Portal** (312) 654-4611  
-  → Cold call → demo #
-- **Morem & Waller, CPAs** (612) 703-7370  
-  → Cold call → demo #
-- **Qnity, Inc.** (763) 258-7970  
-  → Cold call → demo #
 - **Sullivan's Cleaning & Restoration** (920) 337-1986 — ask for Patrick Sullivan (Owner)  
   → Cold call → demo #
 - **Zipco Restoration** (877) 799-4726  
@@ -395,4 +359,36 @@
 - **LDR Cleaning & Restoration Inc** (815) 874-7066  
   → Cold call → demo #
 - **Specialty Cleaning & Restoration Services Inc** (815) 522-2290  
+  → Cold call → demo #
+- **Valor Restoration** (224) 701-3930  
+  → Cold call → demo #
+- **Alpha Restoration** (779) 600-2573  
+  → Cold call → demo #
+- **HelpPro1** (844) 435-7776  
+  → Cold call → demo #
+- **D.R. Meyer Mold** (309) 303-4370  
+  → Cold call → demo #
+- **Taylor'd Restorations Inc** (217) 372-6482  
+  → Cold call → demo #
+- **Pure Maintenance of Central Illinois-USA Mold Service** (217) 903-5373  
+  → Cold call → demo #
+- **AC Environmental Inc** (217) 710-5186  
+  → Cold call → demo #
+- **Advance Catastrophe Technologies, Inc.** (316) 262-9992  
+  → Cold call → demo #
+- **Kansas Water and Fire Restoration** (316) 416-1897  
+  → Cold call → demo #
+- **S&A Restoration (S&A Construction, Inc.)** (316) 558-8422  
+  → Cold call → demo #
+- **Givens Restoration** (316) 265-1315 — ask for Ed Givens (CEO)  
+  → Cold call → demo #
+- **Klein Construction** (316) 262-3313 — ask for Arnie Klein (Founder)  
+  → Cold call → demo #
+- **Romani Restoration** (316) 252-7972 — ask for Adib Michael (President/Owner)  
+  → Cold call → demo #
+- **Voorhies Cleaning & Restoration** (913) 710-3644 — ask for Jeff Voorhies (Owner)  
+  → Cold call → demo #
+- **Preferred Contracting Systems** (913) 341-0111  
+  → Cold call → demo #
+- **Value Clean Industries, Inc.** (913) 302-9639 — ask for Jerry Braklow (President)  
   → Cold call → demo #

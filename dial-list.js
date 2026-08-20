@@ -63,7 +63,19 @@ function leads() {
    The name test is a fallback for rows written before the Niche column existed;
    the 5am job appends without it. */
 const MEDSPA = /med ?spa|aesthetic|botox|derm|skin|laser|salon|injectable|eyecare|beauty/i;
-const isDeadNiche = l => /medspa/i.test(l.niche) || (!l.niche && MEDSPA.test(l.co));
+
+/* Not restoration at all. Marketing agencies, a law firm and a CPA practice
+   were sitting on the dial list, sourced into pipeline.md as Restoration and
+   never caught — twelve of them reached the dialer. These are not bad leads,
+   they are not leads: nobody here loses a 4-figure job to a missed 2am call.
+   Word-boundaries matter — "Remediation" contains "media" and "Joplin Mold
+   Inspection and Remediation" is a real prospect. */
+const OFF_ICP = /marketing|\bcpas?\b|lawyer|\bllp\b|attorney|\bdigital\b|\bcreative\b|studios|\bportal\b|lead to conversion/i;
+// Named outright because the name alone gives nothing away.
+const OFF_ICP_NAMED = /^(neoconcepts|pinch|haled|qnity|smith & crawford|dapper market)/i;
+const isDeadNiche = l => /medspa/i.test(l.niche)
+  || (!l.niche && MEDSPA.test(l.co))
+  || OFF_ICP.test(l.co) || OFF_ICP_NAMED.test(l.co);
 
 function buckets(all) {
   const live = all.filter(l => l.phone && !["lost", "won"].includes(l.stage) && !isDeadNiche(l));
