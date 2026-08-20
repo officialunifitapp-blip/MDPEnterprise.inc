@@ -196,7 +196,7 @@ const TAG = {
   "Never called": "COLD",
 };
 
-function render(groups, all) {
+function render(groups, all, tags) {
   const t = today();
   const called = all.filter(l => l.outcome).length;
   const lines = [
@@ -208,9 +208,10 @@ function render(groups, all) {
   let n = 0;
   for (const [title, rows] of groups) {
     for (const l of rows) {
+      const tag = TAG[(tags ? tags[n] : title)] || TAG[title] || "COLD";
       n++;
       const who = l.who ? ` — ask for ${l.who}` : "";
-      lines.push(`**${n}. ${l.co}** ${l.phone}${who} · \`${TAG[title] || title}\``);
+      lines.push(`**${n}. ${l.co}** ${l.phone}${who} · \`${tag}\``);
       const extra = [l.due ? `due ${l.due}` : "", l.next ? `→ ${l.next}` : ""].filter(Boolean).join(" · ");
       if (extra) lines.push(`   ${extra}`);
       const note = noteFor(l.co);
@@ -248,9 +249,45 @@ function renderGrouped(groups, all) {
   return lines.join("\n");
 }
 
+/* dialer/order.txt pins the sheet to the dialer's own sequence, so the two
+   screens line up without re-importing anything. Keyed on the phone number —
+   company names differ in punctuation between the two, digits never do.
+   Leads the dialer doesn't have are appended after, so nothing owed a call is
+   dropped just because it wasn't in the last import. */
+function pinned(all, groups) {
+  const f = path.join(__dirname, "dialer", "order.txt");
+  if (!fs.existsSync(f)) return null;
+  const order = [];
+  for (const line of fs.readFileSync(f, "utf8").split("\n")) {
+    if (!line.trim() || line.trim().startsWith("#")) continue;
+    const m = line.match(/\(?(\d{3})\)?[ .-]?(\d{3})[ .-]?(\d{4})/);
+    if (m) order.push(m[1] + m[2] + m[3]);
+  }
+  if (!order.length) return null;
+
+  const tagOf = new Map();
+  for (const [title, rows] of groups) for (const l of rows) tagOf.set(l.phone.replace(/\D/g, ""), title);
+  const byPhone = new Map(all.map(l => [l.phone.replace(/\D/g, ""), l]));
+
+  const out = [], seen = new Set();
+  for (const p of order) {
+    if (seen.has(p)) continue;
+    seen.add(p);
+    const l = byPhone.get(p);
+    if (l) out.push([tagOf.get(p) || "Never called", l]);
+    else out.push(["Never called", { co: `(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`,
+      phone: `(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`, who: "", next: "Not in pipeline.md", due: "", outcome: "", when: "" }]);
+  }
+  for (const [title, rows] of groups)
+    for (const l of rows) if (!seen.has(l.phone.replace(/\D/g, ""))) { seen.add(l.phone.replace(/\D/g, "")); out.push([title, l]); }
+  return out;
+}
+
 const all = leads();
 const groups = buckets(all);
-const md = render(groups, all);
+const pin = pinned(all, groups);
+const md = pin ? render([["", pin.map(x => x[1])]], all, pin.map(x => x[0]))
+               : render(groups, all);
 fs.writeFileSync(path.join(__dirname, "leads", "dial-today.md"), md);
 
 console.log(`dial list written — ${today()}`);
