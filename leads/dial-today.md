@@ -1,4 +1,4 @@
-# Dial list — 2026-08-20
+# Dial list — 2026-08-21
 
 608 leads · 304 with a logged outcome · 304 never called
 
