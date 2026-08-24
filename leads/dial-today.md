@@ -1,6 +1,6 @@
 # Dial list — 2026-08-24
 
-696 leads · 304 with a logged outcome · 392 never called
+696 leads · 306 with a logged outcome · 390 never called
 
 Same order as dialer/TODAY.csv — row numbers match the dialer.
 
@@ -130,9 +130,9 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    → Call in the morning, ask for Caleb
    > **2026-08-17** Danielle is the receptionist Caleb, Ganon mornings Danielle is the receptionist Caleb, Ganon mornings. left message for caleb the owner.
 
-**34. Peerless Cleaning & Restoration** (217) 423-7704 — ask for Wike family · `GATEKEEPER`
-   → Cold call → demo #
-   > last: gatekeeper (2026-08-17)
+**34. Peerless Cleaning & Restoration** (217) 423-7704 — ask for Brad Wike (Owner) · `GATEKEEPER`
+   → Cold call, ask for Brad by name
+   > last: gatekeeper; 2026-08-24 enriched, owner confirmed as Brad Wike via company's own About page (purchased Peerless from his parents in 2004) — no email found on site or contact form, do not guess (2026-08-17)
 
 **35. J.J. Swartz Co** (217) 877-2611 — ask for Brad Swartz (President) · `GATEKEEPER`
    → Call after 6pm — the receptionist has blocked this twice
@@ -146,457 +146,456 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    → Call Anthony, open with "I called at 10 and didn't get an answer"
    > **2026-08-17** Anthony. Called at 953. He didn’t answer. Didn’t leave a voicemail. Call back and say I called at 10 am and didn’t get an answer. 8/17 - no answer
 
-**38. Dubuque Area Steamatic** (563) 556-5821 · `GATEKEEPER`
-   → Find the current owner's name before dialing again
-   > **2026-08-17** Jim. Dave the receptionist. said jim doesnt work there
-
-**39. Madison Property Restoration** (608) 467-3360 — ask for Randy Schmidt (President) · `GATEKEEPER`
+**38. Madison Property Restoration** (608) 467-3360 — ask for Randy Schmidt (President) · `GATEKEEPER`
    → Call after 6pm, ask for Randy by name
    > **2026-08-17** spoke to gatekeeper again
 
-**40. K-tech Kleening** (800) 215-8324 — ask for Craig (Owner) — confirmed on the call · `GATEKEEPER`
+**39. K-tech Kleening** (800) 215-8324 — ask for Craig (Owner) — confirmed on the call · `GATEKEEPER`
    → Call around 8am, ask for Craig
    > **2026-08-17** Craig is owner, clarence is retired. call around 8 am
 
-**41. American Patriot Restoration** (217) 342-3206 — ask for Curt (Owner) · `RETRY`
+**40. American Patriot Restoration** (217) 342-3206 — ask for Curt (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-05)
 
-**42. Vortex Restoration** (316) 541-4362 — ask for Matt & Natalie Inbody · `RETRY`
+**41. Vortex Restoration** (316) 541-4362 — ask for Matt & Natalie Inbody · `RETRY`
    → Cold call → demo #
    > **2026-08-05** No answer.
 
-**43. Fast Restoration** (636) 681-3200 — ask for Terry (Owner) · `RETRY`
+**42. Fast Restoration** (636) 681-3200 — ask for Terry (Owner) · `RETRY`
    → Cold call → demo #
    > **2026-08-05** No answer
 
-**44. Burggraf Disaster** (918) 584-3737 · `RETRY`
+**43. Burggraf Disaster** (918) 584-3737 · `RETRY`
    → Cold call (check size)
    > last: no answer (2026-08-08)
 
-**45. Atlas Restoration Specialists** (314) 822-0090 — ask for Brian Mullins (President) · `RETRY`
+**44. Atlas Restoration Specialists** (314) 822-0090 — ask for Brian Mullins (President) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-08)
 
-**46. Ben Davis Restoration** (417) 860-9767 — ask for Shad Friend (Founder) · `RETRY`
+**45. Ben Davis Restoration** (417) 860-9767 — ask for Shad Friend (Founder) · `RETRY`
    → Cold call → demo #
    > **2026-08-05** No answer. Called at 1030.
 
-**47. Brown's Floor Care & Restoration** (319) 337-7721 · `RETRY`
+**46. Brown's Floor Care & Restoration** (319) 337-7721 · `RETRY`
    → Verify phone first
    > last: no answer (2026-08-08)
 
-**48. Allied Restoration Service** (712) 204-0868 · `RETRY`
+**47. Allied Restoration Service** (712) 204-0868 · `RETRY`
    → Verify phone first
    > **2026-08-05** no answer
 
-**49. Chavez Restoration & Cleaning** (785) 232-3779 — ask for Dan & Amanda Chavez · `RETRY`
+**48. Chavez Restoration & Cleaning** (785) 232-3779 — ask for Dan & Amanda Chavez · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-08)
 
-**50. Bales Cleaning & Restoration** (636) 498-1000 — ask for Larry Martin (Owner) · `RETRY`
+**49. Bales Cleaning & Restoration** (636) 498-1000 — ask for Larry Martin (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-08)
 
-**51. Cleaning Restoration Services** (918) 710-0609 — ask for Family-run · `RETRY`
+**50. Cleaning Restoration Services** (918) 710-0609 — ask for Family-run · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-09)
 
-**52. Clean Green Restoration** (417) 300-5062 — ask for Miles & Tarah McNeill · `RETRY`
+**51. Clean Green Restoration** (417) 300-5062 — ask for Miles & Tarah McNeill · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-09)
 
-**53. Dalton Brothers Restoration** (816) 616-7667 — ask for Mike Dalton (Owner) · `RETRY`
+**52. Dalton Brothers Restoration** (816) 616-7667 — ask for Mike Dalton (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-09)
 
-**54. Clinton Water Damage Pro** (563) 503-6066 · `RETRY`
+**53. Clinton Water Damage Pro** (563) 503-6066 · `RETRY`
    → Verify phone first
    > last: no answer (2026-08-09)
 
-**55. DryHero Water & Mold** (402) 438-2379 — ask for Ritch Paprocki (Founder) · `RETRY`
+**54. DryHero Water & Mold** (402) 438-2379 — ask for Ritch Paprocki (Founder) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-09)
 
-**56. Dri Right** (580) 574-2383 — ask for Clayton Hutson (Owner) · `RETRY`
+**55. Dri Right** (580) 574-2383 — ask for Clayton Hutson (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-09)
 
-**57. Disaster Masters, LLC** (501) 441-4087 — ask for Jake Yancey (Owner) · `RETRY`
+**56. Disaster Masters, LLC** (501) 441-4087 — ask for Jake Yancey (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-09)
 
-**58. Kwik Dry LLC** (417) 725-6978 — ask for Family-run · `RETRY`
+**57. Kwik Dry LLC** (417) 725-6978 — ask for Family-run · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-10)
 
-**59. Kelley Construction Contractors** (309) 346-6604 — ask for Michael Kelley (President) · `RETRY`
+**58. Kelley Construction Contractors** (309) 346-6604 — ask for Michael Kelley (President) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-10)
 
-**60. Freeman General Contracting** (217) 442-2281 — ask for Jacob & James Freeman · `RETRY`
+**59. Freeman General Contracting** (217) 442-2281 — ask for Jacob & James Freeman · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-10)
 
-**61. Kramer Carpet Cleaning** (563) 590-5722 — ask for Rob & Russ Kramer · `RETRY`
+**60. Kramer Carpet Cleaning** (563) 590-5722 — ask for Rob & Russ Kramer · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-10)
 
-**62. Home Pro Services** (319) 382-0217 · `RETRY`
+**61. Home Pro Services** (319) 382-0217 · `RETRY`
    → Verify phone first
    > last: no answer (2026-08-10)
 
-**63. Illinois Home Solutions** (309) 300-2112 · `RETRY`
+**62. Illinois Home Solutions** (309) 300-2112 · `RETRY`
    → Verify phone first
    > last: no answer (2026-08-10)
 
-**64. Extremely Clean** (402) 932-3257 · `RETRY`
+**63. Extremely Clean** (402) 932-3257 · `RETRY`
    → Verify phone + which city first
    > last: no answer (2026-08-10)
 
-**65. MCC Cleaning & Restoration** (314) 443-5044 — ask for Jessica Vieu (Owner) · `RETRY`
+**64. MCC Cleaning & Restoration** (314) 443-5044 — ask for Jessica Vieu (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-10)
 
-**66. Smoke Services Restoration** (618) 234-9696 — ask for Metro East · `RETRY`
+**65. Smoke Services Restoration** (618) 234-9696 — ask for Metro East · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-11)
 
-**67. Restoration Connection Inc** (618) 925-0085 — ask for John Fowler (Owner) · `RETRY`
+**66. Restoration Connection Inc** (618) 925-0085 — ask for John Fowler (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-11)
 
-**68. Advanced Restorations** (417) 962-8844 · `RETRY`
+**67. Advanced Restorations** (417) 962-8844 · `RETRY`
    → Find number first
    > last: no answer (2026-08-11)
 
-**69. Werner Restoration Services Inc** (563) 322-0535 · `RETRY`
+**68. Werner Restoration Services Inc** (563) 322-0535 · `RETRY`
    → Verify phone first
    > last: no answer (2026-08-11)
 
-**70. Mustang Disaster CleanUp** (515) 620-3772 · `RETRY`
+**69. Mustang Disaster CleanUp** (515) 620-3772 · `RETRY`
    → Verify phone first
    > last: no answer (2026-08-11)
 
-**71. Red River Water Restoration** (405) 565-9833 — ask for Andrew Jones & Les Moore (co-founders) · `RETRY`
+**70. Red River Water Restoration** (405) 565-9833 — ask for Andrew Jones & Les Moore (co-founders) · `RETRY`
    → Cold call → demo #
    > **2026-08-11** spoke to answering service
 
-**72. Brownies Carpet & Upholstery Cleaning & Water Restoration** (920) 788-6852 — ask for Tom & Lisa Brown (Owners) · `RETRY`
+**71. Brownies Carpet & Upholstery Cleaning & Water Restoration** (920) 788-6852 — ask for Tom & Lisa Brown (Owners) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-11)
 
-**73. Vital Restoration** (217) 679-0254 — ask for Timothy Brown (Owner) · `RETRY`
+**72. Vital Restoration** (217) 679-0254 — ask for Timothy Brown (Owner) · `RETRY`
    → Cold call → demo #
    > last: no answer (2026-08-17)
 
-**74. Tri County Cleaning Systems** (309) 266-5755 — ask for Rob Fountain (Owner) · `RETRY`
+**73. Tri County Cleaning Systems** (309) 266-5755 — ask for Rob Fountain (Owner) · `RETRY`
    → Cold call, ask for Rob by name
    > last: no answer (2026-08-17)
 
-**75. Restore & More** (913) 247-4379 — ask for Mike (Owner) · `RETRY`
+**74. Restore & More** (913) 247-4379 — ask for Mike (Owner) · `RETRY`
    → Cold call, ask for Mike
    > **2026-08-17** called around 1130 monday
 
-**76. Mr. Power Clean** (417) 881-8989 · `COLD`
+**75. Mr. Power Clean** (417) 881-8989 · `COLD`
    → Find number first
 
-**77. Water Damage 24** (501) 408-4062 · `COLD`
+**76. Water Damage 24** (501) 408-4062 · `COLD`
    → Find number first
 
-**78. Patriot Water Damage** (918) 800-3372 · `COLD`
+**77. Patriot Water Damage** (918) 800-3372 · `COLD`
    → Find number first
 
-**79. Phoenix Renovation & Restoration** (913) 599-0055 — ask for Brad Heise (CEO) · `COLD`
+**78. Phoenix Renovation & Restoration** (913) 599-0055 — ask for Brad Heise (CEO) · `COLD`
    → Cold call (confirm headcount fits ICP)
 
-**80. Repairs Unlimited (RUI Restoration)** (913) 262-6937 — ask for Chris Santiago (CEO) · `COLD`
+**79. Repairs Unlimited (RUI Restoration)** (913) 262-6937 — ask for Chris Santiago (CEO) · `COLD`
    → Cold call → demo #
 
-**81. B.J.'s Restoration** (309) 829-1500 · `COLD`
+**80. B.J.'s Restoration** (309) 829-1500 · `COLD`
    → Find number first
 
-**82. White Construction Co** (217) 442-7594 · `COLD`
+**81. White Construction Co** (217) 442-7594 · `COLD`
    → Verify phone first
 
-**83. Water Damage Pro of Edwardsville** (618) 800-3633 · `COLD`
+**82. Water Damage Pro of Edwardsville** (618) 800-3633 · `COLD`
    → Verify independence (possible lead-gen network)
 
-**84. Simpson Restoration LLC** (417) 759-5117 · `COLD`
+**83. Simpson Restoration LLC** (417) 759-5117 · `COLD`
    → Find number first
 
-**85. Bryant Restoration** (573) 366-6351 · `COLD`
+**84. Bryant Restoration** (573) 366-6351 · `COLD`
    → Verify phone first
 
-**86. Greene Planet** (417) 415-4357 · `COLD`
+**85. Greene Planet** (417) 415-4357 · `COLD`
    → Find number first
 
-**87. Beadles Property Maintenance** (417) 840-3330 · `COLD`
+**86. Beadles Property Maintenance** (417) 840-3330 · `COLD`
    → Find number first
 
-**88. McDowell Roofing & Restoration** (417) 540-3947 · `COLD`
+**87. McDowell Roofing & Restoration** (417) 540-3947 · `COLD`
    → Find number first
 
-**89. True North Exteriors** (417) 437-2707 · `COLD`
+**88. True North Exteriors** (417) 437-2707 · `COLD`
    → Find number first
 
-**90. KennCo Construction** (417) 881-8147 · `COLD`
+**89. KennCo Construction** (417) 881-8147 · `COLD`
    → Find number first
 
-**91. Compass Restoration LLC** (417) 887-4357 · `COLD`
+**90. Compass Restoration LLC** (417) 887-4357 · `COLD`
    → Find number first
 
-**92. RC Restoration LLC** (563) 543-3121 · `COLD`
+**91. RC Restoration LLC** (563) 543-3121 · `COLD`
    → Verify fit (markets as roofing co)
 
-**93. Service Pro Restoration** (515) 517-1283 · `COLD`
+**92. Service Pro Restoration** (515) 517-1283 · `COLD`
    → Verify phone first
 
-**94. Service Pros (Service Restore Pro)** (319) 299-2080 · `COLD`
+**93. Service Pros (Service Restore Pro)** (319) 299-2080 · `COLD`
    → Verify phone first
 
-**95. Michaelis Corporation** (317) 251-1935 · `COLD`
+**94. Michaelis Corporation** (317) 251-1935 · `COLD`
    → Cold call → demo #
 
-**96. Restorex Disaster Restoration** (317) 315-5071 · `COLD`
+**95. Restorex Disaster Restoration** (317) 315-5071 · `COLD`
    → Cold call → demo #
 
-**97. Indiana Restoration & Cleaning Services** (317) 776-9942 · `COLD`
+**96. Indiana Restoration & Cleaning Services** (317) 776-9942 · `COLD`
    → Cold call → demo #
 
-**98. J.L. Fox Inc** (317) 255-4144 · `COLD`
+**97. J.L. Fox Inc** (317) 255-4144 · `COLD`
    → Cold call → demo #
 
-**99. Absolute Restoration LLC** (317) 871-4074 — ask for Randy George (Owner) · `COLD`
+**98. Absolute Restoration LLC** (317) 871-4074 — ask for Randy George (Owner) · `COLD`
    → Cold call, ask for Randy by name
 
-**100. Icon Property Rescue** (513) 426-6767 · `COLD`
+**99. Icon Property Rescue** (513) 426-6767 · `COLD`
    → Cold call → demo #
 
-**101. Dry Effect Restoration Services** (513) 763-2121 · `COLD`
+**100. Dry Effect Restoration Services** (513) 763-2121 · `COLD`
    → Cold call → demo #
 
-**102. WayMakers Restoration** (614) 325-0678 · `COLD`
+**101. WayMakers Restoration** (614) 325-0678 · `COLD`
    → Cold call → demo #
 
-**103. PHG Restoration Services** (614) 359-3154 — ask for Josh Clifton (Owner) · `COLD`
+**102. PHG Restoration Services** (614) 359-3154 — ask for Josh Clifton (Owner) · `COLD`
    → Cold call, ask for Josh by name
 
-**104. AIM Green Restoration** (614) 877-8855 · `COLD`
+**103. AIM Green Restoration** (614) 877-8855 · `COLD`
    → Cold call → demo #
 
-**105. Dry Patrol** (740) 417-9006 — ask for Bryan Daughtry (Founder) · `COLD`
+**104. Dry Patrol** (740) 417-9006 — ask for Bryan Daughtry (Founder) · `COLD`
    → Cold call, ask for Bryan by name
 
-**106. Maximum Restoration** (937) 203-0123 · `COLD`
+**105. Maximum Restoration** (937) 203-0123 · `COLD`
    → Cold call → demo #
 
-**107. Active Restoration** (937) 431-9999 · `COLD`
+**106. Active Restoration** (937) 431-9999 · `COLD`
    → Cold call → demo #
 
-**108. Disaster X** (937) 343-4357 · `COLD`
+**107. Disaster X** (937) 343-4357 · `COLD`
    → Cold call → demo #
 
-**109. Design Restoration & Reconstruction** (330) 563-0010 · `COLD`
+**108. Design Restoration & Reconstruction** (330) 563-0010 · `COLD`
    → Cold call → demo #
 
-**110. Water Extraction Team** (440) 953-0767 · `COLD`
+**109. Water Extraction Team** (440) 953-0767 · `COLD`
    → Cold call → demo #
 
-**111. Pine Ridge Restoration** (440) 276-3636 · `COLD`
+**110. Pine Ridge Restoration** (440) 276-3636 · `COLD`
    → Cold call → demo #
 
-**112. Cleveland Masters of Disasters** (216) 663-1111 — ask for Larry · `COLD`
+**111. Cleveland Masters of Disasters** (216) 663-1111 — ask for Larry · `COLD`
    → Cold call, ask for Larry by name
 
-**113. Integrated Restoration** (216) 361-3473 · `COLD`
+**112. Integrated Restoration** (216) 361-3473 · `COLD`
    → Cold call → demo #
 
-**114. Disaster Recovery Services** (330) 395-7878 · `COLD`
+**113. Disaster Recovery Services** (330) 395-7878 · `COLD`
    → Cold call → demo #
 
-**115. RestoWorks** (330) 574-1514 · `COLD`
+**114. RestoWorks** (330) 574-1514 · `COLD`
    → Cold call → demo #
 
-**116. National Fire & Water Repair** (330) 782-5392 · `COLD`
+**115. National Fire & Water Repair** (330) 782-5392 · `COLD`
    → Cold call → demo #
 
-**117. SMB Restoration Specialists** (419) 269-1473 — ask for Jim Mossing (President) · `COLD`
+**116. SMB Restoration Specialists** (419) 269-1473 — ask for Jim Mossing (President) · `COLD`
    → Cold call, ask for Jim by name
 
-**118. Service Pros (Fort Wayne)** (260) 253-5820 · `COLD`
+**117. Service Pros (Fort Wayne)** (260) 253-5820 · `COLD`
    → Cold call → demo #
 
-**119. Water Out** (260) 305-1062 · `COLD`
+**118. Water Out** (260) 305-1062 · `COLD`
    → Cold call → demo #
 
-**120. Distinctive Cleaning & Restoration** (260) 250-4664 — ask for Alan & Audrey Falls (Owners) · `COLD`
+**119. Distinctive Cleaning & Restoration** (260) 250-4664 — ask for Alan & Audrey Falls (Owners) · `COLD`
    → Cold call, ask for Alan or Audrey by name
 
-**121. Hasgoe** (812) 464-2402 · `COLD`
+**120. Hasgoe** (812) 464-2402 · `COLD`
    → Cold call → demo #
 
-**122. Environmental Cleaning Solutions** (812) 602-3839 · `COLD`
+**121. Environmental Cleaning Solutions** (812) 602-3839 · `COLD`
    → Cold call → demo #
 
-**123. Water Fire Mold Experts LLC** (812) 431-3533 · `COLD`
+**122. Water Fire Mold Experts LLC** (812) 431-3533 · `COLD`
    → Cold call → demo #
 
-**124. RAM Restoration** (616) 818-1700 · `COLD`
+**123. RAM Restoration** (616) 818-1700 · `COLD`
    → Cold call → demo #
 
-**125. Riverside Restoration** (616) 675-0110 · `COLD`
+**124. Riverside Restoration** (616) 675-0110 · `COLD`
    → Cold call → demo #
 
-**126. Hadaway Cleaning & Restoration** (269) 375-7522 · `COLD`
+**125. Hadaway Cleaning & Restoration** (269) 375-7522 · `COLD`
    → Cold call → demo #
 
-**127. Bailtek Carpet Cleaning & Water Damage** (269) 484-1011 · `COLD`
+**126. Bailtek Carpet Cleaning & Water Damage** (269) 484-1011 · `COLD`
    → Cold call → demo #
 
-**128. Dri-Life Restoration** (231) 935-4058 · `COLD`
+**127. Dri-Life Restoration** (231) 935-4058 · `COLD`
    → Cold call → demo #
 
-**129. Michigan Flood Pros** (248) 923-5663 · `COLD`
+**128. Michigan Flood Pros** (248) 923-5663 · `COLD`
    → Cold call → demo #
 
-**130. weDRY Restoration** (248) 752-3222 · `COLD`
+**129. weDRY Restoration** (248) 752-3222 · `COLD`
    → Cold call → demo #
 
-**131. M&J Restoration** (734) 472-4414 · `COLD`
+**130. M&J Restoration** (734) 472-4414 · `COLD`
    → Cold call → demo #
 
-**132. R & S Restores** (248) 669-2600 · `COLD`
+**131. R & S Restores** (248) 669-2600 · `COLD`
    → Cold call → demo #
 
-**133. Prime Restoration** (586) 277-1069 — ask for Cole Hartwell (Founder/CEO) · `COLD`
+**132. Prime Restoration** (586) 277-1069 — ask for Cole Hartwell (Founder/CEO) · `COLD`
    → Cold call, ask for Cole by name
 
-**134. Aaron Builders** (248) 957-9660 · `COLD`
+**133. Aaron Builders** (248) 957-9660 · `COLD`
    → Cold call → demo #
 
-**135. X-Cel Restoration** (248) 414-3200 · `COLD`
+**134. X-Cel Restoration** (248) 414-3200 · `COLD`
    → Cold call → demo #
 
-**136. Anytime Restoration** (248) 965-1079 · `COLD`
+**135. Anytime Restoration** (248) 965-1079 · `COLD`
    → Cold call → demo #
 
-**137. Action Extraction Inc.** (586) 949-4448 — ask for Charles Bingham (Owner) · `COLD`
+**136. Action Extraction Inc.** (586) 949-4448 — ask for Charles Bingham (Owner) · `COLD`
    → Cold call, ask for Charles by name
 
-**138. J&L Restoration** (517) 322-3000 · `COLD`
+**137. J&L Restoration** (517) 322-3000 · `COLD`
    → Cold call → demo #
 
-**139. Camelot Emergency Water Removal** (734) 766-7856 · `COLD`
+**138. Camelot Emergency Water Removal** (734) 766-7856 · `COLD`
    → Cold call → demo # — FLAG: 4 MI branches, may exceed the 15-tech ceiling, confirm size on the call
 
-**140. Apex Restoration & Mitigation** (810) 355-4775 · `COLD`
+**139. Apex Restoration & Mitigation** (810) 355-4775 · `COLD`
    → Cold call → demo #
 
-**141. Gohm Insurance Restoration** (989) 752-0606 · `COLD`
+**140. Gohm Insurance Restoration** (989) 752-0606 · `COLD`
    → Cold call → demo #
 
-**142. Exact Recon** (517) 262-3770 · `COLD`
+**141. Exact Recon** (517) 262-3770 · `COLD`
    → Cold call → demo # — outside the named metros, sourced as backup
 
-**143. Doan Restoration of Michigan** (586) 842-8142 · `COLD`
+**142. Doan Restoration of Michigan** (586) 842-8142 · `COLD`
    → Cold call → demo #
 
-**144. Nu-Way Carpet Cleaning** (586) 677-1991 · `COLD`
+**143. Nu-Way Carpet Cleaning** (586) 677-1991 · `COLD`
    → Cold call → demo #
 
-**145. The Restoration Doctor** (586) 522-4922 · `COLD`
+**144. The Restoration Doctor** (586) 522-4922 · `COLD`
    → Cold call → demo #
 
-**146. Michigan Fire & Flood Inc** (586) 221-0821 · `COLD`
+**145. Michigan Fire & Flood Inc** (586) 221-0821 · `COLD`
    → Cold call → demo #
 
-**147. MGM Restoration Inc** (888) 514-4639 · `COLD`
+**146. MGM Restoration Inc** (888) 514-4639 · `COLD`
    → Cold call → demo #
 
-**148. 1st Class Carpet Cleaning & Restoration** (248) 491-3088 · `COLD`
+**147. 1st Class Carpet Cleaning & Restoration** (248) 491-3088 · `COLD`
    → Cold call → demo #
 
-**149. Emergency Response Services, Inc. (ERSI)** (877) 562-3663 · `COLD`
+**148. Emergency Response Services, Inc. (ERSI)** (877) 562-3663 · `COLD`
    → Cold call → demo #
 
-**150. Mannle Construction** (810) 543-2373 · `COLD`
+**149. Mannle Construction** (810) 543-2373 · `COLD`
    → Cold call → demo #
 
-**151. Watermark Restoration Solutions, Inc.** (248) 278-6166 · `COLD`
+**150. Watermark Restoration Solutions, Inc.** (248) 278-6166 · `COLD`
    → Cold call → demo #
 
-**152. United Restoration LLC** (734) 991-3447 · `COLD`
+**151. United Restoration LLC** (734) 991-3447 · `COLD`
    → Cold call → demo #
 
-**153. Trimark Construction Inc** (517) 263-8687 · `COLD`
+**152. Trimark Construction Inc** (517) 263-8687 · `COLD`
    → Cold call → demo #
 
-**154. Rendall's Certified Cleaning Services** (810) 225-2184 · `COLD`
+**153. Rendall's Certified Cleaning Services** (810) 225-2184 · `COLD`
    → Cold call → demo #
 
-**155. McCardel Restoration, LLC** (517) 550-5315 · `COLD`
+**154. McCardel Restoration, LLC** (517) 550-5315 · `COLD`
    → Cold call → demo #
 
-**156. The Bel Company** (517) 899-0349 · `COLD`
+**155. The Bel Company** (517) 899-0349 · `COLD`
    → Cold call → demo #
 
-**157. John Grace Restoration & Construction** (616) 438-5315 · `COLD`
+**156. John Grace Restoration & Construction** (616) 438-5315 · `COLD`
    → Cold call → demo #
 
-**158. Construction Services of West Michigan** (800) 968-1927 — ask for Richard Godlewski (President) · `COLD`
+**157. Construction Services of West Michigan** (800) 968-1927 — ask for Richard Godlewski (President) · `COLD`
    → Cold call — DKI member, confirm independent ownership on the call
 
-**159. Revive Restoration, Inc.** (608) 222-9222 · `COLD`
+**158. Revive Restoration, Inc.** (608) 222-9222 · `COLD`
    → Cold call → demo #
 
-**160. White Knight Carpet Rescue, Inc.** (608) 257-1991 · `COLD`
+**159. White Knight Carpet Rescue, Inc.** (608) 257-1991 · `COLD`
    → Cold call → demo #
 
-**161. Damage Control Inc** (414) 672-3409 · `COLD`
+**160. Damage Control Inc** (414) 672-3409 · `COLD`
    → Cold call → demo #
 
-**162. CCS Property Services (Contract Construction Services)** (920) 435-2288 · `COLD`
+**161. CCS Property Services (Contract Construction Services)** (920) 435-2288 · `COLD`
    → Cold call → demo #
 
-**163. Monarch Restoration** (502) 401-1805 · `COLD`
+**162. Monarch Restoration** (502) 401-1805 · `COLD`
    → Cold call → demo #
 
-**164. Emrick Services** (502) 876-1891 · `COLD`
+**163. Emrick Services** (502) 876-1891 · `COLD`
    → Cold call → demo #
 
-**165. Southern Clean Air Restoration** (502) 270-4449 · `COLD`
+**164. Southern Clean Air Restoration** (502) 270-4449 · `COLD`
    → Cold call → demo #
 
-**166. Nashville Damage Restoration Pros** (615) 436-5759 — ask for Matthew Delaney & Barry Hargrove (Co-Founders) · `COLD`
+**165. Nashville Damage Restoration Pros** (615) 436-5759 — ask for Matthew Delaney & Barry Hargrove (Co-Founders) · `COLD`
    → Cold call → demo #
 
-**167. Allegiance Restoration LLC** (901) 245-0039 · `COLD`
+**166. Allegiance Restoration LLC** (901) 245-0039 · `COLD`
    → Cold call → demo #
 
-**168. Landmark Construction & Emergency Services** (901) 452-0390 · `COLD`
+**167. Landmark Construction & Emergency Services** (901) 452-0390 · `COLD`
    → Cold call → demo #
 
-**169. Mold Masters** (865) 351-6344 · `COLD`
+**168. Mold Masters** (865) 351-6344 · `COLD`
    → Cold call → demo #
 
-**170. Mold Doctors USA** (865) 945-3000 · `COLD`
+**169. Mold Doctors USA** (865) 945-3000 · `COLD`
    → Cold call → demo #
 
-**171. Ethos Restoration** (865) 693-3265 — ask for Jeremy Akers (Founder) · `COLD`
+**170. Ethos Restoration** (865) 693-3265 — ask for Jeremy Akers (Founder) · `COLD`
    → Cold call → demo #
 
-**172. Knoxville Restoration Pro** (865) 239-3435 · `COLD`
+**171. Knoxville Restoration Pro** (865) 239-3435 · `COLD`
    → VERIFY FIRST — generic city+service name, the same pattern as the irs-247 network already excluded twice
 
-**173. Spotless** (859) 459-0424 — ask for Paul Craig & Tina (Owners) · `COLD`
+**172. Spotless** (859) 459-0424 — ask for Paul Craig & Tina (Owners) · `COLD`
    → Cold call → demo #
 
-**174. GAMO Restoration** (859) 267-1446 · `COLD`
+**173. GAMO Restoration** (859) 267-1446 · `COLD`
    → Cold call → demo #
 
-**175. Reliable Restoration of KY, Inc** (270) 791-3298 — ask for Philip Cunningham · `COLD`
+**174. Reliable Restoration of KY, Inc** (270) 791-3298 — ask for Philip Cunningham · `COLD`
    → Cold call → demo #
 
-**176. Pure Air Solutions, LLC** (270) 774-7472 — ask for Bruce Sullivan (Owner/Operator) · `COLD`
+**175. Pure Air Solutions, LLC** (270) 774-7472 — ask for Bruce Sullivan (Owner/Operator) · `COLD`
+   → Cold call → demo #
+
+**176. Sky Restoration DKI** (270) 253-4354 — ask for Brian Elkins (Owner) · `COLD`
    → Cold call → demo #
