@@ -1,6 +1,6 @@
 # Dial list — 2026-08-24
 
-656 leads · 304 with a logged outcome · 352 never called
+696 leads · 304 with a logged outcome · 392 never called
 
 Same order as dialer/TODAY.csv — row numbers match the dialer.
 
@@ -499,104 +499,104 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
 **142. Exact Recon** (517) 262-3770 · `COLD`
    → Cold call → demo # — outside the named metros, sourced as backup
 
-**143. Zipco Restoration** (877) 799-4726 · `COLD`
+**143. Doan Restoration of Michigan** (586) 842-8142 · `COLD`
    → Cold call → demo #
 
-**144. ATP Restoration LLC** (913) 257-5825 · `COLD`
+**144. Nu-Way Carpet Cleaning** (586) 677-1991 · `COLD`
    → Cold call → demo #
 
-**145. Rapid Dry Kansas City** (816) 799-1234 · `COLD`
+**145. The Restoration Doctor** (586) 522-4922 · `COLD`
    → Cold call → demo #
 
-**146. Pure Air LLC** (816) 946-1410 · `COLD`
+**146. Michigan Fire & Flood Inc** (586) 221-0821 · `COLD`
    → Cold call → demo #
 
-**147. Dog Gone Mold** (816) 547-6816 · `COLD`
+**147. MGM Restoration Inc** (888) 514-4639 · `COLD`
    → Cold call → demo #
 
-**148. Catastrophe Control Restoration Services LLC** (800) 937-0982 · `COLD`
+**148. 1st Class Carpet Cleaning & Restoration** (248) 491-3088 · `COLD`
    → Cold call → demo #
 
-**149. Genesis Home Restorations LLC** (913) 909-3582 · `COLD`
+**149. Emergency Response Services, Inc. (ERSI)** (877) 562-3663 · `COLD`
    → Cold call → demo #
 
-**150. Roberts Complete Restoration** (816) 337-7926 · `COLD`
+**150. Mannle Construction** (810) 543-2373 · `COLD`
    → Cold call → demo #
 
-**151. Trusted Restorer** (913) 469-9464 · `COLD`
+**151. Watermark Restoration Solutions, Inc.** (248) 278-6166 · `COLD`
    → Cold call → demo #
 
-**152. American Water Damage** (913) 227-0516 · `COLD`
+**152. United Restoration LLC** (734) 991-3447 · `COLD`
    → Cold call → demo #
 
-**153. Lee Safety & Environmental Services** (417) 830-0393 · `COLD`
+**153. Trimark Construction Inc** (517) 263-8687 · `COLD`
    → Cold call → demo #
 
-**154. Dawson Restorations Services LLC** (417) 860-0821 · `COLD`
+**154. Rendall's Certified Cleaning Services** (810) 225-2184 · `COLD`
    → Cold call → demo #
 
-**155. Newman's Restoration LLC** (417) 437-6985 · `COLD`
+**155. McCardel Restoration, LLC** (517) 550-5315 · `COLD`
    → Cold call → demo #
 
-**156. Springfield Quality Services** (417) 833-5926 · `COLD`
+**156. The Bel Company** (517) 899-0349 · `COLD`
    → Cold call → demo #
 
-**157. Joplin Mold Inspection and Remediation** (417) 825-6313 · `COLD`
+**157. John Grace Restoration & Construction** (616) 438-5315 · `COLD`
    → Cold call → demo #
 
-**158. Midwest Mold Specialist LLC** (417) 499-1732 · `COLD`
+**158. Construction Services of West Michigan** (800) 968-1927 — ask for Richard Godlewski (President) · `COLD`
+   → Cold call — DKI member, confirm independent ownership on the call
+
+**159. Revive Restoration, Inc.** (608) 222-9222 · `COLD`
    → Cold call → demo #
 
-**159. MMCT Contracting** (636) 797-4440 · `COLD`
+**160. White Knight Carpet Rescue, Inc.** (608) 257-1991 · `COLD`
    → Cold call → demo #
 
-**160. Bio-Clean 911** (800) 530-1541 · `COLD`
+**161. Damage Control Inc** (414) 672-3409 · `COLD`
    → Cold call → demo #
 
-**161. DryMasters** (314) 498-1070 · `COLD`
+**162. CCS Property Services (Contract Construction Services)** (920) 435-2288 · `COLD`
    → Cold call → demo #
 
-**162. 911 Water Damage Experts LLC** (314) 960-1790 · `COLD`
+**163. Monarch Restoration** (502) 401-1805 · `COLD`
    → Cold call → demo #
 
-**163. Anchor Restoration of St. Louis** (636) 579-1072 · `COLD`
+**164. Emrick Services** (502) 876-1891 · `COLD`
    → Cold call → demo #
 
-**164. Advanced Environmental Services Inc** (314) 865-2662 · `COLD`
+**165. Southern Clean Air Restoration** (502) 270-4449 · `COLD`
    → Cold call → demo #
 
-**165. LDR Cleaning & Restoration Inc** (815) 874-7066 · `COLD`
+**166. Nashville Damage Restoration Pros** (615) 436-5759 — ask for Matthew Delaney & Barry Hargrove (Co-Founders) · `COLD`
    → Cold call → demo #
 
-**166. Specialty Cleaning & Restoration Services Inc** (815) 522-2290 · `COLD`
+**167. Allegiance Restoration LLC** (901) 245-0039 · `COLD`
    → Cold call → demo #
 
-**167. Valor Restoration** (224) 701-3930 · `COLD`
+**168. Landmark Construction & Emergency Services** (901) 452-0390 · `COLD`
    → Cold call → demo #
 
-**168. Alpha Restoration** (779) 600-2573 · `COLD`
+**169. Mold Masters** (865) 351-6344 · `COLD`
    → Cold call → demo #
 
-**169. HelpPro1** (844) 435-7776 · `COLD`
+**170. Mold Doctors USA** (865) 945-3000 · `COLD`
    → Cold call → demo #
 
-**170. D.R. Meyer Mold** (309) 303-4370 · `COLD`
+**171. Ethos Restoration** (865) 693-3265 — ask for Jeremy Akers (Founder) · `COLD`
    → Cold call → demo #
 
-**171. Taylor'd Restorations Inc** (217) 372-6482 · `COLD`
+**172. Knoxville Restoration Pro** (865) 239-3435 · `COLD`
+   → VERIFY FIRST — generic city+service name, the same pattern as the irs-247 network already excluded twice
+
+**173. Spotless** (859) 459-0424 — ask for Paul Craig & Tina (Owners) · `COLD`
    → Cold call → demo #
 
-**172. Pure Maintenance of Central Illinois-USA Mold Service** (217) 903-5373 · `COLD`
+**174. GAMO Restoration** (859) 267-1446 · `COLD`
    → Cold call → demo #
 
-**173. AC Environmental Inc** (217) 710-5186 · `COLD`
+**175. Reliable Restoration of KY, Inc** (270) 791-3298 — ask for Philip Cunningham · `COLD`
    → Cold call → demo #
 
-**174. Advance Catastrophe Technologies, Inc.** (316) 262-9992 · `COLD`
-   → Cold call → demo #
-
-**175. Kansas Water and Fire Restoration** (316) 416-1897 · `COLD`
-   → Cold call → demo #
-
-**176. S&A Restoration (S&A Construction, Inc.)** (316) 558-8422 · `COLD`
+**176. Pure Air Solutions, LLC** (270) 774-7472 — ask for Bruce Sullivan (Owner/Operator) · `COLD`
    → Cold call → demo #
