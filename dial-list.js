@@ -130,7 +130,12 @@ function buckets(all) {
   const gate = live.filter(l => notToday(l) && has(l, /gatekeeper|receptionist|voicemail|left message/)).sort(stalest);
   // A no-answer is worth another try, but not on the same day.
   const retry = live.filter(l => notToday(l) && has(l, /no answer|didn'?t answer|no contact/)).sort(stalest);
-  const fresh = live.filter(l => !l.outcome);
+  /* Newest-sourced first. The never-called bucket is capped at whatever is left
+     under TARGET, and `fresh` came out in pipeline.md row order — so leads
+     sourced today land at the bottom of a 299-deep pile and never reach the
+     sheet. Sourcing that never gets dialled is the same as no sourcing. */
+  const fresh = live.filter(l => !l.outcome)
+    .sort((a, b) => (b.when || "").localeCompare(a.when || ""));
 
   const seen = new Set();
   const dedupe = list => list.filter(l => !seen.has(l.co) && seen.add(l.co));

@@ -614,6 +614,55 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Water and Fire Restoration Team | San Antonio, TX · (726) 238-4306 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration | |
 | C & A Construction Services LLC | San Antonio, TX · (210) 913-7324 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration | |
 
+| Michaelis Corporation | (317) 251-1935 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@michaeliscorp.com |
+| Restorex Disaster Restoration | (317) 315-5071 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Indiana Restoration & Cleaning Services | (317) 776-9942 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| J.L. Fox Inc | (317) 255-4144 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Absolute Restoration LLC | Randy George (Owner) · (317) 871-4074 | new | 2026-08-23 sourced | Cold call, ask for Randy by name |  | Restoration |  |
+| Icon Property Rescue | (513) 426-6767 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Dry Effect Restoration Services | (513) 763-2121 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| WayMakers Restoration | (614) 325-0678 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@waymakersohio.com |
+| PHG Restoration Services | Josh Clifton (Owner) · (614) 359-3154 | new | 2026-08-23 sourced | Cold call, ask for Josh by name |  | Restoration | info@phgrestorationservices.com |
+| AIM Green Restoration | (614) 877-8855 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Dry Patrol | Bryan Daughtry (Founder) · (740) 417-9006 | new | 2026-08-23 sourced | Cold call, ask for Bryan by name |  | Restoration |  |
+| Maximum Restoration | (937) 203-0123 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Active Restoration | (937) 431-9999 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@activerestoration.com |
+| Disaster X | (937) 343-4357 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@disasterx247.com |
+| Design Restoration & Reconstruction | (330) 563-0010 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Water Extraction Team | (440) 953-0767 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | office@440restore.com |
+| Pine Ridge Restoration | (440) 276-3636 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Cleveland Masters of Disasters | Larry · (216) 663-1111 | new | 2026-08-23 sourced | Cold call, ask for Larry by name |  | Restoration | larry@clevelandmastersofdisasters.com |
+| Integrated Restoration | (216) 361-3473 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Disaster Recovery Services | (330) 395-7878 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| RestoWorks | (330) 574-1514 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@restoworks.net |
+| National Fire & Water Repair | (330) 782-5392 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| SMB Restoration Specialists | Jim Mossing (President) · (419) 269-1473 | new | 2026-08-23 sourced | Cold call, ask for Jim by name |  | Restoration |  |
+| Service Pros (Fort Wayne) | (260) 253-5820 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Water Out | (260) 305-1062 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Distinctive Cleaning & Restoration | Alan & Audrey Falls (Owners) · (260) 250-4664 | new | 2026-08-23 sourced | Cold call, ask for Alan or Audrey by name |  | Restoration |  |
+| Hasgoe | (812) 464-2402 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Environmental Cleaning Solutions | (812) 602-3839 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Water Fire Mold Experts LLC | (812) 431-3533 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| RAM Restoration | (616) 818-1700 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@ramrestoremi.com |
+| Riverside Restoration | (616) 675-0110 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | spencerhaack@yahoo.com |
+| Hadaway Cleaning & Restoration | (269) 375-7522 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Bailtek Carpet Cleaning & Water Damage | (269) 484-1011 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@bailtek.com |
+| Dri-Life Restoration | (231) 935-4058 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | office@driliferestoration.com |
+| Michigan Flood Pros | (248) 923-5663 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | contact@mifloodpros.com |
+| weDRY Restoration | (248) 752-3222 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| M&J Restoration | (734) 472-4414 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| R & S Restores | (248) 669-2600 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Prime Restoration | Cole Hartwell (Founder/CEO) · (586) 277-1069 | new | 2026-08-23 sourced | Cold call, ask for Cole by name |  | Restoration | info@primerestorationllc.com |
+| Aaron Builders | (248) 957-9660 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| X-Cel Restoration | (248) 414-3200 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@xcelrestore.com |
+| Anytime Restoration | (248) 965-1079 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Action Extraction Inc. | Charles Bingham (Owner) · (586) 949-4448 | new | 2026-08-23 sourced | Cold call, ask for Charles by name |  | Restoration | actionextraction@comcast.net |
+| J&L Restoration | (517) 322-3000 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Camelot Emergency Water Removal | (734) 766-7856 | new | 2026-08-23 sourced | Cold call → demo # — FLAG: 4 MI branches, may exceed the 15-tech ceiling, confirm size on the call |  | Restoration |  |
+| Apex Restoration & Mitigation | (810) 355-4775 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | admin@apex-restoration.com |
+| Gohm Insurance Restoration | (989) 752-0606 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration |  |
+| Exact Recon | (517) 262-3770 | new | 2026-08-23 sourced | Cold call → demo # — outside the named metros, sourced as backup |  | Restoration | Office@exactrecon.com |
+
 ## Won
 | Company | MRR | Start date |
 |---|---|---|
