@@ -1,4 +1,4 @@
-# Dial list — 2026-08-23
+# Dial list — 2026-08-24
 
 608 leads · 304 with a logged outcome · 304 never called
 
@@ -20,7 +20,7 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    due 2026-08-20 · → Call Michelle Thursday morning
    > **2026-08-17** Next monday. Michelle, Don. thursday, morning. call michelle.
 
-**5. Arkansas Restoration** (501) 753-3600 · `COLD`
+**5. Arkansas Restoration** (501) 753-3600 · `CALLBACK`
    due 2026-08-24 · → Call Monday after 8am
    > **2026-08-17** Monday after - 8,
 
@@ -543,7 +543,4 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    → Cold call → demo #
 
 **157. Lamunyon Dry Out & Foundation Repair** (785) 228-1400 · `COLD`
-   → Cold call → demo #
-
-**158. Kansas Carpet Care, Inc.** (785) 842-3311 · `COLD`
    → Cold call → demo #
