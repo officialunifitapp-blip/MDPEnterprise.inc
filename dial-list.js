@@ -15,6 +15,26 @@ const path = require("path");
 
 const today = () => new Date().toISOString().slice(0, 10);
 
+/* --fresh: never-called only, uncapped, unpinned.
+   The default sheet is a day's dialling — everything owed first, cold leads
+   filling what is left under TARGET. A cold-only session is a different job:
+   no callbacks to honour, no order to match, just the untouched backlog in
+   full. Both the sheet and TODAY.csv come out of this flag together, so the
+   row numbers still line up across the two screens. */
+const FRESH_ONLY = process.argv.includes("--fresh");
+
+/* --called: the mirror image — everything already touched and owed something,
+   and no cold leads at all. The four owed buckets are what dial-list has always
+   computed; this flag just stops the never-called pile filling the rest of the
+   sheet. A session spent clearing promises is not the same session as a cold
+   block, and mixing them is how a verbal yes ends up on page four. */
+const CALLED_ONLY = process.argv.includes("--called");
+
+/* Both sheets are written under leads/ and read back by dial-csv.js, so they
+   need separate names or the second run silently overwrites the first. */
+const outArg = process.argv.indexOf("--out");
+const OUT = outArg > -1 && process.argv[outArg + 1] ? process.argv[outArg + 1] : "dial-today.md";
+
 function leads() {
   const out = [];
   let won = false;
@@ -73,9 +93,26 @@ const MEDSPA = /med ?spa|aesthetic|botox|derm|skin|laser|salon|injectable|eyecar
 const OFF_ICP = /marketing|\bcpas?\b|lawyer|\bllp\b|attorney|\bdigital\b|\bcreative\b|studios|\bportal\b|lead to conversion/i;
 // Named outright because the name alone gives nothing away.
 const OFF_ICP_NAMED = /^(neoconcepts|pinch|haled|qnity|smith & crawford|dapper market)/i;
+
+/* Adjacent trades, which is a different mistake from OFF_ICP above. A marketing
+   agency is obviously not a lead; a general contractor or a carpet cleaner
+   looks exactly like one on a sourcing page and 34 of them reached the file
+   labelled Niche = Restoration. They are not buying an emergency-call answering
+   service — nobody loses a 3am flood job to a missed call when they do kitchen
+   remodels or truck-mount carpet cleaning.
+
+   RESTORATION wins over TRADE wherever both appear, because the real prospects
+   are full of both words: "Grethey Rose Construction & Restoration", "Cleanway
+   Restoration & Construction", "Pride Cleaning & Restoration". Testing TRADE
+   alone would have killed those. 'fire' and 'emergency' are in the signal list
+   for the same reason — "Fire Reconstruction Inc" contains "construction" and
+   is precisely the company we want. */
+const RESTORATION = /restorat|restore\b|restorer|water ?damage|flood|disaster|mitigat|catastrophe|steamatic|dry ?out|\bmold\b|remediat|abatement|smoke|soot|\bfire\b|reconstruction|\bemergency\b|extract/i;
+const OFF_TRADE = /construction|contracting|contractors|\bbuilders?\b|roofing|exteriors?\b|renovations?\b|remodel|carpet|upholstery|janitorial/i;
 const isDeadNiche = l => /medspa/i.test(l.niche)
   || (!l.niche && MEDSPA.test(l.co))
-  || OFF_ICP.test(l.co) || OFF_ICP_NAMED.test(l.co);
+  || OFF_ICP.test(l.co) || OFF_ICP_NAMED.test(l.co)
+  || (OFF_TRADE.test(l.co) && !RESTORATION.test(l.co));
 
 function buckets(all) {
   const live = all.filter(l => l.phone && !["lost", "won"].includes(l.stage) && !isDeadNiche(l));
@@ -139,6 +176,19 @@ function buckets(all) {
 
   const seen = new Set();
   const dedupe = list => list.filter(l => !seen.has(l.co) && seen.add(l.co));
+
+  // Cold-only: the whole never-called backlog, not a slice of it. Nothing is
+  // owed a call on this sheet, so nothing outranks anything and TARGET has
+  // nothing to protect.
+  if (FRESH_ONLY) return [["Never called", dedupe(fresh), "Ask for the name where you have one."]];
+
+  // Owed-only: same four buckets, same priority, cold pile withheld.
+  if (CALLED_ONLY) return [
+    ["Callbacks owed", dedupe(callback), "They asked you to call. Overdue ones first."],
+    ["Already spoke to the owner", dedupe(talked), "Warm. Pick up where the last call ended."],
+    ["Beat the gatekeeper", dedupe(gate), "Call after 6pm — the owner answers his own line."],
+    ["No answer last time", dedupe(retry), "Different time of day than you tried before."],
+  ];
 
   // A day's dialling. Everything owed comes first and in full; never-called
   // fills whatever is left.
@@ -295,10 +345,18 @@ function pinned(all, groups) {
 
 const all = leads();
 const groups = buckets(all);
-const pin = pinned(all, groups);
+// order.txt is the last dialer import, which is mostly leads that have been
+// called. Pinning to it would drag them straight back onto a cold-only sheet.
+const pin = (FRESH_ONLY || CALLED_ONLY) ? null : pinned(all, groups);
 const md = pin ? render([["", pin.map(x => x[1])]], all, pin.map(x => x[0]))
                : render(groups, all);
-fs.writeFileSync(path.join(__dirname, "leads", "dial-today.md"), md);
+fs.writeFileSync(path.join(__dirname, "leads", OUT), md);
 
+/* Say what was dropped. Every exclusion in this file is a lead that silently
+   stops existing, and a sheet that shrinks without saying why reads as
+   "sourcing is slow" rather than "the filter ate them". */
+const cut = all.filter(l => l.phone && !["lost", "won"].includes(l.stage)
+  && OFF_TRADE.test(l.co) && !RESTORATION.test(l.co));
 console.log(`dial list written — ${today()}`);
+if (cut.length) console.log(`  ${cut.length.toString().padStart(3)}  excluded — other trade, no restoration signal`);
 for (const [title, rows] of groups) if (rows.length) console.log(`  ${rows.length.toString().padStart(3)}  ${title}`);

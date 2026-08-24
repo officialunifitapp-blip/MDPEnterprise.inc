@@ -81,7 +81,28 @@ function notes() {
   return map;
 }
 
-const dial = fs.readFileSync(path.join(__dirname, "leads", "dial-today.md"), "utf8").split("\n");
+/* Which sheet to convert and where to put it. dial-list.js can now write more
+   than one sheet (--fresh, --called), and each needs its own CSV or the second
+   conversion overwrites the first. Defaults are the daily pair, so the 5am job
+   and every existing habit keep working unchanged. */
+const argOf = (flag, dflt) => {
+  const i = process.argv.indexOf(flag);
+  return i > -1 && process.argv[i + 1] ? process.argv[i + 1] : dflt;
+};
+const IN = argOf("--in", "dial-today.md");
+const OUT = argOf("--out", "TODAY.csv");
+
+/* --dialer emits the import shape instead of the call sheet.
+   The default five columns are what gets read beside the dialer mid-call, and
+   the Dial and Row columns were stripped out of them on purpose — they pushed
+   the note off the edge of the screen. But an import needs both back: a dialer
+   parses digits, not "(317) 251-1935", and Row is the only way to put the list
+   back in this order after the dialer renumbers it on import.
+   Two shapes, one pass, so the sheet and the import can never disagree about
+   what lead 37 is. */
+const DIALER = process.argv.includes("--dialer");
+
+const dial = fs.readFileSync(path.join(__dirname, "leads", IN), "utf8").split("\n");
 const pipe = byPhone();
 const note = notes();
 const norm = x => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -118,8 +139,15 @@ for (const line of dial) {
    Dial column, Email and an empty Outcome column were all in here for a dialer
    import that no longer happens — they pushed the note, the one column that
    changes how the call opens, off the edge of the screen. */
-const head = "Company,Ask for,Phone,What this call is,Notes";
-const out = [head, ...rows.map(r => r.map(q).join(","))].join("\n") + "\n";
+const head = DIALER
+  ? "Row,Company,Ask for,Dial,Phone,What this call is,Notes"
+  : "Company,Ask for,Phone,What this call is,Notes";
+const shaped = DIALER
+  // Dial is bare 10-digit — the widest-accepted form. A dialer that wants E.164
+  // takes a leading 1 or +1 in front of it; none of them want the parentheses.
+  ? rows.map((r, i) => [i + 1, r[0], r[1], digits(r[2]), r[2], r[3], r[4]])
+  : rows;
+const out = [head, ...shaped.map(r => r.map(q).join(","))].join("\n") + "\n";
 fs.mkdirSync(path.join(__dirname, "dialer"), { recursive: true });
-fs.writeFileSync(path.join(__dirname, "dialer", "TODAY.csv"), out);
-console.log(`dialer/TODAY.csv — ${rows.length} leads`);
+fs.writeFileSync(path.join(__dirname, "dialer", OUT), out);
+console.log(`dialer/${OUT} — ${rows.length} leads`);

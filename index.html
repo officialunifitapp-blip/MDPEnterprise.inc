@@ -404,6 +404,25 @@ async function pushState(){
   }catch(e){return false;}
 }
 
+/* The same exclusion rule dial-list.js applies, mirrored here so the screen and
+   the call sheet cannot disagree. It lived only in the script, so a general
+   contractor pulled off the dial list still sat in this table looking like a
+   prospect — which is how 33 of them got read as leads.
+
+   RESTORATION wins over TRADE wherever both appear: the real prospects are full
+   of both words ("Grethey Rose Construction & Restoration", "Cleanway
+   Restoration & Construction", "Fire Reconstruction Inc"), and testing the
+   trade word alone would hide all three.
+
+   Excluded rows are filtered out of the working pool, not deleted — the
+   Excluded chip still reaches them. A lead that vanishes with no way to see it
+   is the thing this file keeps getting wrong. */
+const RESTORATION=/restorat|restore\b|restorer|water ?damage|flood|disaster|mitigat|catastrophe|steamatic|dry ?out|\bmold\b|remediat|abatement|smoke|soot|\bfire\b|reconstruction|\bemergency\b|extract/i;
+const OFF_TRADE=/construction|contracting|contractors|\bbuilders?\b|roofing|exteriors?\b|renovations?\b|remodel|carpet|upholstery|janitorial/i;
+const OFF_ICP=/marketing|\bcpas?\b|lawyer|\bllp\b|attorney|\bdigital\b|\bcreative\b|studios|\bportal\b|lead to conversion/i;
+const OFF_ICP_NAMED=/^(neoconcepts|pinch|haled|qnity|smith & crawford|dapper market)/i;
+const isOffIcp=co=>OFF_ICP.test(co)||OFF_ICP_NAMED.test(co)||(OFF_TRADE.test(co)&&!RESTORATION.test(co));
+
 /* ============ data ============ */
 async function hydrate(){
   /* Order first, so the Dial list chip and the row numbers agree with the file
@@ -463,6 +482,7 @@ async function hydrate(){
         // whether "Email them" can produce anything, so it comes through.
         const em=(c[8]||"").trim();
         list.push({ix:list.length,co:c[1],c:c[2],who,p:m?m[0]:"",st,last:lt,next:c[5]||"",due:c[6]||"",niche,
+          off:isOffIcp(c[1]),
           em:/@/.test(em)?em:"",
           out:(tail&&tail!=="sourced")?tail:""});
       });
@@ -773,7 +793,9 @@ const isOverdue=l=>live(l)&&!!l.due&&l.due<today()&&(isCallback(l)||isOwner(l));
 
 function leadTable(){
   const rows=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE)
-    .filter(l=>CALLED==="all"||(CALLED==="due"?isBooked(l)
+    // Off-ICP rows are out of every view except the one that exists to show them.
+    .filter(l=>CALLED==="off"?l.off:!l.off)
+    .filter(l=>CALLED==="all"||CALLED==="off"||(CALLED==="due"?isBooked(l)
                               :CALLED==="em"?!!l.em
                               // "dial" is exactly the CSV: never called, and a
                               // number to actually ring. Anything without one is
@@ -793,18 +815,19 @@ function leadTable(){
     if(SORT.key==="st"){x=STAGES.indexOf(a.st||"new");y=STAGES.indexOf(b.st||"new");}
     else{x=(a[SORT.key]||"").toLowerCase();y=(b[SORT.key]||"").toLowerCase();}
     return (x>y?1:x<y?-1:0)*SORT.dir;});
-  const inNiche=n=>DATA.leads.filter(l=>l.niche===n).length;
+  const inNiche=n=>DATA.leads.filter(l=>l.niche===n&&!l.off).length;
   const cnt=s=>rows.filter(l=>(l.st||"new")===s).length;
   const chips=STAGES.map(s=>`<span class="chip">${s.toUpperCase()} <b>${cnt(s)}</b></span>`).join("");
-  const branch=(n,label)=>`<span class="chip" data-niche="${n}" style="cursor:pointer;${LEAD_NICHE===n?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${label} <b>${n?inNiche(n):DATA.leads.length}</b></span>`;
+  const branch=(n,label)=>`<span class="chip" data-niche="${n}" style="cursor:pointer;${LEAD_NICHE===n?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${label} <b>${n?inNiche(n):DATA.leads.filter(l=>!l.off).length}</b></span>`;
   const th=(k,l)=>`<th data-sort="${k}">${l}${SORT.key===k?(SORT.dir>0?" ▲":" ▼"):""}</th>`;
-  const pool=DATA.leads.filter(l=>!LEAD_NICHE||l.niche===LEAD_NICHE);
+  const pool=DATA.leads.filter(l=>(!LEAD_NICHE||l.niche===LEAD_NICHE)&&!l.off);
+  const offs=DATA.leads.filter(l=>(!LEAD_NICHE||l.niche===LEAD_NICHE)&&l.off);
   const done=pool.filter(l=>l.out).length;
   const cf=(k,label,n)=>`<span class="chip" data-called="${k}" style="cursor:pointer;${CALLED===k?"border-color:var(--acc);background:rgba(79,195,247,.2)":""}">${label} <b>${n}</b></span>`;
   return targetBar()+offerBar()+`<div class="sec"><div class="slb">Branch</div>
     ${branch("","All")}${branch("Restoration","Restoration")}${branch("MedSpa","MedSpa")}</div>
   <div class="sec"><div class="slb">Calls</div>
-    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("dial","Dial list",pool.filter(l=>dialRank(l)<9e9).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}</div>
+    ${cf("all","All",pool.length)}${cf("no","Not called",pool.length-done)}${cf("yes","Called",done)}${cf("due","Appointments",pool.filter(isBooked).length)}${cf("dial","Dial list",pool.filter(l=>dialRank(l)<9e9).length)}${cf("em","Has email",pool.filter(l=>l.em).length)}${cf("off","Excluded",offs.length)}</div>
   <div class="sec"><div class="slb">Follow-ups <span>who is owed a call, in the order they should get one</span></div>
     ${cf("late","⚠ Overdue",pool.filter(isOverdue).length)}${cf("cb","Callback owed",pool.filter(isCallback).length)}${cf("owner","Spoke to owner",pool.filter(isOwner).length)}${cf("gate","Gatekeeper",pool.filter(isGate).length)}${cf("na","No answer",pool.filter(isNoAns).length)}</div>
   <div class="sec"><div class="slb">Pipeline <span>${rows.length} companies${LEAD_NICHE?" · "+LEAD_NICHE:""}</span></div>${chips}</div>
