@@ -459,7 +459,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Preferred Contracting Systems | Leawood, KS · (913) 341-0111 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
 | Value Clean Industries, Inc. | Jerry Braklow (President) · (913) 302-9639 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
 | GrayBeard Construction & Maintenance | Daina (Owner) · (785) 329-5269 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
-| Lamunyon Dry Out & Foundation Repair | Topeka, KS · (785) 228-1400 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
+| Lamunyon Dry Out & Foundation Repair | Topeka, KS · (785) 228-1400 | new | 2026-08-25 also found at Salina KS (785) 825-4200 and Hutchinson KS (620) 662-2212 via BBB — multi-location, confirm which office/headcount fits ICP | Cold call → demo # |  | Restoration |  |
 | Kansas Carpet Care, Inc. | Lawrence, KS · (785) 842-3311 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
 | BALBOA Restoration & Renovation, LLC | Olathe, KS · (913) 687-8110 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
 | Flood Fighters Restoration | Jennifer Bogie (Owner/Founder) · (563) 200-1276 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
@@ -494,7 +494,7 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | All American Restoration | Steve Cummings (Owner) · (918) 628-1403 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
 | Oklahoma Disaster Restoration | Jay Stokes (Owner) · (918) 622-7641 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
 | Reset Restoration Services LLC | Tulsa, OK · (918) 582-7373 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
-| Northwest Restoration, Inc. | Springdale, AR · (479) 750-7821 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
+| Northwest Restoration, Inc. | Springdale, AR · (479) 750-7821 | new | 2026-08-16 sourced; 2026-08-25 also found via BBB at (877) 780-2074, same name/city — likely alt line, confirm on the call | Cold call → demo # |  | Restoration |  |
 | Steamatic of Hot Springs | Hot Springs, AR · (501) 321-1191 | lost | 2026-08-24 franchise — excluded, Steamatic is a national franchise brand (est. 1948, HQ Fort Worth TX), same category as SERVPRO/PuroClean/etc. | n/a |  | Restoration |  |
 | Elam Enterprises, Inc. | Jonesboro, AR · (870) 935-4452 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
 | Dason Fire & Water Restoration, Inc. | Kevin Hefley (Owner) · (918) 379-0390 | new | 2026-08-16 sourced | Cold call → demo # |  | Restoration |  |
@@ -704,6 +704,119 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Bear Restoration | Emery L. Bear (Owner) · (502) 200-6968 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | info@bear-restoration.com |
 | DWB Restoration II, Inc | Jeremy Thomas Stewart (Owner) · (502) 241-6990 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | |
 | Eclipse Roofing & Restoration | James & Melanie Reynolds (Owners) · (502) 266-7510 | new | 2026-08-23 sourced | Cold call → demo # |  | Restoration | |
+
+| Bright Side Inc | (847) 251-6860 · brightside-inc.com | new | 2026-08-25 sourced, Chicago metro (Northbrook, IL) | Cold call → demo # |  | Restoration |  |
+| Family First Restoration | (847) 252-5125 · familyfirstrestoration.com | new | 2026-08-25 sourced, Chicago metro (Schaumburg, IL) | Cold call → demo # |  | Restoration |  |
+| Restoration Associates Corp | (312) 225-3300 · restorationassoc.com | new | 2026-08-25 sourced, Chicago, IL; 21 reviews, 4.5 stars per Yelp | Cold call → demo # |  | Restoration |  |
+| Trojan Flood & Fire | Troy & Michelle Koren (Owners) · (708) 477-3473 · trojanfloodfire.com | new | 2026-08-25 sourced, Oak Lawn, IL (Chicago metro) | Cold call, ask for Troy or Michelle by name |  | Restoration |  |
+| McKinley Water Damage Restoration | (773) 985-7000 · mckinleywaterdamagerestoration.com | new | 2026-08-25 sourced, Chicago, IL — note: also listed at (773) 243-4622 and (844) 435-7485, confirm correct line on the call | Cold call → demo # |  | Restoration |  |
+| Signature Water & Fire Restoration | Alla Aizenberg (Owner/CEO) · (224) 515-0100 · restorationbysignature.com | new | 2026-08-25 sourced, Northbrook, IL (Chicago metro) | Cold call, ask for Alla by name |  | Restoration |  |
+| Magdan Construction | (708) 395-5356 · magdanconstruction.com | new | 2026-08-25 sourced, River Grove, IL (Chicago metro); 5,000+ homeowners served per own site | Cold call → demo # |  | Restoration |  |
+| IKG Property Maintenance | (708) 578-2801 · ikgmaintenance.com | new | 2026-08-25 sourced, Palos Heights, IL (Chicago metro); primarily painting but also mold remediation/attic-crawlspace — confirm restoration is a real revenue line on the call | Cold call → demo # |  | Restoration |  |
+| DCS Cleaning & Restoration | David Caplan (Owner) · (847) 831-4772 · dcscleaning.net | new | 2026-08-25 sourced, Highland Park, IL (Chicago metro) — Caplan formerly owned the ServiceMaster of Highland Park franchise for 15 years before starting this independent shop in 2004 | Cold call, ask for David by name |  | Restoration |  |
+| The CleanUP Guys | (773) 885-8528 · thecleanupguys.com | new | 2026-08-25 sourced, Chicago, IL, serving since 1986 | Cold call → demo # |  | Restoration |  |
+| Redefined Restoration | (708) 564-3512 · redefinedresto.com | new | 2026-08-25 sourced, Chicago, IL | Cold call → demo # |  | Restoration |  |
+| Chicago Damage Restoration | (773) 487-8674 · chicagoildamagarestoration.us | new | 2026-08-25 sourced, Chicago, IL | Cold call → demo # |  | Restoration |  |
+| Restoration Techs, Inc. | (800) 600-3594 · restorationtechs.com | new | 2026-08-25 sourced, Naperville, IL — family-owned 25+ years; toll-free number, verify a direct local line on the call | Cold call → demo # |  | Restoration |  |
+| Spectrum Restoration Services | (630) 898-3200 · spectrumrestoration.com | new | 2026-08-25 sourced, Naperville, IL — family-owned 20 years | Cold call → demo # |  | Restoration |  |
+| True Clean Restoration | William Brady (President) · (309) 664-8577 · truecleanrestoration.net | new | 2026-08-25 sourced, Bloomington, IL — HQ serves Bloomington/Normal/Champaign/Decatur/Peoria/Springfield, confirm which office/headcount fits ICP on the call | Cold call, ask for William by name |  | Restoration |  |
+| The Cleaning Connection | (816) 232-4121 · thecleaningconnection.net | new | 2026-08-25 sourced, St. Joseph, MO — IICRC certified, 41+ years in business; email theconnection68@gmail.com found via listing, not confirmed on own site | Cold call → demo # |  | Restoration |  |
+| Carpet Masters of Kansas | (785) 226-7787 | new | 2026-08-25 sourced, Junction City, KS | Cold call → demo # |  | Restoration |  |
+| Premiere Restoration | (800) 543-0813 · premiererestorationmn.com | new | 2026-08-25 sourced, Mankato, MN, HQ | Cold call → demo # |  | Restoration |  |
+| RR Restoration | Jonathon Wright (Owner) · (731) 226-2486 · rr-restoration.com | new | 2026-08-25 sourced, Jackson, TN; alt line (731) 736-2546 | Cold call, ask for Jonathon by name |  | Restoration |  |
+| West Tennessee Restoration | (731) 660-9090 · wtrestoration.com | new | 2026-08-25 sourced, Jackson, TN, established 1997, also serves Memphis | Cold call → demo # |  | Restoration |  |
+| Service Pros (Lubbock) | (806) 424-0022 · waterdamagerestorationlubbock.com | new | 2026-08-25 sourced, Lubbock, TX — independently owned, explicitly not affiliated with any national franchise brand per own site | Cold call → demo # |  | Restoration |  |
+| Eco Tech | (915) 233-1129 · ecotechtexas.com | new | 2026-08-25 sourced, El Paso, TX | Cold call → demo # |  | Restoration |  |
+| American Restoration Water & Fire | (915) 265-5771 · americanrestorationelp.com | new | 2026-08-25 sourced, El Paso, TX | Cold call → demo # |  | Restoration |  |
+| Jimmy Garza Emergency Water Removal | (915) 474-9472 | new | 2026-08-25 sourced, El Paso, TX, established 1984, specializes exclusively in water removal/drying | Cold call → demo # |  | Restoration |  |
+| Advanced Restoration LLC | (575) 888-4789 · arestorationllc.com | new | 2026-08-25 sourced, El Paso, TX — family-owned, 20+ yrs, IICRC certified; FLAG: phone area code is NM (575), verify this is the right line for the El Paso office before dialing | Cold call → demo # |  | Restoration |  |
+| Waco Water Damage Restoration | (254) 840-0522 | new | 2026-08-25 sourced, Waco, TX | Cold call → demo # |  | Restoration |  |
+| Vertical 1 Services | (806) 220-1333 · vertical1services.com | new | 2026-08-25 sourced, Amarillo, TX — locally owned property restoration and construction | Cold call → demo # |  | Restoration |  |
+| Killeen Water Damage Restoration | (254) 320-9391 · killeentxwaterdamage.com | new | 2026-08-25 sourced, Killeen, TX, serving 10+ years | Cold call → demo # |  | Restoration |  |
+| Moisture Pro | (254) 248-7776 · moistureprowaterdamage.com | new | 2026-08-25 sourced, Killeen, TX (Central Texas) | Cold call → demo # |  | Restoration |  |
+| Rapid Dry Moisture Recovery Services LLC | (254) 218-3757 · rapiddry.net | new | 2026-08-25 sourced, Waco, TX — independent, works with all major insurers per own site | Cold call → demo # |  | Restoration |  |
+| Water Damage Pros of Wichita Falls | (940) 940-8420 · waterdamagerestorationwichitafalls.com | new | 2026-08-25 sourced, Wichita Falls, TX | Cold call → demo # |  | Restoration |  |
+
+| SEMO Solutions | Cape Girardeau, MO · (573) 450-0021 | new | 2026-08-25 sourced via BBB, batch 2 (working outward from STL) | Cold call → demo # |  | Restoration |  |
+| Disaster Relief Services MO | Festus, MO · (636) 232-6461 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| SteaMagic Carpet Care, LLC | Warrensburg, MO · (660) 429-6344 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| KADE Cleaning Systems, LLC | Grain Valley, MO · (816) 888-9653 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Mr. Cleanz LLC | Blue Springs, MO · (816) 220-0880 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Dennis Contracting Services, LLC | Ash Flat, AR · (870) 847-5223 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| A & D Restoration, Inc. | Ward, AR · (501) 231-4811 | new | 2026-08-25 sourced via BBB — FLAG: name close to "A & D Fire/Water Restoration LLC" (Cape Girardeau, already in pipeline), confirmed different city/phone, verify not related on the call | Cold call → demo # |  | Restoration |  |
+| Surfco Restoration & Construction, LLC | Fayetteville, AR · (479) 287-6205 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Custom Services and Restoration, LLC | Manhattan, KS · (785) 329-0464 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Scott's ProTech Sanitation & Restoration | Newton, KS · (620) 504-5014 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Professional Carpet & Upholstery Cleaning, Inc. | Cedar Falls, IA · (319) 266-6947 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| The Professional Touch, Inc. | Iowa Falls, IA · (641) 321-6200 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Lewis Restoration, LLC | Rochester, MN · (507) 252-6959 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Maas Restoration, LLC | Medford, MN · (612) 227-5809 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Roeun's Restoration & Cleaning LLC | Rochester, MN · (507) 319-5061 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Clean Air Systems, Inc. | Polk City, IA · (515) 984-6690 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| United Services of Des Moines Inc | Grimes, IA · (515) 986-4442 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Carpet Pro Cleaning & Restoration | Johnston, IA · (515) 222-0091 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| J & J Floor Care, Inc. | Norman, OK · (405) 310-9874 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Impact Environmental Restoration | Newcastle, OK · (405) 637-3825 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Typhoon Restoration LLC | Duncan, OK · (580) 658-0139 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Beacon Solutions | Stillwater, OK · (405) 714-5993 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Outback Restoration & Roofing LLC | Stillwater, OK · (405) 863-8545 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Phoenix Restoration Disaster Services LLC | Edmond, OK · (405) 844-7700 | new | 2026-08-25 sourced via BBB — FLAG: common-name collision with "Phoenix Renovation & Restoration" (Overland Park KS) and "Phoenix Restoration Services, Inc." (Salas, KS) already in pipeline — different phone/state, confirmed distinct entity | Cold call → demo # |  | Restoration |  |
+| Royal Restoration LLC | Lahoma, OK · (580) 233-8941 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| NRC Fire-Storm-Water-Mold Cleanup | Coweta, OK · (918) 378-8585 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Decor Roofing & Restoration | Broken Arrow, OK · (918) 382-7663 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Nitro Restoration LLC | Broken Arrow, OK · (918) 550-2555 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Phoenix Restoration of Tulsa, LLC | Broken Arrow, OK · (918) 321-2100 | new | 2026-08-25 sourced via BBB — FLAG: common-name collision, see Phoenix Restoration Disaster Services LLC note above; distinct entity, different phone | Cold call → demo # |  | Restoration |  |
+| Halcon Restoration | Tulsa, OK · (918) 284-4294 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Crystal Clean Carpet Care | Kearney, NE · (308) 237-3717 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Master Care Carpet & Upholstery Services | Columbus, NE · (402) 564-1919 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Sharp Restoration, LLC | Lincoln, NE · (402) 318-6849 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| BK Restoration & Remodeling | Lincoln, NE · (402) 489-7755 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| McGill Restoration, Inc. | Lincoln, NE · (402) 438-4110 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| True Clean Carpet Care & Restoration Specialist | North Platte, NE · (308) 534-1688 | new | 2026-08-25 sourced via BBB — FLAG: common-name collision with "True Clean Restoration" (Bloomington IL) already in pipeline, different phone/state, confirmed distinct entity | Cold call → demo # |  | Restoration |  |
+| WET Restoration & Reconstruction | Ogallala, NE · (308) 284-7389 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| C-Tech Restoration, Inc. | Kearney, NE · (308) 237-3415 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Recoveron, Inc. | Green Bay, WI · (920) 469-3473 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Square One Restoration, Inc. | Green Bay, WI · (920) 884-8815 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Elite Restoration LLC | Ashwaubenon, WI · (920) 883-0758 | new | 2026-08-25 sourced via BBB — FLAG: common-name collision with "Elite Restoration" (W. Des Moines IA) already in pipeline, different phone/state, confirmed distinct entity | Cold call → demo # |  | Restoration |  |
+| Central Wisconsin Steam Way | Marshfield, WI · (715) 387-1229 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Clean & Fresh Restoration, Inc. | Racine, WI · (262) 632-9300 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Minorik Mitigation LLC | Mount Pleasant, WI · (262) 930-3556 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Superior 24/7 Restoration Inc. | Racine, WI · (866) 687-5522 | new | 2026-08-25 sourced via BBB — toll-free number, verify independence on the call | Cold call → demo # |  | Restoration |  |
+| Marathon Restoration | Sturtevant, WI · (888) 633-4495 | new | 2026-08-25 sourced via BBB — toll-free number, verify independence on the call | Cold call → demo # |  | Restoration |  |
+| The Dry Guys | Kenosha, WI · (262) 605-1290 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| TRA Restoration & Remodeling | Kenosha, WI · (262) 220-6829 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Master Repair | Oak Creek, WI · (414) 762-8300 | new | 2026-08-25 sourced via BBB — FLAG: generic name, confirm restoration is a real revenue line on the call | Cold call → demo # |  | Restoration |  |
+| Flood Guys LLC | Franksville, WI · (414) 519-9912 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Four Corners Roofing & Restoration | Franklin, TN · (615) 856-1157 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Middle Tennessee Mold Remediation, LLC | Franklin, TN · (615) 498-1339 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Summit Fire & Water Restoration | Cookeville, TN · (931) 400-0009 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Innovative Restorations | Crossville, TN · (931) 707-7700 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Action Restoration, LLC | Watertown, TN · (615) 469-2400 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| American Restoration LLC | Unicoi, TN · (423) 503-4043 | new | 2026-08-25 sourced via BBB — FLAG: common-name collision with "American Restoration Water & Fire" (El Paso TX) already in pipeline, different phone/state, confirmed distinct entity | Cold call → demo # |  | Restoration |  |
+| Advanced Cleaning & Restoration LLC | Mosheim, TN · (423) 609-7097 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| American Storm Restoration | Oklahoma City, OK · (405) 735-7500 | new | 2026-08-25 sourced via BBB, batch 3 (OK/AR/TX/KS/NE/WI new metros) — storm damage repair/roofing | Cold call → demo # |  | Restoration |  |
+| High Rising Water Restoration | Lawton, OK · (580) 357-4699 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| WWH Restoration, Inc. | Norfolk, NE · (402) 370-2460 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Phoenix Restoration | Salina, KS · (785) 493-8080 | new | 2026-08-25 sourced via BBB — FLAG: common-name collision, several other "Phoenix Restoration/Renovation" entities already in pipeline (OK, KS Overland Park, KS Salas), confirmed distinct phone/city | Cold call → demo # |  | Restoration |  |
+| Phoenix Restoration | Hutchinson, KS · (620) 662-0100 | new | 2026-08-25 sourced via BBB — FLAG: common-name collision, see Salina, KS entry above; distinct phone/city | Cold call → demo # |  | Restoration |  |
+| AAA Arkansas Roofing and Restoration, LLC | Rogers, AR · (479) 586-2318 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| AMCO Restoration | Rogers, AR · (479) 644-9280 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Iron Shield Roofing & Restoration, LLC | Lowell, AR · (479) 337-4766 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Williamson's Restoration, Inc. | Conway, AR · (501) 205-0906 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| All Clean USA of Central Arkansas, Inc. | Conway, AR · (910) 839-7591 | new | 2026-08-25 sourced via BBB — possibly affiliated with "All-Clean USA" (Brett Overman, 870-972-1922) already in pipeline, different phone/city, confirm relationship on the call | Cold call → demo # |  | Restoration |  |
+| Restore It Restoration & Cleaning, LLC | El Dorado, AR · (870) 918-0041 | new | 2026-08-25 sourced via BBB — distinct from "Restore It Restoration LLC" (Lonnie A. Beauchamp, Farmington MO) already in pipeline, different state/phone | Cold call → demo # |  | Restoration |  |
+| Courtesy Care Restoration LLC | Bartlesville, OK · (877) 382-3900 | new | 2026-08-25 sourced via BBB — FLAG: distinct from "Courtesy Care Restoration" (Jason Birk, Tulsa OK, 918-233-6477) already in pipeline (lost) — different phone, confirm not the same operator before dialing | Cold call → demo # |  | Restoration |  |
+| Spartan General Contracting, LLC | Yukon, OK · (405) 585-7465 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| BTH Ventures, Inc. | McAlester, OK · (539) 444-4418 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| EMRG Restoration Solutions | College Station, TX · (979) 977-3662 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| 3DD Restoration, LLC | Texarkana, TX · (903) 224-8029 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| New Frontier Restoration & Roofing | Abilene, TX · (325) 439-8519 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Vantage Point Restoration | Sherman, TX · (903) 818-5978 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| DynaClean Professional Services | Temple, TX · (254) 771-3402 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Flood Pros Disaster Restoration | Janesville, WI · (608) 758-2379 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Abeyta Restoration, LLC | Garden City, KS · (520) 688-0169 | new | 2026-08-25 sourced via BBB — FLAG: area code (520) is Arizona, not Kansas; confirm this is the right line before dialing | Cold call → demo # |  | Restoration |  |
+| Dr. Drywall | Bellevue, NE · (402) 714-5859 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Black Attic Restoration | Bellevue, NE · (402) 212-3027 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
 
 ## Won
 | Company | MRR | Start date |
