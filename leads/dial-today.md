@@ -1,6 +1,6 @@
-# Dial list — 2026-08-30
+# Dial list — 2026-08-31
 
-807 leads · 419 with a logged outcome · 388 never called
+816 leads · 428 with a logged outcome · 388 never called
 
 Same order as dialer/TODAY.csv — row numbers match the dialer.
 

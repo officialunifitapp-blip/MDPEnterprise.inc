@@ -818,6 +818,16 @@ Stages: `new` → `contacted` → `replied` → `booked` → `call held` → `pr
 | Dr. Drywall | Bellevue, NE · (402) 714-5859 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
 | Black Attic Restoration | Bellevue, NE · (402) 212-3027 | new | 2026-08-25 sourced via BBB | Cold call → demo # |  | Restoration |  |
 
+| Restoration Services of Kansas | Topeka, KS · (785) 266-2222 | new | 2026-08-31 sourced via BBB/directory (z1biz, Nextdoor) — MO/KS gap-fill pass, batch 4 | Cold call → demo # |  | Restoration |  |
+| Restore and Clean Central Kansas | Hays, KS · (785) 628-6712 | new | 2026-08-31 sourced via own site (restoreandclean.com) + Facebook | Cold call → demo # |  | Restoration |  |
+| Mel's Carpet Cleaning | Wichita, KS · (316) 371-9959 | new | 2026-08-31 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Higher Standards Carpet Cleaning | Wichita, KS · (316) 990-0242 | new | 2026-08-31 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| RT Restoration Contracting, LLC | Wichita, KS · (316) 636-7042 | new | 2026-08-31 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Sho-Me Flooring and Carpet Cleaning | Branson, MO · (417) 263-1963 | new | 2026-08-31 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Little Elves Cleaning, Inc. | Nevada, MO · (417) 667-8560 | new | 2026-08-31 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Quality Indoor Solutions | Joplin, MO · (417) 291-5975 | new | 2026-08-31 sourced via BBB | Cold call → demo # |  | Restoration |  |
+| Global Response Team, LLC | Kansas City, KS · (913) 298-1211 | new | 2026-08-31 sourced via BBB — FLAG: commercial-focused restoration provider (institutional/large-loss clients), 11-50 employees per third-party sources, confirm residential/emergency-call fit before pitching | Cold call → demo # |  | Restoration |  |
+
 ## Won
 | Company | MRR | Start date |
 |---|---|---|
