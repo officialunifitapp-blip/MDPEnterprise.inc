@@ -1,4 +1,4 @@
-# Dial list — 2026-09-30
+# Dial list — 2026-10-01
 
 816 leads · 428 with a logged outcome · 388 never called
 
@@ -32,7 +32,7 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    → Cold call → demo #
    > last: spoke to owner (2026-08-10)
 
-**8. St. Louis Cleaning & Restoration** (314) 439-1665 — ask for Kevin (Owner) · `COLD`
+**8. St. Louis Cleaning & Restoration** (314) 439-1665 — ask for Kevin (Owner) · `GATEKEEPER`
    due 2026-10-01 · → DO NOT CALL until October — he named the date himself
    > **2026-08-11** Kevin, said to give him a call back in early october, said he has an answering service, so i pitched him the lead reactivation and conversion, said right now is his busy season he cant take many more clients. so i said ai receptionist and how answering services are out. he said he cant book an appt rn and said to call back start of october.
 
@@ -604,7 +604,4 @@ Same order as dialer/TODAY.csv — row numbers match the dialer.
    → Cold call → demo #
 
 **178. Pure Air LLC** (816) 946-1410 · `COLD`
-   → Cold call → demo #
-
-**179. Dog Gone Mold** (816) 547-6816 · `COLD`
    → Cold call → demo #
